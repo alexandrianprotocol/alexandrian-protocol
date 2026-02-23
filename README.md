@@ -28,9 +28,9 @@ For technical review or funding evaluation:
 - **Ecosystem Alignment Materials** → `grants/README.md`
 - **Whitepaper (Conceptual Thesis)** → `whitepaper/`
 
-All normative guarantees are defined in `/docs/spec`.  
-Ecosystem positioning and funding materials are located in `/grants`.  
-Formal thesis and conceptual framing are available in `/whitepaper`.
+All normative guarantees are defined in `/docs/spec`  
+Ecosystem positioning and funding materials are located in `/grants`
+Formal thesis and conceptual framing are available in `/whitepaper`
 
 ---
 
