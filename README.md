@@ -1,4 +1,4 @@
-# Alexandrian Protocol
+# Alexandrian Protocol | The Intelligent Option
 
 **Alexandrian is knowledge as a protocol primitive.**
 
