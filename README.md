@@ -1,5 +1,7 @@
 # Alexandrian Grant M1 Release Surface
 
+[![M1 Verification](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml/badge.svg)](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml)
+
 Alexandrian Protocol is a deterministic, content-addressed knowledge registry and settlement layer for AI systems. Knowledge identity is anchored on Base, full artifacts are stored on IPFS, and discovery topology is queryable via The Graph. Each Knowledge Block (KB) identity is derived from canonical content, not metadata, so the same envelope yields the same kbId across runtimes.
 
 This directory is the reviewer-ready M1 surface.
