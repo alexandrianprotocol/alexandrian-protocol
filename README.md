@@ -1,266 +1,274 @@
-# Alexandrian Grant M1 Release Surface
-
+#  🏛 Alexandrian Protocol   
 [![M1 Verification](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml/badge.svg)](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml)
+[![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](<your-subgraph-link>)
+[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](<your-cid-link>)
 
-Alexandrian Protocol is a deterministic, content-addressed knowledge registry and settlement layer for AI systems. Knowledge identity is anchored on Base, full artifacts are stored on IPFS, and discovery topology is queryable via The Graph. Each Knowledge Block (KB) identity is derived from canonical content, not metadata, so the same envelope yields the same kbId across runtimes.
+A deterministic knowledge identity and settlement protocol for autonomous systems.
 
-This directory is the reviewer-ready M1 surface.
+---
 
-It is intentionally split from the dev surface and includes only:
-- Protocol + SDK packages required for M1 verification.
-- Deterministic test vectors and M1 test suites.
-- M1 documentation and deployment anchors.
+## 🔗 Quick Links
 
-To publish this folder as a standalone GitHub repository, use `EXPORT.md`.
-Docs sync behavior is documented in `docs/SYNC-POLICY.md`.
+| Document | Path |
+|---|---|
+| ✅ Verify M1 | [docs/VERIFY-M1.md](docs/VERIFY-M1.md) |
+| The Graph | [docs/grants/GRANT-THE-GRAPH.md](docs/grants/GRANT-THE-GRAPH.md) |
+| Coinbase | [docs/grants/GRANT-COINBASE.md](docs/grants/GRANT-COINBASE.md) |
+| IPFS | [docs/grants/GRANT-IPFS.md](docs/grants/GRANT-IPFS.md) |
+| M2 Funding Execution Plan | [docs/grants/M2-FUNDING-EXECUTION-PLAN.md](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) |
 
-## Executive Summary
+---
 
-> Alexandrian is a deterministic, content-addressed knowledge registry and settlement layer. Layer 1 (Base) anchors canonical KB identity and enforces lineage DAG + economic settlement. Layer 2 (IPFS) stores full immutable artifacts that can be independently verified against on-chain artifact commitments. Layer 3 (The Graph) indexes topology and economic usage signals so agents can discover, rank, and verify reusable knowledge without a centralized resolver. M1 delivers deterministic identity, acyclic lineage, settlement and attribution primitives, proof vectors, and live deployment evidence. The protocol is verified through conformance vectors, invariants, and deterministic tests; live settlement and indexing proofs are included in the grant artifacts.
+## 🧩 The Problem
 
-## Grant Reviewer TL;DR
+Modern AI stacks can generate outputs, retrieve information, orchestrate workflows,
+transfer value, persist artifacts, and index topology.
 
-- M1 is live: deterministic KB identity, DAG lineage, and settlement are implemented and verifiable.
-- Every KB has canonical identity (`kbHash`) from canonical envelope content, not publisher metadata.
-- Reuse is economically coupled: settlements emit public, replayable signals and route royalties by lineage.
-- Verification is reproducible from a single command: `pnpm verify`.
-- M2 extends the same invariants into production discovery and signal-weighted selection (no identity rule changes).
-- Coordination (M5) builds on shared `kbHash` references; governance/scale (M6) extends deployment, not core semantics.
+However, they lack a foundational primitive:
 
-## How The Three Layers Work Together
+**A canonical identity and settlement layer for structured knowledge.**
 
-| Layer | Responsibility | Mechanism | Evidence |
-|---|---|---|---|
-| Layer 1: Identity + Settlement (Base) | Canonical kbId, DAG lineage, atomic settlement, royalty routing | `contentHash = keccak256("KB_V1" || JCS(canonical_envelope))`; contract enforces invariants and settlement routing | `docs/protocol/PROTOCOL-SPEC.md`, `docs/protocol/INVARIANTS.md`, `docs/grants/LIVE-DEMO-PROOF.md` |
-| Layer 2: Artifact Storage (IPFS) | Store full payloads and evidence artifacts as content-addressed bytes | Artifact bytes pinned by CID; integrity validated against committed artifact hash | `docs/protocol/canonical-envelope-spec.md`, `docs/grants/LIVE-DEMO-PROOF.md` |
-| Layer 3: Discovery + Topology (The Graph) | Queryable lineage, settlement activity, and discovery signals | Deterministic entity IDs from `contentHash.toLowerCase()`, idempotent event indexing | `docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md`, `docs/grants/GRANT-THE-GRAPH.md` |
+Without it:
 
-## What This Is Not
+- Knowledge is regenerated rather than canonically addressed
+- Attribution lacks protocol-level enforcement
+- Lineage is reconstructed post hoc instead of encoded structurally
+- Utility is measured privately rather than emitted as public signal
+- Reuse does not compound across systems
 
-- Not a model provider.
-- Not a vector database.
-- Not a centralized memory API.
-- Not token-dependent economics.
-- Not dependent on a single proprietary indexer.
+This limitation is not intelligence.
 
-## 60-Second Reviewer Path
+It is missing infrastructure.
 
-From `release/grant-m1`:
+---
 
-```bash
-pnpm install
-pnpm verify
-```
+## ⚙️ The Protocol
 
-Single command for full M1 verification:
+Alexandrian introduces the missing primitive.
 
-```bash
-pnpm verify
-```
-
-## Runtime (Pinned)
-
-- Node.js: `20.x` (known good: `20.19.0`)
-- pnpm: `9.x` (known good: `9.0.0`)
-
-Known-good matrix:
-
-| OS | Node | pnpm | Status |
-|---|---|---|---|
-| Ubuntu latest (GitHub Actions) | 20.19.0 | 9.0.0 | Pass (CI) |
-| Windows 11 | 20.x | 9.x | Pass (local) |
-
-## What `pnpm verify` Runs
-
-1. Build required M1 packages (`protocol`, `sdk-core`, `sdk-adapters`).
-2. Execute M1 test surface:
-   - Protocol contract tests.
-   - Conformance tests.
-   - Vitest suites: `specification`, `invariants`, `demonstration`, `determinism`, `property`, `composition`.
-3. Print deterministic verification summary.
-
-## Machine-Readable Epistemic Economy for A2A
-
-### Executive Summary
-
-Alexandrian establishes a deterministic identity and settlement layer for structured knowledge objects. In M1, it delivers immutable Knowledge Block (KB) identity, acyclic lineage, and trustless royalty routing on Base mainnet.
-
-An epistemic economy for A2A emerges when:
-- knowledge objects have canonical, verifiable identity,
-- lineage is enforced as a directed acyclic graph (DAG),
-- settlement emits public, replayable usage signals,
-- discovery ranks knowledge by those signals,
-- agents coordinate by referencing shared, verifiable `kbHash` identities.
-
-M1 delivers the substrate (identity, lineage, settlement). M2-M4 operationalize discovery and ranking signals. M5 adds structured A2A coordination semantics. M6 hardens governance and scale.
-
-### 1. Deterministic Knowledge Identity (Foundation of A2A)
-
-Canonical identity:
+A minimal, three-primitive epistemic substrate:
 
 ```text
 kbHash = keccak256("KB_V1" || JCS(normalize(envelope)))
 ```
 
-Properties:
-- same envelope gives same `kbHash` across machines,
-- independent of publisher,
-- independent of storage location,
-- verifiable offline before chain interaction.
-
-For A2A systems this provides shared object identity, deterministic referencing, and no dependency on centralized resolvers.
-
-### 2. Immutable Lineage (Epistemic Topology)
-
-Each KB declares explicit parents (`sources`). The protocol enforces:
-- no self-reference,
-- no cycles,
-- no mutation,
-- max parent constraints.
-
-Resulting topology:
-
-```text
-G = (V, E)
-V = kbHash identities
-E = derivation edges
-```
-
-This makes provenance and contribution machine-checkable.
-
-### 3. Settlement as Usage Proof (Economic Coupling)
-
-Settlement binds economics to epistemic identity:
-
-```text
-Settle(K, amount) -> deterministic royalty propagation
-```
-
-Key invariants:
-- economic conservation,
-- royalty-share cap enforcement,
-- pull-based withdrawals,
-- proof derivable from logs,
-- settlement only valid for identity-valid KBs.
-
-Settlement is simultaneously payment, attribution routing, and public signal emission.
-
-### 4. Public Signal Accumulation (Market Formation)
-
-Indexed signals include:
-- `settlementCount`,
-- `totalSettledValue`,
-- `uniquePayerCount`,
-- derivation depth,
-- parent and child counts.
-
-Feedback loop:
-
-```text
-Agent uses KB -> settlement emitted -> signal indexed -> discovery influenced -> next agent selection
-```
-
-This is market-based epistemic filtering.
-
-### 5. Role Differentiation (Machine-Native Participation)
-
-| Role | Protocol Primitive |
+| Primitive | What it does |
 |---|---|
-| Creator | `publishKB` |
-| Refiner | `publishKB` (with parents) |
-| Consumer | `settleQuery` |
-| Curator | bundle/domain references |
-| Evaluator | rubric/assessment KBs |
+| **Deterministic identity** | Ensures canonical knowledge identity across machines and environments |
+| **Immutable lineage DAG** | Enforces derivation structure as an acyclic graph on-chain |
+| **Settlement + royalty routing** | Couples knowledge reuse to atomic, lineage-aware value flow |
 
-Roles emerge from protocol behavior, not platform permissions.
 
-### 6. A2A Coordination Layer (M5)
+An A2A epistemic economy emerges when: 
+- Identity is canonical
+- Derivation is immutable
+- Usage produces public signals 
+- Coordination occurs through shared `kbHash` reference
 
-Coordination objects add:
-- task schemas referencing `kbHash` identities,
-- constraint-bound state transitions,
-- multi-agent continuation semantics,
-- deterministic task settlement hooks.
+Agents coordinate not through regeneration, but through shared references to stable epistemic primitives.
 
-Because identity, lineage verification, and settlement primitives are already shared, agents can coordinate without ambiguity.
+---
 
-### 7. Governance by Adoption, Not Mutation
+ ## 📦 Knowledge Block (KB): The Primitive
 
-Governance does not mutate identity:
-- upgrades are new KBs,
-- forks are new branches,
-- legitimacy emerges through reuse and settlement,
-- canonicality emerges via adoption signals.
+  A **Knowledge Block (KB)** is the protocol’s atomic knowledge object: a
+  canonical envelope of content, metadata, and lineage commitments that
+  produces a stable `kbHash`.
 
-This preserves historical truth and deterministic replay.
+  A KB is the primitive for deterministic knowledge identity because:
+  - the envelope is normalized canonically (`JCS(normalize(envelope))`)
+  - identity is derived deterministically (`keccak256("KB_V1" ||
+  canonicalEnvelope)`)
+  - the same KB always yields the same `kbHash` across machines and
+  environments
 
-### 8. Milestone Execution Path
+  In Alexandrian, agents do not coordinate by regenerating content; they
+  coordinate by referencing the same KB identity.
 
-| Milestone | Contribution to A2A Epistemic Economy |
+---
+
+## 🏗 Architecture
+
+```
+ Agents / Orchestrators
+         │
+         ▼
+ Alexandrian Protocol Layer
+ ├── Deterministic identity   (kbHash from canonical envelope)
+ ├── Immutable lineage DAG    (on-chain acyclic parent graph)
+ ├── Settlement routing       (royalties propagated atomically)
+ └── Proof derivation         (verifiable from logs)
+         │
+         ├── Base        — identity anchor + economic settlement
+         ├── IPFS        — artifact integrity (content-addressed bytes)
+         └── The Graph   — topology indexing + usage signals
+```
+
+Each layer is non-redundant.
+Base anchors economic truth (settlement layer). IPFS anchors artifact integrity (content layer). The Graph exposes topology and signals (indexing layer).
+
+---
+
+## 🌐 Why This Matters for A2A
+
+| Agent Limitation | Alexandrian Mechanism |
 |---|---|
-| M1 | Deterministic identity and settlement substrate |
-| M2 | Discovery and exposed economic signals |
-| M3 | Market topology and role tooling |
-| M4 | Ranking and epistemic filtering |
-| M5 | Coordination semantics for multi-agent workflows |
-| M6 | Multi-chain scale and decentralized governance |
+| Probalistic Regeneration | Identity-anchored KB reference |
+| Session-scoped memory | Cross-session immutable KB objects |
+| Informal Derivation Tracking | On-chain DAG-backed lineage |
+| Opaque Tool Execution | Tool schemas and outputs as KBs |
+| Context window Constraints | Reference-by-hash instead of re-ingestion |
+| Hidden Ancestry | Public lineage + settlement trace |
+| Non-Reproducible Outputs | Canonical identity reproducibility |
+| No Shared Utility Metric | Settlement-derived public signals |
 
-Invariants remain unchanged across milestones:
-- KB hash never changes,
-- updates create new KBs,
-- lineage remains acyclic,
-- settlement remains conserved.
+Deterministic identity, immutable ancestry, and public economic signals enable trustless A2A coordination.
 
-### Final Positioning
+---
 
-Alexandrian is not a centralized knowledge marketplace. It provides:
-- deterministic knowledge identity,
-- lineage-aware attribution,
-- economically conserved settlement,
-- publicly indexable usage signals.
+## 🛣 Milestone Progression
 
-These primitives enable a machine-readable epistemic economy for A2A coordination where contribution, reuse, and refinement are verifiable, attributable, and economically coupled.
+```mermaid
+flowchart TD
+    A["M1: Identity + Lineage + Settlement (Live)"]
+    B["M2: Live Economy + Discovery"]
+    C["M3: Market Topology + Roles"]
+    D["M4: Epistemic Signals + Filtering"]
+    E["M5: A2A Coordination Semantics"]
+    F["M6: Scale + Governance"]
+    A --> B --> C --> D --> E --> F
 
-Read more:
-- `docs/AI-RELIABILITY-SUBSTRATE.md` — infrastructure gap: the missing deterministic identity and settlement primitive; what it unlocks (persistent knowledge, compounding, structured derivation, auditable lineage, public telemetry)
-- `docs/EPISTEMIC-ECONOMY-POSITIONING.md` — executive positioning: why Base, IPFS, and The Graph are each structurally necessary; full A2A loop; gold-standard grant statement
-- `docs/EPISTEMIC-ECONOMY-BRIEF.md` — compact protocol brief: architecture overview, per-layer rationale, A2A loop diagram, ecosystem impact, M1 status table
-- `docs/protocol/PROTOCOL-SPEC.md`
-- `docs/protocol/INVARIANTS.md`
-- `docs/EPISTEMIC-ECONOMY-MILESTONES.md`
-- `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
-- `docs/grants/LIVE-DEMO-PROOF.md`
-- `docs/VERIFY-M1.md`
+    I1["Invariant: KB hash never changes"]
+    I2["Invariant: Updates create new KBs"]
+    I3["Invariant: Lineage is DAG"]
+    I4["Invariant: Settlement conservation"]
+    I1 --- A
+    I2 --- A
+    I3 --- A
+    I4 --- A
+```
 
-## Immutable Reference Anchors
+Core identity and settlement invariants are fixed at M1; subsequent milestones extend functionality without modifying these guarantees.
 
-- Registry deployment manifest: `packages/protocol/deployments/AlexandrianRegistryV2.json`
-- Seed KB IDs: `seeds/publish-order.json`
-- Envelope and proof vectors: `test-vectors/canonical/` and `test-vectors/v1/`
-- Protocol spec: `docs/protocol/PROTOCOL-SPEC.md`
-- M2 funding execution strategy: `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
+---
 
-## Scope Boundary (Out of Scope)
+## 🟢 Live Deployment
 
-The following are intentionally excluded from this release surface:
-- M2 and later implementation scope (roadmap context is included for reviewer continuity).
-- Infrastructure stacks and operational environments (Docker, live service orchestration).
-- Historical reviewer collateral and development-only artifacts.
+M1 is live on Base Mainnet, the Graph and IPFS. Identity, lineage, and settlement are verifiable on-chain now.
 
-## Proof Of Run
+| Layer | Component | Network | Link |
+|---|---|---|---|
+| Layer 1 · Identity & Settlement | `AlexandrianRegistryV2` | Base Mainnet (chainId 8453) | [0x5D6dee4...5B000 ↗](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) |
+| Layer 2 · Artifact Storage | KB-F artifact | IPFS | [bafybeia...sk57y ↗](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
+| Layer 3 · Discovery & Indexing | Subgraph (The Graph Studio) | Base Mainnet | [alexandrian-protocol/version/latest ↗](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) |
 
-After running `pnpm verify`, record evidence in:
-- `PROOF-OF-RUN.md` using `PROOF-OF-RUN.template.md`
+---
 
-Include:
-- Commit hash
-- Timestamp (UTC)
-- Exact command
-- Pass/fail result
+## 🧠 Knowledge Block Registry
 
-## Freeze Policy
+5 settlements executed on chain with invariant-preserving royalty propagation.
 
-This surface is release-oriented:
-- Stability over refactors.
-- No behavior changes without matching invariant/vector updates.
-- Changes should preserve deterministic identity and invariant guarantees.
+```mermaid
+flowchart LR
+    A --> B --> C --> D
+    C --> KB_F["F"]
+``` 
+
+| KB | kb Hash | Publish Tx | Parent | IPFS CID |
+|----|---------|------------|--------|----------|
+| KB-A | [`0x2f00aff3...`](https://basescan.org/tx/0x1d1e959edf9cfb01db087ff6cf0b8910e9aa67c4b2d434b908fbc4c86017dd6e) | [`0x1d1e959e...`](https://basescan.org/tx/0x1d1e959edf9cfb01db087ff6cf0b8910e9aa67c4b2d434b908fbc4c86017dd6e) | — | — |
+| KB-B | [`0xf65dbddb...`](https://basescan.org/tx/0x6f724f7810927ff8b41ffc8755fd52d3e904ba5bb9a7b4e405194bff1ac0a3a8) | [`0x6f724f78...`](https://basescan.org/tx/0x6f724f7810927ff8b41ffc8755fd52d3e904ba5bb9a7b4e405194bff1ac0a3a8) | KB-A | — |
+| KB-C | [`0x451f7581...`](https://basescan.org/tx/0x520eb4d1550baf510a974c2e4602a79a8fe8252c4921ff503a1fc5a26ea4dfb6) | [`0x520eb4d1...`](https://basescan.org/tx/0x520eb4d1550baf510a974c2e4602a79a8fe8252c4921ff503a1fc5a26ea4dfb6) | KB-A, KB-B | — |
+| KB-D | [`0x268d784d...`](https://basescan.org/tx/0x83233ec285d3dbd06b715aa34c5de3f500789f1e685e2c20f2fe1d3384a7050c) | [`0x83233ec2...`](https://basescan.org/tx/0x83233ec285d3dbd06b715aa34c5de3f500789f1e685e2c20f2fe1d3384a7050c) | KB-C | — |
+| KB-F | [`0x83a6aad1...`](https://basescan.org/tx/0x4afd4de47dbb47bdb9f5871f2e7fa9180ae93acce988a3221cb31b79c6f257de) | [`0x4afd4de4...`](https://basescan.org/tx/0x4afd4de47dbb47bdb9f5871f2e7fa9180ae93acce988a3221cb31b79c6f257de) | KB-C | [`bafybeia...sk57y`](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y) |
+
+---
+
+# 💰 M1 Settlement Proof
+
+## KB-D Lifecycle — End-to-End
+
+Canonical lifecycle verified on-chain:
+
+| Step | Transaction |
+|------|------------|
+| Publish KB-D | [`0x83233ec...`](https://basescan.org/tx/0x83233ec285d3dbd06b715aa34c5de3f500789f1e685e2c20f2fe1d3384a7050c) |
+| Settle KB-D (0.001 ETH) | [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) |
+| Withdraw earnings | [`0x79da1704...`](https://basescan.org/tx/0x79da1704354b4297882d3cd2045b966f0d9030d584ec35ec37910b6ced419ddd) |
+
+This demonstrates:
+- Deterministic identity registration
+- Lineage-aware settlement execution
+- Royalty propagation
+- Withdrawal finality
+
+All value transfers are executed and enforced on-chain.
+
+---
+
+## 💰 Royalty Distribution (Economic Invariant)
+
+**Settlement:** 0.001 ETH
+
+**Distribution:**
+- 19.6% → KB-C curator (parent royalty)
+- 78.4% → KB-D curator
+- 2% → Protocol fee
+
+Zero wei created or lost.
+
+| Tx | Recipient | Role | Amount |
+|----|-----------|------|--------|
+| [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) | [`0x797e03...`](https://basescan.org/address/0x797e03A3123d09B40fcD536388182B88c6DFAFc7) | KB-C curator (parent royalty) | 0.000196 ETH |
+| [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) | [`0x370750...`](https://basescan.org/address/0x370750Dad9cC8e62C9b95A66dB6F3204DE056a73) | KB-D curator | 0.000784 ETH |
+
+5 settlements executed on-chain with consistent routing.
+
+The economic conservation invariant holds across all events.
+
+---
+
+## 🔎 Independent Verification (The Graph)
+
+The following query independently reproduces settlement routing and royalty distribution:
+
+```graphql
+{
+  settlements(first: 5, orderBy: timestamp, orderDirection: desc) {
+    txHash
+    value
+    timestamp
+    kb {
+      contentHash
+      settlementCount
+      totalSettledValue
+    }
+    payer { id }
+    royalties {
+      recipient { id }
+      kb { id }
+      amount
+    }
+  }
+}
+```
+---
+
+## 📚 Documentation
+
+### Protocol
+- [PROTOCOL-SPEC.md](docs/protocol/PROTOCOL-SPEC.md)
+- [INVARIANTS.md](docs/protocol/INVARIANTS.md)
+- [VERIFY-M1.md](docs/VERIFY-M1.md)
+
+### Epistemic Economy
+- [AI-RELIABILITY-SUBSTRATE.md](docs/AI-RELIABILITY-SUBSTRATE.md)
+- [EPISTEMIC-ECONOMY-POSITIONING.md](docs/EPISTEMIC-ECONOMY-POSITIONING.md)
+- [EPISTEMIC-ECONOMY-BRIEF.md](docs/EPISTEMIC-ECONOMY-BRIEF.md)
+- [EPISTEMIC-ECONOMY-MILESTONES.md](docs/EPISTEMIC-ECONOMY-MILESTONES.md)
+
+### Grants & Execution
+- [M2-FUNDING-EXECUTION-PLAN.md](docs/grants/M2-FUNDING-EXECUTION-PLAN.md)
+- [LIVE-DEMO-PROOF.md](docs/grants/LIVE-DEMO-PROOF.md)
