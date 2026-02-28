@@ -1,0 +1,11 @@
+{
+  "type": "practice",
+  "domain": "software.security",
+  "sources": [],
+  "payload": {
+    "type": "practice",
+    "rationale": "Use constant-time comparison to prevent timing attacks on tokens.",
+    "contexts": [],
+    "failureModes": []
+  }
+}

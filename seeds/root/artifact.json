@@ -1,0 +1,14 @@
+{
+  "type": "protocolGenesis",
+  "name": "Alexandrian Protocol",
+  "description": "Genesis node of the Alexandrian knowledge DAG.",
+  "protocolVersion": "1.0",
+  "canonicalization": "RFC8785-JCS",
+  "kbIdDerivation": "keccak256(JCS(envelope_with_sources_sorted))",
+  "artifactHashDerivation": "keccak256(JCS(artifact))",
+  "economicValidity": "settlement_receipt_required_for_economic_reuse",
+  "notes": [
+    "This artifact is intentionally minimal and stable.",
+    "It defines no domain schema; it anchors identity and economics."
+  ]
+}

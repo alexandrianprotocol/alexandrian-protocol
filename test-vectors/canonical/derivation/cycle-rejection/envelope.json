@@ -1,0 +1,15 @@
+{
+  "type": "practice",
+  "domain": "test",
+  "sources": [
+    "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  ],
+  "payload": {
+    "type": "practice",
+    "rationale": "Invalid: parent not registered.",
+    "contexts": [],
+    "failureModes": []
+  },
+  "tier": "open",
+  "artifactHash": "0xffb1d95167d91b78475311afa7f0fdded175c71f8c5e0f7bae923f52b9b6fac8"
+}

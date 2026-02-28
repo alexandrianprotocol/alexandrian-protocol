@@ -1,0 +1,30 @@
+{
+  "domain": "software.workflows",
+  "sources": [],
+  "payload": {
+    "type": "stateMachine",
+    "states": [
+      "idle",
+      "processing",
+      "done"
+    ],
+    "transitions": [
+      {
+        "from": "idle",
+        "to": "processing",
+        "event": "start"
+      },
+      {
+        "from": "processing",
+        "to": "done",
+        "event": "complete"
+      }
+    ],
+    "invariants": [
+      "done implies processing occurred"
+    ]
+  },
+  "type": "stateMachine",
+  "tier": "open",
+  "artifactHash": "0x00e260b72aca07bb574fec47b28c1733b26c02837508e84fc87693e5843bcf9c"
+}

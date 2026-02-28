@@ -1,0 +1,25 @@
+{
+  "domain": "regulatory.soc2",
+  "sources": [],
+  "payload": {
+    "type": "complianceChecklist",
+    "jurisdictionTags": [
+      "US",
+      "SOC2"
+    ],
+    "requirements": [
+      {
+        "id": "CC6.1",
+        "description": "Logical access controls",
+        "isMandatory": true
+      }
+    ],
+    "evidenceMapping": {
+      "type": "audit_trail",
+      "validationLogic": "query access logs for last 90 days"
+    }
+  },
+  "type": "complianceChecklist",
+  "tier": "open",
+  "artifactHash": "0xb940616e768625c8a4ef9576ced118a4d9983ea12591056c470a5b07280b98a8"
+}

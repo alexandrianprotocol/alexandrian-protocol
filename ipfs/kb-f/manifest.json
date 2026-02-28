@@ -1,0 +1,41 @@
+{
+  "manifestVersion": 1,
+  "kbId": "KB-F",
+  "generatedAt": "2026-02-28T00:00:00Z",
+  "gitCommit": "REPLACE_WITH_GIT_SHA",
+  "rootCid": "bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y",
+  "files": [
+    {
+      "path": "artifact.json",
+      "description": "Canonical hash target"
+    },
+    {
+      "path": "payload.json",
+      "description": "Machine-readable KB content — protocol introduction and forward-looking statement"
+    },
+    {
+      "path": "kb-record.json",
+      "description": "Registry metadata linkage"
+    },
+    {
+      "path": "metadata.json",
+      "description": "Human-readable metadata"
+    },
+    {
+      "path": "docs/specification.md",
+      "description": "KB-F specification"
+    },
+    {
+      "path": "evidence/test-vectors.json",
+      "description": "Positive/negative vectors"
+    },
+    {
+      "path": "evidence/verification-run.json",
+      "description": "Verification run output"
+    },
+    {
+      "path": "evidence/logs.txt",
+      "description": "Operator workflow checklist"
+    }
+  ]
+}

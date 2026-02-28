@@ -1,0 +1,14 @@
+KB-F operator workflow checklist
+================================
+1) Compute artifact hash:
+   node scripts/compute-hash.mjs --file ipfs/kb-f/artifact.json
+2) Verify local artifact against expected hash:
+   node scripts/verify-kb-artifact.mjs --file ipfs/kb-f/artifact.json --expected-hash <artifactHash>
+3) Upload package to IPFS and capture root CID:
+   ipfs add -Qr ipfs/kb-f
+4) Verify CID-bound artifact:
+   node scripts/verify-kb-artifact.mjs --cid <rootCid> --target artifact.json --expected-hash <artifactHash>
+5) Run tamper negative vector:
+   copy ipfs\kb-f\artifact.json ipfs\kb-f\artifact.tampered.json
+   echo tamper>> ipfs\kb-f\artifact.tampered.json
+   node scripts/verify-kb-artifact.mjs --file ipfs/kb-f/artifact.tampered.json --expected-hash <artifactHash>

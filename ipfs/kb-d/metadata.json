@@ -1,0 +1,8 @@
+{
+  "title": "KB-D IPFS Artifact",
+  "description": "Extended artifact package for KB-D deterministic verification demo.",
+  "grantMilestone": "M2",
+  "network": "Base Mainnet",
+  "ipfsVersion": "kubo (replace-with-runtime-version)",
+  "maintainer": "Alexandrian Protocol"
+}

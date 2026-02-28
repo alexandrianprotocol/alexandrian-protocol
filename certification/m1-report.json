@@ -1,0 +1,144 @@
+{
+  "schema": "alexandrian-m1-report/v1",
+  "commit": "cccd4a295dce3fea7cb66c9cb4312a1d2dc07e02",
+  "timestamp": "2026-02-28T10:27:55.405Z",
+  "node": "v20.20.0",
+  "pnpm": "9.0.0",
+  "duration": "26.1s",
+  "verdict": "PASS",
+  "tests": {
+    "hardhat": {
+      "tests": 5,
+      "files": 1
+    },
+    "conformance": {
+      "tests": 5,
+      "files": 2
+    },
+    "vitest": {
+      "tests": 244,
+      "files": 33
+    },
+    "total": 254,
+    "skipped": 0,
+    "failed": 0
+  },
+  "propertyRuns": {
+    "canonicalIdentity": 35000,
+    "canonicalDifferential": 2000,
+    "royaltyConservation": 20000,
+    "total": 57000,
+    "violations": 0
+  },
+  "vectors": {
+    "derivation": 4,
+    "edgeCases": 7,
+    "types": 9,
+    "total": 20,
+    "untested": 0
+  },
+  "invariants": {
+    "INV-1": {
+      "label": "Deterministic Identity",
+      "pass": true
+    },
+    "INV-2": {
+      "label": "Source Uniqueness",
+      "pass": true
+    },
+    "INV-3": {
+      "label": "No Self-Reference",
+      "pass": true
+    },
+    "INV-4": {
+      "label": "DAG Acyclicity",
+      "pass": true
+    },
+    "INV-5": {
+      "label": "Source Normalization",
+      "pass": true
+    },
+    "INV-6": {
+      "label": "Cross-Runtime Hash Stability",
+      "pass": true
+    },
+    "INV-7": {
+      "label": "Royalty Conservation",
+      "pass": true
+    },
+    "INV-8": {
+      "label": "Domain Separation",
+      "pass": true
+    },
+    "INV-9": {
+      "label": "Max Parents Bound",
+      "pass": true
+    }
+  },
+  "negativeCases": {
+    "cycleInsertion": "rejected",
+    "duplicateSource": "rejected",
+    "selfReference": "rejected",
+    "unsortedSources": "rejected",
+    "unregisteredSource": "rejected",
+    "maxParentsExceeded": "rejected",
+    "royaltyOverflow": "rejected",
+    "invalidHashFormat": "rejected"
+  },
+  "determinism": {
+    "crossRunHashStability": true,
+    "keyOrderIndependence": true,
+    "sourceOrderIndependence": true,
+    "whitespaceIndependence": true,
+    "unicodeNormalizationStability": true,
+    "clockNondeterminismEliminated": true
+  },
+  "reproducibility": {
+    "noNetworkRequired": true,
+    "noLiveChainRequired": true,
+    "noFundedWallet": true,
+    "noExternalAPI": true,
+    "lockfilePinned": true
+  },
+  "audit": {
+    "status": "WARN",
+    "info": 0,
+    "low": 3,
+    "moderate": 5,
+    "high": 11,
+    "critical": 0,
+    "highCritical": 11
+  },
+  "ipfsThreeLayerBinding": {
+    "layer1": {
+      "label": "Identity (Base mainnet)",
+      "registry": "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
+      "kbHash": "0x83a6aad11d39584998f3f34fa45343d04a9e37062b3b603fc989e71d63871a0a",
+      "publishTx": "0x4afd4de47dbb47bdb9f5871f2e7fa9180ae93acce988a3221cb31b79c6f257de",
+      "block": 42735184,
+      "chainId": 8453
+    },
+    "layer2": {
+      "label": "Artifact Storage (IPFS)",
+      "cid": "bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y"
+    },
+    "layer3": {
+      "label": "Integrity Verification",
+      "artifactHash": "0x64e56a4e08dd7931ae37ab118b8ef1fa32969eb0da108011e08f14d7aa4a5e00",
+      "bytes": 434,
+      "match": false,
+      "verdict": "WARN (skipped)",
+      "gateway": "https://ipfs.io"
+    }
+  },
+  "riskCoverage": {
+    "hashInstability": "14 canonical vectors + 35,000 permutation runs",
+    "economicLeakage": "20,000 DAG simulations, 0 violations",
+    "identityCollision": "domain separation INV-8: KB_V1 / BND_V1 / PRB_V1",
+    "cycleAttacks": "DAG acyclicity INV-4: on-chain + off-chain guards",
+    "lineageDepthAbuse": "max-parents INV-9: ≤ 8, enforced in contract",
+    "runtimeDrift": "cross-runtime golden hash determinism test",
+    "supplyChain": "pnpm audit: high=11, critical=0",
+    "abiRegression": "contract compiled from source in every verify run"
+  }
+}

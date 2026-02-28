@@ -1,0 +1,13 @@
+{
+  "kbId": "KB-D",
+  "version": 1,
+  "commit": "cccd4a295dce3fea7cb66c9cb4312a1d2dc07e02",
+  "rootCid": "REPLACE_WITH_ROOT_CID",
+  "timestamp": "2026-02-27T00:00:00Z",
+  "components": {
+    "spec": "docs/specification.md",
+    "evidence": "evidence/"
+  },
+  "kbEnvelopeReference": "../kb-d-feature.json",
+  "notes": "Canonical hash target for KB-D artifact integrity verification."
+}

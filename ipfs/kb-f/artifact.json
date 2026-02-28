@@ -1,0 +1,14 @@
+{
+  "kbId": "KB-F",
+  "version": 1,
+  "commit": "REPLACE_WITH_GIT_SHA",
+  "rootCid": "REPLACE_WITH_ROOT_CID",
+  "timestamp": "2026-02-28T00:00:00Z",
+  "components": {
+    "payload": "payload.json",
+    "spec": "docs/specification.md",
+    "evidence": "evidence/"
+  },
+  "payloadHash": "0xd0bfb3ceaa33386172e13706bbee26587f9988a90bc6fe390526c71ed45f6fce",
+  "notes": "Canonical hash target for KB-F artifact integrity verification."
+}

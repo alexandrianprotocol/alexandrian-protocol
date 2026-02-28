@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  api:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../:/app
+    command: ["node", "-e", "console.log('alexandrian dev api placeholder')"]

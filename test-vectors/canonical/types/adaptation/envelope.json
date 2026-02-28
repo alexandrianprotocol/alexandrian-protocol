@@ -1,0 +1,18 @@
+{
+  "type": "adaptation",
+  "domain": "rust.web",
+  "sources": [
+    "0x20fdb96341faeb2aa530fa47a6cd9e74fb92aa5e2f31640ffaf5910f52b02aee"
+  ],
+  "payload": {
+    "type": "adaptation",
+    "targetDomain": "rust.web.axum",
+    "adaptedContent": "Use subtle::ConstantTimeEq for token comparison in Axum middleware.",
+    "tradeoffs": [
+      "Requires subtle crate",
+      "No std::mem::cmp for timing-sensitive paths"
+    ]
+  },
+  "tier": "open",
+  "artifactHash": "0x97e877fe5cb09505249f8c39e2bdf1e8d4cb881de5e807e5cc2bfbf2c70c9a22"
+}

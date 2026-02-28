@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0",
+  "type": "feature",
+  "title": "Alexandrian Protocol — Introduction",
+
+  "statement": "Alexandrian is a deterministic, content-addressed knowledge registry and settlement layer. Identity is anchored on Base, artifacts are stored on IPFS, and topology is queryable via The Graph. Every Knowledge Block has a single canonical identity — a kbHash derived from the content of its envelope using RFC 8785 JSON Canonicalization and keccak256 — that is identical across all three layers and verifiable by any party without trusting a central resolver.",
+
+  "architecture": {
+    "layer1": {
+      "name": "Identity and Settlement",
+      "network": "Base Mainnet",
+      "contract": "AlexandrianRegistryV2",
+      "address": "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
+      "role": "Canonical KB identity, attribution DAG, atomic settlement, royalty routing. kbHash is the registry key. Economic value flows in ETH through real settleQuery transactions.",
+      "liveProof": "pnpm run ipfs:kb-d:onchain"
+    },
+    "layer2": {
+      "name": "Artifact Storage",
+      "network": "IPFS",
+      "role": "Full artifact payloads, documentation, dependency manifests. Integrity is enforced by keccak256(fetched_bytes) == artifactHash — a commitment stored in the canonical envelope on Base. Storage location is replaceable without changing KB identity.",
+      "liveProof": "pnpm run ipfs:kb-f:onchain -- --gateway https://ipfs.io"
+    },
+    "layer3": {
+      "name": "Discovery and Topology",
+      "network": "The Graph",
+      "role": "Settlement volume, lineage depth, unique payer count, domain clustering. Entity IDs are contentHash.toLowerCase() — deterministic and idempotent. No central resolver.",
+      "liveProof": "pending subgraph deployment"
+    }
+  },
+
+  "whatThisIsNot": [
+    "Not a model, inference runtime, or vector database",
+    "Not a centralized memory API or knowledge endpoint",
+    "Not token-dependent — value flows in ETH from real settlements",
+    "Not mutable after registration — KBs are permanent, identity is content not location",
+    "Not dependent on a single indexer — the subgraph schema is open source and reproducible"
+  ],
+
+  "currentStatus": {
+    "m1": "Live on Base mainnet. Canonical hash mechanism, on-chain registry, attribution DAG, and settlement are deployed and verified. Full test suite passing.",
+    "ipfs": "KB-F demonstrates complete three-layer binding. Artifact pinned to IPFS with real CIDv1 stored on-chain at publish time. keccak256(fetched_bytes) == artifactHash verifiable end-to-end.",
+    "theGraph": "Subgraph schema designed for M2. Entity IDs are deterministic from contentHash."
+  },
+
+  "forwardLooking": {
+    "message": "We are looking forward to building the next phase of this protocol in collaboration with the grant reviewers at IPFS, The Graph, and Coinbase. The infrastructure demonstrated in M1 — deterministic identity, content-addressed artifacts, and economic settlement — is the foundation. M2 will harden artifact availability, production subgraph indexing, and SDK-level developer tooling. We believe this architecture demonstrates a real protocol-level integration of all three networks, not passive usage, and we are committed to working closely with each foundation to make that case in production.",
+    "nextSteps": [
+      "IPFS: multi-provider pinning, artifact availability guarantees, verification CLI in SDK",
+      "The Graph: production subgraph deployment, settlement volume queries, lineage traversal",
+      "Base: gas benchmark publication, attribution DAG settlement proofs, curator tooling"
+    ]
+  }
+}

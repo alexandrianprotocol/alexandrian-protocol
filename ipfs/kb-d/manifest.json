@@ -1,0 +1,33 @@
+{
+  "manifestVersion": 1,
+  "kbId": "KB-D",
+  "generatedAt": "2026-02-28T00:00:00Z",
+  "gitCommit": "cccd4a295dce3fea7cb66c9cb4312a1d2dc07e02",
+  "rootCid": "REPLACE_WITH_ROOT_CID",
+  "files": [
+    {
+      "path": "artifact.json",
+      "description": "Canonical hash target"
+    },
+    {
+      "path": "metadata.json",
+      "description": "Descriptive metadata"
+    },
+    {
+      "path": "docs/specification.md",
+      "description": "Human-readable spec"
+    },
+    {
+      "path": "evidence/test-vectors.json",
+      "description": "Positive/negative verification vectors"
+    },
+    {
+      "path": "evidence/verification-run.json",
+      "description": "Latest run output"
+    },
+    {
+      "path": "evidence/logs.txt",
+      "description": "Operator notes"
+    }
+  ]
+}

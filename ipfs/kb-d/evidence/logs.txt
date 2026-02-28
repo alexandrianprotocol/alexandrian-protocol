@@ -1,0 +1,12 @@
+KB-D IPFS verification run log template
+=====================================
+1) Compute hash:
+   pnpm run ipfs:kb-d:hash
+2) Verify local artifact:
+   pnpm run ipfs:kb-d:verify:file
+3) Verify CID-bound artifact (after upload):
+   pnpm run ipfs:kb-d:verify:cid -- --cid <rootCid>
+4) Negative tamper test:
+   copy artifact.json artifact.tampered.json
+   echo tamper>> artifact.tampered.json
+   node scripts/verify-kb-artifact.mjs --file ipfs/kb-d/artifact.tampered.json --expected-hash <expectedHash>

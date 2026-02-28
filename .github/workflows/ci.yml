@@ -1,0 +1,55 @@
+name: M1 Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Grant M1 Full Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run M1 verification (build + all tests)
+        run: pnpm verify
+        env:
+          HARDHAT_USE_SOLCJS: "true"
+
+      - name: KB-F IPFS onchain verification (three-layer binding)
+        # Best-effort — continues on network error. Uses public Base RPC (no key needed).
+        # Set BASE_RPC_URL secret for a dedicated RPC endpoint.
+        run: pnpm run ipfs:kb-f:onchain -- --gateway https://ipfs.io
+        continue-on-error: true
+        env:
+          BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
+          IPFS_GATEWAY: "https://ipfs.io"
+
+      - name: Print KB-F anchors
+        run: |
+          echo "========================================"
+          echo "KB-F Live Anchors (Base Mainnet)"
+          echo "========================================"
+          echo "kbHash:    0x83a6aad11d39584998f3f34fa45343d04a9e37062b3b603fc989e71d63871a0a"
+          echo "CID:       bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y"
+          echo "publishTx: 0x4afd4de47dbb47bdb9f5871f2e7fa9180ae93acce988a3221cb31b79c6f257de"
+          echo "registry:  0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000 (Base mainnet)"
+          echo "========================================"

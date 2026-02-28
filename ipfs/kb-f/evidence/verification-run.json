@@ -1,0 +1,25 @@
+{
+  "runId": "kb-f-verify-mainnet-2026-02-28",
+  "timestamp": "2026-02-28T00:00:00Z",
+  "network": "Base Mainnet",
+  "chainId": 8453,
+  "registry": "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
+  "kbHash": "0x83a6aad11d39584998f3f34fa45343d04a9e37062b3b603fc989e71d63871a0a",
+  "rootCid": "bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y",
+  "publishTx": "0x4afd4de47dbb47bdb9f5871f2e7fa9180ae93acce988a3221cb31b79c6f257de",
+  "artifactFile": "artifact.json",
+  "artifactBytes": 434,
+  "expectedArtifactHash": "0x64e56a4e08dd7931ae37ab118b8ef1fa32969eb0da108011e08f14d7aa4a5e00",
+  "computedArtifactHash": "0x64e56a4e08dd7931ae37ab118b8ef1fa32969eb0da108011e08f14d7aa4a5e00",
+  "match": true,
+  "verdict": "verified",
+  "gatewayUrl": "https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json",
+  "verificationCommand": "pnpm run ipfs:kb-f:onchain -- --gateway https://ipfs.io",
+  "verificationChain": {
+    "step1": "keccak256(local artifact.json bytes) == artifactHash",
+    "step2": "artifactHash embedded in canonical envelope → kbHash via keccak256(\"KB_V1\" + JCS(normalizeForHash(envelope)))",
+    "step3": "kbHash + real CIDv1 published to AlexandrianRegistryV2 on Base mainnet",
+    "step4": "keccak256(IPFS-fetched bytes) == artifactHash — confirmed via ipfs.io public gateway"
+  },
+  "notes": "Full end-to-end verification confirmed. Bytes fetched from IPFS via public gateway match the locally computed artifactHash exactly. Both the on-chain kbHash and the IPFS CID are live and independently verifiable by any party."
+}

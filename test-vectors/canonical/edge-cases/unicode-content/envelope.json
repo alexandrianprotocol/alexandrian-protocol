@@ -1,0 +1,13 @@
+{
+  "domain": "test.edge",
+  "sources": [],
+  "payload": {
+    "type": "practice",
+    "rationale": "Unicode: 日本語 café naïve 北京 Москва",
+    "contexts": [],
+    "failureModes": []
+  },
+  "type": "practice",
+  "tier": "open",
+  "artifactHash": "0x0dd65937dda39731ffab5fba210de8a438996d6ba0fe900c73263725f7dbf870"
+}

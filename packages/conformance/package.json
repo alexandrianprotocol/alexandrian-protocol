@@ -1,0 +1,22 @@
+{
+  "name": "@alexandrian/conformance",
+  "version": "1.0.0",
+  "description": "Alexandrian Core v1 conformance suite — validates spec, not code",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "conformance:envelope": "node dist/run-envelope.mjs",
+    "conformance:proof": "node dist/run-proof.mjs",
+    "generate:expected": "tsc && node dist/generate-expected.js"
+  },
+  "dependencies": {
+    "@alexandrian/protocol": "workspace:*",
+    "@alexandrian/sdk-adapters": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^0.34.0"
+  }
+}

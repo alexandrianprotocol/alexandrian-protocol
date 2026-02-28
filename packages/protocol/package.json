@@ -1,0 +1,51 @@
+{
+  "name": "@alexandrian/protocol",
+  "version": "0.2.0",
+  "description": "Alexandrian Protocol — pure core: canonical serialization, KB schemas, invariants, virtual registry",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./core": "./dist/core/index.js",
+    "./schema": "./dist/schema/index.js",
+    "./schema/payload": "./dist/schema/payload/index.js",
+    "./schema/legacy": "./dist/schema/legacy/index.js",
+    "./schemas": "./dist/schema/payload/index.js",
+    "./validation": "./dist/validation/index.js",
+    "./abis/AlexandrianRegistryV2.json": "./src/abis/AlexandrianRegistryV2.json"
+  },
+  "scripts": {
+    "build": "tsc && hardhat compile",
+    "compile": "hardhat compile",
+    "test": "hardhat test test/v2/registryV2.test.js",
+    "test:legacy": "hardhat test",
+    "deploy:mainnet": "hardhat run scripts/deploy-mainnet.cjs --network base-mainnet"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "js-sha3": "^0.9.3",
+    "multiformats": "^12.0.0",
+    "uint8arrays": "^5.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "2.1.0",
+    "@nomicfoundation/hardhat-ethers": "3.1.3",
+    "@nomicfoundation/hardhat-network-helpers": "1.0.11",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "2.0.11",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@typechain/hardhat": "^8.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "10.0.10",
+    "chai": "^4.2.0",
+    "dotenv": "^16.0.0",
+    "ethers": "^6.8.0",
+    "hardhat": "2.28.6",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "0.8.17",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "domain": "software.patterns",
+  "sources": [
+    "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  ],
+  "payload": {
+    "type": "practice",
+    "rationale": "Same content, different parent order must yield same hash after sort.",
+    "contexts": [],
+    "failureModes": []
+  },
+  "type": "practice",
+  "tier": "open",
+  "artifactHash": "0x23f6c8d8035c5ef953fa08d746a7847557c43bbbc917ca46addb307968f842ef"
+}

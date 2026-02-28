@@ -1,0 +1,45 @@
+# Alexandria API & Runtime — Docker image for the Alexandria Sandbox
+# Multi-stage: build then copy only production deps + built artifacts (no devDependencies in final image).
+#
+# Packages use a flat structure (no src/): e.g. packages/api/server.ts, packages/api/routes/, etc.
+# Each package has tsconfig rootDir "." and outDir "dist"; COPY copies the full package folder.
+# ---------------------------------------------------------------------------
+# Stage 1: build
+# ---------------------------------------------------------------------------
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* package-lock.json* ./
+COPY packages/api ./packages/api
+COPY packages/protocol ./packages/protocol
+COPY packages/pipeline ./packages/pipeline
+
+RUN corepack enable pnpm 2>/dev/null || true
+RUN if command -v pnpm >/dev/null 2>&1; then \
+      if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile; else pnpm install; fi; \
+    else npm ci 2>/dev/null || npm install; fi
+
+RUN if command -v pnpm >/dev/null 2>&1; then pnpm -r run build; \
+    else (cd packages/protocol && npm run build) && (cd packages/pipeline && npm run build) && (cd packages/api && npm run build); fi
+
+# Strip devDependencies so final image stays lean
+RUN if command -v pnpm >/dev/null 2>&1; then pnpm prune --prod; else npm prune --production; fi
+
+# ---------------------------------------------------------------------------
+# Stage 2: production runtime
+# ---------------------------------------------------------------------------
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy workspace layout and pruned node_modules; keep package layout so @alexandrian/* resolve
+COPY --from=builder /app/package.json /app/pnpm-workspace.yaml ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages ./packages
+
+EXPOSE 3000
+ENV NODE_ENV=production
+ENV PORT=3000
+
+CMD ["node", "packages/api/dist/server.js"]

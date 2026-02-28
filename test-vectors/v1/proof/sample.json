@@ -1,0 +1,12 @@
+{
+  "version": "alexandrian-proof/1",
+  "chainId": "8453",
+  "contract": "0x0000000000000000000000000000000000000001",
+  "kbId": "0x20fdb96341faeb2aa530fa47a6cd9e74fb92aa5e2f31640ffaf5910f52b02aee",
+  "blockNumber": "12000000",
+  "state": {
+    "totalFeesEarned": "0",
+    "lastSettledAt": "0"
+  },
+  "issuedAt": "2025-02-21T12:00:00Z"
+}

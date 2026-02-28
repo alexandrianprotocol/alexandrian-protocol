@@ -1,0 +1,19 @@
+{
+  "type": "feature",
+  "domain": "meta.alexandria",
+  "sources": [],
+  "tier": "open",
+  "payload": {
+    "type": "practice",
+    "claim": "An agent verifies complete three-layer KB binding: kbHash on Base anchors identity, cid stored on-chain at publish time enables IPFS retrieval, and keccak256(fetched_bytes) == artifactHash confirms content integrity without trusting the storage provider.",
+    "steps": [
+      "Pin ipfs/kb-f/ artifact directory to IPFS via pnpm run ipfs:kb-f:pin",
+      "Publish KB-F to Base mainnet with real CID via pnpm run ipfs:kb-f:publish",
+      "Resolve kbHash from KBPublished event in publish transaction receipt",
+      "Call registry.getKnowledgeBlock(kbHash) to read the on-chain cid field",
+      "Fetch <cid>/artifact.json from any public IPFS gateway",
+      "Compute keccak256(fetched_bytes) locally",
+      "Confirm result equals the artifactHash committed in the canonical envelope"
+    ]
+  }
+}

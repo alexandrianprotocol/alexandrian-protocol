@@ -1,0 +1,14 @@
+{
+  "vectorVersion": 1,
+  "targetFile": "artifact.json",
+  "hashAlgorithm": "keccak256",
+  "positive": {
+    "description": "Unmodified artifact bytes must match the expected hash.",
+    "expectedResult": "verified"
+  },
+  "negative": {
+    "description": "Any byte-level modification must fail hash comparison.",
+    "tamperAction": "Append one line to artifact.json",
+    "expectedResult": "invalid"
+  }
+}

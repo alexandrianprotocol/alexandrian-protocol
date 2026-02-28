@@ -1,0 +1,7 @@
+{
+  "title": "KB-F IPFS Artifact",
+  "description": "Deterministic IPFS artifact package for KB-F.",
+  "grantMilestone": "M2",
+  "network": "Base Mainnet",
+  "artifactRole": "Commitment-linked rich artifact layer"
+}

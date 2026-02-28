@@ -1,0 +1,17 @@
+{
+  "type": "synthesis",
+  "domain": "software.security",
+  "sources": [
+    "0x20fdb96341faeb2aa530fa47a6cd9e74fb92aa5e2f31640ffaf5910f52b02aee"
+  ],
+  "payload": {
+    "type": "synthesis",
+    "question": "How to build a secure token refresh flow?",
+    "answer": "Use constant-time comparison and short-lived tokens.",
+    "citations": {
+      "0x20fdb96341faeb2aa530fa47a6cd9e74fb92aa5e2f31640ffaf5910f52b02aee": "Use constant-time comparison to prevent timing attacks on tokens."
+    }
+  },
+  "tier": "open",
+  "artifactHash": "0xe493f28581e57558cb629fc65c479c7a6873438d1053a1675a9eef32d12590fa"
+}

@@ -1,0 +1,80 @@
+# Alexandrian Sandbox: local Filecoin-ready stack for testing the runtime.
+# The runtime (Gatekeeper + Meter) runs inside the API service.
+
+services:
+  # 0. M1 Linux test runner (this release surface)
+  # Use: docker compose run --rm m1-test
+  m1-test:
+    image: node:20-bullseye
+    working_dir: /work
+    volumes:
+      - ../:/work
+    command: >
+      bash -lc "corepack enable &&
+      corepack prepare pnpm@9.0.0 --activate &&
+      pnpm install --frozen-lockfile &&
+      HARDHAT_USE_SOLCJS=true pnpm test:m1"
+
+  # 0b. M1 full verification runner (build + tests + report)
+  # Use: docker compose run --rm m1-verify
+  m1-verify:
+    image: node:20-bullseye
+    working_dir: /work
+    volumes:
+      - ../:/work
+    command: >
+      bash -lc "corepack enable &&
+      corepack prepare pnpm@9.0.0 --activate &&
+      pnpm install --frozen-lockfile &&
+      HARDHAT_USE_SOLCJS=true pnpm verify"
+
+  # 1. THE BLOCKCHAIN (Hardhat / FVM Emulator)
+  # Runs Registry.sol and handles $SCRIBE tokens (v2: uses Dockerfile to avoid ESM/resolution issues)
+  blockchain:
+    profiles: ["runtime"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.blockchain
+    ports:
+      - "8545:8545"
+
+  # 2. THE STORAGE (IPFS Node)
+  # Handles "Hot Storage" for quick knowledge retrieval
+  ipfs:
+    profiles: ["runtime"]
+    image: ipfs/kubo:latest
+    ports:
+      - "4001:4001"   # libp2p
+      - "5001:5001"   # API
+      - "8080:8080"   # Gateway
+
+  # 3. THE CACHE (Redis)
+  # Powers the RoyaltyGraph traversal for instant payouts
+  cache:
+    profiles: ["runtime"]
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  # 4. THE API & RUNTIME
+  # The brain that connects the CLI to the storage and chain
+  api:
+    profiles: ["runtime"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    environment:
+      # Publicly known Hardhat test key — local dev only. Never use real keys here; use env_file or secrets in production.
+      DEPLOYER_PRIVATE_KEY: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+      CHAIN_RPC_URL: "http://blockchain:8545"
+      RPC_URL: "http://blockchain:8545"
+      IPFS_NODE: "http://ipfs:5001"
+      REDIS_URL: "redis://cache:6379"
+      DATABASE_URL: "redis://cache:6379"
+      PORT: "3000"
+    depends_on:
+      - blockchain
+      - ipfs
+      - cache
+    ports:
+      - "3000:3000"

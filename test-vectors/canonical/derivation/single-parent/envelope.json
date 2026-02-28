@@ -1,0 +1,27 @@
+{
+  "type": "practice",
+  "domain": "software.security",
+  "sources": [
+    "0x22539094b8913c9b4d0e5ca8288825afb1bae16f03348190d4bac7cb5af41cc9"
+  ],
+  "derivation": {
+    "type": "transform",
+    "inputs": [
+      {
+        "kbId": "0x22539094b8913c9b4d0e5ca8288825afb1bae16f03348190d4bac7cb5af41cc9",
+        "selectors": [
+          "payload.rationale"
+        ]
+      }
+    ],
+    "recipe": {}
+  },
+  "payload": {
+    "type": "practice",
+    "rationale": "Derived from parent: expanded rationale.",
+    "contexts": [],
+    "failureModes": []
+  },
+  "tier": "open",
+  "artifactHash": "0x94d24a675899f674bcde2fdc99523d180c8f0b5cfb15fbfa57fc8b19cf3ded5e"
+}

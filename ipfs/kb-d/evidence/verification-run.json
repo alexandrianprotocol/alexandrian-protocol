@@ -1,0 +1,9 @@
+{
+  "runId": "kb-d-local-verify-template",
+  "timestamp": "2026-02-28T00:00:00Z",
+  "artifactFile": "artifact.json",
+  "expectedArtifactHash": "0x23a62a34315b12e04aa5fc42954b850b63bba44669f8cff73f090434cfd219e3",
+  "computedArtifactHash": "0x23a62a34315b12e04aa5fc42954b850b63bba44669f8cff73f090434cfd219e3",
+  "match": true,
+  "verdict": "verified"
+}

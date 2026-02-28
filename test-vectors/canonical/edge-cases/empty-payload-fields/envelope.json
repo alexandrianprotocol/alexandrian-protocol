@@ -1,0 +1,13 @@
+{
+  "domain": "test.edge",
+  "sources": [],
+  "payload": {
+    "type": "practice",
+    "rationale": "",
+    "contexts": [],
+    "failureModes": []
+  },
+  "type": "practice",
+  "tier": "open",
+  "artifactHash": "0x6780fd3ee1f8a914dd300a5efc5f9b41b3cfc64823e2e65556ac20f21d54f51b"
+}

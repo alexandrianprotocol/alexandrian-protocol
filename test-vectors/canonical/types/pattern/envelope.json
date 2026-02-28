@@ -1,0 +1,25 @@
+{
+  "type": "pattern",
+  "domain": "software.patterns",
+  "sources": [
+    "0x20fdb96341faeb2aa530fa47a6cd9e74fb92aa5e2f31640ffaf5910f52b02aee",
+    "0x89f1f3013076fa294005f5bbef07795fc9936e98bce126caf7a1be44ad5a12c8"
+  ],
+  "payload": {
+    "type": "pattern",
+    "pattern": "Idempotent API design with constant-time token comparison",
+    "occurrences": [
+      {
+        "kbHash": "0x20fdb96341faeb2aa530fa47a6cd9e74fb92aa5e2f31640ffaf5910f52b02aee",
+        "context": "stateless auth"
+      },
+      {
+        "kbHash": "0x89f1f3013076fa294005f5bbef07795fc9936e98bce126caf7a1be44ad5a12c8",
+        "context": "webhook retry"
+      }
+    ],
+    "applicability": "Use when designing APIs that must be safe under retries."
+  },
+  "tier": "open",
+  "artifactHash": "0xaf21eff194e7780488d146e03b1fc48ba67a472872eca54c1922143ac725f3d7"
+}

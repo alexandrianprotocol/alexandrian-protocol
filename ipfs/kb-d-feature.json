@@ -1,0 +1,19 @@
+{
+  "domain": "meta.alexandria",
+  "sources": [
+    "0x451f7581e5bec6619310898266c19cda2166c70ab3773d283f16d7c3ef8387fa"
+  ],
+  "tier": "open",
+  "payload": {
+    "type": "practice",
+    "claim": "An agent verifies a citation proof by resolving the kbId on-chain and confirming the settlementTxHash emits a QuerySettled event referencing the same contentHash.",
+    "steps": [
+      "Resolve kbId via registry.getKnowledgeBlock(kbId)",
+      "Fetch tx receipt for settlementTxHash",
+      "Confirm QuerySettled event: contentHash == kbId",
+      "Confirm querier and totalFee match the proof artifact"
+    ]
+  },
+  "type": "feature",
+  "artifactHash": "0x0862b3088fc12815fa433a4b0193ea7a163c488d756828e47f58e80f109c45e6"
+}

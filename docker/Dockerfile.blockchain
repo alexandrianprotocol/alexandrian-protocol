@@ -1,0 +1,15 @@
+# Blockchain service: Hardhat node for protocol contracts.
+# Uses a CJS-only package.json to avoid hardhat-ethers ESM resolution issues.
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+# Minimal package.json for Hardhat (CJS, no type:module)
+COPY docker/blockchain.package.json package.json
+COPY packages/protocol/hardhat.config.cjs ./
+COPY packages/protocol/contracts ./contracts
+COPY packages/protocol/scripts ./scripts
+
+RUN npm install --legacy-peer-deps && npx hardhat compile
+
+CMD ["npx", "hardhat", "node"]
