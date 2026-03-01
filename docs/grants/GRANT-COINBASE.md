@@ -19,6 +19,31 @@ Alexandrian is a knowledge registry and settlement protocol on Base. AI agents p
 - ETH-native — no ERC-20 required for settlement, royalty routing, or governance.
 - M2 funding delivers production discovery APIs, subgraph hardening, and artifact verification — same protocol as M1, now publicly queryable.
 
+## Network
+
+| Field | Value |
+|---|---|
+| Network name | Base |
+| Chain ID | `8453` |
+| Explorer | [basescan.org](https://basescan.org) |
+
+
+## Contracts
+
+| Contract | Address | Notes |
+|---|---|---|
+| **AlexandrianRegistry (V2)** | [`0x5D6dee4B...B000`](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) | Canonical mainnet registry. Deployed via `scripts/deploy-mainnet.cjs` from `packages/protocol` (AlexandrianRegistryV2). |
+| **Owner** | [`0x6939c3E5...465B`](https://basescan.org/address/0x6939c3E5Fe823B1115Ece40948DF0fB99100465B) | Deployer EOA (no Safe). |
+
+
+## Post-Deploy Integrity
+
+| Field | Value |
+|---|---|
+| Deployment Tx | [`0xd35f0e44...c3c4`](https://basescan.org/tx/0xd35f0e44504860e206568a298e0692bb5212a474125a08cace3d1e430cd8c3c4) |
+| Chain ID | `8453` |
+| Block Number | `42593045` |
+| Bytecode Hash | `0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470` |
 ---
 
 ## The Problem
@@ -153,4 +178,3 @@ Builders on Base can add knowledge attribution and ETH royalty routing to their 
 | [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
 | [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
 | [`VERIFY-M1.md`](docs/VERIFY-M1.md) | How to run verification locally |
-| [`MAINNET-ADDRESSES.md`](docs/ops/MAINNET-ADDRESSES.md) | Deployed contract addresses |
