@@ -5,19 +5,21 @@
 [![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](<your-subgraph-link>)
 [![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
-A deterministic knowledge identity and settlement protocol for autonomous systems.
+A canonical identity and settlement layer for attributable, compoundable knowledge — built for autonomous agents.
 
 ---
 
 ## 🔗 Quick Links
 
-| Document | Path |
+| | |
 |---|---|
-| ✅ Verify M1 | [docs/VERIFY-M1.md](docs/VERIFY-M1.md) |
-| The Graph | [docs/grants/GRANT-THE-GRAPH.md](docs/grants/GRANT-THE-GRAPH.md) |
-| Coinbase | [docs/grants/GRANT-COINBASE.md](docs/grants/GRANT-COINBASE.md) |
-| IPFS | [docs/grants/GRANT-IPFS.md](docs/grants/GRANT-IPFS.md) |
-| M2 Funding Execution Plan | [docs/grants/M2-FUNDING-EXECUTION-PLAN.md](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) |
+| ✅ | [Verify M1](docs/VERIFY-M1.md) |
+| 🔍 | [On-Chain Settlement Proof](docs/grants/LIVE-DEMO-PROOF.md) |
+| 📜 | [Contract on Basescan](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) |
+| 📊 | [Subgraph Explorer](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) |
+| 💰 | [Coinbase Grant](docs/grants/GRANT-COINBASE.md) |
+| 🗂 | [The Graph Grant](docs/grants/GRANT-THE-GRAPH.md) |
+| 📦 | [IPFS Grant](docs/grants/GRANT-IPFS.md) |
 
 ---
 
@@ -55,9 +57,9 @@ kbHash = keccak256("KB_V1" || JCS(normalize(envelope)))
 
 | Primitive | What it does |
 |---|---|
-| **Deterministic identity** | Ensures canonical knowledge identity across machines and environments |
-| **Immutable lineage DAG** | Enforces derivation structure as an acyclic graph on-chain |
-| **Settlement + royalty routing** | Couples knowledge reuse to atomic, lineage-aware value flow |
+| **Deterministic identity** | Every KB has a stable, canonical address — attributed, retrievable, and referenceable across systems |
+| **Immutable lineage DAG** | Derivation is encoded on-chain, not reconstructed — knowledge compounds across contributors |
+| **Settlement + royalty routing** | Usage triggers atomic, lineage-aware ETH settlement — attribution is enforced, not assumed |
 
 
 An A2A epistemic economy emerges when: 
@@ -66,7 +68,7 @@ An A2A epistemic economy emerges when:
 - Usage produces public signals 
 - Coordination occurs through shared `kbHash` reference
 
-Agents coordinate not through regeneration, but through shared references to stable epistemic primitives.
+Agents coordinate not through regeneration, but through shared references to stable, canonical Knowledge Blocks.
 
 ---
 
@@ -153,15 +155,20 @@ Core identity and settlement invariants are fixed at M1; subsequent milestones e
 
 ---
 
-## 🟢 Live Deployment
+## M1 Status
 
-M1 is live on Base Mainnet, the Graph and IPFS. Identity, lineage, and settlement are verifiable on-chain now.
+M1 is live on Base mainnet. All invariants hold.
 
-| Layer | Component | Network | Link |
-|---|---|---|---|
-| Layer 1 · Identity & Settlement | `AlexandrianRegistryV2` | Base Mainnet (chainId 8453) | [0x5D6dee4...5B000 ↗](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) |
-| Layer 2 · Artifact Storage | KB-F artifact | IPFS | [bafybeia...sk57y ↗](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
-| Layer 3 · Discovery & Indexing | Subgraph (The Graph Studio) | Base Mainnet | [alexandrian-protocol/version/latest ↗](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) |
+| Capability | Status |
+|---|---|
+| Deterministic KB identity | ✅ Live |
+| Immutable lineage DAG | ✅ Live |
+| Settlement + royalty routing | ✅ Live |
+| On-chain economic conservation | ✅ Verified |
+| Subgraph indexing | ✅ Live |
+| IPFS artifact anchoring | ✅ Live |
+
+Verify independently: `pnpm verify` — see [`VERIFY-M1.md`](docs/VERIFY-M1.md)
 
 ---
 
@@ -231,6 +238,8 @@ The economic conservation invariant holds across all events.
 
 ## 🔎 Independent Verification (The Graph)
 
+[The Graph](https://thegraph.com/studio/subgraph/alexandrian-protocol/)
+
 The following query independently reproduces settlement routing and royalty distribution:
 
 ```graphql
@@ -258,16 +267,35 @@ The following query independently reproduces settlement routing and royalty dist
 ## 📚 Documentation
 
 ### Protocol
-- [PROTOCOL-SPEC.md](docs/protocol/PROTOCOL-SPEC.md)
-- [INVARIANTS.md](docs/protocol/INVARIANTS.md)
-- [VERIFY-M1.md](docs/VERIFY-M1.md)
+| Document | What It Contains |
+|---|---|
+| [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md) | Full protocol specification |
+| [`INVARIANTS.md`](docs/protocol/INVARIANTS.md) | Nine enforced invariants (INV-1–INV-9) |
+| [`VERIFY-M1.md`](docs/VERIFY-M1.md) | Independent verification — `pnpm verify` |
 
 ### Epistemic Economy
-- [AI-RELIABILITY-SUBSTRATE.md](docs/AI-RELIABILITY-SUBSTRATE.md)
-- [EPISTEMIC-ECONOMY-POSITIONING.md](docs/EPISTEMIC-ECONOMY-POSITIONING.md)
-- [EPISTEMIC-ECONOMY-BRIEF.md](docs/EPISTEMIC-ECONOMY-BRIEF.md)
-- [EPISTEMIC-ECONOMY-MILESTONES.md](docs/EPISTEMIC-ECONOMY-MILESTONES.md)
+| Document | What It Contains |
+|---|---|
+| [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) | Full protocol roadmap |
+| [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md) | Why deterministic KB identity is missing AI infrastructure |
+| [`EPISTEMIC-ECONOMY-POSITIONING.md`](docs/EPISTEMIC-ECONOMY-POSITIONING.md) | Why Base, IPFS, and The Graph are each structurally necessary |
+| [`EPISTEMIC-ECONOMY-BRIEF.md`](docs/EPISTEMIC-ECONOMY-BRIEF.md) | Compact protocol brief — architecture, A2A loop, M1 status |
 
 ### Grants & Execution
-- [M2-FUNDING-EXECUTION-PLAN.md](docs/grants/M2-FUNDING-EXECUTION-PLAN.md)
-- [LIVE-DEMO-PROOF.md](docs/grants/LIVE-DEMO-PROOF.md)
+| Document | What It Contains |
+|---|---|
+| [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
+| [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
+| [`SUSTAINABILITY-MODEL.md`](docs/grants/SUSTAINABILITY-MODEL.md) | Revenue model and path to profitability |
+| [`GAS-BENCHMARKS.md`](docs/grants/GAS-BENCHMARKS.md) | Live gas costs and per-action simulation |
+| [`MAINNET-ADDRESSES.md`](docs/ops/MAINNET-ADDRESSES.md) | Deployed contract addresses |
+
+---
+
+## Grant Applications
+
+| Grant | Document |
+|---|---|
+| Base / Coinbase | [`docs/grants/GRANT-COINBASE.md`](docs/grants/GRANT-COINBASE.md) |
+| The Graph | [`docs/grants/GRANT-THE-GRAPH.md`](docs/grants/GRANT-THE-GRAPH.md) |
+| IPFS / Filecoin | [`docs/grants/GRANT-IPFS.md`](docs/grants/GRANT-IPFS.md) |
