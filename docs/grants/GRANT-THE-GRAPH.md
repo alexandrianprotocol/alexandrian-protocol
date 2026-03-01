@@ -1,160 +1,336 @@
-# The Graph — Grant Application
+# 🏛 Alexandrian Protocol
 
-## Project Title
-Alexandrian Protocol — Deterministic Knowledge Topology and Discovery Layer
+## The Graph — Grant Application
 
-## One-Line Positioning
-Alexandrian is a deterministic, content-addressed knowledge registry and settlement layer: identity anchored on Base, artifacts stored on IPFS, topology queryable via The Graph.
+[![M1 Verification](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml/badge.svg)](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml)
+[![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
+[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
-## Compact Reviewer Summary
+Alexandrian is a deterministic knowledge identity and settlement layer. Agents attribute, compound, discover, and coordinate through structured on-chain identity and lineage signals indexed by The Graph. Without deterministic indexing, knowledge remains isolated and non-composable.
 
-- M1 is live: deterministic KB identity, lineage DAG, and settlement are implemented and reproducible.
-- The Graph is the protocol discovery layer, not a dashboard.
-- Deterministic entity IDs (`contentHash.toLowerCase()`) and idempotent handlers support replay-stable indexing.
-- Settlement and lineage metrics become machine-consumable ranking signals for agent discovery.
-- M2 funding is used for replay/reorg hardening, derived signal indexing, and production query surfaces.
-- Protocol identity invariants remain unchanged across M2 delivery.
+---
 
-## Why The Graph Is Load-Bearing
-The subgraph is not a dashboard. It is the discovery layer of the protocol.  
-Without indexed topology and settlement signals, agents cannot discover reusable KBs without a centralized resolver.
+## Summary
 
-## Three-Layer Architecture Context
+- M1 is live: deterministic KB identity, lineage DAG, and settlement routing deployed on Base.
+- The Graph indexes canonical identity (`contentHash`), lineage edges, and settlement events into a deterministic query layer.
+- Settlement events are indexed into replay-stable, machine-consumable economic signals.
+- Entity IDs are deterministic and derived solely from on-chain state.
+- Agents publish, discover, retrieve, and coordinate directly through the subgraph — without centralized orchestration.
+- M2 funding hardens replay/reorg determinism, materializes derived signals, and exposes production-grade query surfaces.
+- Protocol identity invariants remain unchanged; M2 hardens indexing determinism and discovery surfaces.
 
-| Layer | Responsibility | The Graph Relationship |
+---
+
+## Independent Verification
+
+Run these queries against the live subgraph to independently verify settlement routing, royalty distribution, and lineage topology.
+
+**Endpoint:** [alexandrian-protocol](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
+
+### Settlement Query
+
+```graphql
+{
+  settlements(first: 5, orderBy: timestamp, orderDirection: desc) {
+    txHash
+    value
+    timestamp
+    kb {
+      contentHash
+      settlementCount
+      totalSettledValue
+    }
+    payer { id }
+    royalties {
+      recipient { id }
+      kb { id }
+      amount
+    }
+  }
+}
+```
+
+| Field | What It Proves |
+|---|---|
+| `txHash` | On-chain settlement event is replayable |
+| `value` | ETH amount settled per query |
+| `kb.contentHash` | KB identity is deterministic and indexed |
+| `kb.settlementCount` | Derived signal is materialized and queryable |
+| `kb.totalSettledValue` | Cumulative economic activity per KB |
+| `payer.id` | Settlement caller is recorded |
+| `royalties.recipient` | Royalty routing is indexed across lineage |
+| `royalties.amount` | Economic conservation is verifiable on-chain |
+
+### Lineage Traversal Query
+
+```graphql
+{
+  knowledgeBlocks(first: 10, orderBy: settlementCount, orderDirection: desc) {
+    id
+    contentHash
+    domain
+    settlementCount
+    totalSettledValue
+    lineageDepth
+    parents {
+      parent {
+        id
+        contentHash
+        settlementCount
+      }
+    }
+    children {
+      child {
+        id
+        contentHash
+      }
+    }
+  }
+}
+```
+
+| Field | What It Proves |
+|---|---|
+| `contentHash` | KB identity is stable and content-derived |
+| `settlementCount` | Economic signal is materialized per KB |
+| `lineageDepth` | DAG depth is indexed and traversable |
+| `parents` / `children` | Multi-entity lineage joins are queryable |
+| `domain` | Domain-scoped discovery is supported |
+
+---
+
+## The Problem
+
+Modern AI stacks can generate outputs, retrieve information, orchestrate workflows, transfer value, persist artifacts, and index topology. What they lack is a deterministic, canonical identity and settlement layer for structured knowledge.
+
+Without it, knowledge cannot be:
+
+- **Attributed** — contribution lacks protocol-level enforcement
+- **Compounded** — derivation is reconstructed post hoc instead of encoded structurally
+- **Discovered** — utility is measured privately rather than emitted as public signal
+- **Retrieved efficiently** — the same work is regenerated instead of addressed by stable identity
+- **Coordinated on** — agents have no shared, addressable reference for knowledge objects
+
+This is not a limitation of intelligence. It is an identity and indexing gap.
+
+Attributable knowledge requires deterministic projection of identity, lineage, and usage into a structured query plane. Without it, artifacts remain isolated — unable to compound, unable to be built upon, ephemeral by default.
+
+> For the full roadmap of where this leads: [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) · [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md)
+
+---
+
+## Why The Graph Is Protocol-Critical
+
+No indexed topology → no lineage traversal.
+No derived signals → no economic ranking.
+No subgraph → centralized resolver required.
+
+The protocol's usability depends on deterministic indexing of multi-entity relationships and derived signals. The subgraph is not auxiliary — it is required infrastructure. This drives multi-entity joins, derived signal computation, and protocol-native query complexity unlike static NFT indexes or dashboards.
+
+---
+
+## The Protocol
+
+Three primitives. Deterministic by construction. Indexed by The Graph.
+
+```text
+kbHash = keccak256("KB_V1" || JCS(normalize(envelope)))
+```
+
+| Primitive | What It Does |
+|---|---|
+| **Deterministic identity** | Every KB has a stable, canonical address — attributed, retrievable, rankable, and referenceable across agents and systems |
+| **Immutable lineage DAG** | Derivation is encoded on-chain, not reconstructed — knowledge compounds across contributors |
+| **Settlement + royalty routing** | Usage triggers atomic, lineage-aware ETH settlement — attribution is enforced at the protocol level, not assumed |
+
+Agents retrieve KBs by identity, rank them by settlement signal, and coordinate through shared `kbHash` references. The Graph is the surface that makes all three possible.
+
+Identity is content-derived. Lineage is enforced on-chain. Settlement is atomic and lineage-aware.
+
+---
+
+## Agent Coordination via The Graph
+
+Agents don't just consume indexed knowledge — they contribute to it and coordinate through it.
+
+Each protocol action updates the shared, indexed state that all agents query:
+
+| Agent Action | Protocol Call | What Gets Indexed |
 |---|---|---|
-| Layer 1: Base | Canonical identity + settlement truth | Source events and state are indexed, never redefined |
-| Layer 2: IPFS | Artifact payload bytes + CID references | CID/artifact metadata surfaced alongside topology |
-| Layer 3: The Graph | Discovery, ranking signals, lineage traversal | Canonical query plane for agents and integrators |
+| Publish knowledge | `publishKB` | New `KnowledgeBlock` node + lineage edges added to DAG |
+| Settle usage | `settleQuery` | Settlement event updates signal weight of the KB |
+| Build on prior work | `publishKB` with parents | New derivation edges extend the indexed topology |
+| Withdraw earnings | `withdraw` | Curator activity signal updated |
+
+The subgraph becomes a live, shared coordination surface:
+
+- Agents **broadcast** reuse through settlement events — publicly indexed, observable by any agent
+- Agents **publish** new knowledge and lineage — immediately queryable by peers
+- Agents **discover** high-signal KBs by querying settlement volume, derivation density, and domain
+- Agents **coordinate** around shared `kbHash` references without a centralized orchestrator
+
+---
+
+## Deterministic Entity Model
+
+All entities derive strictly from on-chain events:
+
+- `KnowledgeBlock.id = contentHash.toLowerCase()`
+- `ParentEdge.id = parentHash + childHash`
+- `Settlement.id = txHash + logIndex`
+- Derived fields computed from indexed events only
+
+Properties:
+
+- No mutable primary keys
+- No randomness or external data dependencies
+- Idempotent handlers
+- Full reindex from genesis converges to identical entity state
+- All entity state is reconstructable from indexed events without external mutation
+
+The subgraph is replay-deterministic by construction.
+
+---
 
 ## What Is Indexed
-- KB registrations (`contentHash` as canonical key)
-- Lineage edges (parent/child + relationship metadata)
-- Settlement events and payouts
-- Curator-level and KB-level economic activity counters
 
-Entity IDs are deterministic (`contentHash.toLowerCase()`), enabling replay-stable indexing.
+The subgraph indexes four core entity types. All fields are derived strictly from on-chain events — no external mutation, no centralized fallback.
 
-## Economic Signal Taxonomy
+**`KnowledgeBlock`**
 
-| Signal | How Derived | Agent Use Case |
+| Field | Type | Description |
 |---|---|---|
-| Settlement volume | `sum(QuerySettled.value)` per KB | Utility-weighted ranking |
-| Settlement count | `count(QuerySettled)` per KB | Popularity trend |
-| Unique payer count | `count(distinct payer)` per KB | Breadth of reuse |
-| Lineage depth | DAG traversal depth | Provenance depth scoring |
-| Parent/child fanout | edge counts by KB | Influence/topology analysis |
-| Domain clustering | grouping by KB domain | Domain-specific discovery |
-| Curator activity score | join activity and payout metrics | Trust-weighted routing |
+| `id` | `ID` | `contentHash.toLowerCase()` — stable, deterministic entity key |
+| `contentHash` | `Bytes32` | Canonical KB identity derived from content |
+| `domain` | `String` | KB subject area — enables domain-scoped discovery |
+| `creator` | `Address` | Publishing agent address |
+| `artifactHash` | `Bytes32` | IPFS content integrity anchor |
+| `settlementCount` | `BigInt` | Number of times KB has been settled |
+| `totalSettledValue` | `BigInt` | Cumulative ETH settled against this KB |
+| `uniquePayerCount` | `BigInt` | Distinct agents that have settled this KB |
+| `lineageDepth` | `Int` | DAG depth from root — provenance scoring |
+| `childCount` | `Int` | Number of derived KBs — influence signal |
+| `lastSettledAt` | `BigInt` | Timestamp of most recent settlement |
 
-## IPFS ↔ Graph Coordination
-KB metadata (CID, artifact type, schema/version markers) is indexed alongside settlement and lineage signals so agents can resolve:
-1. where the artifact bytes live (IPFS),
-2. how it is linked in topology (The Graph),
-3. and how it performs economically (settlement signals),
-in one query workflow without a centralized API.
+**`ParentEdge`**
 
-## Reorg Safety and Determinism
-- Idempotent handler model and deterministic entity IDs.
-- Replay/reindex should converge to the same entity state.
-- No centralized fallback API required for correctness.
-
-## Mechanism-to-Evidence Table
-
-| Capability | Mechanism | Evidence |
+| Field | Type | Description |
 |---|---|---|
-| Deterministic entity identity | `contentHash`-based IDs | `docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md` |
-| Idempotent indexing model | Event-derived entities, deterministic keys | `docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md` |
-| Topology discovery | Parent/child edge indexing | `docs/grants/LIVE-DEMO-PROOF.md` |
-| Settlement observability | Query settlement + payout indexing | `docs/grants/LIVE-DEMO-PROOF.md` |
-| Protocol-verifiable identity | JCS + keccak256 spec invariants | `docs/protocol/PROTOCOL-SPEC.md` |
+| `id` | `ID` | `parentHash + childHash` — deterministic edge key |
+| `parent` | `KnowledgeBlock` | Source KB in derivation relationship |
+| `child` | `KnowledgeBlock` | Derived KB |
+| `relationshipType` | `String` | Derivation metadata |
 
-## M2 Deliverables (The Graph-Aligned)
+**`Settlement`**
 
-| Budget Item | Allocation | Deliverable | Acceptance Metric |
-|---|---:|---|---|
-| Subgraph hardening | 30% | Derived metrics + deterministic handlers | Replay parity pass |
-| Reorg/replay harness | 20% | Rewind/reindex deterministic test suite | Zero entity drift after replay |
-| Public query surfaces | 20% | Production endpoint + documented query pack | 5+ executable reference queries |
-| SDK integration | 20% | Discovery APIs integrated with SDK adapters | Integration test coverage pass |
-| Documentation and vectors | 10% | Query docs + topology evidence vectors | Published and reproducible artifacts |
+| Field | Type | Description |
+|---|---|---|
+| `id` | `ID` | `txHash + logIndex` — deterministic event key |
+| `txHash` | `Bytes32` | On-chain transaction reference |
+| `value` | `BigInt` | ETH amount settled |
+| `timestamp` | `BigInt` | Block timestamp |
+| `kb` | `KnowledgeBlock` | KB being settled |
+| `payer` | `Address` | Consuming agent |
 
-## M2 Scope and Funding Use (Canonical, Cross-Grant)
+**`RoyaltyDistribution`**
 
-For reviewer clarity, M2 is standardized as "Live Economy and Discovery":
-- same protocol invariants as M1, now live and discoverable,
-- production discovery APIs over subgraph-indexed topology,
-- exposed ranking signals (settlement + lineage counts),
-- SDK hardening and IPFS/content resolution where needed.
+| Field | Type | Description |
+|---|---|---|
+| `id` | `ID` | Deterministic per-payout key |
+| `recipient` | `Address` | Contributor receiving royalty |
+| `kb` | `KnowledgeBlock` | KB in the lineage receiving attribution |
+| `amount` | `BigInt` | ETH amount distributed |
+| `settlement` | `Settlement` | Parent settlement event |
 
-Funding is used to deliver and harden those surfaces, not to change protocol identity rules:
-- live infra + hosted indexing,
-- deterministic replay/reorg hardening,
-- agent-grade discovery/query endpoints,
-- SDK reliability and integration examples,
-- reproducible verification and certification artifacts.
+The on-chain contract remains the source of truth. CID metadata and artifact references are indexed alongside identity and settlement signals, enabling artifact resolution, topology traversal, and economic evaluation in a single query workflow.
 
-Canonical M2 scope reference:
-- `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
-
-## M2 Execution Priority (Funding-Optimized)
-For full M2 hardening design and critique-response checklist, see:
-- `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
-
-The Graph-priority implementation subset:
-1. deterministic replay/reorg harness with entity-store diffing,
-2. materialized derived economic signals,
-3. production query library for agent-grade discovery.
-
-## Why This Fits The Graph
-- Topology-first protocol with deterministic identity semantics.
-- No proprietary resolver dependency.
-- High-value indexing target: lineage + economic signals for machine actors.
-- Already live with Base deployment and queryable artifacts; grant accelerates production hardening.
+---
 
 ## Why This Benefits The Graph
 
-In Alexandrian, the subgraph is not a dashboard.
+Alexandrian is a protocol whose operational loop — publish, settle, discover, coordinate — depends entirely on structured indexing.
 
-It is the discovery layer of the protocol.
+**What this means for The Graph:**
 
-Knowledge Blocks form a lineage DAG with settlement events flowing through that topology. Without indexed projection of:
-- Parent/child relationships
-- Settlement aggregation
-- Derived economic signals
+- **High query complexity** — agents issue multi-entity joins across `KnowledgeBlock`, `ParentEdge`, `Settlement`, and `RoyaltyDistribution` in every discovery workflow
+- **Ongoing subgraph activity** — every KB publication, settlement, and withdrawal generates new indexed state; activity scales with knowledge reuse, not speculation
+- **Derived signal computation** — `settlementCount`, `lineageDepth`, `uniquePayerCount` are not cosmetic counters; they are the ranking substrate agents depend on
+- **Protocol-native relationships** — lineage DAG traversal requires multi-hop joins that stress-test subgraph indexing in ways static schemas do not
+- **Determinism as a requirement** — the protocol's correctness guarantees depend on replay-stable indexing; this is a real-world validation of The Graph's determinism properties
+- **Agent-grade query surfaces** — M2 delivers 5+ documented reference queries that demonstrate production-level subgraph usage patterns
 
-agents cannot discover reusable knowledge without centralized infrastructure.
+The indexed DAG is the coordination layer. By making The Graph protocol-critical rather than optional, Alexandrian demonstrates a class of AI-native protocols that generate sustained, high-complexity subgraph demand.
 
-The subgraph indexes:
-- Deterministic `KnowledgeBlock` entities (`id = contentHash`)
-- `ParentEdge` relationships
-- Settlement events
-- Derived metrics such as:
-  - `totalSettlement`
-  - `settlementCount`
-  - `uniquePayerCount`
-  - `childCount`
-  - `lineageDepth`
+---
 
-These derived signals are not cosmetic analytics. They are the ranking substrate that enables:
-- Economic-weighted knowledge discovery
-- Domain clustering
-- Provenance depth filtering
-- Reuse-density analysis
+## Economic Signal Layer
 
-The protocol is topology-first. Without indexed relationships, the system degrades into isolated registry entries.
+These materialized fields are derived solely from indexed events and form the protocol's ranking substrate:
 
-By making The Graph the canonical discovery layer, Alexandrian demonstrates a protocol that depends on structured indexing, not optional analytics. This increases subgraph query complexity, multi-entity joins, and protocol-native data relationships.
+| Signal | How Derived | Agent Use Case |
+|---|---|---|
+| `settlementCount` | `count(QuerySettled)` per KB | Popularity trend |
+| `totalSettledValue` | `sum(QuerySettled.value)` per KB | Utility-weighted ranking |
+| `uniquePayerCount` | `count(distinct payer)` per KB | Breadth of reuse |
+| `childCount` | Edge counts by KB | Influence/topology analysis |
+| `lineageDepth` | DAG traversal depth | Provenance depth scoring |
+| `lastSettledAt` | Latest settlement timestamp | Recency signal |
+| Domain clustering | Grouping by KB domain | Domain-specific discovery |
+| Curator activity score | Join activity and payout metrics | Trust-weighted routing |
 
-It is a real-world case of a protocol whose usability depends on deterministic indexing.
+---
+
+## Replay & Reorg Determinism
+
+M2 introduces:
+
+- Full reindex-from-genesis harness
+- Deterministic entity-store diffing against canonical snapshots
+- Fork simulation + block rewind tests
+- Derived field recomputation checks
+- Zero entity drift acceptance criteria
+
+Reindexing and replay must converge to identical entity state. No centralized resolver or fallback API is required for correctness.
+
+---
+
+## M2 Funding Request — $20,000
+
+M2 is **Live Economy and Discovery** — the same protocol as M1, now hardened for agent-grade query surfaces, deterministic replay, and production indexing.
+
+| Workstream | Allocation | Hours | Deliverable | Acceptance Criteria |
+|---|---|---|---|---|
+| Subgraph hardening | 30% / $6,000 | 40h | Idempotent handlers + replay-stable derived metrics | Reindex parity pass |
+| Replay / reorg harness | 20% / $4,000 | 25h | Fork + rewind test suite with entity-store diffing | Zero entity drift |
+| Production query layer | 20% / $4,000 | 25h | Documented agent-grade query pack + public endpoint | 5+ reference queries |
+| SDK integration | 20% / $4,000 | 25h | Discovery adapters + integration examples | Integration test coverage |
+| Docs + verification | 10% / $2,000 | 15h | Reproducible verification artifacts | `pnpm verify` from clean state |
+| **Total** | **100% / $20,000** | **130h** | | |
+
+**Execution priority:**
+1. Deterministic replay/reorg harness with entity-store diffing
+2. Materialized derived economic signals
+3. Production query library for agent-grade discovery
+
+**What this grant funds:**
+- Hosted subgraph infrastructure during M2 hardening
+- Replay/reorg harness — real-world validation of The Graph's determinism guarantees
+- Derived signal materialization — `settlementCount`, `lineageDepth`, `uniquePayerCount` as production ranking substrate
+- 5+ agent-grade reference queries with documented patterns
+
+**Canonical scope:** [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md)
+
+---
 
 ## References
-- `docs/grants/LIVE-DEMO-PROOF.md`
-- `docs/AI-RELIABILITY-SUBSTRATE.md` — problem statement: Alexandrian as the missing deterministic identity substrate beneath AI reliability systems
-- `docs/EPISTEMIC-ECONOMY-BRIEF.md` — compact protocol brief: architecture overview, per-layer rationale, A2A loop, ecosystem impact, M1 status table
-- `docs/EPISTEMIC-ECONOMY-POSITIONING.md` — executive positioning: why Base, IPFS, and The Graph are each structurally necessary; full A2A loop; gold-standard grant statement
-- `docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md`
-- `docs/protocol/PROTOCOL-SPEC.md`
-- `docs/protocol/INVARIANTS.md`
-- `docs/M1-SCOPE-FREEZE.md`
-- `docs/VERIFY-M1.md`
+
+| Document | What It Contains |
+|---|---|
+| [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
+| [`SUBGRAPH-BUILD-RUN-RESULTS.md`](docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md) | Subgraph build and indexing results |
+| [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
+| [`VERIFY-M1.md`](docs/VERIFY-M1.md) | How to run verification locally |
+| [`MAINNET-ADDRESSES.md`](docs/ops/MAINNET-ADDRESSES.md) | Deployed contract addresses |
