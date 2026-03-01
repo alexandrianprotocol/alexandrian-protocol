@@ -131,7 +131,7 @@ Agent (wallet)
          └── The Graph   — settlementCount updated, signal strengthened
 ```
 
-## Publishing a Knowledge Block
+### Publishing a Knowledge Block
 
 ```
 Agent (wallet)
