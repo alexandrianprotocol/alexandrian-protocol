@@ -8,7 +8,7 @@
 [![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
 [![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
-Alexandrian is a knowledge registry and settlement protocol on Base. AI agents publish reusable knowledge objects, build on prior work, and pay usage fees — with royalties routed automatically across the derivation graph, on-chain, in ETH.
+Alexandrian is a knowledge identity and settlement layer on Base. Agents publish attributable knowledge, build on prior work, and settle usage fees in ETH — with royalties routed automatically across the derivation graph, on-chain, per use.
 
 ---
 
@@ -27,13 +27,12 @@ Alexandrian is a knowledge registry and settlement protocol on Base. AI agents p
 | Chain ID | `8453` |
 | Explorer | [basescan.org](https://basescan.org) |
 
-
 ## Contracts
 
 | Contract | Address | Notes |
 |---|---|---|
 | **AlexandrianRegistry (V2)** | [`0x5D6dee4B...B000`](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) | Canonical mainnet registry. Deployed via `scripts/deploy-mainnet.cjs` from `packages/protocol` (AlexandrianRegistryV2). |
-| **Owner** | [`0x6939c3E5...465B`](https://basescan.org/address/0x6939c3E5Fe823B1115Ece40948DF0fB99100465B) | Deployer EOA (no Safe). |
+| **Deployer** | [`0x6939c3E5...465B`](https://basescan.org/address/0x6939c3E5Fe823B1115Ece40948DF0fB99100465B) | Deployer EOA (no Safe). |
 
 
 ## Post-Deploy Integrity
@@ -48,26 +47,23 @@ Alexandrian is a knowledge registry and settlement protocol on Base. AI agents p
 
 ## The Problem
 
-Modern AI stacks can generate outputs, retrieve information, orchestrate workflows,
-transfer value, persist artifacts, and index topology.
-
-However, they lack a foundational primitive:
+Modern AI stacks can generate outputs, retrieve information, orchestrate workflows, transfer value, persist artifacts, and index topology. However, they lack a foundational primitive:
 
 **A canonical identity and settlement layer for structured knowledge.**
 
-Without it:
+Without it, knowledge cannot be:
 
-- Knowledge is regenerated rather than canonically addressed
-- Attribution lacks protocol-level enforcement
-- Lineage is reconstructed post hoc instead of encoded structurally
-- Utility is measured privately rather than emitted as public signal
-- Reuse does not compound across systems
+- **Attributed** — contribution lacks protocol-level enforcement
+- **Compounded** — derivation is reconstructed post hoc instead of encoded structurally
+- **Discovered** — utility is measured privately rather than emitted as public signal
+- **Retrieved efficiently** — the same work is regenerated repeatedly instead of addressed by stable identity
+- **Coordinated on** — agents have no shared, addressable reference for knowledge objects
 
-This limitation is not intelligence.
+This is not a capability problem. What's missing is a canonical identity and settlement layer for knowledge.
 
 > For the full roadmap of where this leads: [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) · [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md)
- 
-It is missing infrastructure.
+
+**Alexandrian is that layer.**
 
 ---
 
@@ -98,13 +94,82 @@ Agents coordinate not through regeneration, but through shared references to sta
 
 ---
 
-## Three-Layer Architecture
+## Architecture
 
-| Layer | Responsibility | How It Works | Live Evidence |
-|---|---|---|---|
-| **Layer 1: Base** | Identity + settlement | Content-derived KB identity; lineage enforced on-chain; `settleQuery` routes ETH to all contributors | [Contract](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) · [Settlement tx](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) |
-| Layer 2: IPFS | Artifact storage | KB payloads pinned by CID; anyone can verify the content matches the on-chain hash | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
-| Layer 3: The Graph | Discovery | KB entities and settlement activity indexed and queryable by content hash | [`SUBGRAPH-BUILD-RUN-RESULTS.md`](docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md) |
+```
+Agents / Orchestrators
+  └── bring a wallet          (identity + signing)
+  └── stake a Knowledge Block (reputation + attribution)
+         │
+         ▼
+Alexandrian Protocol
+  └── anchors identity        (kbHash — canonical, content-derived)
+  └── enforces lineage        (immutable DAG — who built on what)
+  └── routes settlement       (ETH flows atomically across contributors)
+         │
+         ├── Base        — settlement rail + identity anchor
+         ├── IPFS        — content vault (artifact integrity by CID)
+         └── The Graph   — coordination surface (discovery, ranking, signals)
+```
+
+| Layer | Responsibility | Live |
+|---|---|---|
+| **Base** | Settlement rail + identity anchor | [Contract](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) · [Settlement tx](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) |
+| **IPFS** | Content vault — artifact integrity by CID | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
+| **The Graph** | Coordination surface — discovery, ranking, signals | [Subgraph](https://thegraph.com/studio/subgraph/alexandrian-protocol/) |
+
+---
+
+## Protocol in Practice
+
+### Querying a Knowledge Block
+
+```
+Agent (wallet)
+  └── queries subgraph        (find high-signal KB by domain + settlementCount)
+  └── retrieves by kbHash     (stable identity — same address everywhere)
+  └── calls settleQuery       (ETH routed atomically to all contributors)
+         │
+         ├── Base        — settlement recorded on-chain
+         ├── IPFS        — artifact resolved by CID
+         └── The Graph   — settlementCount updated, signal strengthened
+```
+
+### Publishing a Knowledge Block
+
+```
+Agent (wallet)
+  └── normalizes envelope     (JCS canonical form)
+  └── derives kbHash          (deterministic — content drives identity)
+  └── calls publishKB         (identity + lineage written on-chain)
+         │
+         ├── Base        — KB identity anchored, lineage edges recorded
+         ├── IPFS        — artifact pinned by CID
+         └── The Graph   — new KnowledgeBlock node indexed, discoverable
+```
+
+### Building on Prior Work
+
+```
+Agent (wallet)
+  └── queries subgraph        (find parent KBs by domain + lineage depth)
+  └── derives new kbHash      (parent hashes encoded in envelope)
+  └── calls publishKB         (parent edges written on-chain)
+         │
+         ├── Base        — derivation edge immutable in DAG
+         ├── IPFS        — new artifact anchored by CID
+         └── The Graph   — lineage traversal extended, topology updated
+```
+
+### Withdrawing Earnings
+
+```
+Agent (wallet)
+  └── accumulated royalties   (from all settlements across lineage)
+  └── calls withdraw          (ETH transferred to contributor address)
+         │
+         └── Base        — economic conservation verified on-chain
+```
 
 ---
 
