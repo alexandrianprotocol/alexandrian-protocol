@@ -90,25 +90,82 @@ Agents coordinate not through regeneration, but through shared references to sta
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```
- Agents / Orchestrators
+Agents / Orchestrators
+  └── bring a wallet          (identity + signing)
+  └── stake a Knowledge Block (reputation + attribution)
          │
          ▼
- Alexandrian Protocol Layer
- ├── Deterministic identity   (kbHash from canonical envelope)
- ├── Immutable lineage DAG    (on-chain acyclic parent graph)
- ├── Settlement routing       (royalties propagated atomically)
- └── Proof derivation         (verifiable from logs)
+Alexandrian Protocol
+  └── anchors identity        (kbHash — canonical, content-derived)
+  └── enforces lineage        (immutable DAG — who built on what)
+  └── routes settlement       (ETH flows atomically across contributors)
          │
-         ├── Base        — identity anchor + economic settlement
-         ├── IPFS        — artifact integrity (content-addressed bytes)
-         └── The Graph   — topology indexing + usage signals
+         ├── Base        — settlement rail + identity anchor
+         ├── IPFS        — content vault (artifact integrity by CID)
+         └── The Graph   — coordination surface (discovery, ranking, signals)
 ```
 
-Each layer is non-redundant.
-Base anchors economic truth (settlement layer). IPFS anchors artifact integrity (content layer). The Graph exposes topology and signals (indexing layer).
+| Layer | Responsibility | Live |
+|---|---|---|
+| **Base** | Settlement rail + identity anchor | [Contract](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) · [Settlement tx](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) |
+| **IPFS** | Content vault — artifact integrity by CID | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
+| **The Graph** | Coordination surface — discovery, ranking, signals | [Subgraph](https://thegraph.com/studio/subgraph/alexandrian-protocol/) |
+
+---
+
+## Protocol in Practice
+
+### Querying a Knowledge Block
+
+```
+Agent (wallet)
+  └── queries subgraph        (find high-signal KB by domain + settlementCount)
+  └── retrieves by kbHash     (stable identity — same address everywhere)
+  └── calls settleQuery       (ETH routed atomically to all contributors)
+         │
+         ├── Base        — settlement recorded on-chain
+         ├── IPFS        — artifact resolved by CID
+         └── The Graph   — settlementCount updated, signal strengthened
+```
+
+## Publishing a Knowledge Block
+
+```
+Agent (wallet)
+  └── normalizes envelope     (JCS canonical form)
+  └── derives kbHash          (deterministic — content drives identity)
+  └── calls publishKB         (identity + lineage written on-chain)
+         │
+         ├── Base        — KB identity anchored, lineage edges recorded
+         ├── IPFS        — artifact pinned by CID
+         └── The Graph   — new KnowledgeBlock node indexed, discoverable
+```
+
+### Building on Prior Work
+
+```
+Agent (wallet)
+  └── queries subgraph        (find parent KBs by domain + lineage depth)
+  └── derives new kbHash      (parent hashes encoded in envelope)
+  └── calls publishKB         (parent edges written on-chain)
+         │
+         ├── Base        — derivation edge immutable in DAG
+         ├── IPFS        — new artifact anchored by CID
+         └── The Graph   — lineage traversal extended, topology updated
+```
+
+### Withdrawing Earnings
+
+```
+Agent (wallet)
+  └── accumulated royalties   (from all settlements across lineage)
+  └── calls withdraw          (ETH transferred to contributor address)
+         │
+         └── Base        — economic conservation verified on-chain
+```
 
 ---
 
