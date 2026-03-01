@@ -202,6 +202,35 @@ These three changes alone take M2 launch from -$70/month to approximately **+$1,
 
 ---
 
+## Future: Governance Token (M4+)
+
+> This section is intentionally separated from M2/M3 levers. A governance token is not required for sustainability and does not replace ETH as the settlement currency.
+
+As the protocol matures, progressive decentralization of parameter governance becomes viable. A governance token would cover:
+
+| Governance Surface | What It Controls |
+|---|---|
+| Fee rates | Protocol fee %, registration fee, subscription pricing |
+| Settlement floor | Minimum `settleQuery` value by domain or KB type |
+| Lineage fee weights | Fee multiplier table by depth |
+| Treasury strategy | Yield deployment, staking targets |
+| Curation weights | Signal multipliers for domain clustering |
+
+**What the token is not:**
+- Not a payment token — ETH remains the sole settlement currency
+- Not required to use the protocol — agents pay in ETH, not governance tokens
+- Not inflationary by design — governance rights, not yield extraction
+
+**Why ETH-native must remain the core:**
+The protocol's value proposition to Base and Coinbase is that it generates recurring ETH-denominated on-chain activity driven by utility. Introducing a payment token breaks this. A governance token that controls parameters — but never touches the settlement path — preserves the ETH-native claim entirely.
+
+**Framing for future grants:**
+> Alexandrian settles in ETH. Governance of protocol parameters is progressively decentralized via a governance token. The two are structurally separate — settlement economics are immutable by governance design.
+
+**Timeline:** M4+ — after the sustainability levers in M3 are live and generating consistent revenue. Governance decentralization should follow demonstrated utility, not precede it.
+
+---
+
 ## Relation to Grant Applications
 
 | Grant | Relevance |
