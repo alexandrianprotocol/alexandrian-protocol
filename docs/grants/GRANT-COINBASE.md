@@ -1,141 +1,156 @@
-# Coinbase — Grant Application (Base)
+# 🏛 Alexandrian Protocol
 
-## Project Title
-Alexandrian Protocol — Deterministic Knowledge Identity and Settlement on Base
+## Base — Grant Application
 
-## One-Line Positioning
-Alexandrian is a deterministic, content-addressed knowledge registry and settlement layer: identity anchored on Base, artifacts stored on IPFS, topology queryable via The Graph.
+[![M1 Verification](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml/badge.svg)](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml)
+[![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
+[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
-## Compact Reviewer Summary
+Alexandrian is a knowledge registry and settlement protocol on Base. AI agents publish reusable knowledge objects, build on prior work, and pay usage fees — with royalties routed automatically across the derivation graph, on-chain, in ETH.
 
-- M1 is live on Base mainnet with deterministic KB identity, lineage DAG enforcement, and settlement routing.
-- Each settlement event is both payment and machine-verifiable usage evidence.
-- Royalty propagation routes value across derivation lineage without custodial intermediaries.
-- ETH-native operation avoids token dependency for correctness.
-- M2 funding is used for production discovery surfaces, subgraph hardening, and artifact verification integration.
-- Identity and hashing invariants remain stable; M2 hardens operations, not semantics.
+---
 
-## Executive Summary
-AI systems repeatedly recompute the same knowledge, but that compute has no durable identity, attribution, or settlement. Alexandrian introduces a settlement layer for reusable knowledge on Base: each KB is canonically hashed, lineage is enforced as a DAG, and query payments are atomically routed across the royalty graph. M1 is live on Base mainnet with verified contract deployment, live settlement evidence, deterministic conformance vectors, and invariant test enforcement.
+## Summary
+
+- M1 is live on Base mainnet — contract [`0x5D6dee4B...B000`](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) deployed, source-verified, and actively settling.
+- Each settlement is payment, attribution, and on-chain usage proof in one transaction — replayable, no intermediary required. Live proof: [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f)
+- ETH-native — no ERC-20 required for settlement, royalty routing, or governance.
+- M2 funding delivers production discovery APIs, subgraph hardening, and artifact verification — same protocol as M1, now publicly queryable.
+
+---
 
 ## The Problem
-Today, AI knowledge reuse has no native payment primitive:
-- no canonical identity for reusable artifacts,
-- no trust-minimized attribution graph,
-- no on-chain settlement for reuse events.
 
-Result: regenerated work is economically invisible and attribution is non-verifiable.
+Modern AI stacks can generate outputs, retrieve information, orchestrate workflows,
+transfer value, persist artifacts, and index topology.
 
-## The Solution (Three-Layer Architecture)
+However, they lack a foundational primitive:
 
-| Layer | Responsibility | Mechanism |
-|---|---|---|
-| Layer 1: Base (on-chain) | Identity + settlement | `contentHash = keccak256("KB_V1" || JCS(normalize(envelope)))`; DAG lineage checks; atomic `settleQuery` routing |
-| Layer 2: IPFS (artifact bytes) | Immutable payload storage | KB payloads pinned by CID; artifact integrity checked by recomputing hash from bytes |
-| Layer 3: The Graph (query plane) | Discovery + topology | Deterministic indexed entities from `contentHash`, lineage edges, settlement-derived signals |
+**A canonical identity and settlement layer for structured knowledge.**
+
+Without it:
+
+- Knowledge is regenerated rather than canonically addressed
+- Attribution lacks protocol-level enforcement
+- Lineage is reconstructed post hoc instead of encoded structurally
+- Utility is measured privately rather than emitted as public signal
+- Reuse does not compound across systems
+
+This limitation is not intelligence.
+
+> For the full roadmap of where this leads: [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) · [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md)
+ 
+It is missing infrastructure.
+
+---
+
+## The Protocol
+
+Alexandrian introduces the missing primitive.
+
+A minimal, three-primitive epistemic substrate:
+
+```text
+kbHash = keccak256("KB_V1" || JCS(normalize(envelope)))
+```
+
+| Primitive | What it does |
+|---|---|
+| **Deterministic identity** | Ensures canonical knowledge identity across machines and environments |
+| **Immutable lineage DAG** | Enforces derivation structure as an acyclic graph on-chain |
+| **Settlement + royalty routing** | Couples knowledge reuse to atomic, lineage-aware value flow |
+
+
+An A2A epistemic economy emerges when: 
+- Identity is canonical
+- Derivation is immutable
+- Usage produces public signals 
+- Coordination occurs through shared `kbHash` reference
+
+Agents coordinate not through regeneration, but through shared references to stable epistemic primitives.
+
+---
+
+## Three-Layer Architecture
+
+| Layer | Responsibility | How It Works | Live Evidence |
+|---|---|---|---|
+| **Layer 1: Base** | Identity + settlement | Content-derived KB identity; lineage enforced on-chain; `settleQuery` routes ETH to all contributors | [Contract](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) · [Settlement tx](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) |
+| Layer 2: IPFS | Artifact storage | KB payloads pinned by CID; anyone can verify the content matches the on-chain hash | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
+| Layer 3: The Graph | Discovery | KB entities and settlement activity indexed and queryable by content hash | [`SUBGRAPH-BUILD-RUN-RESULTS.md`](docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md) |
+
+---
+
+## On-Chain Execution Surface
+
+| Action | Caller | Function | What Happens |
+|---|---|---|---|
+| Register KB | Publisher | `publishKB` | KB identity and lineage written on-chain |
+| Settle usage | Consumer agent | `settleQuery` | ETH routed to all contributors in the lineage |
+| Withdraw earnings | Contributor | `withdraw` | Accumulated ETH transferred to recipient |
+
+---
 
 ## Why Base
 
-1. ETH-native settlement primitive  
-No speculative token dependency; settlement and royalties route directly in ETH.
+Per-use royalty routing only works with low, predictable gas. At L1 costs it is not viable. Base makes per-use settlement practical at agent scale — this is a design requirement, not a preference.
 
-2. Micropayment viability  
-Observed gas envelope supports low-value agent settlements:
-- `publishKB` ~400k–500k gas
-- `settleQuery` ~150k–180k gas (observed baseline ~152k; test threshold 182k)
-- `withdraw` ~50k gas
+Alexandrian generates recurring on-chain activity: KB registrations, usage settlements, royalty payouts, and withdrawals. This scales with knowledge reuse and is driven by utility, not speculation.
 
-3. Live Base evidence  
-Mainnet contract deployed and source verified:
-- Contract: `0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000`
-- Chain: Base Mainnet (8453)
-- Settlement proof: `0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f`
+Builders on Base can add knowledge attribution and ETH royalty routing to their products without writing custom payout logic or issuing tokens.
 
-## Why This Benefits Base
+---
 
-Alexandrian introduces a new on-chain economic primitive: deterministic knowledge settlement with atomic royalty propagation.
+## Mechanism-to-Evidence Mapping
 
-Unlike one-time NFT mints or speculative token activity, Alexandrian generates structurally recurring transaction volume through:
-- Knowledge Block registrations
-- Micropayment settlement events
-- Royalty routing across lineage DAGs
-- Withdrawal transactions
-
-If agents reuse knowledge artifacts, settlement accumulates over time. This creates recurring, utility-driven on-chain activity rather than event-driven speculation.
-
-The protocol is ETH-denominated. There is no native token required for settlement, governance, or routing. This aligns directly with Base’s objective of strengthening ETH-native infrastructure without introducing additional asset fragmentation or governance overhead.
-
-Base’s low transaction costs make micro-settlement economically viable. On mainnet Ethereum, per-use royalty routing would be cost-prohibitive. On Base, settlement can function as infrastructure, not as a luxury feature.
-
-If adopted, Alexandrian becomes a reusable primitive:
-- A shared identity layer
-- A royalty-aware settlement router
-- A composable attribution registry
-
-Other builders on Base can integrate knowledge attribution without designing their own token or payout logic.
-
-In short, Alexandrian expands Base’s economic surface area from financial flows to programmable knowledge settlement, increasing sustained transaction activity, protocol depth, and builder composability.
-
-## Mechanism-to-Evidence Table
-
-| Capability | Mechanism | Evidence |
+| What It Does | How It Works | Proof |
 |---|---|---|
-| Deterministic identity | JCS canonicalization + keccak256 with `KB_V1` domain separation | `docs/protocol/PROTOCOL-SPEC.md`, ADR 0001/0002 |
-| Economic conservation | Contract settlement splits + invariant tests | `docs/protocol/INVARIANTS.md`, `tests/invariants/economic-invariants.test.ts` |
-| Acyclic lineage | Parent existence + cycle exclusion in registration rules | `tests/invariants/protocol-invariants.test.ts` |
-| Live settlement | On-chain transaction with royalty routing | `docs/grants/LIVE-DEMO-PROOF.md` |
-| Deterministic indexing | `contentHash`-derived entity IDs | `docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md` |
+| Same KB ID everywhere | Content hash: `keccak256("KB_V1" \|\| JCS(...))` | [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md), ADR 0001/0002, test vectors |
+| No value lost in settlement | Split logic enforced in contract | [`INVARIANTS.md`](docs/protocol/INVARIANTS.md), economic invariant tests |
+| No circular lineage | Parent existence + cycle check at registration | Protocol invariant tests |
+| Live royalty routing | ETH split across contributor lineage at settle time | On-chain tx: [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) · [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) |
+| Queryable settlement data | KB entity IDs derived from content hash; subgraph reindexes consistently | [`SUBGRAPH-BUILD-RUN-RESULTS.md`](docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md) |
 
-## M2 Deliverables (Base-Aligned)
+---
 
-| Budget Item | Allocation | Deliverable | Acceptance Metric |
-|---|---:|---|---|
-| Discovery and query surfaces | 30% | Production-grade discovery APIs over indexed topology | Stable endpoint + reproducible query responses |
-| Subgraph hardening | 20% | Replay/reorg-safe derived metric indexing | Deterministic reindex parity |
-| IPFS artifact binding | 20% | CID pinning and byte-level artifact verification path | `hash(IPFS bytes) == artifactHash` validation pass |
-| SDK and integrator tooling | 20% | Hardened SDK flows + examples | End-to-end publish/verify/settle examples |
-| Certification and docs | 10% | Updated conformance artifacts and operator docs | Release evidence checklist complete |
+## M2 Deliverables
 
-## M2 Scope and Funding Use (Canonical, Cross-Grant)
+> M2 makes the live protocol publicly discoverable and production-ready. The settlement rules don't change — the query and verification surfaces get built out.
 
-For reviewer clarity, M2 is standardized as "Live Economy and Discovery":
-- same protocol invariants as M1, now live and discoverable,
-- production discovery APIs over subgraph-indexed topology,
-- exposed ranking signals (settlement + lineage counts),
-- SDK hardening and IPFS/content resolution where needed.
+| Item | Allocation | What Gets Built | Done When |
+|---|---|---|---|
+| Discovery APIs | 30% | Public endpoints to query KBs by domain, lineage, and settlement activity | Stable endpoint with reproducible responses |
+| Subgraph hardening | 20% | Indexing that stays consistent through chain reorgs | Reindex produces identical output after fork simulation |
+| Artifact verification | 20% | CLI to verify IPFS content matches on-chain hash | `hash(IPFS bytes) == artifactHash` passes |
+| SDK & examples | 20% | Publish, verify, and settle flows with working examples | End-to-end agent workflow runs cleanly |
+| Docs & certification | 10% | Updated verification artifacts and operator docs | Reviewer can independently verify from scratch |
 
-Funding is used to deliver and harden those surfaces, not to change protocol identity rules:
-- live infra + hosted indexing,
-- deterministic replay/reorg hardening,
-- artifact verification and IPFS binding workflows,
-- SDK reliability and integration examples,
-- reproducible verification and certification artifacts.
+**Execution priority:**
 
-Canonical M2 scope reference:
-- `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
+1. Gas benchmark + optimization report
+2. Subgraph with exposed settlement signals, tested against reorgs
+3. Artifact verification CLI + pinning policy
 
-## M2 Execution Priority (Funding-Optimized)
-For M2 execution sequencing and reviewer-risk closure, see:
-- `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
+**Scope reference:** [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md)
 
-Base-priority implementation subset:
-1. gas benchmark + optimization report,
-2. replay-tested subgraph-derived settlement signals,
-3. CID-bound artifact verification CLI and pinning policy.
+---
 
 ## Why This Fits Coinbase Grant Priorities
-- Introduces a new on-chain primitive (knowledge settlement, not another app abstraction).
-- Drives Base transaction utility through reusable agent-to-agent payment flows.
-- Uses ETH-native payment routing with deterministic proofability.
-- Built and evidenced on Base mainnet now, not speculative.
+
+- New on-chain primitive: per-use knowledge settlement with automatic royalty routing
+- Recurring Base transaction volume from agent-to-agent payments — driven by reuse, not speculation
+- ETH-native, no new token required
+- Already live on Base mainnet with on-chain settlement proof
+
+---
 
 ## References
-- `docs/grants/LIVE-DEMO-PROOF.md`
-- `docs/AI-RELIABILITY-SUBSTRATE.md` — problem statement: Alexandrian as the missing deterministic identity substrate beneath AI reliability systems
-- `docs/EPISTEMIC-ECONOMY-BRIEF.md` — compact protocol brief: architecture overview, per-layer rationale, A2A loop, ecosystem impact, M1 status table
-- `docs/EPISTEMIC-ECONOMY-POSITIONING.md` — executive positioning: why Base, IPFS, and The Graph are each structurally necessary; full A2A loop; gold-standard grant statement
-- `docs/ops/MAINNET-ADDRESSES.md`
-- `docs/protocol/PROTOCOL-SPEC.md`
-- `docs/protocol/INVARIANTS.md`
-- `docs/M1-SCOPE-FREEZE.md`
-- `docs/VERIFY-M1.md`
+
+| Document | What It Contains |
+|---|---|
+| [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
+| [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
+| [`VERIFY-M1.md`](docs/VERIFY-M1.md) | How to run verification locally |
+| [`MAINNET-ADDRESSES.md`](docs/ops/MAINNET-ADDRESSES.md) | Deployed contract addresses |
