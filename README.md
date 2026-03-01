@@ -356,3 +356,9 @@ The following query independently reproduces settlement routing and royalty dist
 | Base / Coinbase | [`docs/grants/GRANT-COINBASE.md`](docs/grants/GRANT-COINBASE.md) |
 | The Graph | [`docs/grants/GRANT-THE-GRAPH.md`](docs/grants/GRANT-THE-GRAPH.md) |
 | IPFS / Filecoin | [`docs/grants/GRANT-IPFS.md`](docs/grants/GRANT-IPFS.md) |
+
+## 👤 Builder
+Alexandrian is built by a solo developer currently completing a Master's in Software Engineering.
+My professional background is in security engineering — threat modeling, cryptographic systems, and building infrastructure where correctness guarantees matter. That background is why Alexandrian is designed the way it is: invariant-first, deterministic by construction, verifiable without trust.
+I came to the blockchain space because it's one of the few places where those guarantees can be enforced at the protocol level — not assumed at the application level. Alexandrian is my attempt to build something in that space that agents and developers would genuinely want to use.
+M1 is live. The protocol works. M2 is the production hardening that makes it publicly useful.
