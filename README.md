@@ -3,7 +3,7 @@
 [![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 [![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 [![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](<your-subgraph-link>)
-[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](<your-cid-link>)
+[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
 A deterministic knowledge identity and settlement protocol for autonomous systems.
 
@@ -23,24 +23,23 @@ A deterministic knowledge identity and settlement protocol for autonomous system
 
 ## 🧩 The Problem
 
-Modern AI stacks can generate outputs, retrieve information, orchestrate workflows,
-transfer value, persist artifacts, and index topology.
-
-However, they lack a foundational primitive:
+Modern AI stacks can generate outputs, retrieve information, orchestrate workflows, transfer value, persist artifacts, and index topology. However, they lack a foundational primitive:
 
 **A canonical identity and settlement layer for structured knowledge.**
 
-Without it:
+Without it, knowledge cannot be:
 
-- Knowledge is regenerated rather than canonically addressed
-- Attribution lacks protocol-level enforcement
-- Lineage is reconstructed post hoc instead of encoded structurally
-- Utility is measured privately rather than emitted as public signal
-- Reuse does not compound across systems
+- **Attributed** — contribution lacks protocol-level enforcement
+- **Compounded** — derivation is reconstructed post hoc instead of encoded structurally
+- **Discovered** — utility is measured privately rather than emitted as public signal
+- **Retrieved efficiently** — the same work is regenerated repeatedly instead of addressed by stable identity
+- **Coordinated on** — agents have no shared, addressable reference for knowledge objects
 
-This limitation is not intelligence.
+This is not a capability problem. What's missing is a canonical identity and settlement layer for knowledge.
 
-It is missing infrastructure.
+> For the full roadmap of where this leads: [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) · [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md)
+
+**Alexandrian is that layer.**.
 
 ---
 
