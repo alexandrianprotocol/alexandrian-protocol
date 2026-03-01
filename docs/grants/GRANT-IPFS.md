@@ -1,247 +1,386 @@
-# IPFS — Grant Application
+# 🏛 Alexandrian Protocol
 
-## Project Title
-Alexandrian Protocol — Verifiable Knowledge Artifacts on IPFS
+## IPFS / Filecoin — Grant Application
 
-## One-Line Positioning
-Alexandrian is a deterministic, content-addressed knowledge registry and settlement layer: identity anchored on Base, artifacts stored on IPFS, topology queryable via The Graph.
+[![M1 Verification](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml/badge.svg)](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml)
+[![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
+[![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
+[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
-## Compact Reviewer Summary
+Alexandrian is a deterministic knowledge identity and settlement layer. Integrity is on-chain — `artifactHash` committed to Base, enforced by hashing. IPFS is the portability layer — artifacts are retrievable from anywhere, by anyone, without centralized hosting. Without the on-chain hash commitment, portability means nothing. Without IPFS, the commitment is verifiable but the artifact is not accessible. Both are required.
 
-- M1 is live: deterministic KB identity and settlement are anchored on Base.
-- IPFS is the canonical artifact layer for retrieval portability, not convenience storage.
-- Verification is cryptographic: fetch CID bytes, hash bytes, compare to committed artifact hash.
-- Identity remains storage-independent; artifacts are re-pin-able without kbHash mutation.
-- M2 funding is used for pinning reliability, artifact verification tooling, and retrieval hardening.
-- Protocol invariants remain unchanged; M2 strengthens operational trust and availability.
+---
 
-## Executive Summary
-Alexandrian turns reusable knowledge into a verifiable and economically attributable primitive.  
-On-chain identity and settlement are already live on Base in M1. This IPFS grant request focuses on hardening Layer 2: artifact storage, pinning reliability, and byte-level verification workflows so agents can trust that retrieved artifacts match protocol commitments.
+## Summary
 
-Each KB is identified deterministically from canonical envelope content. Artifact payloads are stored on IPFS and validated by recomputing hash commitments from retrieved bytes. This removes dependence on centralized hosting while preserving deterministic identity and reproducible verification.
+- M1 is live: deterministic KB identity and settlement anchored on Base mainnet.
+- IPFS is the canonical artifact layer — not convenience storage, but the portability primitive that makes artifact bytes accessible without centralized hosting.
+- Integrity is on-chain: `artifactHash` is committed to Base via `kbHash`. Verification is cryptographic: fetch CID bytes, recompute hash, compare to committed `artifactHash`. No trusted intermediary required.
+- KB-F demonstrates the complete pin-first workflow — real CIDv1 stored on-chain, end-to-end verification passing from public data alone.
+- Identity remains storage-independent — artifacts are re-pinnable without `kbHash` mutation.
+- M2 funding hardens CID binding workflows, pinning redundancy, and artifact verification tooling.
+- Protocol invariants remain unchanged; M2 strengthens artifact persistence, availability, and retrieval reliability.
 
-## Why IPFS Is Critical In This Stack
+---
 
-| Layer | Responsibility | Why IPFS matters |
-|---|---|---|
-| Layer 1: Base | Canonical identity + settlement truth | Anchors identity and economics, but not full payload bytes |
-| Layer 2: IPFS | Artifact bytes, docs, manifests | Durable, content-addressed storage and independent retrieval |
-| Layer 3: The Graph | Discovery and topology queries | Resolves what to fetch; IPFS provides what to verify |
+## Independent Verification
 
-Without IPFS, artifacts depend on centralized storage operators. With IPFS, storage can be replaced without identity drift, because verification is hash-based.
+Verify the live KB-F artifact end-to-end from public data:
 
-## Problem Statement
-AI systems can reference knowledge identifiers, but artifact access is often centralized and unverifiable at retrieval time. This creates:
-- hosting trust assumptions,
-- brittle links,
-- weak reproducibility for downstream agents.
-
-Alexandrian solves this by binding storage to protocol commitments: retrieve bytes by CID, recompute artifact commitment, accept/reject deterministically.
-
-## Verification Path (IPFS-Centric)
-1. Resolve KB identity and metadata from protocol/index.
-2. Fetch artifact bytes via CID from IPFS.
-3. Recompute artifact hash from bytes.
-4. Compare against committed artifact hash in canonical envelope.
-5. Accept if equal; reject on mismatch.
-
-This gives storage-agnostic integrity with deterministic replay.
-
-## Mechanism-to-Evidence Table
-
-| Capability | Mechanism | Evidence |
-|---|---|---|
-| Deterministic KB identity | JCS canonicalization + keccak256 domain separation | `docs/protocol/PROTOCOL-SPEC.md` |
-| Artifact integrity checks | Hash verification from retrieved bytes | `docs/protocol/canonical-envelope-spec.md` |
-| End-to-end proofability | On-chain settlement + artifact references | `docs/grants/LIVE-DEMO-PROOF.md` |
-| Deterministic consumption | Canonical vectors and conformance tests | `test-vectors/canonical/`, `test-vectors/v1/` |
-
-## Proposed IPFS Grant Deliverables (M2)
-
-| Budget Item | Allocation | Deliverable | Acceptance Metric |
-|---|---:|---|---|
-| Pinning and persistence policy | 25% | Multi-provider pinning strategy and runbook | Recovery and persistence checks pass |
-| Artifact verification toolkit | 25% | CLI/SDK path for CID fetch + hash verification | Deterministic verify pass on sample corpus |
-| Data availability hardening | 20% | Retry/backoff + resolver policy for IPFS retrieval | Stable retrieval across failure simulations |
-| Content packaging standards | 15% | Canonical artifact packaging conventions and docs | Validation tests pass for all package fixtures |
-| Public examples and docs | 15% | Reference workflows + reproducible demo scripts | Clean-room replay passes |
-
-## M2 Scope and Funding Use (Canonical, Cross-Grant)
-
-For reviewer clarity, M2 is standardized as "Live Economy and Discovery":
-- same protocol invariants as M1, now live and discoverable,
-- production discovery APIs over subgraph-indexed topology,
-- exposed ranking signals (settlement + lineage counts),
-- SDK hardening and IPFS/content resolution where needed.
-
-Funding is used to deliver and harden those surfaces, not to change protocol identity rules:
-- CID-bound artifact workflows and verification tooling,
-- data-availability and pinning reliability hardening,
-- discovery/query integration for agent retrieval flows,
-- SDK reliability and integration examples,
-- reproducible verification and certification artifacts.
-
-Canonical M2 scope reference:
-- `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
-
-## M2 Execution Priority (Funding-Optimized)
-For full execution sequencing, critique simulation, and cross-grant hardening targets, see:
-- `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`
-
-IPFS-priority implementation subset:
-1. mandatory CID-binding policy in publish flow,
-2. open verification CLI (`fetch -> hash -> compare -> verdict`),
-3. multi-pin redundancy + failover runbook.
-
-## Why This Fits IPFS Funding Goals
-- Strengthens decentralized artifact availability for a live protocol.
-- Uses content addressing as a first-class integrity primitive.
-- Reduces centralized resolver/storage dependence.
-- Produces reusable verification tooling for agent ecosystems.
-
-## Why This Benefits IPFS
-
-Alexandrian separates identity from storage.
-
-On-chain:
-- `artifactHash` commitment
-
-Off-chain:
-- CID-bound artifact payload
-
-Verification rule:
-
-```text
-keccak256(downloaded_bytes) == artifactHash
+```bash
+pnpm run ipfs:kb-f:onchain -- --gateway https://ipfs.io
+# Expected: integrity.verdict = "verified"
 ```
 
-This ensures that storage location is irrelevant to identity. Integrity is enforced cryptographically.
+**Or manually:**
 
-IPFS is not used as convenience storage. It functions as the canonical artifact layer for:
-- Structured knowledge payloads
-- Documentation
-- Dependency manifests
-- Evaluation artifacts
-- Extended reasoning traces
+```
+1. Fetch publish tx: 0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f
+2. Read KBPublished event → kbHash
+3. Call getKnowledgeBlock(kbHash) → read on-chain CID
+4. Fetch https://ipfs.io/ipfs/<cid>/artifact.json
+5. keccak256(bytes) == envelope.artifactHash  ✓ verified
+```
 
-Because identity is bound to `artifactHash`, artifacts can be:
-- Retrieved from any IPFS node
-- Pinned across providers
-- Mirrored without identity drift
-- Verified independently of publisher
+**Live artifact:** [KB-F on IPFS](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
-If a centralized server disappears, identity remains valid.  
-If a hosting provider changes, verification remains intact.
+| Step | What It Proves |
+|---|---|
+| CID stored on-chain | Artifact pointer is immutable and public |
+| `keccak256(bytes) == artifactHash` | Byte-level integrity is cryptographically enforced |
+| No gateway dependency | Any IPFS node can serve and verify the artifact |
+| Re-pinnable without identity drift | Storage location is independent of `kbHash` |
 
-This architecture strengthens IPFS’s core value proposition:
+---
 
-Content-addressed storage with verifiable integrity and portability.
+## The Problem
 
-By binding economic attribution to content-addressed artifacts, Alexandrian demonstrates a real protocol-level integration of IPFS, not passive blob storage.
+Modern AI stacks can generate outputs, retrieve information, orchestrate workflows, transfer value, persist artifacts, and index topology. What they lack is a foundational primitive: a canonical identity and settlement layer for structured knowledge.
 
-## KB-D and KB-F: Staged IPFS Binding Demonstration
+Without it, knowledge cannot be:
 
-The protocol was developed in two stages for IPFS integration. This section documents exactly what each stage accomplished, what gap exists, and how KB-F closes it. Reviewers should treat this as an honest architectural record, not an apology.
+- **Attributed** — contribution lacks protocol-level enforcement
+- **Compounded** — derivation is reconstructed post hoc instead of encoded structurally
+- **Discovered** — utility is measured privately rather than emitted as public signal
+- **Retrieved efficiently** — the same work is regenerated instead of addressed by stable identity
+- **Coordinated on** — agents have no shared, addressable reference for knowledge objects
+
+This is not a limitation of intelligence. It is an identity and integrity gap.
+
+Without content-addressed storage, identity can remain stable while content silently changes. An agent retrieving a KB by `kbHash` has no guarantee that the artifact bytes match the committed hash — unless retrieval and verification are bound together by protocol.
+
+> For the full roadmap of where this leads: [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) · [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md)
+
+**Alexandrian is that layer. IPFS is the portability primitive it depends on.**
+
+---
+
+## Why IPFS Is Protocol-Critical
+
+Without IPFS:
+
+- Artifact bytes depend on centralized URLs — a server going down breaks retrieval
+- Identity can remain stable while content silently changes — the hash is committed but the bytes are inaccessible
+- Persistence depends on a single hosting service — no redundancy, no re-pinning
+- Retrieval requires trusting a storage provider to serve the correct bytes
+
+With IPFS:
+
+- CIDs are content-addressed — the address is derived from the bytes, so different bytes produce a different address
+- Retrieval is location-independent — any node can serve the same content
+- Artifacts are portable — any participant can re-pin and serve without changing the CID
+- Availability is redundant — multiple providers can pin the same CID independently
+
+**What each layer actually does:**
+
+| Layer | Role |
+|---|---|
+| `keccak256` hashing | Establishes integrity — the cryptographic commitment. If bytes change, the hash changes. |
+| Base (on-chain) | Enforces the commitment — `artifactHash` stored immutably via `kbHash`. No one can change what was committed. |
+| IPFS | Portability and availability — artifacts retrievable from any node, without centralized hosting. CIDs ensure you cannot serve different bytes under the same address. |
+
+In Alexandrian:
+
+- On-chain `artifactHash` commits to the artifact bytes — **this is where integrity lives**
+- IPFS CID makes the artifact retrievable from anywhere — **this is what IPFS provides**
+- The Graph indexes both for structured discovery
+
+**Integrity is on-chain. Portability is IPFS.**
+
+IPFS is not auxiliary storage. It is the availability layer that makes on-chain integrity commitments actionable — without it, the hash is committed but the artifact is unreachable.
+
+---
+
+## The Protocol
+
+Three primitives. No token. ETH-native.
+
+```text
+kbHash = keccak256("KB_V1" || JCS(normalize(envelope)))
+```
+
+| Primitive | What It Does |
+|---|---|
+| **Deterministic identity** | Every KB has a stable, canonical address derived from its content — attributed, retrievable, and referenceable across systems |
+| **Immutable lineage DAG** | Derivation is encoded on-chain, not reconstructed — knowledge compounds across contributors |
+| **Settlement + royalty routing** | Usage triggers atomic, lineage-aware ETH settlement — attribution is enforced at the protocol level, not assumed |
+
+Identity is content-derived. Lineage is immutable. Payment is automatic.
+
+---
+
+## Architecture
+
+| Layer | Responsibility | IPFS Role |
+|---|---|---|
+| **Base** | Settlement rail + identity anchor | Commits `artifactHash` on-chain — this is where integrity lives |
+| **IPFS** | Content vault — portable artifact retrieval | Makes the on-chain commitment actionable — bytes retrievable from any node, without centralized hosting |
+| **The Graph** | Coordination surface — discovery, ranking, signals | Resolves what to fetch; IPFS provides where to fetch it from |
+
+---
+
+## CID Verification Workflow
+
+The canonical artifact verification flow in Alexandrian:
+
+```
+Agent
+  └── queries subgraph          (resolve KB identity + CID)
+  └── retrieves: contentHash, artifactHash, CID
+         │
+         ▼
+  fetch bytes from IPFS via CID
+         │
+         ▼
+  recompute keccak256(bytes)
+         │
+         ▼
+  compare: recomputedHash == artifactHash ?
+         │
+  ✓ verified → safe to consume
+  ✗ mismatch → reject artifact
+```
+
+No centralized authority validates the artifact. Integrity is cryptographic and reproducible by any agent.
+
+---
+
+## KB-D and KB-F: IPFS Integration Record
 
 ### What KB-D accomplished
 
-KB-D is registered on Base mainnet at publish tx `0x83233ec285d3dbd06b715aa34c5de3f500789f1e685e2c20f2fe1d3384a7050c`.
+KB-D is registered on Base mainnet at publish tx [`0x83233ec...`](https://basescan.org/tx/0x83233ec285d3dbd06b715aa34c5de3f500789f1e685e2c20f2fe1d3384a7050c).
 
-| Claim | Status | Verification |
-|---|---|---|
-| Canonical envelope format correct | ✅ | Test suite: `pnpm run test:m1` |
-| `kbHash` derivation deterministic | ✅ | `keccak256("KB_V1" + JCS(normalizeForHash(envelope)))` |
-| `publishKB` succeeded on Base mainnet | ✅ | `pnpm run ipfs:kb-d:onchain` |
-| Registry stores and returns KB data correctly | ✅ | `getKnowledgeBlock(kbHash)` returns `exists: true` |
-| Local artifact hash verified | ✅ | `pnpm run ipfs:kb-d:verify:file` → `match: true, bytes: 385` |
-| IPFS pinning completed | ❌ | Never executed — no Pinata upload was run |
-| Real CID stored on-chain | ❌ | `cid = "demo"` permanent in registry — no `updateCID` function exists |
-| End-to-end gateway verification | ❌ | Not possible without a real CID on-chain |
+| Claim | Status |
+|---|---|
+| Canonical envelope format correct | ✅ |
+| `kbHash` derivation deterministic | ✅ |
+| `publishKB` succeeded on Base mainnet | ✅ |
+| Local artifact hash verified (`match: true, bytes: 385`) | ✅ |
+| IPFS pinning completed | ❌ — never executed |
+| Real CID stored on-chain | ❌ — `cid = "demo"` permanent in registry |
+| End-to-end gateway verification | ❌ — not possible without real CID |
 
-### The gap: two separate things called "artifactHash"
+KB-D proved the canonical hash mechanism and on-chain registration work correctly. The IPFS layer was scaffolded but not executed — `cid = "demo"` is an honest record of that state, not a protocol failure.
 
-This is the root of the KB-D limitation and requires precise explanation.
-
-**In KB-D's canonical envelope** (`ipfs/kb-d-feature.json`):
-```json
-"artifactHash": "0x0862b3088fc12815fa433a4b0193ea7a163c488d756828e47f58e80f109c45e6"
-```
-This is `keccak256(JCS(payload))` — computed by `artifactHashFromPayload(payload)` in `canonical.ts`. It is committed on-chain via `kbHash`.
-
-**In KB-D's `ipfs/kb-d/kb-record.json`**:
-```json
-"artifactHash": "0x23a62a34315b12e04aa5fc42954b850b63bba44669f8cff73f090434cfd219e3"
-```
-This is `keccak256(artifact.json bytes)` — the hash of the IPFS artifact file, used by `ipfs-kb-d-onchain.mjs` to verify bytes fetched from IPFS.
-
-**These are different hashes from different sources.** The on-chain `kbHash` commits to the first value. The second exists only in `kb-record.json`. A reviewer cannot verify the IPFS artifact solely from on-chain data — the artifact hash relationship is off-chain only.
-
-### Why cid is not in the hash scope
-
-In `AlexandrianRegistryV2`, `publishKB` accepts `cid` as a separate parameter. In `canonical.ts`, the `HASH_SCOPE_KEYS` are:
-
-```
-["type", "domain", "sources", "artifactHash", "tier", "payload", "derivation"]
-```
-
-`cid` is intentionally absent. KB identity (`kbHash`) is independent of storage location — artifacts can be re-pinned to new providers without changing KB identity. The consequence is that KB-D could register with `cid = "demo"` and have a fully valid `kbHash`, because identity does not depend on the storage pointer.
-
-### What KB-F demonstrates
-
-KB-F closes both gaps using the pin-first workflow:
+### What KB-F closes
 
 | Gap in KB-D | KB-F fix |
 |---|---|
-| `cid = "demo"` on-chain (permanent) | Pin first → receive real CIDv1 → pass to `publishKB` → stored on-chain permanently |
-| Envelope `artifactHash` ≠ IPFS file hash | KB-F envelope uses `artifactHash = keccak256(artifact.json bytes)` — the same value IPFS verification checks |
-| `artifactHash` only in off-chain `kb-record.json` | KB-F's `artifactHash` is in the canonical envelope, committed on-chain via `kbHash` |
+| `cid = "demo"` on-chain | Pin first → real CIDv1 → `publishKB` → stored on-chain permanently |
+| Envelope `artifactHash` ≠ IPFS file hash | KB-F envelope `artifactHash = keccak256(artifact.json bytes)` — same value IPFS verification checks |
+| `artifactHash` only in off-chain `kb-record.json` | KB-F `artifactHash` in canonical envelope, committed on-chain via `kbHash` |
 
-After KB-F is published, the full verification chain works from public data alone:
+After KB-F, the full verification chain works from public data alone:
 
 ```
-1. Fetch kbHash from publish tx KBPublished event
-2. Call getKnowledgeBlock(kbHash) → read on-chain cid
+1. Fetch kbHash from KBPublished event
+2. Call getKnowledgeBlock(kbHash) → read on-chain CID
 3. Fetch https://ipfs.io/ipfs/<cid>/artifact.json
-4. keccak256(bytes) == envelope.artifactHash  ← both derivable from public data
+4. keccak256(bytes) == envelope.artifactHash  ✓
 ```
 
 ### KB-F workflow
 
 ```bash
-# Step 1 — compute artifactHash, upload artifact directory to IPFS
+# Pin artifact to IPFS
 PINATA_JWT=<jwt> pnpm run ipfs:kb-f:pin
 
-# Step 2 — publish to Base mainnet with real CID on-chain
+# Publish to Base mainnet with real CID on-chain
 PRIVATE_KEY=<funded_key> pnpm run ipfs:kb-f:publish
 
-# Step 3 — full end-to-end verification
+# Full end-to-end verification
 pnpm run ipfs:kb-f:onchain -- --gateway https://ipfs.io
 # Expected: integrity.verdict = "verified"
 ```
 
-The `publish-kb-f.mjs` script builds the canonical envelope from `ipfs/kb-f-template.json` plus the `artifactHash` written by the pin step, computes `kbHash`, and calls `publishKB` with the real CIDv1. The `kbHash` and `publishTx` are written back to `kb-record.json`.
+---
 
-### Summary
+## Protocol in Practice
 
-KB-D proved the canonical hash mechanism and on-chain registration work correctly. The IPFS layer was scaffolded but not executed — `cid = "demo"` is an honest record of that state, not a protocol failure. KB-F demonstrates the complete three-layer binding using the pin-first workflow that all production KBs should follow.
+### Publishing a Knowledge Block with IPFS
 
-## Current Status
-- M1 identity/settlement is live on Base mainnet.
-- Canonical vectors and deterministic tests are in place.
-- IPFS is already part of the architecture; grant accelerates production hardening of availability and verification workflows.
-- KB-D demonstrates canonical hash mechanism and on-chain registration; local artifact hash verified (`match: true, bytes: 385`). IPFS pin not completed — see gap documentation above.
-- KB-F scaffolded with pin-first workflow; ready to execute with Pinata JWT and funded Base wallet.
-- Utility proof script (`pnpm run ipfs:kb-d:utility`) demonstrates expressiveness + scale + verifiability.
-- Live on-chain check (`pnpm run ipfs:kb-d:onchain`) resolves KB hash from publish tx and reads CID from Base mainnet registry.
+```
+Agent (wallet)
+  └── normalizes envelope         (JCS canonical form)
+  └── pins artifact to IPFS       (pin-first workflow → real CIDv1)
+  └── derives kbHash              (artifactHash from pinned bytes)
+  └── calls publishKB             (identity + CID written on-chain)
+         │
+         ├── Base        — KB identity + CID anchored on-chain
+         ├── IPFS        — artifact pinned, addressable by CID
+         └── The Graph   — KnowledgeBlock node indexed, CID discoverable
+```
+
+### Querying and Verifying an Artifact
+
+```
+Agent (wallet)
+  └── queries subgraph            (resolve KB by domain + signal)
+  └── reads: contentHash, CID     (from indexed KnowledgeBlock)
+  └── fetches bytes from IPFS     (via CID — any gateway or node)
+  └── verifies: hash(bytes) == artifactHash
+  └── calls settleQuery           (ETH routed atomically to contributors)
+         │
+         ├── Base        — settlement recorded on-chain
+         ├── IPFS        — artifact integrity confirmed
+         └── The Graph   — settlementCount updated, signal strengthened
+```
+
+---
+
+## Storage + Pinning + Redundancy Model
+
+### Storage Model
+
+Artifacts are:
+- Serialized canonical envelope
+- Normalized deterministically
+- Stored as IPFS objects
+- Bound to `artifactHash`
+- Referenced by CID in protocol metadata
+
+Only CIDs are stored in metadata — never mutable URLs.
+
+### Pinning Strategy
+
+M2 enforces multi-layer pinning to avoid single-provider dependence:
+
+| Layer | Provider | Role |
+|---|---|---|
+| Primary | Pinata | Active pinning + JWT-authenticated uploads |
+| Secondary | Backup provider | Redundancy — independent of primary |
+| Project-controlled | Self-hosted node | Sovereignty — no third-party dependency |
+| Community | Optional mirrors | Decentralized availability |
+
+**Policies:**
+- Minimum 2 active pins per artifact
+- Health monitoring for CID availability
+- Periodic fetch-and-verify audit
+- Size thresholds + timeout safeguards
+
+### Failure Mode Handling
+
+If artifact availability fails:
+- `contentHash` identity remains canonical
+- CID remains immutable
+- Any node can rehydrate and re-pin the artifact
+- Agents reject unverifiable bytes
+
+Integrity and identity are decoupled from hosting location.
+
+---
+
+## Why This Benefits IPFS
+
+Alexandrian is not passive blob storage. It is a protocol whose correctness depends on content-addressed portability.
+
+- **Protocol-native CID binding** — `artifactHash` is committed on-chain; IPFS provides the retrieval layer that makes that commitment actionable
+- **Re-pinnable without identity drift** — artifacts can migrate across providers without changing `kbHash` — portability is a protocol guarantee, not an operational assumption
+- **Structured knowledge payloads** — KBs carry reasoning traces, evaluation artifacts, documentation, and dependency manifests — not arbitrary blobs
+- **Real-world validation of content addressing at protocol level** — demonstrates IPFS as the portability layer for AI agent protocols, not just file hosting
+- **Multi-provider pinning demand** — every KB publication generates pinning activity across redundant providers; activity scales with knowledge reuse
+- **Decentralized availability** — no single gateway, no single provider; any node can serve and any agent can verify independently against the on-chain commitment
+
+Integrity is enforced by hashing and the blockchain. IPFS makes that integrity accessible — artifacts retrievable by anyone, from anywhere, without trusting a centralized host. By making content-addressed portability protocol-critical rather than optional, Alexandrian demonstrates a class of AI-native protocols that depend on IPFS for availability, not convenience.
+
+---
+
+## M2 Funding Request — $15,000
+
+M2 is **Live Economy and Discovery** — artifact persistence, byte-level verification, and pinning redundancy hardened for production.
+
+| Workstream | Allocation | Hours | Deliverable | Acceptance Criteria |
+|---|---|---|---|---|
+| Pinning + persistence policy | 25% / $3,750 | 25h | Multi-provider pinning strategy + runbook | Recovery + persistence checks pass |
+| Artifact verification toolkit | 25% / $3,750 | 25h | CLI/SDK: CID fetch + hash verify + verdict | Deterministic verify pass on sample corpus |
+| Data availability hardening | 20% / $3,000 | 20h | Retry/backoff + resolver policy | Stable retrieval across failure simulations |
+| Content packaging standards | 15% / $2,250 | 15h | Canonical artifact packaging conventions | Validation tests pass for all fixtures |
+| Docs + verification | 15% / $2,250 | 15h | Reference workflows + reproducible demos | Clean-room replay passes |
+| **Total** | **100% / $15,000** | **100h** | | |
+
+**Execution priority:**
+1. Mandatory CID-binding policy in publish flow
+2. Open verification CLI — `fetch → hash → compare → verdict`
+3. Multi-pin redundancy + failover runbook
+
+**What this grant funds:**
+- Pinning infrastructure and redundancy during M2 development
+- Artifact verification tooling — open CLI and SDK path for any agent to verify independently
+- Data availability hardening — retry/backoff policies for production retrieval reliability
+- Canonical packaging standards — reusable conventions for all future KB artifact types
+
+**What it does not fund:**
+- Base contract work — covered under the Coinbase grant
+- Subgraph indexing — covered under The Graph grant
+- M3 scope — subscription model, tiered API, curation staking
+
+**Reproducibility:** `pnpm verify` — [`VERIFY-M1.md`](docs/VERIFY-M1.md)
+
+**Canonical scope:** [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md)
+
+---
+
+## Evidence
+
+| Capability | Mechanism | Evidence |
+|---|---|---|
+| Deterministic KB identity | JCS canonicalization + keccak256 domain separation | [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md) |
+| Artifact integrity checks | Hash verification from retrieved bytes | [`canonical-envelope-spec.md`](docs/protocol/canonical-envelope-spec.md) |
+| End-to-end proofability | On-chain settlement + artifact references | [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) |
+| KB-F pin-first workflow | Real CIDv1 on-chain + verified artifact | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
+| Deterministic consumption | Canonical vectors + conformance tests | `test-vectors/canonical/` · `test-vectors/v1/` |
+
+---
+
+## M1 Status
+
+M1 is live on Base mainnet. All invariants hold.
+
+| Capability | Status |
+|---|---|
+| Deterministic KB identity | ✅ Live |
+| Immutable lineage DAG | ✅ Live |
+| Settlement + royalty routing | ✅ Live |
+| On-chain economic conservation | ✅ Verified |
+| Subgraph indexing | ✅ Live |
+| IPFS artifact anchoring (KB-F) | ✅ Live — real CIDv1, end-to-end verified |
+
+Verify independently: `pnpm verify` — [`VERIFY-M1.md`](docs/VERIFY-M1.md)
+
+---
 
 ## References
-- `docs/protocol/PROTOCOL-SPEC.md`
-- `docs/protocol/canonical-envelope-spec.md`
-- `docs/grants/LIVE-DEMO-PROOF.md`
-- `docs/grants/IPFS-KB-D-CLI-DEMO.md`
-- `docs/AI-RELIABILITY-SUBSTRATE.md` — problem statement: Alexandrian as the missing deterministic identity substrate beneath AI reliability systems
-- `docs/EPISTEMIC-ECONOMY-BRIEF.md` — compact protocol brief: architecture overview, per-layer rationale, A2A loop, ecosystem impact, M1 status table
-- `docs/EPISTEMIC-ECONOMY-POSITIONING.md` — executive positioning: why Base, IPFS, and The Graph are each structurally necessary; full A2A loop; gold-standard grant statement
-- `docs/VERIFY-M1.md`
-- `docs/M1-SCOPE-FREEZE.md`
+
+| Document | What It Contains |
+|---|---|
+| [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md) | Full protocol specification |
+| [`canonical-envelope-spec.md`](docs/protocol/canonical-envelope-spec.md) | Canonical envelope format and hash scope |
+| [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
+| [`IPFS-KB-D-CLI-DEMO.md`](docs/grants/IPFS-KB-D-CLI-DEMO.md) | KB-D CLI demo and gap documentation |
+| [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
+| [`VERIFY-M1.md`](docs/VERIFY-M1.md) | How to run verification locally |
+| [`MAINNET-ADDRESSES.md`](docs/ops/MAINNET-ADDRESSES.md) | Deployed contract addresses |
+| [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md) | Why deterministic KB identity is missing AI infrastructure |
+| [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) | Full protocol roadmap |
