@@ -1,56 +1,67 @@
 # Alexandrian as AI Reliability Substrate
 
-**Purpose:** Establish the infrastructure gap that Alexandrian addresses and introduce the protocol as the missing deterministic identity and settlement primitive for the AI-native stack.
+**Purpose:** Establish the unbound layers that Alexandrian composes with, and introduce the protocol as the deterministic identity and settlement primitive for the AI-native stack.
 
 See also: [EPISTEMIC-ECONOMY-BRIEF.md](EPISTEMIC-ECONOMY-BRIEF.md) (architecture overview) · [EPISTEMIC-ECONOMY-POSITIONING.md](EPISTEMIC-ECONOMY-POSITIONING.md) (grant reviewer positioning) · [EPISTEMIC-ECONOMY-VISION.md](EPISTEMIC-ECONOMY-VISION.md) (protocol analysis)
 
 ---
 
-## The Infrastructure Gap
+## Compositional Positioning
 
-Modern distributed systems can generate content, store data, and transfer value.
+Alexandrian is designed to compose with existing infrastructure:
 
-There is no deterministic protocol for:
+- **Blockchains** provide settlement and immutability.
+- **IPFS** provides content-addressed storage.
+- **Indexers** provide queryable signal surfaces.
+- **AI systems** provide generation and reasoning.
 
-- Assigning canonical identity to knowledge artifacts.
-- Enforcing immutable derivation structure.
-- Coupling knowledge usage to verifiable economic signals.
-- Creating persistent, addressable reference primitives for reusable knowledge.
-
-As a result, knowledge remains ephemeral, non-compounding, and platform-scoped.
-
-**The internet has protocols for routing packets and transferring value. It does not yet have a protocol for knowledge identity and settlement.**
-
-Alexandrian introduces that missing primitive.
+Alexandrian introduces a deterministic identity and settlement layer that binds these capabilities into a knowledge-native primitive. It does not replace any layer. It expands what those layers can coordinate around.
 
 ---
 
-## The Missing Primitive
+## Unbound Layers
 
-The modern AI stack has:
+Modern distributed systems already provide storage, settlement, and indexing.
+
+What has not yet been composed is a deterministic identity layer for structured knowledge — one that:
+
+- Assigns canonical identity to knowledge artifacts.
+- Enforces immutable derivation structure.
+- Couples knowledge usage to verifiable economic signals.
+- Creates persistent, addressable reference primitives for reusable knowledge.
+
+As a result, knowledge remains ephemeral, non-compounding, and platform-scoped.
+
+**The internet has mature protocols for routing packets and transferring value. Alexandrian introduces a complementary protocol for knowledge identity and settlement.**
+
+---
+
+## The Deterministic Identity Primitive
+
+The modern AI stack already has:
 
 - Storage — IPFS, vector databases, object stores.
 - Settlement — blockchains, payment rails.
 - Indexing — The Graph, search infrastructure.
 
-It lacks:
+Alexandrian introduces the composable layer above these:
 
 - **Knowledge identity** — a canonical, deterministic identifier for any knowledge artifact.
 - **Lineage enforcement** — an immutable derivation graph that tracks contribution structure.
 - **Economic coupling** — usage that generates verifiable, attributable signals.
 - **Public epistemic signals** — a shared, permissionless surface for knowledge coordination.
 
-Alexandrian introduces these as a protocol layer — not a product, not a platform, not a model wrapper.
+Alexandrian formalizes these as a protocol layer — not a product, not a platform, not a model wrapper.
 
 ---
 
-## What the Missing Primitive Unlocks
+## What the Compositional Primitive Enables
 
 These capabilities map to what is conventionally called "AI reliability problems." The framing here is different: Alexandrian does not patch model defects. It introduces infrastructure that enables new behaviors.
 
 ### 1. Persistent Knowledge Primitives
 
-**The gap:** No canonical identity layer for knowledge artifacts. Outputs are regenerated, not referenced.
+Today, knowledge artifacts are generated and stored successfully across many systems. What is not yet standardized is a canonical identity layer that persists across systems.
 
 **What Alexandrian introduces:**
 
@@ -59,7 +70,7 @@ These capabilities map to what is conventionally called "AI reliability problems
 - DAG `sources` — explicit, immutable lineage.
 - Settlement as economically weighted usage signal.
 
-**Capability unlocked:** Agents reference canonical objects instead of re-predicting. Knowledge becomes addressable. Grounding shifts from probabilistic recall to identity-anchored reference.
+**Capability enabled:** Agents reference canonical objects instead of re-predicting. Knowledge becomes addressable. Grounding shifts from probabilistic recall to identity-anchored reference.
 
 This is not RAG. RAG retrieves and re-ingests. This is reference with identity + lineage + economic weight.
 
@@ -67,7 +78,7 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 
 ### 2. Compounding Knowledge
 
-**The gap:** No persistent, addressable reference primitive for reusable knowledge. Memory is internal state — it does not accumulate across systems.
+Today, memory is internal state — it does not accumulate across systems or sessions.
 
 **What Alexandrian introduces:**
 
@@ -76,13 +87,13 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 - Shared namespace accessible by any agent.
 - Non-ephemeral derivations.
 
-**Capability unlocked:** Knowledge compounds. Memory becomes a public epistemic object — addressable by any agent, verifiable by hash, shareable across sessions and frameworks, reusable without recomputation.
+**Capability enabled:** Knowledge compounds. Memory becomes a public epistemic object — addressable by any agent, verifiable by hash, shareable across sessions and frameworks, reusable without recomputation.
 
 ---
 
 ### 3. Structured Derivation
 
-**The gap:** No deterministic substrate that anchors multi-step reasoning to verifiable identity and lineage. Workflows cannot be verified or replayed.
+Today, multi-step workflows cannot be deterministically verified or replayed without trust in the producer.
 
 **What Alexandrian introduces:**
 
@@ -92,13 +103,13 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 - Settlement can mark step completion.
 - Proof verifies the full sequence.
 
-**Capability unlocked:** DAG-backed task graph with identity enforcement. Planning is externally anchored and immutably verifiable by any participant — not reconstructed from logs or trust assumptions.
+**Capability enabled:** DAG-backed task graph with identity enforcement. Planning is externally anchored and immutably verifiable by any participant — not reconstructed from logs or trust assumptions.
 
 ---
 
 ### 4. Tool Schema Identity
 
-**The gap:** No deterministic artifact for tool schemas or outputs. Calls are transient; results are unverifiable after the fact.
+Today, tool schemas and outputs are transient; results are unverifiable after the fact.
 
 **What Alexandrian introduces:**
 
@@ -107,13 +118,13 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 - Evaluation rubrics as KBs.
 - Structural versioning — each change produces a new `kbHash`.
 
-**Capability unlocked:** Tools become epistemic objects. Schema identity (the schema a tool was called with) is on-chain. Output identity (the result) is anchored, not reconstructed. Transformation is formally auditable.
+**Capability enabled:** Tools become epistemic objects. Schema identity (the schema a tool was called with) is on-chain. Output identity (the result) is anchored, not reconstructed. Transformation is formally auditable.
 
 ---
 
 ### 5. Reference-Based Context
 
-**The gap:** No stable reference primitive for large artifacts. Systems re-ingest the same content on every inference.
+Today, systems re-ingest the same content on every inference — there is no stable reference primitive for large artifacts.
 
 **What Alexandrian introduces:**
 
@@ -121,13 +132,13 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 - Identity is constant — `kbHash` is stable regardless of artifact size.
 - Only the hash reference is needed in context.
 
-**Capability unlocked:** Context becomes references, not data. Token load, redundant serialization, and repeated re-ingestion across sessions are eliminated.
+**Capability enabled:** Context becomes references, not data. Token load, redundant serialization, and repeated re-ingestion across sessions are eliminated.
 
 ---
 
 ### 6. Auditable Derivation
 
-**The gap:** No verifiable record of how an output was derived. Auditing requires trust in the producer.
+Today, auditing how an output was derived requires trust in the producer.
 
 **What Alexandrian introduces:**
 
@@ -136,13 +147,13 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 - Proof bundles provide a replayable audit trail.
 - Slashing (M3+) introduces economic consequence for invalid KBs.
 
-**Capability unlocked:** Post-hoc auditability. Transparent lineage. Safety becomes measurable because derivation and usage are public, immutable records — not reconstructed from logs.
+**Capability enabled:** Post-hoc auditability. Transparent lineage. Safety becomes measurable because derivation and usage are public, immutable records — not reconstructed from logs.
 
 ---
 
 ### 7. Identity-Anchored Reproducibility
 
-**The gap:** No stable reference to prior artifacts. Outputs must be regenerated to be reproduced.
+Today, reproducing outputs requires regenerating them — there is no stable reference to prior artifacts.
 
 **What Alexandrian introduces:**
 
@@ -150,13 +161,13 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 - Equivalence verifiable across runs.
 - Reproducible reference to specific artifacts via `kbHash`.
 
-**Capability unlocked:** Reproducibility shifts from *"regenerate the output"* to *"reference the exact `kbHash`."* The artifact referenced is not a reconstruction — it is the same committed object, verifiable by anyone with the hash.
+**Capability enabled:** Reproducibility shifts from *"regenerate the output"* to *"reference the exact `kbHash`."* The artifact referenced is not a reconstruction — it is the same committed object, verifiable by anyone with the hash.
 
 ---
 
 ### 8. Public Epistemic Telemetry
 
-**The gap:** No structured signal infrastructure for measuring knowledge utility at scale. Metrics are platform-scoped and vendor-controlled.
+Today, metrics for knowledge utility at scale are platform-scoped and vendor-controlled.
 
 **What Alexandrian introduces:**
 
@@ -166,7 +177,7 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 - Reputation is computable from signal accumulation.
 - Attribution routing is verifiable on-chain.
 
-**Capability unlocked:** A public epistemic telemetry layer — open, permissionless, queryable by any agent or developer. Not a private dashboard. Not a vendor-controlled metric. A shared signal surface.
+**Capability enabled:** A public epistemic telemetry layer — open, permissionless, queryable by any agent or developer. Not a private dashboard. Not a vendor-controlled metric. A shared signal surface.
 
 ---
 
@@ -184,9 +195,9 @@ This is not RAG. RAG retrieves and re-ingests. This is reference with identity +
 
 ## Strategic Positioning
 
-Systems that generate content, store bytes, and move tokens exist. What does not exist is a neutral protocol for coordinating around knowledge itself — one where knowledge objects have canonical identity, immutable lineage, and economic weight.
+Systems that generate content, store bytes, and move tokens exist. What has not yet been standardized is a neutral protocol for coordinating around knowledge itself — one where knowledge objects have canonical identity, immutable lineage, and economic weight.
 
-Alexandrian does not compete with orchestration tools, RAG pipelines, or memory frameworks. It provides the substrate they operate on top of: a layer where knowledge is identifiable, verifiable, and economically attributable.
+Alexandrian composes with orchestration tools, RAG pipelines, and memory frameworks. It introduces the substrate they can build upon: a layer where knowledge is identifiable, verifiable, and economically attributable.
 
 When any system grounds an agent in Alexandrian KBs, it grounds it in:
 
@@ -195,7 +206,7 @@ When any system grounds an agent in Alexandrian KBs, it grounds it in:
 - Objects whose usage generates an immutable signal.
 - Objects that route economic value to their originators.
 
-> The internet has protocols for routing packets and transferring value. It does not yet have a protocol for knowledge identity and settlement. Alexandrian introduces that protocol.
+> The internet has mature protocols for routing packets and transferring value. Alexandrian introduces a complementary protocol for knowledge identity and settlement.
 
 ---
 
