@@ -307,18 +307,56 @@ Integrity is enforced by hashing and the blockchain. IPFS makes that integrity a
 
 ---
 
-## M2 Funding Request — $15,000
+## M2 Funding Request — $25,000
 
-M2 is **Live Economy and Discovery** — artifact persistence, byte-level verification, and pinning redundancy hardened for production.
+**Milestone 2: Durable Artifact Infrastructure on IPFS**
 
-| Workstream | Allocation | Hours | Deliverable | Acceptance Criteria |
-|---|---|---|---|---|
-| Pinning + persistence policy | 25% / $3,750 | 25h | Multi-provider pinning strategy + runbook | Recovery + persistence checks pass |
-| Artifact verification toolkit | 25% / $3,750 | 25h | CLI/SDK: CID fetch + hash verify + verdict | Deterministic verify pass on sample corpus |
-| Data availability hardening | 20% / $3,000 | 20h | Retry/backoff + resolver policy | Stable retrieval across failure simulations |
-| Content packaging standards | 15% / $2,250 | 15h | Canonical artifact packaging conventions | Validation tests pass for all fixtures |
-| Docs + verification | 15% / $2,250 | 15h | Reference workflows + reproducible demos | Clean-room replay passes |
-| **Total** | **100% / $15,000** | **100h** | | |
+M2 transitions Alexandrian from deterministic on-chain anchoring (M1) to production-grade artifact durability built natively on IPFS.
+
+The focus is strengthening content-addressed persistence, enabling byte-level verification from CID alone, and ensuring Knowledge Blocks remain reproducible and retrievable under degraded network conditions.
+
+This milestone makes Knowledge Block artifacts durable, independently verifiable, and resilient across provider and gateway failures.
+
+---
+
+### Scope Overview
+
+| Workstream | Allocation | Est. Hours | Deliverable | Acceptance Criteria |
+|------------|------------|------------|-------------|---------------------|
+| Multi-Provider Pinning & Persistence Policy | 25% / $6,250 | 50h | Redundant pinning across 3+ providers + operational runbook | CID recovery succeeds under simulated provider failure |
+| Artifact Verification Toolkit (CID-native) | 20% / $5,000 | 40h | CLI/SDK: CID fetch → canonical byte reconstruction → deterministic verdict | Byte-level hash verification passes reproducibly on reference corpus |
+| Gateway Independence & Retrieval Hardening | 15% / $3,750 | 30h | Peer-first retrieval logic, retry/backoff, gateway fallback strategy | Successful retrieval without reliance on a single gateway |
+| Canonical Content Packaging Standards | 15% / $3,750 | 30h | Byte-stable artifact packaging conventions for deterministic CID reproduction | Identical CIDs reproduced across separate environments |
+| Data Availability Stress Testing | 15% / $3,750 | 30h | Network degradation simulation (node churn, provider outage) | Retrieval success ≥ 99% under failure scenarios |
+| Documentation & Reproducible Verification Workflows | 10% / $2,500 | 20h | Public runbook + clean-room verification demo | End-to-end CID verification succeeds without privileged infrastructure |
+
+| **Total** | **100% / $25,000** | **200h** | | |
+
+---
+
+### M2 Completion Criteria
+
+M2 is complete when:
+
+- Artifacts are pinned redundantly across independent IPFS providers.
+- CID-based verification succeeds without reliance on centralized gateways.
+- Canonical artifact packaging produces identical CIDs across environments.
+- Retrieval remains stable under simulated provider and gateway failures.
+- A third party can independently reproduce artifact integrity from CID alone.
+
+---
+
+### Strategic Impact for IPFS
+
+M2 increases:
+
+- Structured, long-lived CID usage for machine-readable knowledge artifacts  
+- Multi-provider pinning demand  
+- Deterministic, byte-stable content packaging standards  
+- Gateway-independent verification workflows  
+- Durable, reproducible artifact integrity for agent-based systems  
+
+This milestone strengthens IPFS as the canonical storage layer for deterministic, content-addressed knowledge infrastructure.
 
 **Execution priority:**
 1. Mandatory CID-binding policy in publish flow
@@ -348,7 +386,7 @@ M2 is **Live Economy and Discovery** — artifact persistence, byte-level verifi
 |---|---|---|
 | Deterministic KB identity | JCS canonicalization + keccak256 domain separation | [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md) |
 | Artifact integrity checks | Hash verification from retrieved bytes | [`canonical-envelope-spec.md`](docs/protocol/canonical-envelope-spec.md) |
-| End-to-end proofability | On-chain settlement + artifact references | [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) |
+| End-to-end proofability | On-chain settlement + artifact references | [`LIVE-DEMO-ARTIFACT.md`](docs/grants/LIVE-DEMO-ARTIFACT.md) |
 | KB-F pin-first workflow | Real CIDv1 on-chain + verified artifact | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
 | Deterministic consumption | Canonical vectors + conformance tests | `test-vectors/canonical/` · `test-vectors/v1/` |
 
@@ -377,7 +415,7 @@ Verify independently: `pnpm verify` — [`VERIFY-M1.md`](docs/VERIFY-M1.md)
 |---|---|
 | [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md) | Full protocol specification |
 | [`canonical-envelope-spec.md`](docs/protocol/canonical-envelope-spec.md) | Canonical envelope format and hash scope |
-| [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
+| [`LIVE-DEMO-ARTIFACT.md`](docs/grants/LIVE-DEMO-ARTIFACT.md) | On-chain settlement transactions and royalty math |
 | [`IPFS-KB-D-CLI-DEMO.md`](docs/grants/IPFS-KB-D-CLI-DEMO.md) | KB-D CLI demo and gap documentation |
 | [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
 | [`VERIFY-M1.md`](docs/VERIFY-M1.md) | How to run verification locally |
