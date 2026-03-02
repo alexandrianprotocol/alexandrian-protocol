@@ -1,51 +1,71 @@
 # Alexandrian Sandbox
 
-Local Filecoin-ready stack for testing the **Alexandrian Runtime** (Gatekeeper + Meter). The runtime runs inside the API service and sits between the API and Storage/Contracts.
+Local stack for testing the Alexandrian runtime against a live Hardhat chain, IPFS node, and Redis cache. Architected to be Filecoin/FVM-ready — this Docker setup does not start a real Filecoin node.
 
 ## Services
 
-| Service     | Role                                      | Ports              |
-|------------|--------------------------------------------|--------------------|
-| **blockchain** | Hardhat node – Registry.sol, $SCRIBE      | 8545               |
-| **ipfs**      | Hot storage for knowledge retrieval        | 4001, 5001, 8080   |
-| **cache**     | Redis – RoyaltyGraph traversal, payouts    | 6379               |
-| **api**       | API & Runtime (Gatekeeper + Meter)         | 3000               |
+| Service | Role | Ports |
+|---|---|---|
+| `blockchain` | Hardhat node — Registry.sol, $SCRIBE | 8545 |
+| `ipfs` | Hot storage for knowledge retrieval | 4001, 5001, 8080 |
+| `cache` | Redis — RoyaltyGraph traversal, payouts | 6379 |
+| `api` | API & Runtime (Gatekeeper + Meter) | 3000 |
 
-## Quick start
-
-From the repo root:
-
+## Quick Start
 ```bash
+git clone https://github.com/jlo-code/alexandria-protocol-v3.git
+cd alexandria-protocol-v3
 docker compose -f docker/docker-compose.yml up --build
 ```
 
-- API: http://localhost:3000  
-- Health: http://localhost:3000/health  
-- RPC: http://localhost:8545 (blockchain)  
-- IPFS API: http://localhost:5001  
-- Redis: localhost:6379  
+| Endpoint | URL |
+|---|---|
+| API | http://localhost:3000 |
+| Health | http://localhost:3000/health |
+| RPC | http://localhost:8545 |
+| IPFS API | http://localhost:5001 |
+| Redis | localhost:6379 |
 
-## Environment (API)
+## Environment Variables
 
-The API container receives:
+The API container accepts the following environment variables:
 
-- `DATABASE_URL` – Redis URL (e.g. `redis://cache:6379`)
-- `RPC_URL` – Chain RPC (e.g. `http://blockchain:8545`)
-- `IPFS_NODE` – IPFS API (e.g. `http://ipfs:5001`)
-- `PORT` – HTTP port (default 3000)
-- `DEPLOYER_PRIVATE_KEY`, `REGISTRY_ADDRESS`, `TOKEN_ADDRESS` – for POST /api/ingest (registry.publish)
+| Variable | Description | Example |
+|---|---|---|
+| `DATABASE_URL` | Redis connection URL | `redis://cache:6379` |
+| `RPC_URL` | Chain RPC endpoint | `http://blockchain:8545` |
+| `IPFS_NODE` | IPFS API endpoint | `http://ipfs:5001` |
+| `PORT` | HTTP port | `3000` |
+| `DEPLOYER_PRIVATE_KEY` | For `POST /api/ingest` | — |
+| `REGISTRY_ADDRESS` | Deployed registry contract | — |
+| `TOKEN_ADDRESS` | Deployed token contract | — |
 
-**Security:** `docker-compose.yml` uses the publicly known Hardhat test key for local dev only. **Never put real private keys or production secrets in this file.** For production, use Docker secrets, `env_file` pointing to an untracked file, or your orchestrator’s secret management.
+> **Security:** `docker-compose.yml` uses the publicly known Hardhat test key for local dev only.
+> Never put real private keys or production secrets in this file.
+> For production, use Docker secrets, an `env_file` pointing to an untracked file,
+> or your orchestrator's secret management.
 
-## Runtime architecture
+## Runtime Architecture
 
-- **Gatekeeper**: On-chain license check (Registry.sol), payment verification ($SCRIBE / subscription), optional decryption key release.
-- **Meter**: Granular usage (chunks/embeddings), proof-of-usage for the royalty DAG.
+| Component | Role |
+|---|---|
+| **Gatekeeper** | On-chain license check (Registry.sol), payment verification ($SCRIBE / subscription), optional decryption key release |
+| **Meter** | Granular usage tracking (chunks/embeddings), proof-of-usage generation for the royalty DAG |
 
 See `packages/runtime` for implementation.
 
+## Document Map
+
+| For | See |
+|---|---|
+| M1 scope boundary | `docs/M1-SCOPE-FREEZE.md` |
+| Protocol invariants | `protocol/INVARIANTS.md` |
+| Full verification suite | `VERIFY-M1.md` |
+| Live deployment proof | `grants/LIVE-DEMO-ARTIFACT.md` |
+
 ---
 
-## Out of scope (M2+)
+## Out of Scope (M2+)
 
-This sandbox is M1. Full API runtime, production orchestration, and M2 services are deferred to M2+. **Full list:** [docs/M1-SCOPE-FREEZE.md](../docs/M1-SCOPE-FREEZE.md).
+This sandbox covers M1. Full API runtime, production orchestration, and M2 services are deferred to M2+.
+See [docs/M1-SCOPE-FREEZE.md](../docs/M1-SCOPE-FREEZE.md) for the full scope boundary.
