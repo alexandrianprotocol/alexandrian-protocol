@@ -19,6 +19,8 @@ This document is the single source of truth for the Alexandrian Protocol. It def
 
 Alexandrian Core is **open, permissionless knowledge provenance infrastructure**. The **economic layer is opt‑in** for projects that want attribution markets.
 
+This protocol is designed to compose with existing blockchain, storage, and indexing infrastructure. It does not replace these layers; it defines deterministic behavior at the knowledge identity boundary.
+
 ---
 
 ## 1. Scope
@@ -214,6 +216,8 @@ The registry contract **accepts a precomputed kbHash** (field name `contentHash`
 
 - **Implication:** The caller (SDK, client, or indexer pipeline) is responsible for computing `kbHash` per §2 before calling `publishKB(kbHash, …)`. The contract uses the `contentHash` field solely as the key for storage and lookup.
 - **Verification:** Any party that needs to verify identity must recompute `kbHash` off-chain from the canonical envelope and compare; the contract does not perform this check. This keeps the contract simple and gas-efficient and places consensus-critical hash rules in the spec and reference implementation (§7), not in the contract bytecode.
+
+- This design keeps contracts minimal and gas-efficient while allowing any implementation to independently verify identity correctness off-chain.
 
 ### 1.8 Indexing and Authority
 
@@ -428,6 +432,8 @@ The following invariants are the **law** of the protocol. Implementations (contr
 | **Content-addressed identity** | kbId is derived only from canonical envelope; no timestamp, curator, or signature in preimage. |
 | **Slashing (when applicable)** | Collateral ceiling per KB; no guilt-by-association; slash only on Rubric or Security Review proof. |
 | **Separation of concerns** | Registry = existence and lineage; Royalty = fee distribution; Stake = collateral and slashing. |
+
+These invariants constrain structure and determinism only. They do not prescribe governance, ranking, or truth semantics.
 
 The subsections below are normative.
 
