@@ -2,8 +2,6 @@
 
 **Purpose:** Production-grade, deterministic, executable definitions of KBs that bootstrap and extend the epistemic economy. These are **not** blog posts; they are **foundational epistemic primitives** for protocol reviewers and agent implementations.
 
-**Ref:** [CORE-FRAMING-AND-BOOTSTRAP.md](../CORE-FRAMING-AND-BOOTSTRAP.md) (boot sequence + full stack); [protocol/PROTOCOL-SPEC.md](../protocol/PROTOCOL-SPEC.md) (normative spec). **M1 mapping:** Only KB-000 → KB-004 are fully implemented in M1; see [IMPLEMENTATION-MAPPING.md](IMPLEMENTATION-MAPPING.md). Coordination (010–014) and Governance (015–019) are conceptual / M2+.
-
 ---
 
 ## Full Stack
@@ -47,8 +45,6 @@ This is **self-governing epistemic infrastructure** for autonomous agents. Every
 | **KB-007** | Competing Claims & Contradiction Protocol | Alternatives, “disagreesWith,” agent choice |
 | **KB-008** | Task → KB Gap → KB Submission Pattern | Detect missing KBs from failures; generate new KBs |
 | **KB-009** | Bundle Construction + Merkle Root | Curated retrieval sets; Merkle root; packaged knowledge |
-
-*Formal KB-005 – KB-009 docs are placeholders; see [CORE-FRAMING-AND-BOOTSTRAP.md](../CORE-FRAMING-AND-BOOTSTRAP.md) for roles.*
 
 ---
 
