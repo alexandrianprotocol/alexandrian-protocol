@@ -1,4 +1,4 @@
-# Canonical Envelope Spec (Milestone 1)
+# Canonical Envelope Spec
 
 **Normative spec:** [PROTOCOL-SPEC.md](PROTOCOL-SPEC.md) §2–3. This document is descriptive and expands on envelope structure and JCS.
 
