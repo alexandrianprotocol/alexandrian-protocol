@@ -12,6 +12,9 @@ document:
 
 # Alexandrian Protocol — Protocol Spec
 
+Sections marked “Normative” define protocol law.
+Sections marked “Informative” provide explanation only.
+
 **Status:** Normative  
 **Version:** 2.0.0 *(Breaking: v1 used `parents`; v2 uses `sources` for canonical envelope. All kb hashes change.)*  
 
