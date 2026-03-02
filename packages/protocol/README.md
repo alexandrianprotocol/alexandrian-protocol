@@ -1,6 +1,6 @@
 # @alexandrian/protocol
 
-**Implements**: [PROTOCOL-SPEC v2.0.0](../../docs/PROTOCOL-SPEC.md)
+**Implements**: [PROTOCOL-SPEC v2.0.0](../../docs/protocol/PROTOCOL-SPEC.md)
 
 ## Structure
 

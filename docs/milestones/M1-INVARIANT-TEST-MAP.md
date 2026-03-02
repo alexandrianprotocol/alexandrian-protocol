@@ -186,7 +186,7 @@
 | **7. Error UX (typed errors, codes)** | sdk-primitives: AlexandrianError, ContractError, ValidationError, codes. m1-demo and invariant tests assert on err.code. | Covered: INVALID_ENVELOPE, CYCLE_DETECTED, SOURCES_NOT_SORTED, SCHEMA_INVALID. |
 | **8. Time travel / historical state** | Contract: getKnowledgeBlock is current state. No resolveAtBlock or getBlockHistory in repo. | M2 or indexer/subgraph feature. |
 | **9. Stress (deep DAG, gas table)** | Registry.test.js: "DAG of depth 1000", "KB with 100 parents", gas profile tests. | Covered: depth, width, gas thresholds. |
-| **10. "Build on top" invitation** | M1-DEMO.md narrative; no hypothetical agent code in repo. | Doc/vision only. |
+| **10. "Build on top" invitation** | VERIFY-M1.md narrative; no hypothetical agent code in repo. | Doc/vision only. |
 
 ---
 

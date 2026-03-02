@@ -1,7 +1,7 @@
 # Milestone 1 — Completion Checklist
 
 **Scope:** Production-grade protocol engineering + SDK / distributed engineering (web services–ready).  
-**Reference:** [PROTOCOL-SPEC.md](../protocol/PROTOCOL-SPEC.md), [INVARIANTS.md](../protocol/INVARIANTS.md), [M1-DEMO.md](../M1-DEMO.md).
+**Reference:** [PROTOCOL-SPEC.md](../protocol/PROTOCOL-SPEC.md), [INVARIANTS.md](../protocol/INVARIANTS.md), [VERIFY-M1.md](../VERIFY-M1.md).
 
 Use this checklist for M1 sign-off: protocol correctness, conformance, and SDK/infra readiness. Each item is verifiable (command, test, or doc).
 

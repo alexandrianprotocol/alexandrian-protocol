@@ -134,5 +134,5 @@ M1 delivers the identity and settlement substrate. M2 makes it observable and di
 | [`AI-RELIABILITY-SUBSTRATE.md`](AI-RELIABILITY-SUBSTRATE.md) | Eight capability gaps Alexandrian addresses |
 | [`protocol/INVARIANTS.md`](protocol/INVARIANTS.md) | Nine enforced invariants (INV-1–INV-9) |
 | [`protocol/PROTOCOL-SPEC.md`](protocol/PROTOCOL-SPEC.md) | Normative specification (v2.0.0, frozen) |
-| [`grants/LIVE-DEMO-PROOF.md`](grants/LIVE-DEMO-PROOF.md) | On-chain evidence: tx hashes, royalty math |
+| [`grants/LIVE-DEMO-ARTIFACT.md`](grants/LIVE-DEMO-ARTIFACT.md) | On-chain evidence: tx hashes, royalty math |
 | [`VERIFY-M1.md`](VERIFY-M1.md) | Verification commands and expected output |

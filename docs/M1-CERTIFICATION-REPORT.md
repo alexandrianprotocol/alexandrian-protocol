@@ -95,4 +95,4 @@ Certification is M1. The full list of items deferred to M2+ is in [M1-SCOPE-FREE
 
 Milestone 1 core protocol is **deterministic, reproducible, and invariant-safe**. Certification is produced by `pnpm certify:m1` and written to `certification/m1-report.json` with a fingerprint in `certification/m1-badge.json`.
 
-For live chain + subgraph demonstration (Base mainnet, seeds, The Graph), see `scripts/m1-live-demo.mjs`, [M1-DEMO.md](M1-DEMO.md) (section: "Live Demo — Base + Seeds + Subgraph Integration"), and [LIVE-DEMO-PROOF.md](LIVE-DEMO-PROOF.md) for the recorded evidence.
+For live chain + subgraph demonstration (Base mainnet, seeds, The Graph), see `scripts/m1-live-demo.mjs`, [VERIFY-M1.md](VERIFY-M1.md), and [grants/LIVE-DEMO-ARTIFACT.md](grants/LIVE-DEMO-ARTIFACT.md) for the recorded evidence.

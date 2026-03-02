@@ -10,7 +10,7 @@ KB-F demonstrates that Alexandrian composes on-chain knowledge identity (Base ma
 |---|---|
 | Protocol invariants KB-F satisfies | `protocol/INVARIANTS.md` |
 | Full M1 verification suite | `VERIFY-M1.md` |
-| Live deployment proof | `grants/LIVE-DEMO-PROOF.md` |
+| Live deployment proof | `grants/LIVE-DEMO-ARTIFACT.md` |
 | Canonical identity specification | `protocol/PROTOCOL-SPEC.md` |
 
 ---

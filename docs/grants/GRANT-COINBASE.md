@@ -200,7 +200,7 @@ Builders on Base can add knowledge attribution and ETH royalty routing to their 
 | Same KB ID everywhere | Content hash: `keccak256("KB_V1" \|\| JCS(...))` | [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md), ADR 0001/0002, test vectors |
 | No value lost in settlement | Split logic enforced in contract | [`INVARIANTS.md`](docs/protocol/INVARIANTS.md), economic invariant tests |
 | No circular lineage | Parent existence + cycle check at registration | Protocol invariant tests |
-| Live royalty routing | ETH split across contributor lineage at settle time | On-chain tx: [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) · [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) |
+| Live royalty routing | ETH split across contributor lineage at settle time | On-chain tx: [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) · [`LIVE-DEMO-ARTIFACT.md`](docs/grants/LIVE-DEMO-ARTIFACT.md) |
 | Queryable settlement data | KB entity IDs derived from content hash; subgraph reindexes consistently | [`SUBGRAPH-BUILD-RUN-RESULTS.md`](docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md) |
 
 ---
@@ -240,6 +240,6 @@ Builders on Base can add knowledge attribution and ETH royalty routing to their 
 
 | Document | What It Contains |
 |---|---|
-| [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
+| [`LIVE-DEMO-ARTIFACT.md`](docs/grants/LIVE-DEMO-ARTIFACT.md) | On-chain settlement transactions and royalty math |
 | [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
 | [`VERIFY-M1.md`](docs/VERIFY-M1.md) | How to run verification locally |

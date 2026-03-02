@@ -329,7 +329,7 @@ M2 is **Live Economy and Discovery** — the same protocol as M1, now hardened f
 
 | Document | What It Contains |
 |---|---|
-| [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
+| [`LIVE-DEMO-ARTIFACT.md`](docs/grants/LIVE-DEMO-ARTIFACT.md) | On-chain settlement transactions and royalty math |
 | [`SUBGRAPH-BUILD-RUN-RESULTS.md`](docs/ops/SUBGRAPH-BUILD-RUN-RESULTS.md) | Subgraph build and indexing results |
 | [`M2-FUNDING-EXECUTION-PLAN.md`](docs/grants/M2-FUNDING-EXECUTION-PLAN.md) | M2 scope and execution plan |
 | [`VERIFY-M1.md`](docs/VERIFY-M1.md) | How to run verification locally |

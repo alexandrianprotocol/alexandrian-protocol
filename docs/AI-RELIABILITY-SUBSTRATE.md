@@ -239,5 +239,5 @@ All mechanisms are present in M1. M2 makes signals discoverable. M3–M6 harden 
 | [protocol/PROTOCOL-SPEC.md](protocol/PROTOCOL-SPEC.md) | Normative specification (v2.0.0, frozen) |
 | [grants/GRANT-COINBASE.md](grants/GRANT-COINBASE.md) | Base Builders grant application |
 | [grants/GRANT-THE-GRAPH.md](grants/GRANT-THE-GRAPH.md) | The Graph grant application |
-| [grants/LIVE-DEMO-PROOF.md](grants/LIVE-DEMO-PROOF.md) | On-chain evidence |
+| [grants/LIVE-DEMO-ARTIFACT.md](grants/LIVE-DEMO-ARTIFACT.md) | On-chain evidence |
 | [VERIFY-M1.md](VERIFY-M1.md) | Verification commands and expected output |

@@ -1,6 +1,6 @@
-# Alexandrian Core v1 — Conformance Suite
+# Alexandrian Core — Conformance Suite
 
-This package implements the **conformance tests** for [PROTOCOL-SPEC-v1.md](../../docs/PROTOCOL-SPEC-v1.md). The suite validates that implementations produce identical outputs for the same inputs; it validates the **spec**, not a specific codebase.
+This package implements the **conformance tests** for the canonical test vectors and proof format defined in the protocol documentation. The suite validates that implementations produce identical outputs for the same inputs; it validates the **spec**, not a specific codebase.
 
 ## What is tested
 
@@ -36,4 +36,4 @@ After the first run, the proof test will compare against this golden file. Do no
 
 ## Compliance
 
-Implementations that claim **Core** compliance MUST pass the envelope and proof conformance tests against the shipped vectors. See [PROTOCOL-SPEC-v1.md §8](../../docs/PROTOCOL-SPEC-v1.md#8-conformance).
+Implementations that claim **Core** compliance MUST pass the envelope and proof conformance tests against the shipped vectors.

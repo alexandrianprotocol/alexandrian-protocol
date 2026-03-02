@@ -2,7 +2,7 @@
 
 Immutable golden vectors for **Core v1** conformance. Every implementation that claims compliance MUST produce identical outputs for these inputs.
 
-See [PROTOCOL-SPEC-v1.md](../../docs/PROTOCOL-SPEC-v1.md) and [packages/conformance](../../packages/conformance/).
+See the protocol specification (`docs/protocol/PROTOCOL-SPEC.md`) and the conformance suite in [`packages/conformance`](../../packages/conformance/).
 
 ## Layout
 
