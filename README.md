@@ -295,7 +295,7 @@ The economic conservation invariant holds across all events.
 
 ## 🔎 Independent Verification (The Graph)
 
-[The Graph](https://thegraph.com/studio/subgraph/alexandrian-protocol/)
+[The Graph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
 
 The following query independently reproduces settlement routing and royalty distribution:
 
