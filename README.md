@@ -106,6 +106,7 @@ Alexandrian Protocol
          ├── Base        — settlement rail + identity anchor
          ├── IPFS        — content vault (artifact integrity by CID)
          └── The Graph   — coordination surface (discovery, ranking, signals)
+
 ```
 
 | Layer | Responsibility | Live |
@@ -280,7 +281,6 @@ All value transfers are executed and enforced on-chain.
 - 78.4% → KB-D curator
 - 2% → Protocol fee
 
-Zero wei created or lost.
 
 | Tx | Recipient | Role | Amount |
 |----|-----------|------|--------|
