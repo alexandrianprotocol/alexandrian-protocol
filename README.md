@@ -1,11 +1,15 @@
-#  🏛 Alexandrian Protocol   
+#  🏛 Alexandrian Protocol
+
 [![M1 Verification](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml)
 [![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 [![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 [![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
-[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/)
+[![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
+[![Knowledge Blocks](https://img.shields.io/badge/KBs-7000%2B-brightgreen)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 
 A canonical identity and settlement layer for attributable, compoundable knowledge — built for autonomous agents.
+
+**[7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) are now live on Base Mainnet.**
 
 ---
 
@@ -20,6 +24,44 @@ A canonical identity and settlement layer for attributable, compoundable knowled
 | 💰 | [Coinbase Grant](docs/grants/GRANT-COINBASE.md) |
 | 🗂 | [The Graph Grant](docs/grants/GRANT-THE-GRAPH.md) |
 | 📦 | [IPFS Grant](docs/grants/GRANT-IPFS.md) |
+
+---
+
+## 🧠 [7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) Live on Base Mainnet
+
+**The largest on-chain AI knowledge graph.** Every KB has a canonical `kbHash`, immutable lineage DAG, and royalty-routing settlement — queryable today via [The Graph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest).
+
+| Layer | Status |
+|-------|--------|
+| [Contract 0x5D6dee4…](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) | Live on Base Mainnet |
+| [7,000+ KBs](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) | Published on-chain, fully indexed |
+| [Subgraph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) | Live — indexing from block 42593045 |
+| [Grant Verification](docs/grants/GRANT-THE-GRAPH.md) | [✅ Basescan](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) · [✅ Subgraph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) · [✅ IPFS](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
+
+### 📚 Knowledge Block Domains
+
+| Domain | Representative KB | Type |
+|--------|-------------------|------|
+| **Agent Systems** | | |
+| 🤖 Agent orchestration | Designing multi-agent orchestration pipelines with role handoffs and conflict resolution | `Feature` |
+| 🧩 Task decomposition | Implementing hierarchical task decomposition for complex agent goals | `Practice` |
+| 🔍 Semantic routing | Designing semantic routing systems via embedding similarity to capability descriptions | `Feature` |
+| 📊 LLM evaluation | Designing LLM evaluation pipelines with metric tracking and regression detection | `Rubric` |
+| **Backend & Infrastructure** | | |
+| 🏗 Microservice architecture | Designing scalable microservice architectures with explicit service boundaries | `StateMachine` |
+| ⚡ Zero-downtime deployments | Rolling and blue-green deploys with health checks and connection drain | `Practice` |
+| 📡 Distributed tracing | Building distributed tracing pipelines with context propagation and span aggregation | `Practice` |
+| 🔄 CI/CD pipelines | Zero-downtime release pipelines with automated rollback and canary promotion | `Practice` |
+| 🔭 Observability & telemetry | Structured logging, distributed metrics, and alerting pipeline design | `Feature` |
+| 📐 Performance engineering | Profiling, load testing, bottleneck identification, and capacity planning | `Practice` |
+| **Security & Compliance** | | |
+| 🔐 Auth & access control | Implementing OAuth2, RBAC, and zero-trust access control patterns | `ComplianceChecklist` |
+| 🛡 Cybersecurity | Threat modeling, red-teaming, and vulnerability triage procedures | `ComplianceChecklist` |
+| 💰 Financial systems | Payment processing, ledger design, and regulatory compliance procedures | `ComplianceChecklist` |
+| **Data & AI** | | |
+| 🗄 RAG systems | Designing retrieval-augmented generation pipelines with reranking and citation | `Feature` |
+| 📈 ML/MLOps | Model deployment, feature stores, drift detection, and experiment tracking | `Practice` |
+| 🌐 Web3 / on-chain | Smart contract patterns, gas optimisation, and on-chain settlement design | `Feature` |
 
 ---
 
@@ -41,7 +83,7 @@ This is not a capability problem. What's missing is a canonical identity and set
 
 > For the full roadmap of where this leads: [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) · [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md)
 
-**Alexandrian is that layer.**.
+**Alexandrian is that layer.**
 
 ---
 
@@ -61,32 +103,28 @@ kbHash = keccak256("KB_V1" || JCS(normalize(envelope)))
 | **Immutable lineage DAG** | Derivation is encoded on-chain, not reconstructed — knowledge compounds across contributors |
 | **Settlement + royalty routing** | Usage triggers atomic, lineage-aware ETH settlement — attribution is enforced, not assumed |
 
+An A2A epistemic economy emerges when:
 
-An A2A epistemic economy emerges when: 
 - Identity is canonical
 - Derivation is immutable
-- Usage produces public signals 
+- Usage produces public signals
 - Coordination occurs through shared `kbHash` reference
 
 Agents coordinate not through regeneration, but through shared references to stable, canonical Knowledge Blocks.
 
 ---
 
- ## 📦 Knowledge Block (KB): The Primitive
+## 📦 Knowledge Block (KB): The Primitive
 
-  A **Knowledge Block (KB)** is the protocol’s atomic knowledge object: a
-  canonical envelope of content, metadata, and lineage commitments that
-  produces a stable `kbHash`.
+A **Knowledge Block (KB)** is the protocol's atomic knowledge object: a canonical envelope of content, metadata, and lineage commitments that produces a stable `kbHash`.
 
-  A KB is the primitive for deterministic knowledge identity because:
-  - the envelope is normalized canonically (`JCS(normalize(envelope))`)
-  - identity is derived deterministically (`keccak256("KB_V1" ||
-  canonicalEnvelope)`)
-  - the same KB always yields the same `kbHash` across machines and
-  environments
+A KB is the primitive for deterministic knowledge identity because:
 
-  In Alexandrian, agents do not coordinate by regenerating content; they
-  coordinate by referencing the same KB identity.
+- the envelope is normalized canonically (`JCS(normalize(envelope))`)
+- identity is derived deterministically (`keccak256("KB_V1" || canonicalEnvelope)`)
+- the same KB always yields the same `kbHash` across machines and environments
+
+In Alexandrian, agents do not coordinate by regenerating content; they coordinate by referencing the same KB identity.
 
 ---
 
@@ -106,14 +144,13 @@ Alexandrian Protocol
          ├── Base        — settlement rail + identity anchor
          ├── IPFS        — content vault (artifact integrity by CID)
          └── The Graph   — coordination surface (discovery, ranking, signals)
-
 ```
 
 | Layer | Responsibility | Live |
 |---|---|---|
 | **Base** | Settlement rail + identity anchor | [Contract](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) · [Settlement tx](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) |
-| **IPFS** | Content vault — artifact integrity by CID | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/) |
-| **The Graph** | Coordination surface — discovery, ranking, signals | [Subgraph](https://thegraph.com/studio/subgraph/alexandrian-protocol/) |
+| **IPFS** | Content vault — artifact integrity by CID | [KB-F artifact](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
+| **The Graph** | Coordination surface — discovery, ranking, signals | [Subgraph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) |
 
 ---
 
@@ -174,7 +211,7 @@ Agent (wallet)
 
 | Agent Limitation | Alexandrian Mechanism |
 |---|---|
-| Probalistic Regeneration | Identity-anchored KB reference |
+| Probabilistic Regeneration | Identity-anchored KB reference |
 | Session-scoped memory | Cross-session immutable KB objects |
 | Informal Derivation Tracking | On-chain DAG-backed lineage |
 | Opaque Tool Execution | Tool schemas and outputs as KBs |
@@ -215,7 +252,7 @@ Core identity and settlement invariants are fixed at M1; subsequent milestones e
 
 ## M1 Status
 
-M1 is live on Base mainnet. All invariants hold.
+M1 is live on Base Mainnet. All invariants hold.
 
 | Capability | Status |
 |---|---|
@@ -223,24 +260,24 @@ M1 is live on Base mainnet. All invariants hold.
 | Immutable lineage DAG | ✅ Live |
 | Settlement + royalty routing | ✅ Live |
 | On-chain economic conservation | ✅ Verified |
-| Subgraph indexing | ✅ Live |
+| Subgraph indexing | ✅ Live — 7,000+ KBs from block 42593045 |
 | IPFS artifact anchoring | ✅ Live |
 
 Verify independently: `pnpm verify` — see [`VERIFY-M1.md`](docs/VERIFY-M1.md)
 
 ---
 
-## 🧠 Knowledge Block Registry
+## 📋 Genesis KB Registry
 
-5 settlements executed on chain with invariant-preserving royalty propagation.
+Genesis DAG (KB-A through KB-F) — the canonical proof-of-concept lineage. [7,000+ KBs](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) now live on Base Mainnet with invariant-preserving royalty propagation.
 
 ```mermaid
 flowchart LR
     A --> B --> C --> D
     C --> KB_F["F"]
-``` 
+```
 
-| KB | kb Hash | Publish Tx | Parent | IPFS CID |
+| KB | KB Hash | Publish Tx | Parent | IPFS CID |
 |----|---------|------------|--------|----------|
 | KB-A | [`0x2f00aff3...`](https://basescan.org/tx/0x1d1e959edf9cfb01db087ff6cf0b8910e9aa67c4b2d434b908fbc4c86017dd6e) | [`0x1d1e959e...`](https://basescan.org/tx/0x1d1e959edf9cfb01db087ff6cf0b8910e9aa67c4b2d434b908fbc4c86017dd6e) | — | — |
 | KB-B | [`0xf65dbddb...`](https://basescan.org/tx/0x6f724f7810927ff8b41ffc8755fd52d3e904ba5bb9a7b4e405194bff1ac0a3a8) | [`0x6f724f78...`](https://basescan.org/tx/0x6f724f7810927ff8b41ffc8755fd52d3e904ba5bb9a7b4e405194bff1ac0a3a8) | KB-A | — |
@@ -250,9 +287,9 @@ flowchart LR
 
 ---
 
-# 💰 M1 Settlement Proof
+## 💰 M1 Settlement Proof
 
-## KB-D Lifecycle — End-to-End
+### KB-D Lifecycle — End-to-End
 
 Canonical lifecycle verified on-chain:
 
@@ -263,6 +300,7 @@ Canonical lifecycle verified on-chain:
 | Withdraw earnings | [`0x79da1704...`](https://basescan.org/tx/0x79da1704354b4297882d3cd2045b966f0d9030d584ec35ec37910b6ced419ddd) |
 
 This demonstrates:
+
 - Deterministic identity registration
 - Lineage-aware settlement execution
 - Royalty propagation
@@ -272,7 +310,7 @@ All value transfers are executed and enforced on-chain.
 
 ---
 
-## 💰 Royalty Distribution (Economic Invariant)
+### 💸 Royalty Distribution (Economic Invariant)
 
 **Settlement:** 0.001 ETH
 
@@ -281,13 +319,12 @@ All value transfers are executed and enforced on-chain.
 - 78.4% → KB-D curator
 - 2% → Protocol fee
 
+Zero wei created or lost.
 
 | Tx | Recipient | Role | Amount |
 |----|-----------|------|--------|
 | [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) | [`0x797e03...`](https://basescan.org/address/0x797e03A3123d09B40fcD536388182B88c6DFAFc7) | KB-C curator (parent royalty) | 0.000196 ETH |
 | [`0x87288b5c...`](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) | [`0x370750...`](https://basescan.org/address/0x370750Dad9cC8e62C9b95A66dB6F3204DE056a73) | KB-D curator | 0.000784 ETH |
-
-5 settlements executed on-chain with consistent routing.
 
 The economic conservation invariant holds across all events.
 
@@ -295,9 +332,7 @@ The economic conservation invariant holds across all events.
 
 ## 🔎 Independent Verification (The Graph)
 
-[The Graph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
-
-The following query independently reproduces settlement routing and royalty distribution:
+Run this query live against the [deployed subgraph](https://thegraph.com/studio/subgraph/alexandrian-protocol/) — it returns real settlement data from Base Mainnet, independently verifiable without trusting this repo.
 
 ```graphql
 {
@@ -319,11 +354,13 @@ The following query independently reproduces settlement routing and royalty dist
   }
 }
 ```
+
 ---
 
 ## 📚 Documentation
 
 ### Protocol
+
 | Document | What It Contains |
 |---|---|
 | [`PROTOCOL-SPEC.md`](docs/protocol/PROTOCOL-SPEC.md) | Full protocol specification |
@@ -331,6 +368,7 @@ The following query independently reproduces settlement routing and royalty dist
 | [`VERIFY-M1.md`](docs/VERIFY-M1.md) | Independent verification — `pnpm verify` |
 
 ### Epistemic Economy
+
 | Document | What It Contains |
 |---|---|
 | [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) | Full protocol roadmap |
@@ -339,6 +377,7 @@ The following query independently reproduces settlement routing and royalty dist
 | [`EPISTEMIC-ECONOMY-BRIEF.md`](docs/EPISTEMIC-ECONOMY-BRIEF.md) | Compact protocol brief — architecture, A2A loop, M1 status |
 
 ### Execution
+
 | Document | What It Contains |
 |---|---|
 | [`LIVE-DEMO-PROOF.md`](docs/grants/LIVE-DEMO-PROOF.md) | On-chain settlement transactions and royalty math |
