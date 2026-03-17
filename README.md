@@ -5,11 +5,11 @@
 [![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29)
 [![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest)
 [![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
-[![Knowledge Blocks](https://img.shields.io/badge/KBs-7000%2B-brightgreen)](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29)
+[![Knowledge Blocks](https://img.shields.io/badge/KBs-7000%2B-brightgreen)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 
 A canonical identity and settlement layer for attributable, compoundable knowledge — built for autonomous agents.
 
-**[7,000+ Knowledge Blocks](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29) are now live on Base Mainnet.**
+**[7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) are now live on Base Mainnet.**
 
 ---
 
@@ -27,14 +27,14 @@ A canonical identity and settlement layer for attributable, compoundable knowled
 
 ---
 
-## 🧠 [7,000+ Knowledge Blocks](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29) Live on Base Mainnet
+## 🧠 [7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) Live on Base Mainnet
 
 **The largest on-chain AI knowledge graph.** Every KB has a canonical `kbHash`, immutable lineage DAG, and royalty-routing settlement — queryable today via [The Graph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest).
 
 | Layer | Status |
 |-------|--------|
-| [Contract 0x5D6dee4…](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29) | Live on Base Mainnet |
-| [7,000+ KBs](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29) | Published on-chain, fully indexed |
+| [Contract 0x5D6dee4…](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) | Live on Base Mainnet |
+| [7,000+ KBs](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) | Published on-chain, fully indexed |
 | [Subgraph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) | Live — indexing from block 42593045 |
 | [Grant Verification](docs/grants/GRANT-THE-GRAPH.md) | [✅ Basescan](https://basescan.org/tx/0x87288b5c76651cf92789437f9e29e5b1c68fea5fa3ca33b11c3dc5a875b5c10f) · [✅ Subgraph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest) · [✅ IPFS](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json) |
 
@@ -269,7 +269,7 @@ Verify independently: `pnpm verify` — see [`VERIFY-M1.md`](docs/VERIFY-M1.md)
 
 ## 📋 Genesis KB Registry
 
-Genesis DAG (KB-A through KB-F) — the canonical proof-of-concept lineage. [7,000+ KBs](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29) now live on Base Mainnet with invariant-preserving royalty propagation.
+Genesis DAG (KB-A through KB-F) — the canonical proof-of-concept lineage. [7,000+ KBs](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) now live on Base Mainnet with invariant-preserving royalty propagation.
 
 ```mermaid
 flowchart LR
