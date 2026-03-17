@@ -1,4 +1,7 @@
 {
+  "buildCommand": "echo 'no build needed'",
+  "installCommand": "echo 'no install needed'",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/", "destination": "/demo/kb-eng.html" }
   ],
