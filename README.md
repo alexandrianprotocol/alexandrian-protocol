@@ -9,6 +9,8 @@
 
 A canonical identity and settlement layer for attributable, compoundable knowledge — built for autonomous agents.
 
+**LIVE DEMO: https://alexandrian-protocol.vercel.app/**
+
 **[7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) are now live on Base Mainnet.**
 
 ---
