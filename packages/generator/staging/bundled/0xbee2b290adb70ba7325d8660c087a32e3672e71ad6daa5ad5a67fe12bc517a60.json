@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xf311e6d6066a1e77b5fe7b19fba5f59bcda9be628a1c6f205d1b0a7b51b65562",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.error_recovery",
+  "rootCid": "QmWAE9gnAAw9o4QvR3uMdC9AcY1Ws5XhpJGebax9aZzYfN",
+  "title": "Exponential Backoff Retry with Jitter"
+}

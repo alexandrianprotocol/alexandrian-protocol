@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x38afb6542b0c50fed15da0a4da6e3b7a11dd04d9d392da6d4e35352020af0168",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "mlops.serving.batch",
+  "rootCid": "QmRotbBXBs8fv3cAMFukyLhgTQEYvWa3ojuAKFX5Ro9Bcu",
+  "title": "Batch Inference Pipeline Design"
+}

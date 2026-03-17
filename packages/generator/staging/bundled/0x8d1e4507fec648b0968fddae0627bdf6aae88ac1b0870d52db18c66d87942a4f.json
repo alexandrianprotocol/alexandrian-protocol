@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x8c30ffa6e812e6ee5aa71aa7d5cf59812c5e47334c45f703cd0358cf748a373e",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "blockchain.indexing.event_handlers",
+  "rootCid": "QmVebp9d7L9DdkVx7R7ii76wY43Y84kGZ3MgqJb3pARn8G",
+  "title": "Idempotent Blockchain Event Handler Mappings"
+}

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alexandrian Protocol — KB-ENG Demo</title>
+  <!-- marked: markdown parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+  <!-- DOMPurify: HTML sanitizer (prevents XSS from rendered markdown) -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #070710;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      background: #0a0a1a;
+      border-bottom: 1px solid #1e2035;
+    }
+    .logo { font-size: 17px; font-weight: 700; letter-spacing: -0.5px; color: #fff; }
+    .logo span { color: #818cf8; }
+    .badges { display: flex; gap: 10px; }
+    .badge {
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .badge-base { background: #1a1a3a; border: 1px solid #3b3b7a; color: #818cf8; }
+    .badge-live { background: #0d2718; border: 1px solid #166534; color: #4ade80; }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 64px;
+      padding: 22px 40px;
+      background: #0a0a1a;
+      border-bottom: 1px solid #1e2035;
+    }
+    .stat { text-align: center; }
+    .stat-value { font-size: 22px; font-weight: 700; color: #818cf8; line-height: 1; }
+    .stat-label { font-size: 10px; color: #4b5563; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── Section ── */
+    .section { max-width: 1160px; margin: 0 auto; padding: 32px 40px 0; }
+    .section-title {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: #4b5563; margin-bottom: 16px;
+    }
+
+    /* ── DAG ── */
+    .dag-wrap {
+      background: #0d0d1f; border: 1px solid #1e2035; border-radius: 12px; padding: 16px 20px;
+    }
+    .dag-svg { width: 100%; height: auto; display: block; }
+    .dag-node rect { transition: opacity 0.15s; }
+    .dag-node:hover rect:first-of-type { opacity: 0.82; }
+
+    /* ── KB Cards ── */
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 20px;
+    }
+    .kb-card {
+      background: #0d0d1f; border: 1px solid #1e2035; border-radius: 12px;
+      padding: 16px; position: relative; overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .kb-card:hover { border-color: #2d3060; box-shadow: 0 0 20px rgba(99,102,241,0.07); }
+    .kb-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+    .c1::before { background: #818cf8; }
+    .c2::before { background: #34d399; }
+    .c3::before { background: #f472b6; }
+    .c4::before { background: #fb923c; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+    .kb-id { font-size: 10px; font-weight: 700; font-family: monospace; letter-spacing: 1px; }
+    .id1 { color: #818cf8; } .id2 { color: #34d399; } .id3 { color: #f472b6; } .id4 { color: #fb923c; }
+
+    .type-badge {
+      font-size: 9px; padding: 2px 6px; border-radius: 4px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .t-practice  { background: #064e3b; color: #34d399; }
+    .t-feature   { background: #1e1b4b; color: #818cf8; }
+    .t-checklist { background: #431407; color: #fb923c; }
+
+    .kb-title { font-size: 12px; font-weight: 600; color: #f1f5f9; line-height: 1.4; margin-bottom: 12px; }
+
+    .meta { display: flex; flex-direction: column; gap: 4px; }
+    .meta-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .ml { font-size: 9px; color: #4b5563; text-transform: uppercase; letter-spacing: 0.5px; }
+    .mv { font-size: 9px; color: #94a3b8; font-family: monospace; }
+    .mv-hash   { color: #6366f1; }
+    .mv-green  { color: #4ade80; }
+    .mv-orange { color: #f59e0b; }
+
+    .card-links {
+      display: flex; gap: 6px; margin-top: 12px;
+      padding-top: 12px; border-top: 1px solid #1e2035;
+    }
+    .lbtn {
+      flex: 1; text-align: center; padding: 5px 6px;
+      border-radius: 6px; font-size: 9px; font-weight: 700;
+      text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;
+      transition: opacity 0.2s;
+    }
+    .lbtn:hover { opacity: 0.75; }
+    .lbtn-scan { background: #1e1b4b; color: #818cf8; }
+    .lbtn-ipfs { background: #0f172a; border: 1px solid #1e2a4a; color: #60a5fa; }
+
+    /* ── Query UI ── */
+    .query-section {
+      max-width: 1160px; margin: 28px auto 0; padding: 0 40px;
+    }
+    .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .preset-btn {
+      padding: 7px 14px; border-radius: 8px; border: 1px solid #1e2035;
+      background: #0d0d1f; color: #94a3b8; font-size: 12px; cursor: pointer;
+      transition: all 0.15s; white-space: nowrap;
+    }
+    .preset-btn:hover { border-color: #4f46e5; color: #a5b4fc; background: #13132a; }
+    .preset-btn.active { border-color: #4f46e5; color: #a5b4fc; background: #1e1b4b; }
+
+    .input-row { display: flex; gap: 10px; align-items: flex-end; }
+    .q-textarea {
+      flex: 1; background: #0d0d1f; border: 1px solid #1e2035; border-radius: 10px;
+      color: #e2e8f0; font-size: 13px; padding: 12px 16px; resize: vertical;
+      min-height: 72px; font-family: inherit; outline: none;
+      transition: border-color 0.15s;
+    }
+    .q-textarea:focus { border-color: #4f46e5; }
+    .q-textarea::placeholder { color: #374151; }
+
+    .submit-btn {
+      padding: 12px 28px; border-radius: 10px; border: none;
+      background: #4f46e5; color: #fff; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: background 0.15s; white-space: nowrap; height: 48px;
+      align-self: flex-end;
+    }
+    .submit-btn:hover:not(:disabled) { background: #4338ca; }
+    .submit-btn:disabled { background: #1e1b4b; color: #4b5563; cursor: not-allowed; }
+
+    /* ── Response panel ── */
+    .response-section {
+      max-width: 1160px; margin: 24px auto 0; padding: 0 40px 48px;
+      display: none;
+    }
+    .response-section.visible { display: block; }
+
+    .response-grid { display: grid; grid-template-columns: 1fr 320px; gap: 20px; }
+
+    .answer-panel {
+      background: #0d0d1f; border: 1px solid #1e2035; border-radius: 12px; overflow: hidden;
+    }
+    .panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 16px; background: #0a0a1a; border-bottom: 1px solid #1e2035;
+    }
+    .panel-title { font-size: 11px; font-weight: 700; color: #6366f1; display: flex; align-items: center; gap: 8px; }
+    .dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0.25 } }
+
+    .answer-body { padding: 20px; font-size: 13px; line-height: 1.7; color: #cbd5e1; max-height: 600px; overflow-y: auto; }
+
+    /* Markdown styles */
+    .answer-body h1,.answer-body h2,.answer-body h3 { color: #f1f5f9; margin: 16px 0 8px; }
+    .answer-body h1 { font-size: 16px; } .answer-body h2 { font-size: 14px; } .answer-body h3 { font-size: 13px; }
+    .answer-body p { margin-bottom: 12px; }
+    .answer-body ul,.answer-body ol { margin: 8px 0 12px 20px; }
+    .answer-body li { margin-bottom: 4px; }
+    .answer-body code {
+      background: #13132a; border: 1px solid #1e2035; border-radius: 4px;
+      padding: 1px 6px; font-family: 'Fira Code', monospace; font-size: 11px; color: #a5b4fc;
+    }
+    .answer-body pre {
+      background: #0a0a1a; border: 1px solid #1e2035; border-radius: 8px;
+      padding: 14px; margin: 12px 0; overflow-x: auto;
+    }
+    .answer-body pre code { background: none; border: none; padding: 0; font-size: 11px; color: #94a3b8; }
+    .answer-body strong { color: #e2e8f0; }
+    .answer-body blockquote { border-left: 3px solid #4f46e5; padding-left: 12px; color: #6b7280; margin: 12px 0; }
+    .answer-body table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
+    .answer-body th { background: #0a0a1a; border: 1px solid #1e2035; padding: 7px 10px; color: #818cf8; text-align: left; }
+    .answer-body td { border: 1px solid #1e2035; padding: 7px 10px; }
+
+    /* Loading skeleton */
+    .skeleton { animation: shimmer 1.5s infinite; }
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position:  400px 0; }
+    }
+    .skel-line {
+      height: 12px; border-radius: 4px; margin-bottom: 10px;
+      background: linear-gradient(90deg, #13132a 25%, #1e1b4b 50%, #13132a 75%);
+      background-size: 800px 100%;
+    }
+
+    /* ── Attribution rail ── */
+    .attribution-panel { display: flex; flex-direction: column; gap: 10px; }
+    .attr-card {
+      background: #0d0d1f; border: 1px solid #1e2035; border-radius: 10px;
+      padding: 12px 14px; position: relative; overflow: hidden;
+    }
+    .attr-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; }
+    .a1::before { background: #818cf8; } .a2::before { background: #34d399; }
+    .a3::before { background: #f472b6; } .a4::before { background: #fb923c; }
+
+    .attr-id { font-size: 9px; font-weight: 700; font-family: monospace; letter-spacing: 1px; margin-bottom: 3px; }
+    .attr-title { font-size: 11px; font-weight: 600; color: #f1f5f9; margin-bottom: 8px; line-height: 1.35; }
+    .attr-meta { display: flex; flex-direction: column; gap: 3px; }
+    .attr-row { display: flex; justify-content: space-between; }
+    .attr-l { font-size: 9px; color: #4b5563; text-transform: uppercase; letter-spacing: 0.5px; }
+    .attr-v { font-size: 9px; color: #94a3b8; font-family: monospace; }
+    .attr-v-green { font-size: 9px; color: #4ade80; font-family: monospace; }
+    .attr-links { display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #1e2035; }
+    .attr-link {
+      flex: 1; text-align: center; padding: 4px 6px; border-radius: 5px;
+      font-size: 9px; font-weight: 700; text-decoration: none; text-transform: uppercase;
+      letter-spacing: 0.5px; transition: opacity 0.15s;
+    }
+    .attr-link:hover { opacity: 0.75; }
+    .al-scan { background: #1e1b4b; color: #818cf8; }
+    .al-ipfs { background: #0f172a; border: 1px solid #1e2a4a; color: #60a5fa; }
+
+    /* ── Settlement bar ── */
+    .settlement-bar { max-width: 1160px; margin: 16px auto 0; padding: 0 40px; display: none; }
+    .settlement-bar.visible { display: block; }
+    .settlement-inner {
+      background: #0a0a1a; border: 1px solid #1e2035; border-radius: 10px;
+      padding: 14px 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .settle-label { font-size: 10px; color: #4b5563; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+    .settle-total { font-size: 16px; font-weight: 700; color: #4ade80; white-space: nowrap; }
+    .settle-flow { display: flex; gap: 8px; align-items: center; flex: 1; flex-wrap: wrap; }
+    .settle-node {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: #0d0d1f; border: 1px solid #1e2035; border-radius: 8px; padding: 6px 12px;
+    }
+    .settle-kb  { font-size: 9px; font-weight: 700; font-family: monospace; }
+    .settle-eth { font-size: 11px; font-weight: 700; color: #4ade80; }
+    .settle-arrow { color: #374151; font-size: 12px; }
+    .settle-note { font-size: 10px; color: #6b7280; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center; padding: 20px;
+      font-size: 10px; color: #374151;
+      border-top: 1px solid #1e2035; margin-top: 32px;
+    }
+    .footer a { color: #4b5563; text-decoration: none; }
+    .footer a:hover { color: #818cf8; }
+
+    @media (max-width: 900px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .response-grid { grid-template-columns: 1fr; }
+      .stats-bar { gap: 28px; flex-wrap: wrap; }
+      .section, .query-section, .response-section, .settlement-bar { padding-left: 20px; padding-right: 20px; }
+      .header { padding: 16px 20px; }
+    }
+    @media (max-width: 540px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="logo">Alexandrian<span>Protocol</span></div>
+  <div class="badges">
+    <span class="badge badge-base">Base Mainnet</span>
+    <span class="badge badge-live">&#9679; Live</span>
+  </div>
+</header>
+
+<!-- ── Stats bar ── -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-value">4</div>
+    <div class="stat-label">KB-ENG Cluster</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">7,082+</div>
+    <div class="stat-label">Total Indexed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" style="font-size:13px;padding-top:5px">0xD1F216E8&#x2026;B29</div>
+    <div class="stat-label">Contract · Base</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">0.004 ETH</div>
+    <div class="stat-label">Per Query</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" style="font-size:13px;padding-top:5px">The Graph</div>
+    <div class="stat-label">Indexed</div>
+  </div>
+</div>
+
+<!-- ── DAG ── -->
+<div class="section">
+  <div class="section-title">Attribution DAG &#8212; KB-ENG Knowledge Chain</div>
+  <div class="dag-wrap">
+    <svg class="dag-svg" viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+          <path d="M0,0 L0,7 L8,3.5 z" fill="#374151"/>
+        </marker>
+      </defs>
+      <line x1="0" y1="100" x2="1000" y2="100" stroke="#12122a" stroke-width="1"/>
+
+      <!-- KB-ENG-1 to KB-ENG-2 (top arc) -->
+      <path d="M 215 85 C 320 55, 430 55, 535 85"
+            stroke="#2d3060" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+      <text x="360" y="52" font-size="8" fill="#374151" font-family="monospace" text-anchor="middle">500 bps</text>
+
+      <!-- KB-ENG-1 to KB-ENG-3 (bottom arc) -->
+      <path d="M 215 118 C 320 148, 430 148, 535 118"
+            stroke="#2d3060" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+      <text x="360" y="162" font-size="8" fill="#374151" font-family="monospace" text-anchor="middle">500 bps</text>
+
+      <!-- KB-ENG-3 to KB-ENG-4 -->
+      <path d="M 695 151 C 730 155, 760 140, 775 120"
+            stroke="#2d3060" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+      <text x="740" y="162" font-size="8" fill="#374151" font-family="monospace" text-anchor="middle">500 bps</text>
+
+      <!-- Node 1: KB-ENG-1 -->
+      <g class="dag-node">
+        <rect x="30"  y="62" width="185" height="76" rx="8" fill="#13131f" stroke="#4f46e5" stroke-width="1.5"/>
+        <rect x="30"  y="62" width="185" height="3"  rx="2" fill="#818cf8"/>
+        <text x="122" y="84"  text-anchor="middle" font-size="9"  fill="#818cf8" font-family="monospace" font-weight="bold">KB-ENG-1 &#xB7; Practice</text>
+        <text x="122" y="103" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="600">API Design</text>
+        <text x="122" y="118" text-anchor="middle" font-size="9"  fill="#6b7280">Resource model &#xB7; Error schema</text>
+        <text x="122" y="132" text-anchor="middle" font-size="8"  fill="#4ade80" font-family="monospace">&#x25CF; Root seed &#xB7; block 43,465,242</text>
+      </g>
+
+      <!-- Node 2: KB-ENG-2 -->
+      <g class="dag-node">
+        <rect x="535" y="48" width="160" height="66" rx="8" fill="#13131f" stroke="#059669" stroke-width="1.5"/>
+        <rect x="535" y="48" width="160" height="3"  rx="2" fill="#34d399"/>
+        <text x="615" y="69"  text-anchor="middle" font-size="9"  fill="#34d399" font-family="monospace" font-weight="bold">KB-ENG-2 &#xB7; Feature</text>
+        <text x="615" y="85"  text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="600">OpenAPI Contract</text>
+        <text x="615" y="100" text-anchor="middle" font-size="9"  fill="#6b7280">Schema-first spec</text>
+        <text x="615" y="110" text-anchor="middle" font-size="8"  fill="#4ade80" font-family="monospace">&#x25CF; block 43,465,244</text>
+      </g>
+
+      <!-- Node 3: KB-ENG-3 -->
+      <g class="dag-node">
+        <rect x="535" y="118" width="160" height="66" rx="8" fill="#13131f" stroke="#a21caf" stroke-width="1.5"/>
+        <rect x="535" y="118" width="160" height="3"  rx="2" fill="#f472b6"/>
+        <text x="615" y="139" text-anchor="middle" font-size="9"  fill="#f472b6" font-family="monospace" font-weight="bold">KB-ENG-3 &#xB7; Practice</text>
+        <text x="615" y="155" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="600">Implementation</text>
+        <text x="615" y="170" text-anchor="middle" font-size="9"  fill="#6b7280">DI &#xB7; logging &#xB7; shutdown</text>
+        <text x="615" y="180" text-anchor="middle" font-size="8"  fill="#4ade80" font-family="monospace">&#x25CF; block 43,465,245</text>
+      </g>
+
+      <!-- Node 4: KB-ENG-4 -->
+      <g class="dag-node">
+        <rect x="775" y="62" width="185" height="76" rx="8" fill="#13131f" stroke="#c2410c" stroke-width="1.5"/>
+        <rect x="775" y="62" width="185" height="3"  rx="2" fill="#fb923c"/>
+        <text x="867" y="84"  text-anchor="middle" font-size="9"  fill="#fb923c" font-family="monospace" font-weight="bold">KB-ENG-4 &#xB7; Checklist</text>
+        <text x="867" y="103" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="600">Security</text>
+        <text x="867" y="118" text-anchor="middle" font-size="9"  fill="#6b7280">JWT &#xB7; IDOR &#xB7; OWASP</text>
+        <text x="867" y="132" text-anchor="middle" font-size="8"  fill="#4ade80" font-family="monospace">&#x25CF; block 43,465,248</text>
+      </g>
+
+      <!-- Parent count badges -->
+      <circle cx="535" cy="81"  r="10" fill="#0d0d1f" stroke="#4f46e5" stroke-width="1.5"/>
+      <text x="535" y="85"  text-anchor="middle" font-size="9" fill="#818cf8" font-weight="bold">1p</text>
+      <circle cx="535" cy="151" r="10" fill="#0d0d1f" stroke="#4f46e5" stroke-width="1.5"/>
+      <text x="535" y="155" text-anchor="middle" font-size="9" fill="#818cf8" font-weight="bold">1p</text>
+      <circle cx="775" cy="113" r="10" fill="#0d0d1f" stroke="#a21caf" stroke-width="1.5"/>
+      <text x="775" y="117" text-anchor="middle" font-size="9" fill="#f472b6" font-weight="bold">1p</text>
+
+      <!-- Legend -->
+      <rect x="30" y="183" width="10" height="2" fill="#2d3060" rx="1"/>
+      <text x="45" y="187" font-size="8" fill="#4b5563" font-family="monospace">attribution edge &#xB7; royalty bps</text>
+      <circle cx="210" cy="185" r="5" fill="#0d0d1f" stroke="#4f46e5" stroke-width="1"/>
+      <text x="220" y="188" font-size="8" fill="#4b5563" font-family="monospace">parent count</text>
+    </svg>
+  </div>
+
+  <!-- ── KB Cards ── -->
+  <div class="cards-grid">
+    <div class="kb-card c1">
+      <div class="card-top">
+        <span class="kb-id id1">KB-ENG-1</span>
+        <span class="type-badge t-practice">Practice</span>
+      </div>
+      <div class="kb-title">Stable Production API Design</div>
+      <div class="meta">
+        <div class="meta-row"><span class="ml">Hash</span><span class="mv mv-hash">0x5745&#x2026;0d20</span></div>
+        <div class="meta-row"><span class="ml">Parents</span><span class="mv mv-green">Root Seed</span></div>
+        <div class="meta-row"><span class="ml">Royalty</span><span class="mv mv-orange">0 bps (origin)</span></div>
+        <div class="meta-row"><span class="ml">Block</span><span class="mv">43,465,242</span></div>
+      </div>
+      <div class="card-links">
+        <a class="lbtn lbtn-scan" href="https://basescan.org/tx/0x910b534b5da8dde3a0e0e6be71b8406e35dea2de2868334f0ae0f5b93d42b8e4" target="_blank" rel="noopener noreferrer">Basescan &#x2197;</a>
+        <a class="lbtn lbtn-ipfs" href="https://ipfs.io/ipfs/QmQfF4NtyFhNeEwxn4GdHhUYT5o2Emmb1r2CDuo1AGe9un" target="_blank" rel="noopener noreferrer">IPFS &#x2197;</a>
+      </div>
+    </div>
+    <div class="kb-card c2">
+      <div class="card-top">
+        <span class="kb-id id2">KB-ENG-2</span>
+        <span class="type-badge t-feature">Feature</span>
+      </div>
+      <div class="kb-title">OpenAPI Contract Specification</div>
+      <div class="meta">
+        <div class="meta-row"><span class="ml">Hash</span><span class="mv mv-hash">0x9c91&#x2026;cb1c</span></div>
+        <div class="meta-row"><span class="ml">Parents</span><span class="mv">KB-ENG-1</span></div>
+        <div class="meta-row"><span class="ml">Royalty</span><span class="mv mv-orange">500 bps &#x2192; KB-ENG-1</span></div>
+        <div class="meta-row"><span class="ml">Block</span><span class="mv">43,465,244</span></div>
+      </div>
+      <div class="card-links">
+        <a class="lbtn lbtn-scan" href="https://basescan.org/tx/0x9ed0bff86d5a179ff6ff7f3ee40c15473071d48a2f014b2b79328a3b70941a49" target="_blank" rel="noopener noreferrer">Basescan &#x2197;</a>
+        <a class="lbtn lbtn-ipfs" href="https://ipfs.io/ipfs/QmdzWRjtbWBQ8DpwzC8pHZ8U9BssHnzvPUDrS6gWeRRyck" target="_blank" rel="noopener noreferrer">IPFS &#x2197;</a>
+      </div>
+    </div>
+    <div class="kb-card c3">
+      <div class="card-top">
+        <span class="kb-id id3">KB-ENG-3</span>
+        <span class="type-badge t-practice">Practice</span>
+      </div>
+      <div class="kb-title">RESTful API Implementation</div>
+      <div class="meta">
+        <div class="meta-row"><span class="ml">Hash</span><span class="mv mv-hash">0x5181&#x2026;e57d</span></div>
+        <div class="meta-row"><span class="ml">Parents</span><span class="mv">KB-ENG-1</span></div>
+        <div class="meta-row"><span class="ml">Royalty</span><span class="mv mv-orange">500 bps &#x2192; KB-ENG-1</span></div>
+        <div class="meta-row"><span class="ml">Block</span><span class="mv">43,465,245</span></div>
+      </div>
+      <div class="card-links">
+        <a class="lbtn lbtn-scan" href="https://basescan.org/tx/0x12ba3da15871a00c0baa4063508243c5c8bf9ee8be7f292c66fb3fa828bc20da" target="_blank" rel="noopener noreferrer">Basescan &#x2197;</a>
+        <a class="lbtn lbtn-ipfs" href="https://ipfs.io/ipfs/QmZQ2gV9trEhNvKck8Rmr374k2hTWPU8yPj7btfPqCfWUq" target="_blank" rel="noopener noreferrer">IPFS &#x2197;</a>
+      </div>
+    </div>
+    <div class="kb-card c4">
+      <div class="card-top">
+        <span class="kb-id id4">KB-ENG-4</span>
+        <span class="type-badge t-checklist">Checklist</span>
+      </div>
+      <div class="kb-title">API Endpoint Security</div>
+      <div class="meta">
+        <div class="meta-row"><span class="ml">Hash</span><span class="mv mv-hash">0xc481&#x2026;a5e3</span></div>
+        <div class="meta-row"><span class="ml">Parents</span><span class="mv">KB-ENG-3</span></div>
+        <div class="meta-row"><span class="ml">Royalty</span><span class="mv mv-orange">500 bps &#x2192; KB-ENG-3</span></div>
+        <div class="meta-row"><span class="ml">Block</span><span class="mv">43,465,248</span></div>
+      </div>
+      <div class="card-links">
+        <a class="lbtn lbtn-scan" href="https://basescan.org/tx/0xb827012cdcf1ecd3c62bd7b2f035abb2ac744d2139abbf60695bd2d2714dc493" target="_blank" rel="noopener noreferrer">Basescan &#x2197;</a>
+        <a class="lbtn lbtn-ipfs" href="https://ipfs.io/ipfs/Qmeu9YpyukeA96DptqKoafZo6rYsMwtryJQuFo8h5pDDrS" target="_blank" rel="noopener noreferrer">IPFS &#x2197;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Query UI ── -->
+<div class="query-section" style="margin-top:32px">
+  <div class="section-title">Ask the KB-ENG Knowledge Cluster</div>
+  <div class="presets">
+    <button class="preset-btn" data-q="Build a POST /api/keys endpoint for a SaaS product that lets authenticated users generate API keys for their account. Include the OpenAPI spec, Express/TypeScript handler, and security evaluation.">POST /api/keys endpoint</button>
+    <button class="preset-btn" data-q="Design a user registration API with email verification. Cover the resource model, OpenAPI contract, implementation pattern, and auth scheme.">User registration API</button>
+    <button class="preset-btn" data-q="I have an existing REST API with no rate limiting, no structured logging, and no contract tests. Walk me through hardening it against the OWASP API Top 10.">Harden an existing API</button>
+    <button class="preset-btn" data-q="Design a file upload API endpoint that accepts documents up to 50MB, validates MIME types, and stores them with per-user access control.">File upload API</button>
+  </div>
+  <div class="input-row">
+    <textarea
+      id="q-input"
+      class="q-textarea"
+      placeholder="Ask an API design, implementation, or security question grounded in the 4 KB-ENG artifacts above&#x2026; (Ctrl+Enter to submit)"
+    ></textarea>
+    <button class="submit-btn" id="submit-btn">Ask &#x2192;</button>
+  </div>
+</div>
+
+<!-- ── Settlement bar ── -->
+<div class="settlement-bar" id="settlement-bar">
+  <div class="settlement-inner">
+    <div>
+      <div class="settle-label">Settlement</div>
+      <div class="settle-total">0.004 ETH</div>
+    </div>
+    <div class="settle-flow" id="settle-flow"></div>
+    <div class="settle-note">2% protocol fee &#xB7; remainder split across DAG</div>
+  </div>
+</div>
+
+<!-- ── Response ── -->
+<div class="response-section" id="response-section">
+  <div class="section-title">Grounded Response + Attribution Trail</div>
+  <div class="response-grid">
+    <div class="answer-panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <span class="dot"></span>
+          GPT-4o &#xB7; Grounded via KB-ENG-1 through KB-ENG-4
+        </div>
+        <span id="model-badge" style="font-size:10px;color:#4b5563">gpt-4o</span>
+      </div>
+      <div class="answer-body" id="answer-body"></div>
+    </div>
+    <div class="attribution-panel" id="attr-panel"></div>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <a href="https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29" target="_blank" rel="noopener noreferrer">Contract 0xD1F216E8&#x2026;B29</a>
+  &nbsp;&#xB7;&nbsp;
+  <a href="https://thegraph.com/studio/subgraph/alexandrian-protocol/" target="_blank" rel="noopener noreferrer">The Graph Studio</a>
+  &nbsp;&#xB7;&nbsp;
+  Base Mainnet &#xB7; 2026
+</footer>
+
+<script>
+'use strict';
+
+// ── KB metadata (static, no runtime injection) ────────────────────────────────
+var KB_META = [
+  { id:'KB-ENG-1', title:'Stable Production API Design',   type:'Practice',
+    hash:'0x574542249886be6e935764c9b1518b57bae71cab15de273a41d39c190c5d0d20',
+    cid:'QmQfF4NtyFhNeEwxn4GdHhUYT5o2Emmb1r2CDuo1AGe9un',
+    tx:'0x910b534b5da8dde3a0e0e6be71b8406e35dea2de2868334f0ae0f5b93d42b8e4',
+    royalty:'0 bps (origin)', acls:'a1', idcls:'id1', eth:'0.000980' },
+  { id:'KB-ENG-2', title:'OpenAPI Contract Specification', type:'Feature',
+    hash:'0x9c9187a7852768097b2b441acbeedb86374cd003d1c02f57cd7178852a36cb1c',
+    cid:'QmdzWRjtbWBQ8DpwzC8pHZ8U9BssHnzvPUDrS6gWeRRyck',
+    tx:'0x9ed0bff86d5a179ff6ff7f3ee40c15473071d48a2f014b2b79328a3b70941a49',
+    royalty:'500 bps \u2192 KB-ENG-1', acls:'a2', idcls:'id2', eth:'0.000980' },
+  { id:'KB-ENG-3', title:'RESTful API Implementation',     type:'Practice',
+    hash:'0x5181efedb5749f4e6157cf622e63969d3949c7f979258333a11d1b735714e57d',
+    cid:'QmZQ2gV9trEhNvKck8Rmr374k2hTWPU8yPj7btfPqCfWUq',
+    tx:'0x12ba3da15871a00c0baa4063508243c5c8bf9ee8be7f292c66fb3fa828bc20da',
+    royalty:'500 bps \u2192 KB-ENG-1', acls:'a3', idcls:'id3', eth:'0.000980' },
+  { id:'KB-ENG-4', title:'API Endpoint Security',          type:'Checklist',
+    hash:'0xc481b00215bda9fd757e7c123459ce5cbe0d1de2b55b6e9f98ae2b99d1eba5e3',
+    cid:'Qmeu9YpyukeA96DptqKoafZo6rYsMwtryJQuFo8h5pDDrS',
+    tx:'0xb827012cdcf1ecd3c62bd7b2f035abb2ac744d2139abbf60695bd2d2714dc493',
+    royalty:'500 bps \u2192 KB-ENG-3', acls:'a4', idcls:'id4', eth:'0.000980' },
+];
+
+// ── Preset buttons ────────────────────────────────────────────────────────────
+document.querySelectorAll('.preset-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.preset-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('q-input').value = btn.dataset.q;
+  });
+});
+
+// ── Submit ────────────────────────────────────────────────────────────────────
+document.getElementById('submit-btn').addEventListener('click', runQuery);
+document.getElementById('q-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { runQuery(); }
+});
+
+// ── Attribution cards ─────────────────────────────────────────────────────────
+function buildAttrCards() {
+  var panel = document.getElementById('attr-panel');
+  // Clear safely
+  while (panel.firstChild) { panel.removeChild(panel.firstChild); }
+
+  KB_META.forEach(function(kb) {
+    // Card wrapper
+    var card = document.createElement('div');
+    card.className = 'attr-card ' + kb.acls;
+
+    // ID line
+    var idEl = document.createElement('div');
+    idEl.className = 'attr-id ' + kb.idcls;
+    idEl.textContent = kb.id + ' \u00B7 ' + kb.type;
+    card.appendChild(idEl);
+
+    // Title
+    var titleEl = document.createElement('div');
+    titleEl.className = 'attr-title';
+    titleEl.textContent = kb.title;
+    card.appendChild(titleEl);
+
+    // Meta rows
+    var meta = document.createElement('div');
+    meta.className = 'attr-meta';
+    var rows = [
+      { l: 'Hash',    v: kb.hash.slice(0,10) + '\u2026' + kb.hash.slice(-4), cls: 'attr-v' },
+      { l: 'ETH',     v: kb.eth + ' ETH',  cls: 'attr-v-green' },
+      { l: 'Royalty', v: kb.royalty,        cls: 'attr-v' },
+    ];
+    rows.forEach(function(r) {
+      var row = document.createElement('div');
+      row.className = 'attr-row';
+      var lbl = document.createElement('span');
+      lbl.className = 'attr-l';
+      lbl.textContent = r.l;
+      var val = document.createElement('span');
+      val.className = r.cls;
+      val.textContent = r.v;
+      row.appendChild(lbl);
+      row.appendChild(val);
+      meta.appendChild(row);
+    });
+    card.appendChild(meta);
+
+    // Links
+    var links = document.createElement('div');
+    links.className = 'attr-links';
+
+    var scanLink = document.createElement('a');
+    scanLink.className = 'attr-link al-scan';
+    scanLink.href = 'https://basescan.org/tx/' + kb.tx;
+    scanLink.target = '_blank';
+    scanLink.rel = 'noopener noreferrer';
+    scanLink.textContent = 'Basescan \u2197';
+    links.appendChild(scanLink);
+
+    var ipfsLink = document.createElement('a');
+    ipfsLink.className = 'attr-link al-ipfs';
+    ipfsLink.href = 'https://ipfs.io/ipfs/' + kb.cid;
+    ipfsLink.target = '_blank';
+    ipfsLink.rel = 'noopener noreferrer';
+    ipfsLink.textContent = 'IPFS \u2197';
+    links.appendChild(ipfsLink);
+
+    card.appendChild(links);
+    panel.appendChild(card);
+  });
+}
+
+// ── Settlement bar ────────────────────────────────────────────────────────────
+function buildSettlement() {
+  var flow = document.getElementById('settle-flow');
+  while (flow.firstChild) { flow.removeChild(flow.firstChild); }
+
+  KB_META.forEach(function(kb, i) {
+    if (i > 0) {
+      var arrow = document.createElement('span');
+      arrow.className = 'settle-arrow';
+      arrow.textContent = '\u2192';
+      flow.appendChild(arrow);
+    }
+    var node = document.createElement('div');
+    node.className = 'settle-node';
+
+    var kbLabel = document.createElement('span');
+    kbLabel.className = 'settle-kb ' + kb.idcls;
+    kbLabel.textContent = kb.id;
+    node.appendChild(kbLabel);
+
+    var ethLabel = document.createElement('span');
+    ethLabel.className = 'settle-eth';
+    ethLabel.textContent = kb.eth + ' ETH';
+    node.appendChild(ethLabel);
+
+    flow.appendChild(node);
+  });
+}
+
+// ── Loading skeleton ──────────────────────────────────────────────────────────
+function showSkeleton() {
+  var body = document.getElementById('answer-body');
+  while (body.firstChild) { body.removeChild(body.firstChild); }
+
+  var wrapper = document.createElement('div');
+  wrapper.className = 'skeleton';
+  [85, 70, 90, 60, 80, 75, 88].forEach(function(w) {
+    var line = document.createElement('div');
+    line.className = 'skel-line';
+    line.style.width = w + '%';
+    wrapper.appendChild(line);
+  });
+  body.appendChild(wrapper);
+
+  buildAttrCards();
+  document.getElementById('response-section').classList.add('visible');
+  document.getElementById('settlement-bar').classList.remove('visible');
+}
+
+// ── Main query ────────────────────────────────────────────────────────────────
+function runQuery() {
+  var question = document.getElementById('q-input').value.trim();
+  if (!question) { return; }
+
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Thinking\u2026';
+
+  showSkeleton();
+  var responseEl = document.getElementById('response-section');
+  window.scrollTo({ top: responseEl.getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+
+  fetch('/api/query', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question: question }),
+  })
+  .then(function(res) {
+    if (!res.ok) {
+      return res.json().catch(function() { return { error: res.statusText }; }).then(function(e) {
+        throw new Error(e.error || res.statusText);
+      });
+    }
+    return res.json();
+  })
+  .then(function(data) {
+    // Render markdown answer safely via marked + DOMPurify
+    var rawHtml = marked.parse(data.answer || '');
+    var cleanHtml = DOMPurify.sanitize(rawHtml, {
+      ALLOWED_TAGS: ['p','br','h1','h2','h3','h4','strong','em','code','pre',
+                     'ul','ol','li','blockquote','table','thead','tbody','tr','th','td','hr'],
+      ALLOWED_ATTR: [],
+    });
+
+    var body = document.getElementById('answer-body');
+    while (body.firstChild) { body.removeChild(body.firstChild); }
+    var tmp = document.createElement('div');
+    // DOMPurify output assigned to a scratch element first, then children moved
+    tmp.innerHTML = cleanHtml;
+    while (tmp.firstChild) { body.appendChild(tmp.firstChild); }
+
+    if (data.model) {
+      document.getElementById('model-badge').textContent = data.model;
+    }
+    buildAttrCards();
+    buildSettlement();
+    document.getElementById('settlement-bar').classList.add('visible');
+  })
+  .catch(function(err) {
+    var body = document.getElementById('answer-body');
+    while (body.firstChild) { body.removeChild(body.firstChild); }
+
+    var p1 = document.createElement('p');
+    p1.style.color = '#f87171';
+    p1.textContent = 'Error: ' + err.message;
+    body.appendChild(p1);
+
+    var p2 = document.createElement('p');
+    p2.style.color = '#6b7280';
+    p2.style.fontSize = '12px';
+    p2.style.marginTop = '8px';
+    p2.textContent = 'Make sure the Vercel function is deployed and OPENAI_API_KEY is configured.';
+    body.appendChild(p2);
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.textContent = 'Ask \u2192';
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Ensure comprehensive model lineage is recorded in the registry for traceability and reproducibility."
+  ],
+  "confidence": 0.93,
+  "domain": "mlops.registry.lineage",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to lineage validation log",
+        "name": "discrepancies",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "lineage validation log",
+        "type": "log"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "the authorship information by appending the names",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "contact details of all contributors",
+        "type": "metric"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0x1ef6d3de0bf6e90aa661331769e14c1097dcc4193119eb26d6d02aa7821b49bf",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Assert all input data by checking that each dataset used in training is accompanied by a unique identifier and checksum; log discrepancies to lineage_validation_log by asserting all required fields conform to the schema definition; emit VALIDATION_FAILED with field path on the first failing field; assert field_validation_pass_rate >= 1.0.",
+      "step": 1
+    },
+    {
+      "action": "Compile lineage data by aggregating model metadata, including hyperparameters, training metrics, and evaluation results, into a structured JSON object; ensure all fields are non-null using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Register the compiled lineage data in the model registry using the registry's API; confirm successful registration by checking for a 201 Created HTTP response status using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Log the authorship information by appending the names and contact details of all contributors to the model lineage record; ensure compliance with data privacy regulations using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Verify the integrity of the registered lineage by comparing the stored checksum of training data against the original dataset checksum; alert if mismatches are detected using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:18:31.331Z",
+  "royaltyBps": 400,
+  "schemaVersion": "2.5",
+  "summary": "Procedure to record complete model lineage in a registry, including training data, hyperparameters, metrics, evaluation results, and authors.",
+  "tags": [
+    "mlops",
+    "model_registry",
+    "lineage_tracking",
+    "traceability",
+    "reproducibility",
+    "data_integrity",
+    "privacy_compliance"
+  ],
+  "title": "Comprehensive Model Lineage Recording",
+  "verification": {
+    "failureConditions": [
+      "Traceability is compromised when lineage data lacks unique identifiers, causing difficulties in reproducing model results.",
+      "Reproducibility fails when hyperparameters are not logged, leading to inconsistent model performance across environments.",
+      "Data privacy violations occur when authorship information is improperly logged, causing unauthorized access to personal data."
+    ],
+    "metrics": [
+      "all input data by checking that each dataset used in training is accompanied by a unique identifier and checksum",
+      "field_validation_pass_rate >= 1.0",
+      "error_count < 1 and result_valid = true",
+      "checksum(original_data) == checksum(stored_data)",
+      "all(authors in compliance_list)"
+    ],
+    "successConditions": [
+      "lineage_data_integrity: assert checksum(original_data) == checksum(stored_data)",
+      "registration_status_code == 201",
+      "lineage_record_fields.count(null) == 0",
+      "authorship_info_compliance: assert all(authors in compliance_list)"
+    ]
+  }
+}

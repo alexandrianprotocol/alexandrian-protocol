@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xe078bfe30b5d92286b18150c678092d6e5369d7c8b7dff70a2bcca2c130c4444",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity",
+  "rootCid": "QmQrmpYNtbffN32Yw19j6YtBw2NZbNh96P8bsdkCZWzNF7",
+  "title": "Emit Indexed Events For State Changes In Solidity"
+}

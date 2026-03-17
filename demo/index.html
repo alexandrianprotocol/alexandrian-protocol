@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alexandrian Protocol — Agent KB Cluster Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #070710;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      background: #0a0a1a;
+      border-bottom: 1px solid #1e2035;
+    }
+    .logo { font-size: 17px; font-weight: 700; letter-spacing: -0.5px; color: #fff; }
+    .logo span { color: #818cf8; }
+    .badges { display: flex; gap: 10px; }
+    .badge {
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .badge-base  { background: #1a1a3a; border: 1px solid #3b3b7a; color: #818cf8; }
+    .badge-live  { background: #0d2718; border: 1px solid #166534; color: #4ade80; }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 64px;
+      padding: 22px 40px;
+      background: #0a0a1a;
+      border-bottom: 1px solid #1e2035;
+    }
+    .stat { text-align: center; }
+    .stat-value { font-size: 26px; font-weight: 700; color: #818cf8; line-height: 1; }
+    .stat-label { font-size: 10px; color: #4b5563; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── Sections ── */
+    .section { max-width: 1160px; margin: 0 auto; padding: 36px 40px 0; }
+    .section-last { padding-bottom: 48px; }
+    .section-title {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: #4b5563; margin-bottom: 18px;
+    }
+
+    /* ── DAG ── */
+    .dag-wrap {
+      background: #0d0d1f;
+      border: 1px solid #1e2035;
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .dag-svg { width: 100%; height: auto; display: block; }
+    .dag-node rect { transition: opacity 0.15s; }
+    .dag-node:hover rect:first-of-type { opacity: 0.85; }
+
+    /* ── Cards ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .kb-card {
+      background: #0d0d1f;
+      border: 1px solid #1e2035;
+      border-radius: 12px;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .kb-card:hover {
+      border-color: #2d3060;
+      box-shadow: 0 0 24px rgba(99,102,241,0.08);
+    }
+    .kb-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+    }
+    .c1::before { background: #818cf8; }
+    .c2::before { background: #34d399; }
+    .c3::before { background: #f472b6; }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+    .kb-id { font-size: 10px; font-weight: 700; font-family: monospace; letter-spacing: 1px; }
+    .id1 { color: #818cf8; } .id2 { color: #34d399; } .id3 { color: #f472b6; }
+
+    .type-badge {
+      font-size: 9px; padding: 2px 7px; border-radius: 4px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .t-feature  { background: #1e1b4b; color: #818cf8; }
+    .t-practice { background: #064e3b; color: #34d399; }
+    .t-rubric   { background: #4a044e; color: #f472b6; }
+
+    .kb-title { font-size: 13px; font-weight: 600; color: #f1f5f9; line-height: 1.45; margin-bottom: 14px; }
+
+    .meta { display: flex; flex-direction: column; gap: 5px; }
+    .meta-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .ml { font-size: 9px; color: #4b5563; text-transform: uppercase; letter-spacing: 0.5px; }
+    .mv { font-size: 10px; color: #94a3b8; font-family: monospace; }
+    .mv-hash   { color: #6366f1; }
+    .mv-green  { color: #4ade80; }
+    .mv-orange { color: #f59e0b; }
+
+    .card-links {
+      display: flex; gap: 8px; margin-top: 14px;
+      padding-top: 14px; border-top: 1px solid #1e2035;
+    }
+    .lbtn {
+      flex: 1; text-align: center; padding: 6px 8px;
+      border-radius: 6px; font-size: 9px; font-weight: 700;
+      text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;
+      transition: opacity 0.2s;
+    }
+    .lbtn:hover { opacity: 0.75; }
+    .lbtn-scan { background: #1e1b4b; color: #818cf8; }
+    .lbtn-ipfs { background: #0f172a; border: 1px solid #1e2a4a; color: #60a5fa; }
+
+    /* ── Subgraph ── */
+    .qbox {
+      background: #0d0d1f; border: 1px solid #1e2035; border-radius: 12px; overflow: hidden;
+    }
+    .qhead {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 16px; background: #0a0a1a; border-bottom: 1px solid #1e2035;
+    }
+    .qtitle {
+      font-size: 11px; font-weight: 700; color: #6366f1;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dot {
+      width: 6px; height: 6px; background: #4ade80; border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0.25 } }
+
+    .qstatus { font-size: 10px; color: #4b5563; }
+    .qstatus.ok { color: #4ade80; }
+    .qstatus.warn { color: #f59e0b; }
+    .qstatus.err { color: #f87171; }
+
+    .qbody { display: grid; grid-template-columns: 1fr 1fr; }
+    pre {
+      padding: 16px; font-size: 10.5px; font-family: 'Fira Code', 'Courier New', monospace;
+      color: #94a3b8; overflow-x: auto; line-height: 1.65; white-space: pre-wrap;
+    }
+    pre.qleft { border-right: 1px solid #1e2035; }
+    pre.qright { max-height: 280px; overflow-y: auto; }
+    .kw { color: #f472b6; }
+    .fd { color: #818cf8; }
+    .st { color: #34d399; }
+    .cm { color: #374151; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center; padding: 20px;
+      font-size: 10px; color: #374151;
+      border-top: 1px solid #1e2035;
+    }
+    .footer a { color: #4b5563; text-decoration: none; }
+    .footer a:hover { color: #818cf8; }
+
+    @media (max-width: 860px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .qbody { grid-template-columns: 1fr; }
+      pre.qleft { border-right: none; border-bottom: 1px solid #1e2035; }
+      .stats-bar { gap: 28px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="logo">Alexandrian<span>Protocol</span></div>
+  <div class="badges">
+    <span class="badge badge-base">Base Mainnet</span>
+    <span class="badge badge-live">● Live</span>
+  </div>
+</header>
+
+<!-- ── Stats ── -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-value">3</div>
+    <div class="stat-label">KBs Published</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">7,082+</div>
+    <div class="stat-label">Total Indexed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" style="font-size:14px;padding-top:6px">0x5D6dee4B</div>
+    <div class="stat-label">Contract</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">$0.00</div>
+    <div class="stat-label">Stake · Bootstrap</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" style="font-size:14px;padding-top:6px">The Graph</div>
+    <div class="stat-label">Indexed</div>
+  </div>
+</div>
+
+<!-- ── DAG ── -->
+<div class="section">
+  <div class="section-title">Attribution DAG — Agent Knowledge Cluster</div>
+  <div class="dag-wrap">
+    <svg class="dag-svg" viewBox="0 0 920 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto">
+          <path d="M0,0 L0,7 L8,3.5 z" fill="#374151"/>
+        </marker>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:0.6"/>
+          <stop offset="100%" style="stop-color:#374151;stop-opacity:0.4"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#059669;stop-opacity:0.6"/>
+          <stop offset="100%" style="stop-color:#374151;stop-opacity:0.4"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background grid -->
+      <line x1="0" y1="115" x2="920" y2="115" stroke="#12122a" stroke-width="1"/>
+      <line x1="460" y1="20" x2="460" y2="210" stroke="#12122a" stroke-width="1"/>
+
+      <!-- Edges -->
+      <!-- KB-AG-1 → KB-AG-2 -->
+      <path d="M 230 120 C 310 120, 350 138, 420 138"
+            stroke="#2d3060" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+      <!-- KB-AG-1 → KB-AG-3 -->
+      <path d="M 230 108 C 390 85, 550 78, 685 100"
+            stroke="#2d3060" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+      <!-- KB-AG-2 → KB-AG-3 -->
+      <path d="M 598 138 C 628 138, 655 122, 683 115"
+            stroke="#2d3060" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+
+      <!-- Royalty labels -->
+      <text x="305" y="130" font-size="8" fill="#374151" font-family="monospace">600 bps</text>
+      <text x="400" y="78"  font-size="8" fill="#374151" font-family="monospace">600 bps</text>
+      <text x="628" y="132" font-size="8" fill="#374151" font-family="monospace">300 bps</text>
+
+      <!-- Node 1 — KB-AG-1 -->
+      <g class="dag-node">
+        <rect x="50"  y="78" width="180" height="76" rx="8" fill="#13131f" stroke="#4f46e5" stroke-width="1.5"/>
+        <rect x="50"  y="78" width="180" height="3"  rx="2" fill="#818cf8"/>
+        <text x="140" y="101" text-anchor="middle" font-size="9"  fill="#818cf8" font-family="monospace" font-weight="bold">KB-AG-1 · Feature</text>
+        <text x="140" y="117" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Multi-Agent</text>
+        <text x="140" y="131" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Orchestration</text>
+        <text x="140" y="146" text-anchor="middle" font-size="8"  fill="#4ade80" font-family="monospace">● block 43,429,342</text>
+      </g>
+
+      <!-- Node 2 — KB-AG-2 -->
+      <g class="dag-node">
+        <rect x="420" y="98" width="180" height="76" rx="8" fill="#13131f" stroke="#059669" stroke-width="1.5"/>
+        <rect x="420" y="98" width="180" height="3"  rx="2" fill="#34d399"/>
+        <text x="510" y="121" text-anchor="middle" font-size="9"  fill="#34d399" font-family="monospace" font-weight="bold">KB-AG-2 · Practice</text>
+        <text x="510" y="137" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Task</text>
+        <text x="510" y="151" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Decomposition</text>
+        <text x="510" y="166" text-anchor="middle" font-size="8"  fill="#4ade80" font-family="monospace">● block 43,430,047</text>
+      </g>
+
+      <!-- Node 3 — KB-AG-3 -->
+      <g class="dag-node">
+        <rect x="685" y="78" width="180" height="76" rx="8" fill="#13131f" stroke="#a21caf" stroke-width="1.5"/>
+        <rect x="685" y="78" width="180" height="3"  rx="2" fill="#f472b6"/>
+        <text x="775" y="101" text-anchor="middle" font-size="9"  fill="#f472b6" font-family="monospace" font-weight="bold">KB-AG-3 · Rubric</text>
+        <text x="775" y="117" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Eval Pipelines +</text>
+        <text x="775" y="131" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="600">Regression Detection</text>
+        <text x="775" y="146" text-anchor="middle" font-size="8"  fill="#4ade80" font-family="monospace">● block 43,430,049</text>
+      </g>
+
+      <!-- Parent-count badges -->
+      <circle cx="420" cy="138" r="11" fill="#0d0d1f" stroke="#4f46e5" stroke-width="1.5"/>
+      <text x="420" y="142" text-anchor="middle" font-size="9" fill="#818cf8" font-weight="bold">1p</text>
+      <circle cx="685" cy="116" r="11" fill="#0d0d1f" stroke="#4f46e5" stroke-width="1.5"/>
+      <text x="685" y="120" text-anchor="middle" font-size="9" fill="#818cf8" font-weight="bold">2p</text>
+
+      <!-- Legend -->
+      <rect x="50" y="195" width="10" height="2" fill="#2d3060" rx="1"/>
+      <text x="65" y="199" font-size="8" fill="#4b5563" font-family="monospace">attribution edge · royalty bps</text>
+      <circle cx="250" cy="197" r="5" fill="#0d0d1f" stroke="#4f46e5" stroke-width="1"/>
+      <text x="260" y="201" font-size="8" fill="#4b5563" font-family="monospace">parent count</text>
+    </svg>
+  </div>
+
+  <!-- ── Cards ── -->
+  <div class="cards-grid">
+
+    <!-- KB-AG-1 -->
+    <div class="kb-card c1">
+      <div class="card-top">
+        <span class="kb-id id1">KB-AG-1</span>
+        <span class="type-badge t-feature">Feature</span>
+      </div>
+      <div class="kb-title">Designing Multi-Agent Orchestration Pipelines</div>
+      <div class="meta">
+        <div class="meta-row"><span class="ml">Hash</span><span class="mv mv-hash">0xb43e01c5…c24</span></div>
+        <div class="meta-row"><span class="ml">Trust Tier</span><span class="mv">AgentDiscovered</span></div>
+        <div class="meta-row"><span class="ml">Parents</span><span class="mv mv-green">Root Seed</span></div>
+        <div class="meta-row"><span class="ml">Block</span><span class="mv">43,429,342</span></div>
+        <div class="meta-row"><span class="ml">IPFS</span><span class="mv">QmPorCfv…ZzA</span></div>
+        <div class="meta-row"><span class="ml">Royalty</span><span class="mv mv-orange">0 bps (origin)</span></div>
+      </div>
+      <div class="card-links">
+        <a class="lbtn lbtn-scan" href="https://basescan.org/tx/0x28aa959ae87362ce87ee6345734a90c218b183e0c361173231c0dea7ae724dda" target="_blank">Basescan ↗</a>
+        <a class="lbtn lbtn-ipfs" href="https://ipfs.io/ipfs/QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA" target="_blank">IPFS ↗</a>
+      </div>
+    </div>
+
+    <!-- KB-AG-2 -->
+    <div class="kb-card c2">
+      <div class="card-top">
+        <span class="kb-id id2">KB-AG-2</span>
+        <span class="type-badge t-practice">Practice</span>
+      </div>
+      <div class="kb-title">Implementing Hierarchical Task Decomposition for LLM Agents</div>
+      <div class="meta">
+        <div class="meta-row"><span class="ml">Hash</span><span class="mv mv-hash">0x0266a889…f88</span></div>
+        <div class="meta-row"><span class="ml">Trust Tier</span><span class="mv">AgentDerived</span></div>
+        <div class="meta-row"><span class="ml">Parents</span><span class="mv">KB-AG-1</span></div>
+        <div class="meta-row"><span class="ml">Block</span><span class="mv">43,430,047</span></div>
+        <div class="meta-row"><span class="ml">IPFS</span><span class="mv">QmYGBH1H…FHi</span></div>
+        <div class="meta-row"><span class="ml">Royalty</span><span class="mv mv-orange">600 bps → KB-AG-1</span></div>
+      </div>
+      <div class="card-links">
+        <a class="lbtn lbtn-scan" href="https://basescan.org/tx/0xd41593d5a5bf2a21eb08d3f87796e0f51b091cea508cbc3c555e76928dfeb5a1" target="_blank">Basescan ↗</a>
+        <a class="lbtn lbtn-ipfs" href="https://ipfs.io/ipfs/QmYGBH1HsHHy6t9VQ6tzKEpA4pFafZXxY3babLQpGW8FHi" target="_blank">IPFS ↗</a>
+      </div>
+    </div>
+
+    <!-- KB-AG-3 -->
+    <div class="kb-card c3">
+      <div class="card-top">
+        <span class="kb-id id3">KB-AG-3</span>
+        <span class="type-badge t-rubric">Rubric</span>
+      </div>
+      <div class="kb-title">Designing LLM Agent Evaluation Pipelines with Regression Detection</div>
+      <div class="meta">
+        <div class="meta-row"><span class="ml">Hash</span><span class="mv mv-hash">0xd32a9514…7d0</span></div>
+        <div class="meta-row"><span class="ml">Trust Tier</span><span class="mv">AgentDerived</span></div>
+        <div class="meta-row"><span class="ml">Parents</span><span class="mv">KB-AG-1 + KB-AG-2</span></div>
+        <div class="meta-row"><span class="ml">Block</span><span class="mv">43,430,049</span></div>
+        <div class="meta-row"><span class="ml">IPFS</span><span class="mv">QmUysbUk…voU</span></div>
+        <div class="meta-row"><span class="ml">Royalty</span><span class="mv mv-orange">600 bps split 2 parents</span></div>
+      </div>
+      <div class="card-links">
+        <a class="lbtn lbtn-scan" href="https://basescan.org/tx/0x0c9d8a60f5c259c53518aac5a948809cbffa110842900af3d0f8cb0b2f08f2e5" target="_blank">Basescan ↗</a>
+        <a class="lbtn lbtn-ipfs" href="https://ipfs.io/ipfs/QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU" target="_blank">IPFS ↗</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Subgraph ── -->
+<div class="section section-last" style="margin-top:32px">
+  <div class="section-title">Live Subgraph Query — The Graph Studio</div>
+  <div class="qbox">
+    <div class="qhead">
+      <div class="qtitle">
+        <span class="dot"></span>
+        alexandrian-protocol · version/latest
+      </div>
+      <span class="qstatus warn" id="qs">Querying…</span>
+    </div>
+    <div class="qbody">
+      <pre class="qleft"><span class="cm"># Attribution DAG — KB-AG cluster</span>
+<span class="kw">{</span>
+  <span class="fd">knowledgeBases</span><span class="kw">(</span>
+    where: <span class="kw">{</span>
+      contentHash_in: <span class="kw">[</span>
+        <span class="st">"0xb43e01c5...c24"</span>
+        <span class="st">"0x0266a889...f88"</span>
+        <span class="st">"0xd32a9514...7d0"</span>
+      <span class="kw">]</span>
+    <span class="kw">}</span>
+  <span class="kw">)</span> <span class="kw">{</span>
+    <span class="fd">contentHash</span>
+    <span class="fd">cid</span>
+    <span class="fd">domain</span>
+    <span class="fd">kbType</span>
+    <span class="fd">trustTier</span>
+    <span class="fd">blockNumber</span>
+    <span class="fd">transactionHash</span>
+    <span class="fd">parents</span> <span class="kw">{</span>
+      <span class="fd">parentHash</span>
+      <span class="fd">royaltyShareBps</span>
+    <span class="kw">}</span>
+  <span class="kw">}</span>
+<span class="kw">}</span></pre>
+      <pre class="qright" id="qr">Fetching live data from The Graph…</pre>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <a href="https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000" target="_blank">Contract 0x5D6dee4B…</a>
+  &nbsp;·&nbsp;
+  <a href="https://thegraph.com/studio/subgraph/alexandrian-protocol/" target="_blank">The Graph Studio</a>
+  &nbsp;·&nbsp;
+  Base Mainnet · 2026
+</footer>
+
+<script>
+const SUBGRAPH = 'https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest';
+
+const HASHES = [
+  '0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24',
+  '0x0266a889b02779d969686298f7ea4fcb10fc1bfe09bcc6dd5d345db0342e8f88',
+  '0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0',
+];
+
+const GQL = `{
+  knowledgeBases(where: {
+    contentHash_in: [
+      "${HASHES[0]}",
+      "${HASHES[1]}",
+      "${HASHES[2]}"
+    ]
+  }) {
+    contentHash
+    cid
+    domain
+    kbType
+    trustTier
+    blockNumber
+    transactionHash
+    parents { parentHash royaltyShareBps }
+  }
+}`;
+
+async function queryGraph() {
+  const qs = document.getElementById('qs');
+  const qr = document.getElementById('qr');
+  try {
+    const res  = await fetch(SUBGRAPH, {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body   : JSON.stringify({ query: GQL }),
+    });
+    const json = await res.json();
+
+    if (json.errors) {
+      qs.textContent = 'Schema mismatch — see result';
+      qs.className   = 'qstatus err';
+      qr.textContent = JSON.stringify(json.errors, null, 2);
+      return;
+    }
+
+    const kbs = json?.data?.knowledgeBases ?? [];
+
+    if (kbs.length === 0) {
+      qs.textContent = 'Syncing — not yet indexed';
+      qs.className   = 'qstatus warn';
+      qr.textContent =
+        JSON.stringify(json.data, null, 2) +
+        '\n\n// Subgraph may still be catching up to block 43,430,049';
+      return;
+    }
+
+    qs.textContent = `✓ ${kbs.length} KB${kbs.length > 1 ? 's' : ''} indexed`;
+    qs.className   = 'qstatus ok';
+    qr.textContent = JSON.stringify(json.data, null, 2);
+
+  } catch (err) {
+    qs.textContent = 'Network error';
+    qs.className   = 'qstatus err';
+    qr.textContent = err.message;
+  }
+}
+
+queryGraph();
+</script>
+</body>
+</html>

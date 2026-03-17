@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1d32ae28ab6f82cdbd2cb01b91de0ef7fba8434536cabd0d9afaa7ea4a685fdf
+  artifactHash: 0x1d086a5d4ccf071dc919f2d1870de67fa8f17e6912f68b553dd55219adaf503d
+  title:        Access Logging Evaluation with Agent Reasoning
+  domain:       meta.protocol
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.85
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  16
+  graph edges:  21
+  artifact.json size: 3090 bytes
+  meta.json size:     3427 bytes

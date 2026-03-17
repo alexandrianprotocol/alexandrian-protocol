@@ -1,0 +1,21 @@
+{
+  "manifestVersion": "1",
+  "kbId": "KB-ENG-1",
+  "kbHash": "0x574542249886be6e935764c9b1518b57bae71cab15de273a41d39c190c5d0d20",
+  "rootCid": "QmQfF4NtyFhNeEwxn4GdHhUYT5o2Emmb1r2CDuo1AGe9un",
+  "generatedAt": "2026-03-17T00:00:00Z",
+  "files": [
+    {
+      "path": "artifact.json",
+      "role": "canonical_hash_target"
+    },
+    {
+      "path": "manifest.json",
+      "role": "manifest"
+    },
+    {
+      "path": "meta.json",
+      "role": "indexer_sidecar"
+    }
+  ]
+}

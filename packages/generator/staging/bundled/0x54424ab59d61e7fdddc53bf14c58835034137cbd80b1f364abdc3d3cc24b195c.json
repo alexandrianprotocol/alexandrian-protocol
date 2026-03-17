@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x886d2cd3e20bee0574c36a4c05d91b29937f996da56e3554907f706b6c32ce64",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity",
+  "rootCid": "QmXjvorXutwtfvjjNKLPUZQ2egDwTAM1dSpAJsYJZVmKkv",
+  "title": "Fuzz Testing for Solidity Smart Contracts"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@alexandrian/subgraph",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The Graph subgraph for Alexandrian Protocol on Base Mainnet",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy alexandrian-protocol --node https://api.studio.thegraph.com/deploy/ --version-label v0.2.0",
+    "deploy:studio": "graph deploy alexandrian-protocol --node https://api.studio.thegraph.com/deploy/ --version-label v0.2.0",
+    "auth": "graph auth --node https://api.studio.thegraph.com/deploy/"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-ts": "0.33.0"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "0.98.1"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x68f9589ce6624572ca08afcc92759ba6d27a889514dfa57f33b0a376e0a14ed2",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "web3.gas.assembly",
+  "rootCid": "QmQPxAApxw4f59z9q1cZ9oqpAdzeeF37N6YNxbPEbD1KCq",
+  "title": "Inline Assembly for Gas-Critical Operations in Solidity"
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x8fb9d78ee67d39ef3eaf32f3d44cbc0d029367bcd93334e0baa6d24e9e3830ab",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "sql.optimization",
+  "rootCid": "QmXCBqHvzX1EtxjoD8UGrdkccrPFkGybDUoEATVAEVY86y",
+  "title": "Regularly Perform VACUUM ANALYZE On High-churn"
+}

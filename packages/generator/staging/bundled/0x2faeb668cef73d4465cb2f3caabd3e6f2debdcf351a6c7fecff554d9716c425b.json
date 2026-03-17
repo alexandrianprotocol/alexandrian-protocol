@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x82e27e1ea8c66d8a6deeee884788730c0ad34eaaf02051badda3e4852836d24f",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.replication.logical",
+  "rootCid": "QmUchJgkv7c6or6J7WiBbLXomDJUhXsTbxy1Ws8jRxVx1M",
+  "title": "Selective Table Synchronization via Logical Replication"
+}

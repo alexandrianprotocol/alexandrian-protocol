@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x79a338f06735c58cf25ce997f4902ae584f8778f6c80273aedf6fd23dbfb6175",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "realtime.ot.client_buffering",
+  "rootCid": "Qmam5b2nLd4kxPfoEWKcU4unynkgYMnvDV2HNfeUrWKyE6",
+  "title": "Buffering Client Operations During Server Round-Trip"
+}

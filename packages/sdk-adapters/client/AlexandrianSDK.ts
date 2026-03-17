@@ -284,10 +284,13 @@ export class AlexandrianSDK {
       relationship: encodeRelationship(p.relationship),
     }));
 
-    const curatorAddress = await signer.getAddress();
+    const curatorAddress = options.curator ?? await signer.getAddress();
     const queryFee = options.queryFee ?? args.queryFee;
     const trustTierU8 = options.trustTier != null ? TRUST_TIER_TO_U8[options.trustTier] ?? 0 : 0;
 
+    const isSeed = (options.parents?.length ?? 0) === 0;
+    const minimumRequiredParents = isSeed ? 0 : 2;
+    const artifactHash = options.artifactHash ?? "0x0000000000000000000000000000000000000000000000000000000000000000";
     const data = this.registry.interface.encodeFunctionData("publishKB", [
       args.contentHash,
       curatorAddress,
@@ -300,6 +303,9 @@ export class AlexandrianSDK {
       queryFee,
       args.version,
       parents,
+      isSeed,
+      minimumRequiredParents,
+      artifactHash,
     ]);
     const result = await this.txAdapter.sendTransaction({
       to: this.registryAddress,
@@ -375,16 +381,23 @@ export class AlexandrianSDK {
     const weights = options.sourceWeights ?? options.parentWeights ?? sources.map(() => 1);
     const totalWeight = weights.reduce((a: number, b: number) => a + b, 0) || 1;
     const maxBps = 9800;
+    // Use floor for each share, then assign the remainder to the first source so
+    // the sum is exactly maxBps. Math.round can exceed maxBps for certain source
+    // counts (e.g. 3 equal-weight sources → 3×3267 = 9801).
+    const floors = sources.map((_, i) => Math.floor(((weights[i] ?? 1) / totalWeight) * maxBps));
+    const floorSum = floors.reduce((a, b) => a + b, 0);
+    const remainder = maxBps - floorSum; // always ≥ 0; typically 0–2 bps
     const attributionLinks = sources.map((sourceHash, i) => ({
       parentHash: sourceHash,
-      royaltyShareBps: Math.round(((weights[i] ?? 1) / totalWeight) * maxBps),
+      royaltyShareBps: i === 0 ? floors[0] + remainder : floors[i],
       relationship: "derv" as const,
     }));
 
-    const curatorAddress = await signer.getAddress();
+    const curatorAddress = options.curator ?? await signer.getAddress();
     const queryFee = options.queryFee ?? 0n;
     const kbTypeU8 = CANONICAL_TYPE_TO_U8[envelope.payload.type] ?? 0;
 
+    const artifactHash = options.artifactHash ?? "0x0000000000000000000000000000000000000000000000000000000000000000";
     const data = this.registry.interface.encodeFunctionData("publishKB", [
       h,
       curatorAddress,
@@ -401,6 +414,9 @@ export class AlexandrianSDK {
         royaltyShareBps: p.royaltyShareBps,
         relationship: encodeRelationship(p.relationship),
       })),
+      false, // isSeed: derived always has parents
+      2, // minimumRequiredParents
+      artifactHash,
     ]);
     const result = await this.txAdapter.sendTransaction({
       to: this.registryAddress,
@@ -735,7 +751,6 @@ export class AlexandrianSDK {
       chainId: Number(await this.chainAdapter.getChainId()),
       registryAddress: this.registryAddress,
       kbId: contentHash.startsWith("0x") ? contentHash : "0x" + contentHash,
-      cid: kb.cid,
       querier: agentAddress,
       queryNonce,
       txHash,
@@ -828,6 +843,12 @@ export class AlexandrianSDK {
       to: this.registryAddress,
       data,
     });
+    // Throw loudly if the adapter did not return a confirmed receipt — ensures
+    // funds are not reported as withdrawn before the tx lands on-chain.
+    const blockNumber = result.receipt?.blockNumber;
+    if (!blockNumber) {
+      throw new ContractError("NO_RECEIPT", "withdrawEarnings: transaction not confirmed on-chain");
+    }
     return {
       txHash: result.txHash,
       amount: BigInt(pending.toString()),
@@ -910,19 +931,18 @@ export class AlexandrianSDK {
   }
 
   async getKB(contentHash: string): Promise<OnChainKB> {
-    const kb = await this.registry.getKnowledgeBlock(contentHash);
+    const [kb, artifactHash, cidDigest] = await Promise.all([
+      this.registry.getKnowledgeBlock(contentHash),
+      this.registry.getArtifactHash(contentHash),
+      this.registry.getCidDigest(contentHash),
+    ]);
     return {
       curator: kb.curator,
-      kbType: Number(kb.kbType),
-      trustTier: Number(kb.trustTier),
-      cid: kb.cid,
-      embeddingCid: kb.embeddingCid,
-      domain: kb.domain,
-      licenseType: kb.licenseType,
-      queryFee: BigInt(kb.queryFee),
       timestamp: Number(kb.timestamp),
-      version: kb.version,
+      queryFee: BigInt(kb.queryFee),
       exists: kb.exists,
+      artifactHash: artifactHash,
+      cidDigest: cidDigest,
     };
   }
 
@@ -966,12 +986,14 @@ export class AlexandrianSDK {
     return this.registry.getCuratorBlocks(curatorAddress);
   }
 
-  async getKBsByType(kbType: number): Promise<string[]> {
-    return this.registry.getBlocksByType(kbType);
+  /** @deprecated Registry no longer stores type index on-chain. Use indexer and KBPublished events. */
+  async getKBsByType(_kbType: number): Promise<string[]> {
+    throw new Error("getKBsByType: use indexer; type index is event-driven.");
   }
 
-  async getKBsByDomain(domain: string): Promise<string[]> {
-    return this.registry.getBlocksByDomain(domain);
+  /** @deprecated Registry no longer stores domain index on-chain. Use indexer and KBPublished events. */
+  async getKBsByDomain(_domain: string): Promise<string[]> {
+    throw new Error("getKBsByDomain: use indexer; domain index is event-driven.");
   }
 
   /**
@@ -1020,9 +1042,13 @@ export class AlexandrianSDK {
 
   /**
    * Pool graph (DAG) for a poolId (domain).
+   * @param contentHashes - List of KB content hashes from indexer (domain index is event-driven; pass hashes for this pool).
    */
-  async getPoolGraph(poolId: string): Promise<PoolGraph> {
-    const hashes = await this.getKBsByDomain(poolId);
+  async getPoolGraph(poolId: string, contentHashes?: string[]): Promise<PoolGraph> {
+    if (!contentHashes || contentHashes.length === 0) {
+      throw new Error("getPoolGraph: pass contentHashes from indexer; domain index is event-driven.");
+    }
+    const hashes = contentHashes;
     const nodes: PoolGraphNode[] = [];
     const edges: PoolGraphEdge[] = [];
     for (const h of hashes) {
@@ -1038,7 +1064,7 @@ export class AlexandrianSDK {
           versionId: h,
           contentHash: h,
           curator: kb.curator,
-          domain: kb.domain,
+          domain: poolId,
           queryFee: kb.queryFee,
           timestamp: kb.timestamp,
           reputationScore: rep.score,
@@ -1060,7 +1086,7 @@ export class AlexandrianSDK {
   }
 
   async getDerivedKBs(parentHash: string): Promise<string[]> {
-    return this.registry.getDerivedBlocks(parentHash);
+    throw new Error("getDerivedKBs: use indexer; children are reconstructed from AttributionLinked events.");
   }
 
   async isRegistered(contentHash: string): Promise<boolean> {
@@ -1116,16 +1142,16 @@ export class AlexandrianSDK {
     ]);
 
     const attestation = `alexandrian.attest.v1:${hash}@${this.registryAddress}:${chainId}`;
+    // CID/domain/type are in KBPublished events; chain-only path has no indexer, so use placeholders.
     const proof: AlexandrianProof | undefined =
       !stake.slashed
         ? {
             version: ALEXANDRIAN_PROOF_VERSION,
             kbId: hash,
-            cid: kb.cid,
             registryAddress: this.registryAddress,
             chainId,
             curator: kb.curator,
-            domain: kb.domain,
+            domain: "",
             active: true,
             attestation,
           }
@@ -1134,8 +1160,8 @@ export class AlexandrianSDK {
     return {
       kbId: hash,
       curator: kb.curator,
-      domain: kb.domain,
-      kbType: kb.kbType,
+      domain: "",
+      kbType: 0,
       registered: true,
       slashed: stake.slashed,
       repScore: reputation.score,

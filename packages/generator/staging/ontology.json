@@ -1,0 +1,1599 @@
+{
+  "ontology_version": "1.0",
+  "schema": "alexandrian.ontology.v1",
+  "domains": [
+    {
+      "domain_id": "ui_ux",
+      "name": "User Interface and User Experience",
+      "description": "Concepts related to interface design and usability"
+    },
+    {
+      "domain_id": "api_backend",
+      "name": "API and Backend Services",
+      "description": "API design, services, and backend patterns"
+    },
+    {
+      "domain_id": "distributed_systems",
+      "name": "Distributed Systems",
+      "description": "Distributed architecture, consistency, resilience"
+    },
+    {
+      "domain_id": "cloud_infrastructure",
+      "name": "Cloud Infrastructure",
+      "description": "Cloud platforms, deployment, scaling"
+    },
+    {
+      "domain_id": "security",
+      "name": "Security Engineering",
+      "description": "Authentication, authorization, validation, secrets"
+    },
+    {
+      "domain_id": "devops",
+      "name": "DevOps and Platform Engineering",
+      "description": "CI/CD, deployment, infrastructure"
+    },
+    {
+      "domain_id": "data_engineering",
+      "name": "Data Engineering",
+      "description": "Data pipelines, storage, ETL"
+    },
+    {
+      "domain_id": "ai_systems",
+      "name": "AI and ML Systems",
+      "description": "Models, training, inference"
+    },
+    {
+      "domain_id": "software_architecture",
+      "name": "Software Architecture",
+      "description": "System design, patterns, boundaries"
+    },
+    {
+      "domain_id": "testing_quality",
+      "name": "Testing and Quality",
+      "description": "Unit, integration, e2e, quality"
+    },
+    {
+      "domain_id": "observability",
+      "name": "Observability and SRE",
+      "description": "Logging, metrics, tracing, SRE"
+    },
+    {
+      "domain_id": "programming",
+      "name": "Programming and Stacks",
+      "description": "Languages and technology stack decisions"
+    },
+    {
+      "domain_id": "networking",
+      "name": "Networking",
+      "description": "Network protocols and communication"
+    },
+    {
+      "domain_id": "performance_engineering",
+      "name": "Performance Engineering",
+      "description": "Latency, throughput, optimization"
+    }
+  ],
+  "concepts": [
+    {
+      "concept_id": "UI_COMPONENT_BUTTON",
+      "domain": "ui_ux",
+      "name": "Button",
+      "description": "Interactive UI element used to trigger actions",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_FORM",
+      "domain": "ui_ux",
+      "name": "Form",
+      "description": "Container for user input fields and submission",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_INPUT",
+      "domain": "ui_ux",
+      "name": "Input",
+      "description": "Single user input field",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_MODAL",
+      "domain": "ui_ux",
+      "name": "Modal",
+      "description": "Overlay dialog for focused interaction",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_CARD",
+      "domain": "ui_ux",
+      "name": "Card",
+      "description": "Content container with clear boundary",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_NAVBAR",
+      "domain": "ui_ux",
+      "name": "Navbar",
+      "description": "Primary navigation bar",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_DROPDOWN",
+      "domain": "ui_ux",
+      "name": "Dropdown",
+      "description": "Select or menu that expands on trigger",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_TABLE",
+      "domain": "ui_ux",
+      "name": "Table",
+      "description": "Tabular data display",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_TOOLTIP",
+      "domain": "ui_ux",
+      "name": "Tooltip",
+      "description": "Short contextual hint on hover/focus",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_SIDEBAR",
+      "domain": "ui_ux",
+      "name": "Sidebar",
+      "description": "Secondary navigation or context panel",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COMPONENT_BREADCRUMB",
+      "domain": "ui_ux",
+      "name": "Breadcrumb",
+      "description": "Hierarchical navigation trail",
+      "category": "component",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_LAYOUT_GRID",
+      "domain": "ui_ux",
+      "name": "Grid",
+      "description": "CSS Grid layout system",
+      "category": "layout",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_LAYOUT_FLEXBOX",
+      "domain": "ui_ux",
+      "name": "Flexbox",
+      "description": "Flexible box layout",
+      "category": "layout",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_LAYOUT_RESPONSIVE",
+      "domain": "ui_ux",
+      "name": "Responsive",
+      "description": "Layout that adapts to viewport",
+      "category": "layout",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_LAYOUT_BREAKPOINTS",
+      "domain": "ui_ux",
+      "name": "Breakpoints",
+      "description": "Viewport thresholds for layout change",
+      "category": "layout",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_LAYOUT_CONTAINER",
+      "domain": "ui_ux",
+      "name": "Container",
+      "description": "Width-constrained content wrapper",
+      "category": "layout",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_PATTERN_AUTH_LOGIN",
+      "domain": "ui_ux",
+      "name": "Login",
+      "description": "Authentication login screen pattern",
+      "category": "pattern",
+      "related_concepts": [
+        "API_AUTH_JWT",
+        "SEC_AUTHENTICATION"
+      ],
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_PATTERN_SIGNUP",
+      "domain": "ui_ux",
+      "name": "Signup",
+      "description": "User registration flow",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_PATTERN_DASHBOARD",
+      "domain": "ui_ux",
+      "name": "Dashboard",
+      "description": "Overview and metrics display",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_PATTERN_NAVIGATION",
+      "domain": "ui_ux",
+      "name": "Navigation",
+      "description": "Wayfinding and menu structure",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_PATTERN_SEARCH",
+      "domain": "ui_ux",
+      "name": "Search",
+      "description": "Search input and results",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_PATTERN_ONBOARDING",
+      "domain": "ui_ux",
+      "name": "Onboarding",
+      "description": "First-time user guidance",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_ACCESSIBILITY_WCAG",
+      "domain": "ui_ux",
+      "name": "WCAG",
+      "description": "Web Content Accessibility Guidelines",
+      "category": "accessibility",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_ACCESSIBILITY_CONTRAST",
+      "domain": "ui_ux",
+      "name": "Contrast",
+      "description": "Color contrast requirements",
+      "category": "accessibility",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_ACCESSIBILITY_KEYBOARD_NAV",
+      "domain": "ui_ux",
+      "name": "Keyboard navigation",
+      "description": "Full operation via keyboard",
+      "category": "accessibility",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_ACCESSIBILITY_SCREEN_READER",
+      "domain": "ui_ux",
+      "name": "Screen reader",
+      "description": "Screen reader compatible content",
+      "category": "accessibility",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_DESIGN_TOKENS",
+      "domain": "ui_ux",
+      "name": "Design tokens",
+      "description": "Named design values (spacing, color, type)",
+      "category": "design",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_SPACING_SYSTEM",
+      "domain": "ui_ux",
+      "name": "Spacing system",
+      "description": "Consistent spacing scale",
+      "category": "design",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_COLOR_SYSTEM",
+      "domain": "ui_ux",
+      "name": "Color system",
+      "description": "Palette and semantic colors",
+      "category": "design",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_TYPOGRAPHY_SCALE",
+      "domain": "ui_ux",
+      "name": "Typography scale",
+      "description": "Type hierarchy and sizes",
+      "category": "design",
+      "aliases": []
+    },
+    {
+      "concept_id": "UI_ICON_SYSTEM",
+      "domain": "ui_ux",
+      "name": "Icon system",
+      "description": "Consistent icon set and usage",
+      "category": "design",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PROTOCOL_HTTP",
+      "domain": "api_backend",
+      "name": "HTTP",
+      "description": "Hypertext Transfer Protocol",
+      "category": "protocol",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PROTOCOL_GRPC",
+      "domain": "api_backend",
+      "name": "gRPC",
+      "description": "RPC framework over HTTP/2",
+      "category": "protocol",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PROTOCOL_GRAPHQL",
+      "domain": "api_backend",
+      "name": "GraphQL",
+      "description": "Query language for APIs",
+      "category": "protocol",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PROTOCOL_WEBSOCKET",
+      "domain": "api_backend",
+      "name": "WebSocket",
+      "description": "Full-duplex communication",
+      "category": "protocol",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PATTERN_REST_RESOURCE",
+      "domain": "api_backend",
+      "name": "REST resource",
+      "description": "Resource-oriented URL design",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PATTERN_ENDPOINT_VERSIONING",
+      "domain": "api_backend",
+      "name": "Endpoint versioning",
+      "description": "API version in path or header",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PATTERN_PAGINATION",
+      "domain": "api_backend",
+      "name": "Pagination",
+      "description": "Paginated list responses",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PATTERN_RATE_LIMITING",
+      "domain": "api_backend",
+      "name": "Rate limiting",
+      "description": "Request rate limits",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PATTERN_IDEMPOTENCY",
+      "domain": "api_backend",
+      "name": "Idempotency",
+      "description": "Safe retry via idempotency keys",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_PATTERN_WEBHOOK",
+      "domain": "api_backend",
+      "name": "Webhook",
+      "description": "Event push to client URL",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_AUTHENTICATION",
+      "domain": "api_backend",
+      "name": "Authentication",
+      "description": "Verifying identity of clients",
+      "category": "auth",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_AUTH_JWT",
+      "domain": "api_backend",
+      "name": "JWT",
+      "description": "JSON Web Token authentication",
+      "category": "auth",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_AUTH_OAUTH",
+      "domain": "api_backend",
+      "name": "OAuth",
+      "description": "OAuth 2.0 delegation",
+      "category": "auth",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_AUTH_SESSION",
+      "domain": "api_backend",
+      "name": "Session",
+      "description": "Session-based authentication",
+      "category": "auth",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_ERROR_HANDLING",
+      "domain": "api_backend",
+      "name": "Error handling",
+      "description": "Structured error responses",
+      "category": "behavior",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_RESPONSE_SCHEMA",
+      "domain": "api_backend",
+      "name": "Response schema",
+      "description": "Consistent response shape",
+      "category": "behavior",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_INPUT_VALIDATION",
+      "domain": "api_backend",
+      "name": "Input validation",
+      "description": "Request validation",
+      "category": "behavior",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_REQUEST_ROUTING",
+      "domain": "api_backend",
+      "name": "Request routing",
+      "description": "Route to handler",
+      "category": "behavior",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_SERVICE_LAYER",
+      "domain": "api_backend",
+      "name": "Service layer",
+      "description": "Business logic layer",
+      "category": "layer",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_CONTROLLER_LAYER",
+      "domain": "api_backend",
+      "name": "Controller layer",
+      "description": "HTTP handling layer",
+      "category": "layer",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_REPOSITORY_PATTERN",
+      "domain": "api_backend",
+      "name": "Repository",
+      "description": "Data access abstraction",
+      "category": "layer",
+      "aliases": []
+    },
+    {
+      "concept_id": "API_SERVICE_DISCOVERY",
+      "domain": "api_backend",
+      "name": "Service discovery",
+      "description": "Discover backend services",
+      "category": "layer",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_PATTERN_CIRCUIT_BREAKER",
+      "domain": "distributed_systems",
+      "name": "Circuit breaker",
+      "description": "Fail fast when dependency is unhealthy",
+      "category": "pattern",
+      "related_concepts": [
+        "API_SERVICE_LAYER"
+      ],
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_PATTERN_BULKHEAD",
+      "domain": "distributed_systems",
+      "name": "Bulkhead",
+      "description": "Isolate resource pools",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_PATTERN_RETRY",
+      "domain": "distributed_systems",
+      "name": "Retry",
+      "description": "Retry with backoff",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_PATTERN_SAGA",
+      "domain": "distributed_systems",
+      "name": "Saga",
+      "description": "Distributed transaction pattern",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_PATTERN_EVENT_SOURCING",
+      "domain": "distributed_systems",
+      "name": "Event sourcing",
+      "description": "State from event log",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_PATTERN_CQRS",
+      "domain": "distributed_systems",
+      "name": "CQRS",
+      "description": "Command-query responsibility separation",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_CONSISTENCY_STRONG",
+      "domain": "distributed_systems",
+      "name": "Strong consistency",
+      "description": "Linearizable reads/writes",
+      "category": "consistency",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_CONSISTENCY_EVENTUAL",
+      "domain": "distributed_systems",
+      "name": "Eventual consistency",
+      "description": "Convergence after writes stop",
+      "category": "consistency",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_CONSISTENCY_CAUSAL",
+      "domain": "distributed_systems",
+      "name": "Causal consistency",
+      "description": "Causally ordered visibility",
+      "category": "consistency",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_CONSENSUS_RAFT",
+      "domain": "distributed_systems",
+      "name": "Raft",
+      "description": "Consensus algorithm",
+      "category": "consensus",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_CONSENSUS_PAXOS",
+      "domain": "distributed_systems",
+      "name": "Paxos",
+      "description": "Consensus algorithm",
+      "category": "consensus",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_QUEUE_MESSAGE",
+      "domain": "distributed_systems",
+      "name": "Message queue",
+      "description": "Asynchronous message queue",
+      "category": "messaging",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_STREAM_PROCESSING",
+      "domain": "distributed_systems",
+      "name": "Stream processing",
+      "description": "Continuous event processing",
+      "category": "messaging",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_EVENT_BUS",
+      "domain": "distributed_systems",
+      "name": "Event bus",
+      "description": "Pub/sub event distribution",
+      "category": "messaging",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_TOPIC_PARTITION",
+      "domain": "distributed_systems",
+      "name": "Topic partition",
+      "description": "Partitioned topic",
+      "category": "messaging",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_SERVICE_DISCOVERY",
+      "domain": "distributed_systems",
+      "name": "Service discovery",
+      "description": "Dynamic service lookup",
+      "category": "infra",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_LOAD_BALANCING",
+      "domain": "distributed_systems",
+      "name": "Load balancing",
+      "description": "Traffic distribution",
+      "category": "infra",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_FAILOVER",
+      "domain": "distributed_systems",
+      "name": "Failover",
+      "description": "Switch to standby on failure",
+      "category": "infra",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_REPLICATION",
+      "domain": "distributed_systems",
+      "name": "Replication",
+      "description": "Data replication",
+      "category": "infra",
+      "aliases": []
+    },
+    {
+      "concept_id": "DIST_SHARDING",
+      "domain": "distributed_systems",
+      "name": "Sharding",
+      "description": "Horizontal data partitioning",
+      "category": "infra",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_PLATFORM_KUBERNETES",
+      "domain": "cloud_infrastructure",
+      "name": "Kubernetes",
+      "description": "Container orchestration",
+      "category": "platform",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_PLATFORM_DOCKER",
+      "domain": "cloud_infrastructure",
+      "name": "Docker",
+      "description": "Container runtime",
+      "category": "platform",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_PLATFORM_SERVERLESS",
+      "domain": "cloud_infrastructure",
+      "name": "Serverless",
+      "description": "FaaS / serverless runtimes",
+      "category": "platform",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_PATTERN_AUTOSCALING",
+      "domain": "cloud_infrastructure",
+      "name": "Autoscaling",
+      "description": "Scale by load",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_PATTERN_MULTI_REGION",
+      "domain": "cloud_infrastructure",
+      "name": "Multi-region",
+      "description": "Deploy across regions",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_PATTERN_HIGH_AVAILABILITY",
+      "domain": "cloud_infrastructure",
+      "name": "High availability",
+      "description": "HA deployment",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_STORAGE_OBJECT",
+      "domain": "cloud_infrastructure",
+      "name": "Object storage",
+      "description": "Blob/object storage",
+      "category": "storage",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_STORAGE_BLOCK",
+      "domain": "cloud_infrastructure",
+      "name": "Block storage",
+      "description": "Block-level storage",
+      "category": "storage",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_STORAGE_DATABASE",
+      "domain": "cloud_infrastructure",
+      "name": "Database",
+      "description": "Managed database",
+      "category": "storage",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_NETWORK_VPC",
+      "domain": "cloud_infrastructure",
+      "name": "VPC",
+      "description": "Virtual private cloud",
+      "category": "network",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_NETWORK_SUBNET",
+      "domain": "cloud_infrastructure",
+      "name": "Subnet",
+      "description": "Subnet segmentation",
+      "category": "network",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_NETWORK_LOAD_BALANCER",
+      "domain": "cloud_infrastructure",
+      "name": "Load balancer",
+      "description": "L4/L7 load balancer",
+      "category": "network",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_NETWORK_CDN",
+      "domain": "cloud_infrastructure",
+      "name": "CDN",
+      "description": "Content delivery network",
+      "category": "network",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_COMPUTE_CONTAINER",
+      "domain": "cloud_infrastructure",
+      "name": "Container",
+      "description": "Container compute",
+      "category": "compute",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_COMPUTE_VM",
+      "domain": "cloud_infrastructure",
+      "name": "VM",
+      "description": "Virtual machine",
+      "category": "compute",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_COMPUTE_FUNCTION",
+      "domain": "cloud_infrastructure",
+      "name": "Function",
+      "description": "Serverless function",
+      "category": "compute",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_INFRA_TERRAFORM",
+      "domain": "cloud_infrastructure",
+      "name": "Terraform",
+      "description": "IaC with Terraform",
+      "category": "infra",
+      "aliases": []
+    },
+    {
+      "concept_id": "CLOUD_INFRA_IAC",
+      "domain": "cloud_infrastructure",
+      "name": "IaC",
+      "description": "Infrastructure as Code",
+      "category": "infra",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_AUTHENTICATION",
+      "domain": "security",
+      "name": "Authentication",
+      "description": "Verify identity",
+      "category": "auth",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_AUTHORIZATION",
+      "domain": "security",
+      "name": "Authorization",
+      "description": "Verify permissions",
+      "category": "auth",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_TOKEN_JWT",
+      "domain": "security",
+      "name": "JWT",
+      "description": "JSON Web Token",
+      "category": "token",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_TOKEN_OAUTH",
+      "domain": "security",
+      "name": "OAuth",
+      "description": "OAuth tokens",
+      "category": "token",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_ENCRYPTION_SYMMETRIC",
+      "domain": "security",
+      "name": "Symmetric encryption",
+      "description": "Single-key encryption",
+      "category": "encryption",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_ENCRYPTION_ASYMMETRIC",
+      "domain": "security",
+      "name": "Asymmetric encryption",
+      "description": "Public/private key",
+      "category": "encryption",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_ENCRYPTION_TLS",
+      "domain": "security",
+      "name": "TLS",
+      "description": "Transport layer security",
+      "category": "encryption",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_INPUT_VALIDATION",
+      "domain": "security",
+      "name": "Input validation",
+      "description": "Validate and sanitize input",
+      "category": "validation",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_OUTPUT_SANITIZATION",
+      "domain": "security",
+      "name": "Output sanitization",
+      "description": "Escape output",
+      "category": "validation",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_SECRET_MANAGEMENT",
+      "domain": "security",
+      "name": "Secret management",
+      "description": "Secure secret storage",
+      "category": "secrets",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_KEY_ROTATION",
+      "domain": "security",
+      "name": "Key rotation",
+      "description": "Rotate keys periodically",
+      "category": "secrets",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_NETWORK_FIREWALL",
+      "domain": "security",
+      "name": "Firewall",
+      "description": "Network firewall",
+      "category": "network",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_NETWORK_ZERO_TRUST",
+      "domain": "security",
+      "name": "Zero trust",
+      "description": "Zero trust network",
+      "category": "network",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_SECURITY_HEADERS",
+      "domain": "security",
+      "name": "Security headers",
+      "description": "CSP, HSTS, etc.",
+      "category": "headers",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_RATE_LIMITING",
+      "domain": "security",
+      "name": "Rate limiting",
+      "description": "Throttle requests",
+      "category": "behavior",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_VULNERABILITY_SCAN",
+      "domain": "security",
+      "name": "Vulnerability scan",
+      "description": "Scan for vulns",
+      "category": "assessment",
+      "aliases": []
+    },
+    {
+      "concept_id": "SEC_DEPENDENCY_AUDIT",
+      "domain": "security",
+      "name": "Dependency audit",
+      "description": "Audit dependencies",
+      "category": "assessment",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_PIPELINE_CI",
+      "domain": "devops",
+      "name": "CI",
+      "description": "Continuous integration",
+      "category": "pipeline",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_PIPELINE_CD",
+      "domain": "devops",
+      "name": "CD",
+      "description": "Continuous deployment",
+      "category": "pipeline",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_PIPELINE_BUILD",
+      "domain": "devops",
+      "name": "Build",
+      "description": "Build stage",
+      "category": "pipeline",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_PIPELINE_TEST",
+      "domain": "devops",
+      "name": "Test",
+      "description": "Test stage",
+      "category": "pipeline",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_DEPLOYMENT_BLUE_GREEN",
+      "domain": "devops",
+      "name": "Blue-green",
+      "description": "Blue-green deployment",
+      "category": "deployment",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_DEPLOYMENT_CANARY",
+      "domain": "devops",
+      "name": "Canary",
+      "description": "Canary release",
+      "category": "deployment",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_DEPLOYMENT_ROLLING",
+      "domain": "devops",
+      "name": "Rolling",
+      "description": "Rolling update",
+      "category": "deployment",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_INFRASTRUCTURE_IAC",
+      "domain": "devops",
+      "name": "IaC",
+      "description": "Infrastructure as Code",
+      "category": "infrastructure",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_INFRASTRUCTURE_PROVISIONING",
+      "domain": "devops",
+      "name": "Provisioning",
+      "description": "Resource provisioning",
+      "category": "infrastructure",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_MONITORING",
+      "domain": "devops",
+      "name": "Monitoring",
+      "description": "System monitoring",
+      "category": "observability",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_LOGGING",
+      "domain": "devops",
+      "name": "Logging",
+      "description": "Log aggregation",
+      "category": "observability",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_METRICS",
+      "domain": "devops",
+      "name": "Metrics",
+      "description": "Metrics collection",
+      "category": "observability",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_TRACING",
+      "domain": "devops",
+      "name": "Tracing",
+      "description": "Distributed tracing",
+      "category": "observability",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_INCIDENT_RESPONSE",
+      "domain": "devops",
+      "name": "Incident response",
+      "description": "Incident handling",
+      "category": "incident",
+      "aliases": []
+    },
+    {
+      "concept_id": "DEVOPS_RUNBOOK",
+      "domain": "devops",
+      "name": "Runbook",
+      "description": "Operational runbook",
+      "category": "incident",
+      "aliases": []
+    },
+    {
+      "concept_id": "OBS_METRICS_COLLECTION",
+      "domain": "observability",
+      "name": "Metrics collection",
+      "description": "Collect and expose metrics",
+      "category": "metrics",
+      "aliases": []
+    },
+    {
+      "concept_id": "OBS_LOGGING_STRUCTURED",
+      "domain": "observability",
+      "name": "Structured logging",
+      "description": "Structured log format",
+      "category": "logging",
+      "aliases": []
+    },
+    {
+      "concept_id": "OBS_TRACING_DISTRIBUTED",
+      "domain": "observability",
+      "name": "Distributed tracing",
+      "description": "Cross-service traces",
+      "category": "tracing",
+      "aliases": []
+    },
+    {
+      "concept_id": "OBS_ALERTING_THRESHOLD",
+      "domain": "observability",
+      "name": "Threshold alerting",
+      "description": "Alert on threshold",
+      "category": "alerting",
+      "aliases": []
+    },
+    {
+      "concept_id": "OBS_ALERTING_ANOMALY",
+      "domain": "observability",
+      "name": "Anomaly alerting",
+      "description": "Alert on anomaly",
+      "category": "alerting",
+      "aliases": []
+    },
+    {
+      "concept_id": "OBS_DASHBOARD_SYSTEM",
+      "domain": "observability",
+      "name": "Dashboard",
+      "description": "Monitoring dashboard",
+      "category": "dashboard",
+      "aliases": []
+    },
+    {
+      "concept_id": "OBS_PERFORMANCE_MONITOR",
+      "domain": "observability",
+      "name": "Performance monitor",
+      "description": "Performance metrics",
+      "category": "monitor",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_PATTERN_LAYERED",
+      "domain": "software_architecture",
+      "name": "Layered",
+      "description": "Layered architecture",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_PATTERN_HEXAGONAL",
+      "domain": "software_architecture",
+      "name": "Hexagonal",
+      "description": "Ports and adapters",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_PATTERN_CLEAN_ARCHITECTURE",
+      "domain": "software_architecture",
+      "name": "Clean Architecture",
+      "description": "Dependency rule and layers",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_PATTERN_MICROSERVICES",
+      "domain": "software_architecture",
+      "name": "Microservices",
+      "description": "Service decomposition",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_PATTERN_MONOLITH",
+      "domain": "software_architecture",
+      "name": "Monolith",
+      "description": "Single deployable unit",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_PATTERN_EVENT_DRIVEN",
+      "domain": "software_architecture",
+      "name": "Event-driven",
+      "description": "Event-driven architecture",
+      "category": "pattern",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_BOUNDARY_SERVICE",
+      "domain": "software_architecture",
+      "name": "Service boundary",
+      "description": "Service boundary",
+      "category": "boundary",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_BOUNDARY_MODULE",
+      "domain": "software_architecture",
+      "name": "Module boundary",
+      "description": "Module boundary",
+      "category": "boundary",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_DEPENDENCY_INJECTION",
+      "domain": "software_architecture",
+      "name": "Dependency injection",
+      "description": "Inject dependencies",
+      "category": "technique",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_INTERFACE_CONTRACT",
+      "domain": "software_architecture",
+      "name": "Interface contract",
+      "description": "Stable interface",
+      "category": "technique",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_DOMAIN_MODEL",
+      "domain": "software_architecture",
+      "name": "Domain model",
+      "description": "Core domain logic",
+      "category": "technique",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_AGGREGATE_ROOT",
+      "domain": "software_architecture",
+      "name": "Aggregate root",
+      "description": "DDD aggregate root",
+      "category": "technique",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_SEPARATION_CONCERNS",
+      "domain": "software_architecture",
+      "name": "Separation of concerns",
+      "description": "Distinct responsibilities",
+      "category": "principle",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_LOOSE_COUPLING",
+      "domain": "software_architecture",
+      "name": "Loose coupling",
+      "description": "Minimal coupling",
+      "category": "principle",
+      "aliases": []
+    },
+    {
+      "concept_id": "ARCH_HIGH_COHESION",
+      "domain": "software_architecture",
+      "name": "High cohesion",
+      "description": "Related logic together",
+      "category": "principle",
+      "aliases": []
+    },
+    {
+      "concept_id": "TEST_UNIT",
+      "domain": "testing_quality",
+      "name": "Unit test",
+      "description": "Unit testing",
+      "category": "test",
+      "aliases": []
+    },
+    {
+      "concept_id": "TEST_INTEGRATION",
+      "domain": "testing_quality",
+      "name": "Integration test",
+      "description": "Integration testing",
+      "category": "test",
+      "aliases": []
+    },
+    {
+      "concept_id": "TEST_END_TO_END",
+      "domain": "testing_quality",
+      "name": "E2E test",
+      "description": "End-to-end testing",
+      "category": "test",
+      "aliases": []
+    },
+    {
+      "concept_id": "TEST_PROPERTY_BASED",
+      "domain": "testing_quality",
+      "name": "Property-based",
+      "description": "Property-based testing",
+      "category": "test",
+      "aliases": []
+    },
+    {
+      "concept_id": "TEST_MOCKING",
+      "domain": "testing_quality",
+      "name": "Mocking",
+      "description": "Test doubles",
+      "category": "technique",
+      "aliases": []
+    },
+    {
+      "concept_id": "TEST_STUBS",
+      "domain": "testing_quality",
+      "name": "Stubs",
+      "description": "Stub dependencies",
+      "category": "technique",
+      "aliases": []
+    },
+    {
+      "concept_id": "TEST_FIXTURES",
+      "domain": "testing_quality",
+      "name": "Fixtures",
+      "description": "Test fixtures",
+      "category": "technique",
+      "aliases": []
+    },
+    {
+      "concept_id": "QUALITY_STATIC_ANALYSIS",
+      "domain": "testing_quality",
+      "name": "Static analysis",
+      "description": "Static code analysis",
+      "category": "quality",
+      "aliases": []
+    },
+    {
+      "concept_id": "QUALITY_LINTING",
+      "domain": "testing_quality",
+      "name": "Linting",
+      "description": "Lint rules",
+      "category": "quality",
+      "aliases": []
+    },
+    {
+      "concept_id": "QUALITY_CODE_REVIEW",
+      "domain": "testing_quality",
+      "name": "Code review",
+      "description": "Code review process",
+      "category": "quality",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_MODEL_RELATIONAL",
+      "domain": "data_engineering",
+      "name": "Relational",
+      "description": "Relational data model",
+      "category": "model",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_MODEL_DOCUMENT",
+      "domain": "data_engineering",
+      "name": "Document",
+      "description": "Document model",
+      "category": "model",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_MODEL_GRAPH",
+      "domain": "data_engineering",
+      "name": "Graph",
+      "description": "Graph data model",
+      "category": "model",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_STORAGE_SQL",
+      "domain": "data_engineering",
+      "name": "SQL",
+      "description": "SQL database",
+      "category": "storage",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_STORAGE_NOSQL",
+      "domain": "data_engineering",
+      "name": "NoSQL",
+      "description": "NoSQL store",
+      "category": "storage",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_STORAGE_WAREHOUSE",
+      "domain": "data_engineering",
+      "name": "Warehouse",
+      "description": "Data warehouse",
+      "category": "storage",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_PIPELINE_ETL",
+      "domain": "data_engineering",
+      "name": "ETL",
+      "description": "Extract-transform-load",
+      "category": "pipeline",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_PIPELINE_STREAMING",
+      "domain": "data_engineering",
+      "name": "Streaming",
+      "description": "Streaming pipeline",
+      "category": "pipeline",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_PROCESSING_BATCH",
+      "domain": "data_engineering",
+      "name": "Batch",
+      "description": "Batch processing",
+      "category": "processing",
+      "aliases": []
+    },
+    {
+      "concept_id": "DATA_PROCESSING_REALTIME",
+      "domain": "data_engineering",
+      "name": "Real-time",
+      "description": "Real-time processing",
+      "category": "processing",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_MODEL_TRANSFORMER",
+      "domain": "ai_systems",
+      "name": "Transformer",
+      "description": "Transformer architecture",
+      "category": "model",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_MODEL_CNN",
+      "domain": "ai_systems",
+      "name": "CNN",
+      "description": "Convolutional network",
+      "category": "model",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_MODEL_RNN",
+      "domain": "ai_systems",
+      "name": "RNN",
+      "description": "Recurrent network",
+      "category": "model",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_TRAINING_SUPERVISED",
+      "domain": "ai_systems",
+      "name": "Supervised",
+      "description": "Supervised training",
+      "category": "training",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_TRAINING_UNSUPERVISED",
+      "domain": "ai_systems",
+      "name": "Unsupervised",
+      "description": "Unsupervised training",
+      "category": "training",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_FEATURE_ENGINEERING",
+      "domain": "ai_systems",
+      "name": "Feature engineering",
+      "description": "Feature design",
+      "category": "practice",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_MODEL_EVALUATION",
+      "domain": "ai_systems",
+      "name": "Model evaluation",
+      "description": "Evaluate model",
+      "category": "practice",
+      "aliases": []
+    },
+    {
+      "concept_id": "AI_MODEL_DEPLOYMENT",
+      "domain": "ai_systems",
+      "name": "Model deployment",
+      "description": "Deploy model",
+      "category": "practice",
+      "aliases": []
+    }
+  ],
+  "relationships": [
+    {
+      "source": "UI_PATTERN_AUTH_LOGIN",
+      "relationship": "depends_on",
+      "target": "API_AUTHENTICATION"
+    },
+    {
+      "source": "UI_PATTERN_AUTH_LOGIN",
+      "relationship": "depends_on",
+      "target": "API_AUTH_JWT"
+    },
+    {
+      "source": "DIST_PATTERN_CIRCUIT_BREAKER",
+      "relationship": "applies_to",
+      "target": "API_SERVICE_LAYER"
+    },
+    {
+      "source": "DIST_PATTERN_CIRCUIT_BREAKER",
+      "relationship": "applies_to",
+      "target": "DIST_SERVICE_DISCOVERY"
+    },
+    {
+      "source": "API_PATTERN_REST_RESOURCE",
+      "relationship": "implements",
+      "target": "API_PROTOCOL_HTTP"
+    },
+    {
+      "source": "ARCH_PATTERN_MICROSERVICES",
+      "relationship": "related_to",
+      "target": "DIST_SERVICE_DISCOVERY"
+    },
+    {
+      "source": "DEVOPS_PIPELINE_CD",
+      "relationship": "depends_on",
+      "target": "DEVOPS_PIPELINE_CI"
+    },
+    {
+      "source": "CLOUD_PLATFORM_KUBERNETES",
+      "relationship": "applies_to",
+      "target": "CLOUD_COMPUTE_CONTAINER"
+    }
+  ],
+  "techniques": [
+    {
+      "technique_id": "TECH_DOMAIN_COMPOSITION",
+      "name": "Domain Composition",
+      "description": "Combining knowledge artifacts from multiple domains to generate a complete solution."
+    },
+    {
+      "technique_id": "TECH_SEED_EXPANSION",
+      "name": "Seed Expansion",
+      "description": "Expanding a seed KB into variants or child derivations."
+    },
+    {
+      "technique_id": "TECH_ARTIFACT_INJECTION",
+      "name": "Artifact Injection",
+      "description": "Injecting IPFS or reference artifacts into a KB."
+    },
+    {
+      "technique_id": "TECH_CONSTRAINT_VALIDATION",
+      "name": "Constraint Validation",
+      "description": "Applying invariants and validation rules to artifacts."
+    },
+    {
+      "technique_id": "TECH_PATTERN_INSTANTIATION",
+      "name": "Pattern Instantiation",
+      "description": "Instantiating a design pattern for a specific context."
+    },
+    {
+      "technique_id": "TECH_SPECIALIZATION",
+      "name": "Specialization",
+      "description": "Narrowing a concept in a derivation."
+    },
+    {
+      "technique_id": "TECH_GENERALIZATION",
+      "name": "Generalization",
+      "description": "Broadening a concept in a derivation."
+    },
+    {
+      "technique_id": "TECH_ADAPTATION",
+      "name": "Adaptation",
+      "description": "Adapting knowledge to another context or domain."
+    }
+  ],
+  "invariants": [
+    {
+      "invariant_id": "INV_API_DETERMINISTIC_RESPONSE",
+      "domain": "api_backend",
+      "description": "API responses must be deterministic for identical requests.",
+      "related_concepts": [
+        "API_PATTERN_REST_RESOURCE"
+      ]
+    },
+    {
+      "invariant_id": "INV_UI_PRIMARY_ACTION_VISIBILITY",
+      "domain": "ui_ux",
+      "description": "Primary action must be clearly visible and affordant.",
+      "related_concepts": [
+        "UI_COMPONENT_BUTTON",
+        "UI_PATTERN_AUTH_LOGIN"
+      ]
+    },
+    {
+      "invariant_id": "INV_DIST_IDEMPOTENT_CONSUMER",
+      "domain": "distributed_systems",
+      "description": "Message consumers must be idempotent to allow safe retries.",
+      "related_concepts": [
+        "DIST_QUEUE_MESSAGE",
+        "DIST_PATTERN_CIRCUIT_BREAKER"
+      ]
+    },
+    {
+      "invariant_id": "INV_SEC_INPUT_VALIDATION",
+      "domain": "security",
+      "description": "All external input must be validated and sanitized.",
+      "related_concepts": [
+        "SEC_INPUT_VALIDATION",
+        "API_PATTERN_REST_RESOURCE"
+      ]
+    },
+    {
+      "invariant_id": "INV_OBS_TRACE_PROPAGATION",
+      "domain": "observability",
+      "description": "Distributed traces must propagate context across service boundaries.",
+      "related_concepts": [
+        "OBS_TRACING_DISTRIBUTED",
+        "API_SERVICE_LAYER"
+      ]
+    }
+  ]
+}

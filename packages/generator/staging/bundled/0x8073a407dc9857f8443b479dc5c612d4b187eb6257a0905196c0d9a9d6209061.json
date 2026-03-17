@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xb7a7343d4b712232e81d08c2fe4f2092e1af9641b1b46a590eec92ed9e2f3e5c",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "antipattern.frontend",
+  "rootCid": "QmS5a4VJv4AvnvidvEtLnUbJN1b55ZDHxEWsei4cM9cEzj",
+  "title": "Batch DOM Operations to Prevent Layout Thrashing"
+}

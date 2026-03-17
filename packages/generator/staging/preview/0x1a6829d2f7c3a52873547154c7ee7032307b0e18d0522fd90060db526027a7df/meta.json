@@ -1,0 +1,208 @@
+{
+  "domain": "software.architecture",
+  "isSeed": true,
+  "kbHash": "0x1a6829d2f7c3a52873547154c7ee7032307b0e18d0522fd90060db526027a7df",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:53.997Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Optimizing SQL Read Models for Event Sourcing",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Reconcile artifacts from event sourcing and agent execution by applying field-level structural compa",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Assert merged output for consistency by asserting all required fields pass JSON Schema draft-07 vali",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Filter candidate events for read model updates by executing SQL queries that identify changes in eve",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assign results from event streams using domain-specific classification algorithms",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log operation duration and result code for each step to an audit trail using structured logging",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration",
+        "label": "operation duration",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code_for_each_step",
+        "label": "result code for each step",
+        "type": "output"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:merged_output_for_consistency_by_asserting_all_required_fiel",
+        "label": "merged output for consistency by asserting all required fields pass JSON Schema draft-07 validation",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:event_sourcing",
+        "label": "Event Sourcing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:cqrs",
+        "label": "CQRS",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      },
+      {
+        "id": "ref:metrics_aggregation",
+        "label": "Metrics Aggregation",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code_for_each_step"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code_for_each_step",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:merged_output_for_consistency_by_asserting_all_required_fiel"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:event_sourcing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:cqrs"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:metrics_aggregation"
+      }
+    ]
+  },
+  "tags": [
+    "event_sourcing",
+    "sql_read_models",
+    "data_consistency",
+    "structured_logging",
+    "metrics_aggregation",
+    "data_retrieval",
+    "agent_execution"
+  ],
+  "title": "Optimizing SQL Read Models for Event Sourcing"
+}

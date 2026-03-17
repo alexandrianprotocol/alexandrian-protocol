@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x72ac8963bc4760ce05d6747539b4aac3b21c707e99c85edbbcf2bb6e13a49e5f",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "system.message_broker.kafka_consumer",
+  "rootCid": "QmSsoZkKzTW2RxEmC2EwwgxkJc78ffgrkbhznBqsA6nQV9",
+  "title": "Kafka Consumer Group Design"
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xf27f37eeb9b1cdd99dc077d2e09b61ccacf877d75a892b79947c92c44f19cf4b",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "experimentation.flags.gradual_rollout",
+  "rootCid": "QmXp9bJVk5tPEErwJ1U4U9W6zHECuCwkL4RG2TTkhWLVVJ",
+  "title": "Percentage-Based Gradual Rollout Flags"
+}

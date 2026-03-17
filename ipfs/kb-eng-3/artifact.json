@@ -1,0 +1,226 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "0x5181efedb5749f4e6157cf622e63969d3949c7f979258333a11d1b735714e57d",
+  "kbType": "Practice",
+  "epistemicType": "procedural",
+  "domain": "engineering.api.implementation",
+  "title": "RESTful API Implementation with Structured Error Handling",
+  "summary": "A structured implementation procedure for translating an OpenAPI spec (KB-ENG-2) into a running backend service — schema-first router setup, request validation middleware, dependency-injected handlers, centralized error pipeline, structured logging, graceful shutdown, and contract integration tests. Derived from KB-ENG-1: the resource model and error schema are the source of truth; the code is generated to match the spec, not the other way around. KB-ENG-4 (API security) adds auth and input sanitization on top of this implementation.",
+  "tags": [
+    "api_implementation",
+    "rest",
+    "schema_first",
+    "error_handling",
+    "structured_logging",
+    "dependency_injection",
+    "graceful_shutdown",
+    "integration_testing"
+  ],
+  "capabilities": [
+    "setup-schema-first-router",
+    "implement-request-validation-middleware",
+    "implement-handlers-with-dependency-injection",
+    "build-centralized-error-pipeline",
+    "add-structured-logging",
+    "implement-graceful-shutdown",
+    "write-contract-integration-tests"
+  ],
+  "confidence": 0.91,
+  "preconditions": [
+    "A validated OpenAPI 3.1 spec from KB-ENG-2 is available — linter passes, mock server smoke tests pass.",
+    "The target language and framework are chosen. The procedure uses framework-agnostic patterns; specific tool references are illustrative."
+  ],
+  "cost_estimate": {
+    "human_hours": "4-8h initial setup; 1-2h per new resource",
+    "resource_class": "senior-engineer",
+    "automation_coverage": 0.6,
+    "notes": "Router scaffolding and request validation schema generation are fully automatable from the OpenAPI spec. Handler logic, dependency injection wiring, and error categorization require domain judgment. Graceful shutdown and structured logging are template-driven once the pattern is established."
+  },
+  "payloadType": "procedure",
+  "steps": [
+    {
+      "id": "step_1",
+      "action": "Set up the router layer driven by the OpenAPI spec: generate route stubs from path definitions and operationIds. No route may exist in the implementation that is not declared in the spec.",
+      "produces": [
+        "router_layer"
+      ],
+      "rationale": "Code-first API development — writing routes and generating a spec afterward — produces spec drift as soon as the first undocumented shortcut is added under deadline pressure. Schema-first enforces the contract as the authority: any undocumented route is a build failure. This constraint also makes the router a mechanical derivation from the spec, reducing the surface area for bugs at the routing layer.",
+      "tooling": {
+        "automated": "Route generation: use openapi-generator or oatts to emit typed route stubs from the validated_openapi_spec. Each stub: receives the typed request, returns a typed response, references the operationId as the handler function name. CI check: compare the route list in the running server against the spec's paths — fail the build if they diverge (openapi-enforcer, express-openapi-validator, or equivalent).",
+        "manual": "If auto-generation is not available: manually create one route file per tag group. Name each handler function exactly after the operationId — this makes spec-to-code traceability trivial. Any route added manually must have a corresponding spec update as part of the same commit, enforced in code review."
+      }
+    },
+    {
+      "id": "step_2",
+      "action": "Implement request validation middleware: validate every incoming request against the OpenAPI spec's requestBody schema and parameter definitions before it reaches any handler. Reject non-conforming requests at the edge.",
+      "inputs": [
+        "router_layer"
+      ],
+      "produces": [
+        "request_validation_middleware"
+      ],
+      "rationale": "Request validation at the handler level produces duplicated validation logic and inconsistent error responses across handlers. Centralizing it in middleware means every operation automatically enforces the spec's type constraints, required fields, and format rules — and returns the standard error schema from KB-ENG-1 with a consistent VALIDATION_FAILED error code. A request that passes middleware is guaranteed spec-conformant; handlers do not need defensive checks.",
+      "tooling": {
+        "automated": "Middleware integration: express-openapi-validator (Node), kin-openapi (Go), fastapi's built-in validation (Python), or requestvalidator (Ruby). Configure: validateRequests: true, validateResponses: true (dev only — response validation is expensive in prod), coerceTypes: false (type coercion hides client bugs). On validation failure: return { error: { code: 'VALIDATION_FAILED', message: string, retryable: false, details: { path: string, message: string }[], request_id: string } } with status 422.",
+        "manual": "Middleware placement: install before all route handlers, after request parsing (body-parser, express.json()). Validate that the middleware intercepts a deliberately malformed request (missing required field) before it reaches the handler by writing a unit test against the middleware in isolation. Confirm the error body matches the error_schema from KB-ENG-1 exactly."
+      }
+    },
+    {
+      "id": "step_3",
+      "action": "Implement handlers with dependency injection: each handler receives its dependencies (database, cache, external clients) as constructor or function parameters. No handler accesses global state or instantiates its own dependencies.",
+      "inputs": [
+        "request_validation_middleware"
+      ],
+      "produces": [
+        "handler_implementations"
+      ],
+      "rationale": "Handlers that access global state or instantiate dependencies directly are untestable in isolation — every unit test requires a fully initialized application context. Dependency injection makes each handler a pure function of its inputs and injected services, enabling isolation testing without infrastructure. It also makes the dependency graph explicit: circular dependencies and missing services are detected at startup, not during a request.",
+      "tooling": {
+        "automated": "DI pattern: each handler is a function or class that accepts its dependencies at construction time. Example factory: createUserHandler({ userRepository, emailService, logger }) → (req, res, next) => { ... }. Wire at startup: const userHandler = createUserHandler({ userRepository: new PostgresUserRepository(db), emailService: new SendgridEmailService(config), logger }). For typed languages: define interfaces for each dependency — handlers depend on the interface, not the concrete implementation.",
+        "manual": "Handler discipline: each handler must do exactly one thing — validate business rules and call domain services. No SQL in handlers. No HTTP calls in handlers unless the handler's sole purpose is an HTTP proxy operation. If a handler exceeds 30 lines, it is doing too much — extract a domain service. Test each handler with mock dependencies to verify it calls the right service methods with the right arguments."
+      }
+    },
+    {
+      "id": "step_4",
+      "action": "Build the centralized error handling pipeline: a single error handler receives all unhandled errors, maps them to the error_schema status codes and error codes, and emits the standard error body.",
+      "inputs": [
+        "handler_implementations"
+      ],
+      "produces": [
+        "error_handling_pipeline"
+      ],
+      "rationale": "Without a centralized error handler, each handler implements its own error-to-status-code mapping — producing inconsistent response shapes, missing request_ids, and unlogged errors. The centralized pipeline is the enforcement point for the error schema contract from KB-ENG-1: it guarantees that every error response has the standard body shape regardless of which handler threw it. It also ensures that unexpected errors (uncaught exceptions) emit a 500 with retryable: true rather than a framework default response.",
+      "tooling": {
+        "automated": "Error classifier: map error types to error schema entries. Example: ValidationError → 422 VALIDATION_FAILED (fatal), NotFoundError → 404 NOT_FOUND (fatal), ConflictError → 409 CONFLICT (context-dependent), UnauthorizedError → 401 UNAUTHORIZED (fatal), ForbiddenError → 403 FORBIDDEN (fatal), RateLimitError → 429 RATE_LIMITED (retryable), default (unknown) → 500 INTERNAL_ERROR (retryable). Log all 500s at ERROR level with stack trace. Log 4xx at WARN level with request details only (no stack trace in prod).",
+        "manual": "Error handler placement: must be the last middleware registered in the framework. In Express: app.use((err, req, res, next) => { ... }). In Go: deferred recover at the top of each handler, or a middleware that wraps all handlers. Verify the pipeline catches panics/uncaught exceptions by deliberately throwing in a test handler and confirming the 500 response body matches the error schema."
+      }
+    },
+    {
+      "id": "step_5",
+      "action": "Add structured JSON logging at every handler boundary: emit a log entry on request receipt and response send with request_id, method, path, status, latency_ms, and user_id (if authenticated).",
+      "inputs": [
+        "error_handling_pipeline"
+      ],
+      "produces": [
+        "structured_logging_config"
+      ],
+      "rationale": "Unstructured logs require regex parsing to extract metrics, making log-based alerting fragile and slow. Structured JSON logs are queryable by field in any log aggregation system (Datadog, Splunk, CloudWatch). The request_id propagated in every log entry is what links the inbound request log to all downstream service calls and the outbound response log — enabling end-to-end request tracing without a distributed tracing system. Without it, debugging a 500 in production requires correlating logs by timestamp, which fails under concurrent load.",
+      "tooling": {
+        "automated": "Request log schema: { timestamp: ISO8601, level: 'INFO'|'WARN'|'ERROR', request_id: uuid, method: string, path: string, query_params: object (sanitized), status: number, latency_ms: number, user_id: string | null, error_code: string | null, service: string, version: string }. request_id: generate on request receipt if not present in X-Request-ID header; propagate in response header and all downstream calls. Logger: pino (Node), zerolog (Go), structlog (Python). Log level rules: 2xx → INFO, 4xx → WARN, 5xx → ERROR.",
+        "manual": "Sanitization rules: never log request bodies in INFO logs — they may contain credentials or PII. Never log Authorization headers. In DEBUG logs (dev only), log redacted request bodies with sensitive fields replaced by '[REDACTED]'. Verify in staging: tail the log stream and confirm every request produces exactly one request log and one response log with matching request_id."
+      }
+    },
+    {
+      "id": "step_6",
+      "action": "Implement graceful shutdown: on SIGTERM/SIGINT, stop accepting new connections, drain in-flight requests within a configurable timeout, then terminate cleanly.",
+      "inputs": [
+        "structured_logging_config"
+      ],
+      "produces": [
+        "graceful_shutdown_handler"
+      ],
+      "rationale": "Without graceful shutdown, a rolling deployment or auto-scaling event kills the process mid-request, returning a 502 to the client. In Kubernetes, a pod receiving SIGTERM has a configurable terminationGracePeriodSeconds to finish in-flight work — but only if the application handles SIGTERM. The 30-second default is almost always sufficient for API requests; the risk is forgetting to implement it at all. A process that exits immediately on SIGTERM forces clients to implement retry logic for what should be a transparent infrastructure event.",
+      "tooling": {
+        "automated": "Shutdown sequence: (1) register SIGTERM and SIGINT handlers, (2) call server.close() to stop accepting new connections, (3) wait for activeConnections to reach 0 or shutdown_timeout_ms (default: 25000ms) to elapse, (4) close database connections and cache clients, (5) log 'shutdown complete' at INFO level, (6) process.exit(0). Track active connections with a counter incremented on connection and decremented on close. Log requests still in flight at shutdown time at WARN level.",
+        "manual": "Test graceful shutdown: send a request that takes 5 seconds to complete. In a separate terminal, send SIGTERM to the process. Verify the first request completes successfully and the process exits after it finishes. Verify that a request sent after SIGTERM receives a connection refused, not a mid-flight 502."
+      }
+    },
+    {
+      "id": "step_7",
+      "action": "Write contract integration tests: for every operation in the OpenAPI spec, write a test that sends a real HTTP request to the running service and asserts the response status, body shape, and headers match the spec.",
+      "inputs": [
+        "graceful_shutdown_handler"
+      ],
+      "produces": [
+        "contract_integration_test_suite"
+      ],
+      "rationale": "Unit tests verify handler logic in isolation; contract tests verify that the running service honors the OpenAPI spec contract. The distinction matters because middleware, serialization, authentication, and error handling layers all sit between the handler and the client — unit tests do not exercise them. A contract test that passes confirms KB-ENG-2's validated_openapi_spec and the running implementation are aligned. It also catches the most common post-deployment regression: a dependency update that changes serialization behavior silently.",
+      "tooling": {
+        "automated": "Contract test tools: dredd (runs OpenAPI spec examples as tests), schemathesis (property-based contract testing from spec), or custom test suite using supertest (Node) / httptest (Go) / pytest-httpx (Python). Coverage requirement: every operationId has at least one test for the success path and one test for each documented error code. Response assertion: status code, Content-Type header, and body schema validation — not just exact body match (schema match is more robust to non-breaking additions).",
+        "manual": "Test database state management: each test must establish its own state (seed data) and clean up after itself — tests must be runnable in any order. For tests covering 4xx error paths: craft the request to trigger the specific error condition rather than mocking the handler — this tests the full middleware stack. Auth in tests: use a dedicated test JWT signed with the test secret, not a mock of the auth middleware."
+      }
+    }
+  ],
+  "verification": {
+    "successConditions": [
+      "Every route in the running service has a corresponding operation in the OpenAPI spec — no undocumented routes",
+      "Request validation middleware rejects a malformed request with a 422 VALIDATION_FAILED error matching the error_schema before it reaches any handler",
+      "Every handler receives all dependencies as parameters — no global imports of database or service clients",
+      "All unhandled errors are caught by the centralized error handler and return a body matching the error_schema",
+      "Every request produces exactly one structured JSON log entry with request_id, method, path, status, and latency_ms",
+      "Graceful shutdown drains in-flight requests before process exit — verified by test",
+      "Contract integration tests cover every operationId success path and all documented error codes, all passing"
+    ],
+    "failureConditions": [
+      "Undocumented routes exist in the running service — contract drift, consumers cannot rely on the spec",
+      "Validation errors from middleware do not match the error_schema body shape — client error handlers break",
+      "Handler instantiates its own database connection — untestable in isolation, connection pool exhaustion risk",
+      "Unhandled exception returns raw framework error (HTML, stack trace) — leaks implementation details, breaks API clients",
+      "No request_id in logs — end-to-end request tracing requires manual correlation by timestamp",
+      "Process exits immediately on SIGTERM — in-flight requests receive 502s during deployments"
+    ],
+    "metrics": [
+      "undocumented_routes == 0",
+      "validation_error_body_schema_compliant == true",
+      "handlers_with_global_state_dependencies == 0",
+      "unhandled_exceptions_reaching_client == 0",
+      "requests_without_structured_log == 0",
+      "graceful_shutdown_test_passing == true",
+      "contract_test_coverage_per_operationid == 1.0"
+    ]
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "validated_openapi_spec",
+        "type": "object",
+        "description": "Output of KB-ENG-2: complete OpenAPI 3.1 spec passing linter and mock server tests"
+      },
+      {
+        "name": "error_schema",
+        "type": "object",
+        "description": "Output of KB-ENG-1 step 3: standard error body structure — used to configure the error handler mapping"
+      },
+      {
+        "name": "framework",
+        "type": "string",
+        "description": "Target framework and language: express/node, fastapi/python, gin/go, rails/ruby — determines tooling references"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "running_api_service",
+        "type": "service",
+        "description": "Running service with all routes, middleware, handlers, and error handling implemented and verified"
+      },
+      {
+        "name": "contract_integration_test_suite",
+        "type": "object",
+        "description": "Test suite covering all operationIds — success paths and documented error codes — all passing against the live service"
+      },
+      {
+        "name": "structured_logging_config",
+        "type": "object",
+        "description": "Logger configuration with request log schema, request_id propagation, and log level rules"
+      }
+    ]
+  },
+  "artifactRefs": [
+    {
+      "uri": "KB-ENG-1",
+      "name": "api_design",
+      "type": "parent_context"
+    },
+    {
+      "uri": "KB-ENG-2",
+      "name": "openapi_contract",
+      "type": "sibling_context"
+    }
+  ],
+  "parentHashes": [
+    "0x574542249886be6e935764c9b1518b57bae71cab15de273a41d39c190c5d0d20"
+  ],
+  "royaltyBps": 500,
+  "isSeed": false,
+  "publishedAt": "2026-03-17T12:00:00Z"
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xfccc91dd7426e61bd1f6e6ed1274d2a155bac1745688d1fb97573c57f93f3209",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "kg.rdf.canonicalization",
+  "rootCid": "QmR23L2RnFNK891D7k6NUH33Pxaja9qUMWZPYto7WFkB4n",
+  "title": "RDF Dataset Canonicalization for Deterministic Signing"
+}

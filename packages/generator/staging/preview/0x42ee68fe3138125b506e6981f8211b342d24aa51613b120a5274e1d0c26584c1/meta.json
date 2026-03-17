@@ -1,0 +1,173 @@
+{
+  "domain": "agent.tools.input_adaptation",
+  "isSeed": true,
+  "kbHash": "0x42ee68fe3138125b506e6981f8211b342d24aa51613b120a5274e1d0c26584c1",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:03.985Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Input Adaptation Success Metrics for Tools",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Capture input specifications using domain-specific tools, ensuring error_count < 1 and result_valid ",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Assert captured specifications with domain-appropriate tools, confirming error_count < 1 and result_",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Specify criteria and metrics using domain-specific tools, ensuring error_count < 1 and result_valid ",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assert procedure output with domain-specific tools, confirming error_count < 1 and result_valid = tr",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:captured_specifications_with_domain_appropriate_tools_confir",
+        "label": "captured specifications with domain-appropriate tools, confirming error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:procedure_output_with_domain_specific_tools_confirming_error",
+        "label": "procedure output with domain-specific tools, confirming error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:domain_driven_design",
+        "label": "Domain Driven Design",
+        "type": "reference"
+      },
+      {
+        "id": "ref:metrics_aggregation",
+        "label": "Metrics Aggregation",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:captured_specifications_with_domain_appropriate_tools_confir"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:procedure_output_with_domain_specific_tools_confirming_error"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:domain_driven_design"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:metrics_aggregation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      }
+    ]
+  },
+  "tags": [
+    "input_adaptation",
+    "software_architecture",
+    "metrics",
+    "validation",
+    "structured_logging",
+    "domain_driven_design",
+    "traceability"
+  ],
+  "title": "Input Adaptation Success Metrics for Tools"
+}

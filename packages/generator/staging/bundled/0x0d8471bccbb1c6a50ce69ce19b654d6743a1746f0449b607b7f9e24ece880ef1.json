@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x377f418a0feb2e4372b7fe2adfbec8ae4a3fcb31a52790550c172ecd637df52c",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.opt.constant_folding",
+  "rootCid": "QmZQP4Qvs9CBkR6EMDT9kNtSWfrWbmuwYcRAbRJ3spRTjY",
+  "title": "Constant Folding Optimization Pass in Compilers"
+}

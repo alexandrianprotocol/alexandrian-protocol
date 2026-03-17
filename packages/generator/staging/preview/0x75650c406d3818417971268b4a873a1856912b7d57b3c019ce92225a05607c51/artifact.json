@@ -1,0 +1,86 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Implement retry strategies using exponential and linear backoff to handle transient errors in knowledge graph systems, ensuring system stability and data consistency."
+  ],
+  "confidence": 1,
+  "domain": "agent.error_recovery",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0x75650c406d3818417971268b4a873a1856912b7d57b3c019ce92225a05607c51",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Initialize retry logic with exponential backoff using a base delay of 100ms, doubling the delay up to a maximum of 5 seconds.",
+      "step": 1
+    },
+    {
+      "action": "Invoke linear backoff for non-critical operations with a fixed delay increment of 200ms, capping at 3 seconds.",
+      "step": 2
+    },
+    {
+      "action": "Compose retry logic with a knowledge graph API client, ensuring retries are logged with structured logging for traceability by composing module interfaces via adapter pattern; assert input/output type contracts match before connecting; assert integration_error_count < 1 after contract validation.",
+      "step": 3
+    },
+    {
+      "action": "Set up monitoring to alert if retry attempts exceed 10 within a 1-minute window, indicating potential system issues using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Test retry mechanisms using a simulated network failure environment to ensure correct backoff behavior and system recovery using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:12:06.787Z",
+  "royaltyBps": 500,
+  "schemaVersion": "2.5",
+  "summary": "Implement exponential and linear backoff strategies for reliable retries in knowledge graph systems, ensuring robust error recovery and minimizing system overload.",
+  "tags": [
+    "error_recovery",
+    "retry_strategy",
+    "knowledge_graph",
+    "structured_logging",
+    "system_stability"
+  ],
+  "title": "Exponential and Linear Backoff for Knowledge Graph Error Recovery",
+  "verification": {
+    "failureConditions": [
+      "Excessive retries lead to system overload; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Incorrect backoff configuration causes delayed recovery; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Lack of logging results in untraceable retry attempts."
+    ],
+    "metrics": [
+      "input/output type contracts match before connecting",
+      "integration_error_count < 1 after contract validation",
+      "error_count < 1 and result_valid = true",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Simulated failures show retries with correct backoff timing",
+      "System logs contain structured entries for each retry attempt",
+      "Alerts trigger when retry thresholds are exceeded"
+    ]
+  }
+}

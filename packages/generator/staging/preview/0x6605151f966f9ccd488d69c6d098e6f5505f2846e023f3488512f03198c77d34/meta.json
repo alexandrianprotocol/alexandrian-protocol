@@ -1,0 +1,223 @@
+{
+  "domain": "experimentation.governance.replication",
+  "isSeed": true,
+  "kbHash": "0x6605151f966f9ccd488d69c6d098e6f5505f2846e023f3488512f03198c77d34",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:04.009Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Experiment Replication Procedure for Key Results",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Prepare replication by documenting all experimental parameters, including input data, environment co",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Execute replication by running the experiment in an isolated environment using the documented parame",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Analyze results by comparing the replicated data against the original results using statistical test",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assert replication by ensuring all key metrics fall within a predefined confidence interval, logging",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Document the entire replication process, including any discrepancies found, and store in a version-c",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:replication_by_ensuring_all_key_metrics_fall_within_a_predef",
+        "label": "replication by ensuring all key metrics fall within a predefined confidence interval, logging any deviations for further",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:field_validation_pass_rate_gte_1_0",
+        "label": "field_validation_pass_rate >= 1.0",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:immutable_infrastructure",
+        "label": "Immutable Infrastructure",
+        "type": "reference"
+      },
+      {
+        "id": "ref:infrastructure_as_code",
+        "label": "Infrastructure as Code",
+        "type": "reference"
+      },
+      {
+        "id": "ref:distributed_tracing",
+        "label": "Distributed Tracing",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:replication_by_ensuring_all_key_metrics_fall_within_a_predef"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:immutable_infrastructure"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:infrastructure_as_code"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:distributed_tracing"
+      }
+    ]
+  },
+  "tags": [
+    "experimentation",
+    "governance",
+    "replication",
+    "reliability",
+    "validity",
+    "statistical_analysis",
+    "documentation"
+  ],
+  "title": "Experiment Replication Procedure for Key Results"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x16ebb49623f8f08db41a1a9f9648c7f907d262eff3c659dce373782134e5d688
+  artifactHash: 0x4c0d67113fb439dfc76e81617856bc4a7a8aee0ffae90ce88b538b5e9cfa8c35
+  title:        Data Governance Workflow Implementation in Catalog Systems
+  domain:       datamesh.catalog.governance
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  21
+  graph edges:  25
+  artifact.json size: 3144 bytes
+  meta.json size:     4419 bytes

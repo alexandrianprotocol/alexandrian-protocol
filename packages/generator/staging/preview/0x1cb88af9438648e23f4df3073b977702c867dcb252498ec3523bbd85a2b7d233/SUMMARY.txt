@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1cb88af9438648e23f4df3073b977702c867dcb252498ec3523bbd85a2b7d233
+  artifactHash: 0x16f9b84d04935af603571eee2f002a9ae9747ee29a147c6fa0d665650ea45a52
+  title:        Clean Architecture Evaluation
+  domain:       software.architecture.clean_architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  17
+  graph edges:  22
+  artifact.json size: 3328 bytes
+  meta.json size:     4078 bytes

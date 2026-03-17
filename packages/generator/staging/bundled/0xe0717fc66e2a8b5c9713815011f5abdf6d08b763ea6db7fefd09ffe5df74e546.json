@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x2107ca2936c9ff31201588e0e00dca24d5c81adb24376c65d5ff34e2ab1cbfdd",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.execution",
+  "rootCid": "QmdXHtmfbnQcryKqpWMvSnUaGk3czHHExstdrfjMkeVkeG",
+  "title": "Safe Subprocess Invocation for CLI Agents"
+}

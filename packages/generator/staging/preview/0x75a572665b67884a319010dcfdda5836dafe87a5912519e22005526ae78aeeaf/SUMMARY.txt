@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x75a572665b67884a319010dcfdda5836dafe87a5912519e22005526ae78aeeaf
+  artifactHash: 0x3d23ef454d43a3fd4a49ca831a6881cbc7f1893b5894f7a9d5d1e189eacc62ef
+  title:        Automated Regression Test Suite Execution Verification
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  20
+  graph edges:  27
+  artifact.json size: 3630 bytes
+  meta.json size:     4479 bytes

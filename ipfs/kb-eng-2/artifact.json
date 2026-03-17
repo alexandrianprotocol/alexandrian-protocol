@@ -1,0 +1,222 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "0x9c9187a7852768097b2b441acbeedb86374cd003d1c02f57cd7178852a36cb1c",
+  "kbType": "Feature",
+  "epistemicType": "procedural",
+  "domain": "engineering.api.contracts",
+  "title": "OpenAPI Contract Specification for Backend Services",
+  "summary": "A structured procedure for translating an API design document (KB-ENG-1) into a complete, machine-validated OpenAPI 3.1 specification — covering schema components, path definitions, security schemes, examples, and linter-verified contract correctness. The OpenAPI spec produced here is the authoritative contract between backend and consumers; KB-ENG-3 (implementation) is derived from it, not the other way around.",
+  "tags": [
+    "openapi",
+    "api_contracts",
+    "schema_first",
+    "swagger",
+    "api_specification",
+    "backend",
+    "contract_testing"
+  ],
+  "capabilities": [
+    "initialize-openapi-document",
+    "define-component-schemas",
+    "define-paths-and-operations",
+    "enforce-strict-schema-types",
+    "apply-security-schemes",
+    "add-operation-examples",
+    "validate-spec-with-linter"
+  ],
+  "confidence": 0.92,
+  "preconditions": [
+    "An api_design_document from KB-ENG-1 is available: resource model, HTTP operation map, error schema, auth scheme, and versioning strategy are all defined.",
+    "Consumer review from KB-ENG-1 step 7 is complete — no unresolved clarifications."
+  ],
+  "cost_estimate": {
+    "human_hours": "3-6h",
+    "resource_class": "senior-engineer",
+    "automation_coverage": 0.55,
+    "notes": "Schema component definitions and path scaffolding are generatable from the api_design_document. Discriminator mappings, security scheme configuration, and example authoring require human judgment. Linter integration and mock server generation are fully automatable."
+  },
+  "payloadType": "procedure",
+  "steps": [
+    {
+      "id": "step_1",
+      "action": "Initialize the OpenAPI document: set openapi version to '3.1.0', populate info (title, version, description, contact), define servers for each environment, and declare global security requirements.",
+      "produces": [
+        "openapi_document_skeleton"
+      ],
+      "rationale": "The info and servers blocks are consumed by generated client SDKs and developer portal tooling. An incorrect version string (e.g., '3.0.3' vs '3.1.0') silently disables JSON Schema features — nullable, oneOf, and $ref composition behave differently between versions. Global security requirements established here prevent the most common OpenAPI authoring mistake: forgetting to apply security to individual operations.",
+      "tooling": {
+        "automated": "Document skeleton: { openapi: '3.1.0', info: { title: string, version: 'v1', description: string, contact: { name, email } }, servers: [{ url: 'https://api.{domain}/v1', description: 'production' }, { url: 'http://localhost:8080/v1', description: 'local' }], security: [{ BearerAuth: [] }], paths: {}, components: { schemas: {}, securitySchemes: {} } }. Validate: openapi field is exactly '3.1.0'.",
+        "manual": "Server URL discipline: always include the version path segment (/v1) in the server URL, not in individual path definitions. This allows the entire spec to be re-targeted to /v2 by changing one field. Ensure info.version matches the versioning_strategy from KB-ENG-1."
+      }
+    },
+    {
+      "id": "step_2",
+      "action": "Define components/schemas for every entity in the resource_model: create separate schemas for request bodies (no read-only fields), response objects (all fields), and list wrappers (pagination envelope).",
+      "inputs": [
+        "openapi_document_skeleton"
+      ],
+      "produces": [
+        "component_schemas"
+      ],
+      "rationale": "Using a single schema for both request and response conflates read-only server-assigned fields (id, createdAt) with writable client-submitted fields — this causes either over-permissive input acceptance or unnecessary validation failures. Separate schemas for Create, Update, and Read also make the contract self-documenting: a consumer reading the spec knows exactly which fields to send.",
+      "tooling": {
+        "automated": "Schema naming convention: {Entity}CreateRequest (writable fields only, required: all non-optional), {Entity}UpdateRequest (writable fields only, required: none for PATCH), {Entity}Response (all fields including read-only), {Entity}ListResponse (pagination envelope: { items: [{Entity}Response], total: integer, page: integer, pageSize: integer }). Mark server-assigned fields (id, createdAt, updatedAt) as readOnly: true in the Response schema.",
+        "manual": "Schema discipline: no freeform objects (type: object with no properties). Every field has a type, description, and example. Enum fields list all valid values. String fields with format constraints use format: 'date-time' | 'email' | 'uri' | 'uuid'. Reject additionalProperties: true on request schemas — excess fields should be rejected, not ignored."
+      }
+    },
+    {
+      "id": "step_3",
+      "action": "Define all paths and operations: for each endpoint in the api_design_document, create the path item with summary, operationId, tags, parameters, requestBody, and responses.",
+      "inputs": [
+        "component_schemas"
+      ],
+      "produces": [
+        "path_definitions"
+      ],
+      "rationale": "operationId is the primary key for generated client SDK method names — a vague or missing operationId produces unusable client code. Tags control grouping in developer portals and generated docs. Every operation must declare all documented responses from the error_schema, not just 200 — a spec that only documents 200 actively misleads clients about failure behavior.",
+      "tooling": {
+        "automated": "operationId convention: {method}{EntityName}[Qualifier] — e.g., listUsers, createUser, getUserById, updateUser, deleteUser. Path parameters must match exactly between the path string (/users/{id}) and the parameters array. Response coverage check: every operation must include at least: the success response (200 or 201), 400 (if it has a request body), 401 (if auth_tier != PUBLIC), 404 (if path parameter exists), and 500.",
+        "manual": "Parameter discipline: path parameters are always required: true. Query parameters for filtering must have explicit types — never type: string for a field that accepts only integers. Headers that the consumer must provide (Idempotency-Key, X-Request-ID) must be declared as parameters, not mentioned only in the description."
+      }
+    },
+    {
+      "id": "step_4",
+      "action": "Enforce strict schema types across the entire spec: run a structural audit to eliminate freeform objects, missing required arrays, implicit nullability, and any field where type is omitted.",
+      "inputs": [
+        "path_definitions",
+        "component_schemas"
+      ],
+      "produces": [
+        "schema_strictness_report"
+      ],
+      "rationale": "OpenAPI validators that accept type omissions and freeform objects produce contracts that cannot be used for automated request validation or client codegen without manual patching. A loose schema passes validation but propagates ambiguity into KB-ENG-3's request validation middleware and KB-ENG-4's input sanitization checks. Strictness must be enforced at spec-authoring time, not implementation time.",
+      "tooling": {
+        "automated": "Strictness rules: (1) every schema property has an explicit type, (2) required arrays list all non-optional properties, (3) nullable fields use oneOf: [{type: 'null'}, {type: original}] in OpenAPI 3.1 — not nullable: true (removed in 3.1), (4) no additionalProperties: true on request body schemas, (5) no allOf used only for description override — use description field directly. Run: spectral lint --ruleset strictness-rules.yaml.",
+        "manual": "Audit pass: search the spec for 'type: object' with no properties field defined. Each occurrence is a freeform object that must be concretized. Search for properties with no type field. Each occurrence allows any type and breaks codegen. Nullability check: if a field can be null in the response (deleted_at, completed_at), it must be declared nullable explicitly."
+      }
+    },
+    {
+      "id": "step_5",
+      "action": "Define security schemes and apply them: declare all schemes in components/securitySchemes, apply global security, then override per-operation for PUBLIC endpoints and operations requiring elevated scope.",
+      "inputs": [
+        "path_definitions"
+      ],
+      "produces": [
+        "security_scheme_definitions"
+      ],
+      "rationale": "A global security declaration with per-operation override is the only pattern that prevents new endpoints from shipping without auth by default. The inverse — opt-in per-operation — means every new endpoint is PUBLIC until a developer remembers to add security. The per-operation override also documents which endpoints are intentionally public, making it visible in code review.",
+      "tooling": {
+        "automated": "Security scheme templates: BearerAuth (JWT): { type: http, scheme: bearer, bearerFormat: JWT }. ApiKeyAuth: { type: apiKey, in: header, name: X-API-Key }. OAuth2: { type: oauth2, flows: { clientCredentials: { tokenUrl, scopes: {} } } }. Per-operation overrides: PUBLIC endpoint → security: [] (empty array, explicitly no auth). ADMIN endpoint → security: [{ BearerAuth: ['admin'] }]. Validate: every operation either inherits global security or has an explicit security override — no operation is left without a security declaration.",
+        "manual": "Security audit: search the spec for operations that have no explicit security field and inherit the global default. Verify each one intentionally requires user auth. For any operation that should be PUBLIC, add security: [] explicitly so the intent is visible in the spec and in code review diffs."
+      }
+    },
+    {
+      "id": "step_6",
+      "action": "Add examples for every operation: a happy-path example for the success response, and an example for each documented error code in the error_schema.",
+      "inputs": [
+        "path_definitions",
+        "security_scheme_definitions"
+      ],
+      "produces": [
+        "operation_examples"
+      ],
+      "rationale": "Examples are the primary way consumers understand an API's expected behavior without writing code against a live environment. Error code examples are more valuable than success examples — they tell clients exactly what the body looks like when a request fails, preventing brittle string-parsing error handlers. Examples also seed the mock server (step 7), so a spec without examples produces an unusable mock.",
+      "tooling": {
+        "automated": "Example placement: inline examples in the response schema using examples (plural) with named keys: success, validation_error, not_found. Example body must be a valid instance of the schema it illustrates — the linter will catch invalid examples. For POST/PUT/PATCH operations: add requestBody examples showing both a minimal valid payload and a full payload.",
+        "manual": "Example quality checklist: (1) success example uses realistic data, not 'string' and 0, (2) every error code in the operation's responses has a corresponding example with the correct status code and error body structure from error_schema, (3) pagination examples show a non-trivial list (2-3 items, not 1), (4) no example contains production PII — use generated fake data."
+      }
+    },
+    {
+      "id": "step_7",
+      "action": "Validate the spec with a linter and generate a mock server: run Spectral against the full spec, resolve all errors and warnings, then start a mock server and execute the examples as smoke tests.",
+      "inputs": [
+        "operation_examples"
+      ],
+      "produces": [
+        "validated_openapi_spec",
+        "mock_server_smoke_test_results"
+      ],
+      "rationale": "A spec that passes linting but fails mock server smoke tests contains invalid examples — the most common sign that a schema was changed after examples were written. Smoke tests against the mock server validate example–schema coherence without requiring a live implementation. This catches the most expensive class of spec bugs: schema and example drift that only surfaces when a consumer writes their first integration test against the implementation.",
+      "tooling": {
+        "automated": "Linter: spectral lint openapi.yaml --ruleset @stoplight/spectral-openapi --ruleset .spectral.yaml. Zero errors, zero warnings required before proceeding. Mock server: npx @stoplight/prism-cli mock openapi.yaml. Smoke test: for each example in operation_examples, send the example request to the mock server and assert the response status and body match the documented example. A failed smoke test means the example is invalid against the schema — fix the schema or the example.",
+        "manual": "If linter reports 'schema not found' for a $ref: the referenced component is missing from components/schemas — add it. If mock server returns 422 on a valid example request: the requestBody schema is stricter than the example — align them. If mock returns unexpected 500: the spec contains a schema that Prism cannot resolve (circular $ref, missing discriminator mapping) — trace the error message."
+      }
+    }
+  ],
+  "verification": {
+    "successConditions": [
+      "openapi field is exactly '3.1.0' — not 3.0.x",
+      "component_schemas contains separate Create/Update/Read schemas for every entity in resource_model",
+      "Every operation has a unique operationId, summary, tags, and all documented responses including error codes",
+      "No freeform objects (type: object with no properties) in any request body schema",
+      "Every operation has an explicit security declaration or overrides to security: []",
+      "All examples validate against their schemas — spectral lint and prism mock smoke tests pass with zero errors"
+    ],
+    "failureConditions": [
+      "openapi version is 3.0.x — nullable and schema composition behave differently, breaking generated clients",
+      "Single schema used for both request and response — read-only fields accepted as input, causing silent data corruption",
+      "operationId missing or duplicated — generated SDK methods have colliding or unintelligible names",
+      "Error responses not documented for operations — clients cannot detect or handle failures",
+      "No per-operation security override for PUBLIC endpoints — intent is invisible, creates audit trail gaps",
+      "Examples not validated against schemas — mock server returns unexpected responses, consumer tests fail"
+    ],
+    "metrics": [
+      "openapi_version == '3.1.0'",
+      "operations_without_operationId == 0",
+      "operations_without_error_responses == 0",
+      "freeform_object_schemas == 0",
+      "spectral_lint_errors == 0",
+      "prism_mock_smoke_test_failures == 0"
+    ]
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "api_design_document",
+        "type": "object",
+        "description": "Output of KB-ENG-1: resource table with endpoints, auth tiers, error codes, idempotency, and versioning"
+      },
+      {
+        "name": "error_schema",
+        "type": "object",
+        "description": "Output of KB-ENG-1 step 3: standard error body structure with status codes and retryability"
+      },
+      {
+        "name": "spectral_ruleset",
+        "type": "string",
+        "description": "Path to custom Spectral ruleset YAML file for project-specific linting rules",
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validated_openapi_spec",
+        "type": "object",
+        "description": "Complete OpenAPI 3.1 spec passing linter and mock server smoke tests — authoritative contract for KB-ENG-3 implementation"
+      },
+      {
+        "name": "mock_server_smoke_test_results",
+        "type": "object[]",
+        "description": "Per-operation smoke test results: request, expected response, actual response, pass/fail"
+      },
+      {
+        "name": "schema_strictness_report",
+        "type": "object",
+        "description": "Audit findings from step 4: freeform objects, missing types, nullability issues — all resolved before output"
+      }
+    ]
+  },
+  "artifactRefs": [
+    {
+      "uri": "KB-ENG-1",
+      "name": "api_design",
+      "type": "parent_context"
+    }
+  ],
+  "parentHashes": [
+    "0x574542249886be6e935764c9b1518b57bae71cab15de273a41d39c190c5d0d20"
+  ],
+  "royaltyBps": 500,
+  "isSeed": false,
+  "publishedAt": "2026-03-17T12:00:00Z"
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xb213fd657fc7f4ea003407204c3e498254f56f96925f08d797c2db6de4e82b97",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity",
+  "rootCid": "QmNP4rG2bFNfHjvMAcRqHNsRf2FcFwHN7yRQGmzZ6T99fh",
+  "title": "Invariant-Based Fuzz Testing for Solidity Contracts"
+}

@@ -1,0 +1,21 @@
+{
+  "manifestVersion": "1",
+  "kbId": "KB-SEC-4",
+  "kbHash": "COMPUTE_FROM_CANONICAL_ENVELOPE",
+  "rootCid": "PENDING",
+  "generatedAt": "2026-03-08T00:00:00Z",
+  "files": [
+    { "path": "artifact.json", "role": "canonical_hash_target" },
+    { "path": "manifest.json", "role": "manifest"              },
+    { "path": "meta.json",     "role": "indexer_sidecar"       }
+  ],
+  "derivation": {
+    "depth": 1,
+    "parentKbIds": ["KB-SEC-1", "KB-SEC-2", "KB-SEC-3"],
+    "parentHashes": [
+      "REPLACE_WITH_KB_SEC_1_KBHASH",
+      "REPLACE_WITH_KB_SEC_2_KBHASH",
+      "REPLACE_WITH_KB_SEC_3_KBHASH"
+    ]
+  }
+}

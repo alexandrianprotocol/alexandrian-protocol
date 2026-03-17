@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xde9634859ac73d058c396a76f9d4cb60309ec15dd92eb55b1454c5521b896fda",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.document.schema",
+  "rootCid": "QmXAqZrcuRgE6BmWu3WhKfGFnEcAx9cuQC21DJYkLKgqdf",
+  "title": "Efficient JSONB Schema Design in PostgreSQL"
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xfa8fe92885674a203f73ab91eb2d7dc45fc9aac3309170c8e9a43081e3815500",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.transaction.saga",
+  "rootCid": "QmcjNUEZ8XWKky3PexpwgDJKhfuDUDtpVVdkMkowrtvZFH",
+  "title": "Distributed Saga Transaction Pattern Design"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x5a19102b9a29d4fa5e31970c6f86d29b7d30428346b0e9e68011775650be0d67
+  artifactHash: 0x99feb4f88f0427dcd912107d26a390f0a493e5cfc5f8751a8760f155e5c1ab19
+  title:        Chainlink CCIP Integration for Cross-Chain Token Transfers
+  domain:       web3.crosschain.ccip
+  kbType:       Practice
+  epistemicType:empirical
+  payloadType:  procedure
+  confidence:   0.88
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  17
+  graph edges:  23
+  artifact.json size: 3599 bytes
+  meta.json size:     4062 bytes

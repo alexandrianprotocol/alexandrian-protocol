@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xc53f1ea671c65c61853c8710c4ff76b2b46267d122269d8bac472c489ab81681",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "ml.inference.speculative_decoding",
+  "rootCid": "QmZ8kEuETnDD4P7oU17e2hSKKun8rZmoMzvyrZPEwTUEcc",
+  "title": "Speculative Decoding Evaluation in LLM Inference"
+}

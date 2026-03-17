@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x00edfe60083481fbf180f600ba579615bd94a26bd8d3fb8e841a9d636b1e804d
+  artifactHash: 0xedd82621fe3adf9c1237b55fa001b0c7eeb2e9215d3b4804ebe83edb2f8e826b
+  title:        Streaming Processing
+  domain:       agent.execution
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  15
+  graph edges:  27
+  artifact.json size: 2717 bytes
+  meta.json size:     3765 bytes

@@ -1,0 +1,51 @@
+{
+  "title": "Composition",
+  "summary": "Integrate knowledge summarization and AI prompting derived KBs by merging insights and aligning workflows for efficient knowledge representation.",
+  "standard": "Combine knowledge bases using structured merging and validation techniques to enhance data utility and coherence.",
+  "procedure": [
+    "Extract key entities and relationships from both KBs using SPARQL queries following the defined protocol with boundary checks; assert exit_code < 1 and success_indicator = true; emit completion_event on success.",
+    "Invoke RDF Schema to align similar entities and properties across KBs by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+    "Execute OWL reasoning to infer new relationships and validate merged data by executing the transformation function on each input record; assert output_schema_valid = true and error_count < 1; log transformation_duration_ms.",
+    "Run SHACL validation to ensure data integrity and compliance with schema constraints with automated substep verification; assert substep_pass_count = substep_total and error_count < 1; persist results before advancing.",
+    "Release a graph database like Neo4j to visualize and query the integrated KB using blue-green deployment strategy; run smoke_test() against new instance before switching traffic; assert smoke_test_pass_rate >= 1.0 before promoting."
+  ],
+  "references": [
+    "Domain Driven Design",
+    "Data Mesh",
+    "Event Sourcing"
+  ],
+  "failure_modes": [
+    "Data inconsistency due to misaligned entities.",
+    "Loss of critical relationships during merging; this occurs when the triggering event is not handled at the correct boundary, causing the condition to surface in a downstream stage.",
+    "Schema validation errors leading to incomplete KB."
+  ],
+  "verification": [
+    "Check for duplicate entities using a similarity threshold of 0.8; assert error_rate < 0.001 and operation_completed = true.",
+    "Ensure all merged entities pass SHACL validation rules; assert success_count >= expected_count and failure_count < 1.",
+    "Verify that inferred relationships increase by at least 20% post-merging; assert output_valid = true and error_count < 1."
+  ],
+  "tags": [
+    "knowledge_graphs",
+    "data_integration",
+    "rdf",
+    "owl",
+    "sparql",
+    "shacl",
+    "graph_databases",
+    "data_validation"
+  ],
+  "domain": "knowledge.graphs",
+  "_quality": {
+    "score": 2.8,
+    "classification": "anchor",
+    "dimensions": {
+      "executability": 3,
+      "atomicity": 3,
+      "epistemicHonesty": 3,
+      "depth": 3
+    },
+    "failureReasons": [],
+    "scoredAt": "2026-03-11T07:17:53.320Z",
+    "repairedAt": "2026-03-11T07:17:53.320Z"
+  }
+}

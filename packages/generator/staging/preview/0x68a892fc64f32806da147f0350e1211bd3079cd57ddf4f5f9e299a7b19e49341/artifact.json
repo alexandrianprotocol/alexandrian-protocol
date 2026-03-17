@@ -1,0 +1,74 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Establish a robust rollback deployment procedure to minimize downtime and ensure system stability during deployment failures."
+  ],
+  "confidence": 0.93,
+  "domain": "web.devops",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x68a892fc64f32806da147f0350e1211bd3079cd57ddf4f5f9e299a7b19e49341",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Assert deployment inputs by running a pre-deployment script that checks for configuration discrepancies and missing dependencies; log discrepancies to deployment_log by asserting all required fields conform to the schema definition; emit VALIDATION_FAILED with field path on the first failing field; assert field_validation_pass_rate >= 1.0.",
+      "step": 1
+    },
+    {
+      "action": "Specify rollback conditions by setting specific error thresholds such as error_rate > 0.01 or latency_p95 > 500ms; trigger rollback when conditions are met.",
+      "step": 2
+    },
+    {
+      "action": "Design rollback steps by creating a detailed plan that includes reverting database schema changes using versioned migrations and restoring previous application versions from backup using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Invoke verification by executing automated tests post-rollback to ensure system functionality; use a test suite that covers critical paths and assert all tests pass following the specified pattern; write a unit test covering the primary code path; assert test_coverage >= 0.8 for the modified module before marking complete.",
+      "step": 4
+    },
+    {
+      "action": "Compose alerts by configuring monitoring tools to send notifications to the devops team when rollback conditions are triggered, using channels like Slack or email by composing module interfaces via adapter pattern; assert input/output type contracts match before connecting; assert integration_error_count < 1 after contract validation.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:03.956Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Procedure for designing and implementing rollback deployment procedures in web devops to ensure reliable and quick recovery from deployment failures.",
+  "tags": [
+    "web_devops",
+    "rollback_procedures",
+    "deployment_strategies",
+    "system_stability",
+    "downtime_minimization"
+  ],
+  "title": "Rollback Deployment Procedure Design",
+  "verification": {
+    "failureConditions": [
+      "Extended downtime when rollback steps are not clearly defined, causing delays in reverting to a stable state.",
+      "Data inconsistency when rollback does not account for partial database updates, causing mismatched application states.",
+      "Increased error rates when rollback conditions are too lenient, allowing faulty deployments to persist longer than necessary."
+    ],
+    "metrics": [
+      "deployment inputs by running a pre-deployment script that checks for configuration discrepancies and missing dependencie",
+      "field_validation_pass_rate >= 1.0",
+      "error_count < 1 and result_valid = true",
+      "all tests pass following the specified pattern",
+      "test_coverage >= 0.8 for the modified module before marking complete",
+      "input/output type contracts match before connecting",
+      "integration_error_count < 1 after contract validation",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "error_rate < 0.01 post-rollback",
+      "latency_p95 < 200ms post-rollback",
+      "all_critical_tests_pass post-rollback; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

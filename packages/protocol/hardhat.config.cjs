@@ -17,6 +17,18 @@ if (usingBaseMainnet) {
   if (!process.env.DEPLOYER_PRIVATE_KEY) {
     throw new Error("DEPLOYER_PRIVATE_KEY must be set in packages/protocol/.env for base-mainnet. Empty accounts are not allowed.");
   }
+  // Private key = 0x + 64 hex (66 chars). Address = 0x + 40 hex (42 chars). Catch the common mistake.
+  const pk = process.env.DEPLOYER_PRIVATE_KEY.trim();
+  if (pk.length === 42 && /^0x[0-9a-fA-F]{40}$/.test(pk)) {
+    throw new Error(
+      "DEPLOYER_PRIVATE_KEY looks like an Ethereum address (42 chars). You must use the account's private key (66 chars: 0x + 64 hex). " +
+      "In MetaMask: Account menu → Account details → Export private key. In Coinbase Wallet: Settings → Security → Show private key. " +
+      "Never commit or share the private key; the address is safe to share."
+    );
+  }
+  if (pk.length !== 66 || !/^0x[0-9a-fA-F]{64}$/.test(pk)) {
+    throw new Error("DEPLOYER_PRIVATE_KEY must be 66 characters (0x + 64 hex). Got length " + pk.length + ".");
+  }
 }
 
 module.exports = {

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x76ca2065f2daafb374051ec5bbaf2e843fb1a266bf6de3448b1d2cf9b38add66",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "ai.prompting",
+  "rootCid": "QmfJuRPaYkeP27RH83YNiYoKJBqHwhraxAUMeVDqd5rxic",
+  "title": "Defending LLM Output Pipelines Against Prompt Injection"
+}

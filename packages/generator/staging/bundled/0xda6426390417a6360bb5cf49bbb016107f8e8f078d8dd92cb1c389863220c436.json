@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x703b643b7ec11f1e157daa112aafd87ad043b00af0699e040802a9e1cd8e2a90",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.prompting.structured_output",
+  "rootCid": "QmbDJWfqiU63wecTqK4za6NnqnySwcm71DTjn2fJVWXCoh",
+  "title": "Structured Output Enforcement for LLM"
+}

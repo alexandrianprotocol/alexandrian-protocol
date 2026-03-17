@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x19205a48a34e2c7c9b8f5ac1a57f98834a083a7adfe7801de456f04332e34799
+  artifactHash: 0xf7522c8099c8db0bd14c2353aceb682c64644276ffc01daf9696767b85bdd0e3
+  title:        Task Decomposition Strategy Evaluation
+  domain:       agent.planning.task_decomposition
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   1
+  procedure:    6 steps
+  capabilities: 1
+  metrics:      7
+  graph nodes:  25
+  graph edges:  29
+  artifact.json size: 3906 bytes
+  meta.json size:     5374 bytes

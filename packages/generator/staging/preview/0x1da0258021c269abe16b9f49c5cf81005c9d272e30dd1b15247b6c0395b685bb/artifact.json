@@ -1,0 +1,71 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Balance reliability and innovation using explicit error budgets."
+  ],
+  "confidence": 0.93,
+  "domain": "invariant.reliability",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x1da0258021c269abe16b9f49c5cf81005c9d272e30dd1b15247b6c0395b685bb",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Specify service level objectives (SLOs) by identifying key performance indicators such as availability and latency; set thresholds using historical data and business requirements by specifying schema, constraints, and invariants in machine-readable form; include at least one falsifiable acceptance criterion where error_rate < 0.001.",
+      "step": 1
+    },
+    {
+      "action": "Calculate the error budget by subtracting the SLO target from 100%; express this as a percentage of allowable downtime or errors over a defined period.",
+      "step": 2
+    },
+    {
+      "action": "Establish an error budget policy by setting rules for development activities; restrict feature releases when error budget consumption exceeds 80% within the measurement period.",
+      "step": 3
+    },
+    {
+      "action": "Enforce the error budget policy by integrating automated alerts in the CI/CD pipeline; trigger a release freeze when error budget usage surpasses the defined threshold using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Observe error budget consumption using a telemetry pipeline; visualize real-time error budget usage with dashboards and alert on breaches by polling the target metric at interval_ms < 60000; emit METRIC_ALERT if value exceeds threshold for 3 consecutive samples; assert alert_latency < 5000ms.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:54.104Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Define and enforce error budgets to balance system reliability with innovation, ensuring service level objectives are met without stifling development.",
+  "tags": [
+    "reliability",
+    "error_budget",
+    "service_level_objectives",
+    "ci_cd",
+    "telemetry",
+    "innovation",
+    "performance_monitoring"
+  ],
+  "title": "Error Budget Enforcement for Reliability",
+  "verification": {
+    "failureConditions": [
+      "Service reliability degrades when error budgets are not enforced, causing excessive downtime and customer dissatisfaction.",
+      "Innovation is stifled when error budgets are too conservative, leading to missed opportunities and competitive disadvantage.",
+      "Operational chaos ensues when error budget policies are unclear, causing inconsistent enforcement and team confusion."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "alert_latency < 5000ms"
+    ],
+    "successConditions": [
+      "error_budget_consumption < 80%",
+      "slo_violations < 5 per month",
+      "alert_triggered_on_budget_breach == true",
+      "dashboard_accuracy > 99%"
+    ]
+  }
+}

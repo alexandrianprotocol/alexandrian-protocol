@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x6f4711718bb0e5157682e9906975d42447c68aa6dcde3245c25e17b3c3534009
+  artifactHash: 0x1aebfca3eafc237d3b9316d2fbef1a7a78303e06010c6a097af064de16ddd207
+  title:        Deployment Topology Validation
+  domain:       verification.architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.88
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      9
+  graph nodes:  22
+  graph edges:  18
+  artifact.json size: 3717 bytes
+  meta.json size:     4171 bytes

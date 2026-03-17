@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x04add67015855beb1eb9fb49932afaa9df5e4c42ad8eda32194664f190684228",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "system.message_broker.offset_management",
+  "rootCid": "QmQYy72Mk1NWPNzQjxn68WUQGSvFzuiV9DuXgKTS7KcBAB",
+  "title": "Kafka Offset Commit Strategy"
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x8e5ec9fae5e601ae156c2a7a861ba1e49a554ddc694d1928c6797da4944cc282",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity",
+  "rootCid": "QmYNEw53PbhF3GvcsH4s4BEEh2dZhDjB6gm1RsP5RVb6dD",
+  "title": "Gas Optimization via Storage Packing"
+}

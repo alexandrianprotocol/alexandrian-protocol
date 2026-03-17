@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x3b50cfb1a6306e263bf3dabfccb2397ede38d8a8a4fdd587a926e3aa2b2e9031
+  artifactHash: 0xcb5c2e7006eadb163571dc1884986cf15bb072fb55000b6b4b60b28865459c04
+  title:        Security-Oriented Fuzz Testing
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  23
+  graph edges:  24
+  artifact.json size: 3022 bytes
+  meta.json size:     4362 bytes

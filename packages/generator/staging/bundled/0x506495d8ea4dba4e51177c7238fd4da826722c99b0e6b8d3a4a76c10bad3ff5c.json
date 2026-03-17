@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x55d3436e4cb72ed3c454775f16ff014ad86c2f71d290c5bad9437d5a57af1a4a",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.proxy.storage_collision",
+  "rootCid": "QmcKLWUWHCNf2aJBzttpbC4Wk5YBWVydstRBbuWeN2mFAW",
+  "title": "EIP-1967 Proxy Storage Collision Prevention"
+}

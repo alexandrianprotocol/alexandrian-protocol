@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x08726ca98daf4bea56d98e5a833efd4264aecae2ef15099a1c7078aeb84951b6",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.error_recovery",
+  "rootCid": "Qmemt9aMDqmUBk7UwkQc4CYCXDaVU8b2Aev7U1RuzrqVcG",
+  "title": "Specialized Circuit Breaker for AI Prompting"
+}

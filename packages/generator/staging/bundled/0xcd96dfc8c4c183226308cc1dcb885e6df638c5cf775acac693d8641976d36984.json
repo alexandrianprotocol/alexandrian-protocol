@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x204a4c9cf0fdc6f03d0fec616fcc1a0281eb0941f145bb36484a8c9c82d44d94",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "system.event_sourcing.projection",
+  "rootCid": "QmZZqXqrJGMwj2EqRu255XpS1wo89vu699mW4d5q3ty6hG",
+  "title": "Event Sourcing Read-Model Projections"
+}

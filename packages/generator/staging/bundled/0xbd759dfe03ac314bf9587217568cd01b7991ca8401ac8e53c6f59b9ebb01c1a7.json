@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x2c458955b25ebead6e4226522dcb6e5d98b2794d015e93ffd1945603999b56f3",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "software.security",
+  "rootCid": "QmTiphpzGds11UBVK3UMDdkdY3SbqEWSnMwgGU6nb9Tb1i",
+  "title": "Enforce Allowlist Schema Validation on All Inputs"
+}

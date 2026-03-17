@@ -4,13 +4,16 @@
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=20 <21",
-    "pnpm": ">=9 <10"
+    "pnpm": ">=9"
   },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "build": "pnpm --filter @alexandrian/protocol run compile && pnpm --filter @alexandrian/protocol run build && pnpm --filter @alexandrian/sdk-core run build && pnpm --filter @alexandrian/sdk-adapters run build",
+    "build:api": "pnpm --filter @alexandrian/api run build",
+    "dev:api": "pnpm --filter @alexandrian/api run dev",
+    "start:api": "pnpm --filter @alexandrian/api run start",
     "test:m1": "pnpm --filter @alexandrian/protocol test && pnpm --filter @alexandrian/conformance test && vitest run tests/specification/ tests/invariants/ tests/demonstration/ tests/determinism/ tests/property/ tests/composition/",
     "verify": "node scripts/verify.mjs",
     "ipfs:kb-d:hash": "node scripts/compute-hash.mjs --file ipfs/kb-d/artifact.json",
@@ -22,7 +25,12 @@
     "ipfs:kb-d:onchain": "node scripts/ipfs-kb-d-onchain.mjs -- --target kb-d/artifact.json",
     "ipfs:kb-f:pin": "node scripts/ipfs-kb-f-pin.mjs",
     "ipfs:kb-f:publish": "node scripts/publish-kb-f.mjs",
-    "ipfs:kb-f:onchain": "node scripts/ipfs-kb-f-onchain.mjs -- --target kb-f/artifact.json"
+    "ipfs:kb-f:onchain": "node scripts/ipfs-kb-f-onchain.mjs -- --target kb-f/artifact.json",
+    "generate": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run generate:all",
+    "generate:seeds": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run generate:seeds",
+    "generate:derived": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run generate:derived",
+    "generate:repair": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run repair",
+    "generate:repair:dry": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run repair:dry"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
@@ -51,5 +59,9 @@
       "cross-spawn": "^7.0.5",
       "ejs": "^3.1.10"
     }
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.79.0",
+    "openai": "6.25.0"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x7de484653843bfec58df6325e79d14225369d62dee5dd9d76827c628a89feb7b",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "mlops.serving.caching",
+  "rootCid": "QmWYkrwN5g2n8cP9ynHYjycxFpSBxGZxdoBYjuk6y4phx7",
+  "title": "Prediction Caching for Deterministic Inputs"
+}

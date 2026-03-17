@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xd6b5d4ba42cf6344e19c280b3233ac8ea44dc9c38d5011b6a44ce9aee1b4e8ee",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "software.architecture",
+  "rootCid": "Qmbdd5Hf9uGjnnGg6HNoU99RrYqasB3v8y1Pc4gGK3JM4e",
+  "title": "Command Query Responsibility Segregation (CQRS) Pattern"
+}

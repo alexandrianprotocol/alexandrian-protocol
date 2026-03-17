@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x17ec15a5a0733691ba1450b0ce201ba758a9494d5c4732a78d77f4b5d1cd4e1f
+  artifactHash: 0x5174d503451c3a25aeeb51df96d3d716275d76555faebbfd9010f68a5fc47841
+  title:        Atomic Transaction Pattern for Reliable Operation Execution
+  domain:       agent.execution
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    4 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  12
+  graph edges:  14
+  artifact.json size: 2468 bytes
+  meta.json size:     2909 bytes

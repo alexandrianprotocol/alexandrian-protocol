@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x046b8df1ad8c7114b1054d6616d0628667e2b1aadeef41ed01853514222ae504
+  artifactHash: 0xf323a0a8573bbdcf13e72ec7047308a5b18c8309f83af19f6c28e24666a531cc
+  title:        Dependency-Aware Priority Task Scheduling Evaluation
+  domain:       agent.planning
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.88
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  17
+  graph edges:  19
+  artifact.json size: 3303 bytes
+  meta.json size:     3766 bytes

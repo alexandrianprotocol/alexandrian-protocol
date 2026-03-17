@@ -1,0 +1,70 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Implement a Pratt parser to efficiently handle operator precedence in expression parsing by utilizing prefix and infix parselets with specific binding powers."
+  ],
+  "confidence": 0.93,
+  "domain": "compiler.parser.pratt",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x0678ad4197d967ae7337ffa3f51b331b0af8657c03d4200f53e5b97e1ad6b5fa",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Initialize the parser by setting up a token stream and defining a function to retrieve the next token, ensuring the stream correctly handles end-of-input scenarios using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Specify prefix parselets by associating each prefix operator with a parselet function that processes the token and returns a partial abstract syntax tree (AST) node by specifying schema, constraints, and invariants in machine-readable form; include at least one falsifiable acceptance criterion where error_rate < 0.001.",
+      "step": 2
+    },
+    {
+      "action": "Specify infix parselets by associating each infix operator with a parselet function that processes the left-hand side expression and returns a combined AST node, using binding power to determine precedence by specifying schema, constraints, and invariants in machine-readable form; include at least one falsifiable acceptance criterion where error_rate < 0.001.",
+      "step": 3
+    },
+    {
+      "action": "Parse expressions by recursively invoking parselet functions based on the current token's type and binding power, ensuring correct precedence and associativity using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Construct the final abstract syntax tree by repeatedly parsing expressions until the token stream is exhausted, verifying that all operators and operands are correctly represented using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:53.989Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Implement a Pratt parser to manage operator precedence using prefix and infix parselets with binding power for efficient expression parsing.",
+  "tags": [
+    "compiler_design",
+    "parser_implementation",
+    "operator_precedence",
+    "pratt_parser",
+    "abstract_syntax_tree",
+    "expression_parsing",
+    "binding_power"
+  ],
+  "title": "Pratt Parser for Operator Precedence",
+  "verification": {
+    "failureConditions": [
+      "Incorrect operator precedence when parselets are not assigned appropriate binding powers, causing misinterpretation of expressions.",
+      "Incomplete AST construction when the parser fails to handle all token types, leading to syntax errors or incomplete parsing.",
+      "Infinite recursion when parselet functions do not correctly handle base cases, causing stack overflow and parser failure."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "all infix operators respect defined precedence levels"
+    ],
+    "successConditions": [
+      "ast_node_count == token_count - operator_count",
+      "parse_time < 100ms for 1000-token expression",
+      "binding_power_correctness: assert all infix operators respect defined precedence levels"
+    ]
+  }
+}

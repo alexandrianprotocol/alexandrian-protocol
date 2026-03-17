@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1da0258021c269abe16b9f49c5cf81005c9d272e30dd1b15247b6c0395b685bb
+  artifactHash: 0x5c3d6afa95dc8318a81c5c1e3b1d333c5563721cb89a5124f66a664b6461e299
+  title:        Error Budget Enforcement for Reliability
+  domain:       invariant.reliability
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  16
+  graph edges:  16
+  artifact.json size: 2830 bytes
+  meta.json size:     3016 bytes

@@ -1,0 +1,188 @@
+{
+  "domain": "evm.solidity",
+  "isSeed": true,
+  "kbHash": "0x2e00f4a314c44c4f210b2bd6599576a0aa4613ba8f42812357b494e0033f2aab",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:54.072Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Event-Sourced State Management in Solidity Contracts",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Specify structured events in Solidity for each state transition using the 'event' keyword by specify",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Emit events within contract functions using 'emit' to log state changes using domain-appropriate too",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Invoke Ethereum indexers like The Graph to replay events and reconstruct state off-chain by invoking",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Invoke periodic on-chain snapshots using a 'checkpoint' function to reduce replay costs following th",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Audit emitted events for completeness and accuracy during contract testing using domain-appropriate ",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:test_coverage_gte_0_8_for_the_modified_module_before_marking",
+        "label": "test_coverage >= 0.8 for the modified module before marking complete",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:event_sourcing",
+        "label": "Event Sourcing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:snapshotting",
+        "label": "Snapshotting",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:test_coverage_gte_0_8_for_the_modified_module_before_marking"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:event_sourcing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:snapshotting"
+      }
+    ]
+  },
+  "tags": [
+    "evm",
+    "solidity",
+    "event_sourcing",
+    "smart_contracts",
+    "blockchain",
+    "state_management",
+    "gas_optimization"
+  ],
+  "title": "Event-Sourced State Management in Solidity Contracts"
+}

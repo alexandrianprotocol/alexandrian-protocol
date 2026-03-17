@@ -1,0 +1,24 @@
+{
+  "kbHash": "0x9c9187a7852768097b2b441acbeedb86374cd003d1c02f57cd7178852a36cb1c",
+  "kbId": "KB-ENG-2",
+  "title": "OpenAPI Contract Specification for Backend Services",
+  "domain": "engineering.api.contracts",
+  "kbType": "Feature",
+  "payloadType": "procedure",
+  "tags": [
+    "openapi",
+    "api_contracts",
+    "schema_first",
+    "swagger",
+    "api_specification",
+    "contract_testing"
+  ],
+  "isSeed": false,
+  "royaltyBps": 500,
+  "depth": 1,
+  "score": {
+    "classification": "derived",
+    "weighted": 2.4
+  },
+  "publishedAt": "2026-03-17T00:00:00Z"
+}

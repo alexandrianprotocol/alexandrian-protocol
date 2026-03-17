@@ -1,0 +1,69 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Implement a systematic approach to analyze query logs for extracting dataset usage patterns and consumer behavior insights."
+  ],
+  "confidence": 0.93,
+  "domain": "datamesh.catalog.usage",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x1628fe0950ef7499ee4a3c0c53418e83d2e69f0f4e90a75ec637390d14e02559",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Extract table references from query logs by parsing SQL statements using a SQL parser library; store results in a structured format for further analysis using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Aggregate usage data by counting occurrences of each table reference in the parsed logs; use a database or in-memory data structure to maintain counts using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Extract popular datasets by selecting tables with usage counts exceeding a predefined threshold, such as the top 10% of all tables by usage frequency.",
+      "step": 3
+    },
+    {
+      "action": "List consumers by extracting unique user identifiers from query logs; correlate these with dataset usage to determine consumer access patterns using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Analyze usage trends by applying time-series analysis on aggregated usage data; use statistical methods to detect significant changes or patterns over time using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:53.964Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Track dataset usage and consumer analytics in data catalogs by processing query logs to identify popular datasets and usage trends.",
+  "tags": [
+    "data_mesh",
+    "catalog_management",
+    "usage_analytics",
+    "query_logs",
+    "consumer_behavior",
+    "data_insights",
+    "dataset_tracking"
+  ],
+  "title": "Dataset Usage",
+  "verification": {
+    "failureConditions": [
+      "Inaccurate usage statistics when query logs are incomplete or improperly parsed, causing misleading analytics and decision-making.",
+      "Consumer behavior misinterpretation when user identifiers are not consistently logged, leading to incorrect attribution of dataset access."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true"
+    ],
+    "successConditions": [
+      "query_log_parsing_accuracy > 95%",
+      "popular_datasets_identified_count > 0",
+      "consumer_list_completeness > 90%",
+      "usage_trend_detection_accuracy > 85%"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "kbHash":      "COMPUTE_FROM_CANONICAL_ENVELOPE",
+  "kbId":        "KB-SEC-4",
+  "title":       "ERC-20 Mainnet Deploy Security Gate",
+  "domain":      "web3.security",
+  "kbType":      "ComplianceChecklist",
+  "payloadType": "checklist",
+  "tags":        ["solidity", "ERC-20", "mainnet-deploy", "security-gate", "pre-deploy-audit"],
+  "isSeed":      false,
+  "royaltyBps":  300,
+  "depth":       1,
+  "parentKbIds": ["KB-SEC-1", "KB-SEC-2", "KB-SEC-3"],
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.75
+  },
+  "publishedAt": "2026-03-08T00:00:00Z"
+}

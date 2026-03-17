@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x089380a781b05a9a3c064571cfdaea943811130142a2c76fd47cc6d50c7366aa
+  artifactHash: 0xc3412ad6b7554054960b2c9c670e05f79133b08c66702a69c56493fd278e98c6
+  title:        Systematic Testable Hypothesis Generation with AI Prompting
+  domain:       agent.reasoning
+  kbType:       PromptEngineering
+  epistemicType:heuristic
+  payloadType:  reference
+  confidence:   0.93
+  procedure:    6 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  21
+  graph edges:  23
+  artifact.json size: 3695 bytes
+  meta.json size:     4260 bytes

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x69c1d92789872304df7cb4f597b70f55bc069e129a61b877d47f961b549579d3
+  artifactHash: 0xadf93080b5e5feb1d99803087c878158590ee680cabefc0048942ca1321bdb89
+  title:        Agent Error Recovery Strategy
+  domain:       agent.error_recovery
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  16
+  graph edges:  14
+  artifact.json size: 3103 bytes
+  meta.json size:     3350 bytes

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x399051a077de8081ae32839e5996294d2c5a92c6b0420300aa68504ecfd5fa8b
+  artifactHash: 0x796eb15632012906e8e6141d2f1125625fda66f1054017ce1ce607356edcc300
+  title:        Saga Pattern Integration
+  domain:       software.architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  24
+  graph edges:  27
+  artifact.json size: 3164 bytes
+  meta.json size:     4887 bytes

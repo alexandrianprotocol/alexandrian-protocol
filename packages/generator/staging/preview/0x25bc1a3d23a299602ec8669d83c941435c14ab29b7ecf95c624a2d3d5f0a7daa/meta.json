@@ -1,0 +1,218 @@
+{
+  "domain": "ai.prompting",
+  "isSeed": true,
+  "kbHash": "0x25bc1a3d23a299602ec8669d83c941435c14ab29b7ecf95c624a2d3d5f0a7daa",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:04.051Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "AI Prompting and Knowledge Graphs Composition",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Execute merge_artifacts using a graph database to combine nodes and edges from both knowledge bases ",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Run SPARQL queries to validate_merged_output ensuring data integrity and consistency using domain-ap",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Execute machine learning algorithms to detect_candidates for new relationships or insights within th",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Invoke a classification model to classify_results, categorizing new insights based on predefined ont",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Release a continuous integration pipeline to automate the validation and classification processes us",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:sparql",
+        "label": "Sparql",
+        "type": "tool"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:output_schema_valid_eq_true_and_error_count_lt_1",
+        "label": "output_schema_valid = true and error_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:smoke_test_pass_rate_gte_1_0_before_promoting",
+        "label": "smoke_test_pass_rate >= 1.0 before promoting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:domain_driven_design",
+        "label": "Domain Driven Design",
+        "type": "reference"
+      },
+      {
+        "id": "ref:data_mesh",
+        "label": "Data Mesh",
+        "type": "reference"
+      },
+      {
+        "id": "ref:event_sourcing",
+        "label": "Event Sourcing",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:2",
+        "rel": "uses",
+        "to": "tool:sparql"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:output_schema_valid_eq_true_and_error_count_lt_1"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:smoke_test_pass_rate_gte_1_0_before_promoting"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:domain_driven_design"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:data_mesh"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:event_sourcing"
+      }
+    ]
+  },
+  "tags": [
+    "ai_prompting",
+    "knowledge_graphs",
+    "data_integration",
+    "machine_learning",
+    "data_validation",
+    "ontology_classification",
+    "continuous_integration"
+  ],
+  "title": "AI Prompting and Knowledge Graphs Composition"
+}

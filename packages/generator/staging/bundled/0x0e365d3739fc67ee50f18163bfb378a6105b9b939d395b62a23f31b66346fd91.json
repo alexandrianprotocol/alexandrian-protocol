@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x9f345a52765bca5081c8eb3ac9d6924bf76cf2dbd31c25f3bd525dcc2954d7be",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "ml.feature.freshness",
+  "rootCid": "QmUB4PCuHbv6oNCninjwvv3PPuuNUor51WgUd5NQ1r6o3T",
+  "title": "Feature Freshness SLA Enforcement for Online Serving"
+}

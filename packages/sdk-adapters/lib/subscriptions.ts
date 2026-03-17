@@ -1,7 +1,7 @@
 import { Contract, type Provider } from "ethers";
 
 const REGISTRY_EVENTS_ABI = [
-  "event KBPublished(bytes32 indexed contentHash, address indexed curator, uint8 indexed kbType, string domain, uint256 queryFee, uint256 timestamp)",
+  "event KBPublished(bytes32 indexed contentHash, address indexed curator, uint8 indexed kbType, string domain, uint96 queryFee, uint64 timestamp, address agent, string cid, string embeddingCid)",
   "event QuerySettled(bytes32 indexed contentHash, address indexed querier, uint256 totalFee, uint256 protocolFee, uint64 queryNonce)",
   "event KBStaked(bytes32 indexed contentHash, address indexed curator, uint256 amount)",
   "event KBSlashed(bytes32 indexed contentHash, address indexed curator, uint256 slashedAmount, string reason)",
@@ -37,7 +37,7 @@ export class SubscriptionsClient {
 
   subscribe(poolId: string, event: PoolEvent, handler: (payload: PoolEventPayload) => void): () => void {
     if (event === "VersionProposed" || event === "VersionFinalized") {
-      const listener = (contentHash: string, _curator: string, _kbType: number, domain: string, _queryFee: bigint, _timestamp: bigint, raw: unknown) => {
+      const listener = (contentHash: string, _curator: string, _kbType: number, domain: string, _queryFee: bigint, _timestamp: bigint, _agent: string, _cid: string, _embeddingCid: string, raw: unknown) => {
         if (String(domain) !== poolId) return;
         handler({
           poolId,

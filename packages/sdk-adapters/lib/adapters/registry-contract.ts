@@ -3,7 +3,9 @@ import type { ChainAdapter, RegistryAdapter } from "./types.js";
 
 const REGISTRY_ABI = [
   "function isRegistered(bytes32 contentHash) external view returns (bool)",
-  "function getKnowledgeBlock(bytes32 contentHash) external view returns (tuple(address curator, uint8 kbType, uint8 trustTier, string cid, string embeddingCid, string domain, string licenseType, uint256 queryFee, uint256 timestamp, string version, bool exists))",
+  "function getKnowledgeBlock(bytes32 contentHash) external view returns (tuple(address curator, uint64 timestamp, uint96 queryFee, bool exists))",
+  "function getArtifactHash(bytes32 contentHash) external view returns (bytes32)",
+  "function getCidDigest(bytes32 contentHash) external view returns (bytes32)",
   "function getReputation(bytes32 contentHash) external view returns (tuple(uint32 queryVolume, uint32 endorsements, uint16 score, uint256 lastUpdated))",
   "function getStake(bytes32 contentHash) external view returns (tuple(uint256 amount, uint256 lockedUntil, bool slashed))",
 ];

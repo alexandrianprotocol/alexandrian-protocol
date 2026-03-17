@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xb8b27c7299033e1ebb2478c0549bb0e647a93f3cc8c2465a245ba04a77ad7b49",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "realtime.optimistic.rollback",
+  "rootCid": "QmY8YQdqhgMZTXnkBtGhtLL9JoQ5Jn4gaCKPXDitFVguYe",
+  "title": "Rollback Mechanism for Rejected Optimistic Updates"
+}

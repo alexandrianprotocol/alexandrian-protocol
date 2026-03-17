@@ -1,0 +1,27 @@
+{
+  "name": "@alexandrian/api",
+  "version": "0.1.0",
+  "description": "Alexandrian Protocol — SaaS HTTP API",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@alexandrian/sdk-adapters": "workspace:*",
+    "@alexandrian/sdk-core": "workspace:*",
+    "dotenv": "^16.0.0",
+    "fastify": "^4.28.0",
+    "@fastify/cors": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

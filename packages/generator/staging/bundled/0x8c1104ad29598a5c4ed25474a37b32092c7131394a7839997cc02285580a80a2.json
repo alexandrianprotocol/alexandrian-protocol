@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x215957f2f523fc5c54381934af6fe034aef0e0b2bb2b5735000f3ae005f0c41e",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "tooling.ast.pattern_matching",
+  "rootCid": "QmQAv8MrBMoXAWDuhkMsGozAwsvgdVxst6PHVnfvLQVG3i",
+  "title": "Structural AST Pattern Matching for Code Search"
+}

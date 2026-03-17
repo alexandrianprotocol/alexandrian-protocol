@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xf964579be9ee1d0f729d0f877cb9e2086a03833258b1f74785bc0fee2ebe84a7",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "platform.k8s.pod_disruption",
+  "rootCid": "QmZoFZmvB767pkqd1ieU6SxU2wUAncS7CWdiW1EPvo62QQ",
+  "title": "PodDisruptionBudget Design for High-Availability Workloads"
+}

@@ -1,0 +1,203 @@
+{
+  "domain": "ux.ui.design_system",
+  "isSeed": true,
+  "kbHash": "0x1ed056fe9228de803c4792a9c82ba0c16b677aa713f20764b7c55a85792ad19a",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:03.923Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Scalable Design System Creation",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Specify UI components by creating a component library using Storybook",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Standardize design tokens by implementing a centralized token management system using Style Dictiona",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Document guidelines by generating a living style guide using tools like Zeroheight",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Compose the design system with development workflows by using CI/CD pipelines to automatically updat",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Conduct regular audits of the design system by running automated tests with Jest and Axe to ensure c",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:zeroheight",
+        "label": "Zeroheight",
+        "type": "tool"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:component_library",
+        "label": "Component Library",
+        "type": "reference"
+      },
+      {
+        "id": "ref:design_tokens",
+        "label": "Design Tokens",
+        "type": "reference"
+      },
+      {
+        "id": "ref:living_style_guide",
+        "label": "Living Style Guide",
+        "type": "reference"
+      },
+      {
+        "id": "ref:continuous_integration",
+        "label": "Continuous Integration",
+        "type": "reference"
+      },
+      {
+        "id": "ref:accessibility_standards",
+        "label": "Accessibility Standards",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:3",
+        "rel": "uses",
+        "to": "tool:zeroheight"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:component_library"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:design_tokens"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:living_style_guide"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:continuous_integration"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:accessibility_standards"
+      }
+    ]
+  },
+  "tags": [
+    "ux_ui_design_system",
+    "component_library",
+    "design_tokens",
+    "style_guide",
+    "accessibility",
+    "ci_cd",
+    "documentation"
+  ],
+  "title": "Scalable Design System Creation"
+}

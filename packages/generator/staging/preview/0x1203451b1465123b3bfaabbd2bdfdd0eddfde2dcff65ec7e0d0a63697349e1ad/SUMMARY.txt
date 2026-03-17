@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1203451b1465123b3bfaabbd2bdfdd0eddfde2dcff65ec7e0d0a63697349e1ad
+  artifactHash: 0x027466d9298cc0203eee44261ee42efb179178b09582a142e633386f7160bfd2
+  title:        Stepwise Decomposition to Third Normal Form or BCNF
+  domain:       database.schema_design
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  15
+  graph edges:  23
+  artifact.json size: 3377 bytes
+  meta.json size:     3724 bytes

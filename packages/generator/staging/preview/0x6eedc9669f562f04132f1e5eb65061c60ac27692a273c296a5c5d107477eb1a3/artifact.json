@@ -1,0 +1,72 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine AI prompting and software architecture methodologies to establish a reliable seed prompt for consistent AI outputs."
+  ],
+  "confidence": 0.93,
+  "domain": "ai.prompting",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x6eedc9669f562f04132f1e5eb65061c60ac27692a273c296a5c5d107477eb1a3",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Run a diff tool on AI prompt templates and architecture workflows to identify overlapping steps using domain-appropriate tooling; validate output against the defined schema; assert error_count = 0; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Invoke a text similarity algorithm to detect candidate steps for merging across both domains using domain-appropriate tooling; validate output against the defined schema; assert error_count = 0; log operation_duration_ms and result_code to audit trail by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 2
+    },
+    {
+      "action": "Execute a classification model to categorize results into 'merge', 'modify', or 'discard' using domain-appropriate tooling; validate output against the defined schema; assert error_count = 0; log operation_duration_ms and result_code to audit trail by executing the transformation function on each input record; assert output_schema_valid = true and error_count < 1; log transformation_duration_ms.",
+      "step": 3
+    },
+    {
+      "action": "Execute a test suite on merged artifacts to validate output consistency against baseline metrics using domain-appropriate tooling; validate output against the defined schema; assert error_count = 0; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Log results using structured logging to track performance and identify areas for improvement using domain-appropriate tooling; validate output against the defined schema; assert error_count = 0; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:03.944Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Integrate AI prompting techniques with software architecture principles to create a consistent seed prompt, ensuring reliable AI outputs by merging and validating workflows.",
+  "tags": [
+    "ai_prompting",
+    "software_architecture",
+    "workflow_integration",
+    "consistency",
+    "structured_logging",
+    "metrics_aggregation",
+    "domain_driven_design"
+  ],
+  "title": "Establishing Seed Prompt for Consistent AI Output",
+  "verification": {
+    "failureConditions": [
+      "Inconsistent AI outputs due to unaligned workflows.",
+      "Merged artifacts fail validation, leading to unreliable results.",
+      "Overlapping steps are incorrectly classified, causing inefficiencies."
+    ],
+    "metrics": [
+      "error_count = 0",
+      "response_status < 400 and response_time_ms < 5000",
+      "output_schema_valid = true and error_count < 1",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Merged workflow passes all test cases with >95% success rate.",
+      "AI outputs remain consistent across 1000 iterations; assert error_rate < 0.001 and operation_completed = true.",
+      "Structured logs show no critical errors during execution; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

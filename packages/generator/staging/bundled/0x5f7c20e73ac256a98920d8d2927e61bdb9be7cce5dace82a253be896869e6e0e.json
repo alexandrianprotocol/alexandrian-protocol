@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x2434e67edb13c50c55dbe3a4d6f822a327d1ce32dcf464b1d14aadb16302587f",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "kg.sparql.path",
+  "rootCid": "QmPfGXyoCUDWhUWzuyD4bAqE5ydAVZV5Mi8saNw2BQ2gxy",
+  "title": "SPARQL Property Paths for Transitive Graph Traversal"
+}

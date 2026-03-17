@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xe59bea93e0f62cb317967b7f44cbf42f14366ec73fac5f406a46ca9f9fc47b1b",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "failure_debug.distributed",
+  "rootCid": "Qmavcz7wUmrPhFEaGVJ2FtoXiXA7mWEj6XFMp8ayj3MmSv",
+  "title": "Replication Lag Diagnosis in Distributed Systems"
+}

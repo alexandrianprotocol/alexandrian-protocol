@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1f33478f06e044e87c8e690ca697a871dc5a5c30a0609555c91b2dfdca7516fd
+  artifactHash: 0x283516f73eca2a81c617f69b329d0a85bea349144eed79675757f6385b384c03
+  title:        Causal Relationship Modeling in Performance Degradation
+  domain:       deep.causal_reasoning
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      6
+  graph nodes:  19
+  graph edges:  19
+  artifact.json size: 3571 bytes
+  meta.json size:     4072 bytes

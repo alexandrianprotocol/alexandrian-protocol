@@ -1,0 +1,18 @@
+{
+  "kbHash":      "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+  "kbId":        "KB-AG-3",
+  "title":       "Designing LLM Agent Evaluation Pipelines with Regression Detection",
+  "domain":      "agent.evaluation.pipeline",
+  "kbType":      "Rubric",
+  "payloadType": "procedure",
+  "tags":        ["LLM-evaluation", "agent-evaluation", "regression-detection", "eval-pipeline", "benchmarking"],
+  "isSeed":      false,
+  "royaltyBps":  500,
+  "depth":       2,
+  "parentIds":   ["KB-AG-1", "KB-AG-2"],
+  "score": {
+    "classification": "high-value",
+    "weighted": 2.7
+  },
+  "publishedAt": "2026-03-16T12:00:00Z"
+}

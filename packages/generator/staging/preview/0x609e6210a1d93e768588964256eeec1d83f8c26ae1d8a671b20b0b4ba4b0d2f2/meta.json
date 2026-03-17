@@ -1,0 +1,228 @@
+{
+  "domain": "software.architecture",
+  "isSeed": true,
+  "kbHash": "0x609e6210a1d93e768588964256eeec1d83f8c26ae1d8a671b20b0b4ba4b0d2f2",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:18:31.317Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Circuit Breaker for Downstream Service Resilience",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Wrap each downstream service call with a circuit breaker using a library like Hystrix or Resilience4",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Set failure threshold by analyzing historical failure rates and response times",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Capture service-specific fallback specifications by defining default responses or alternative servic",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assert circuit breaker specifications by running integration tests that simulate downstream service ",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Expose circuit state metrics using a monitoring tool like Prometheus",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:prometheus",
+        "label": "Prometheus",
+        "type": "tool"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:circuit_breaker_specifications_by_running_integration_tests_",
+        "label": "circuit breaker specifications by running integration tests that simulate downstream service failures",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:field_validation_pass_rate_gte_1_0",
+        "label": "field_validation_pass_rate >= 1.0",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:circuit_breaker",
+        "label": "Circuit Breaker",
+        "type": "reference"
+      },
+      {
+        "id": "ref:graceful_degradation",
+        "label": "Graceful Degradation",
+        "type": "reference"
+      },
+      {
+        "id": "ref:retry_with_backoff",
+        "label": "Retry with Backoff",
+        "type": "reference"
+      },
+      {
+        "id": "ref:health_check_pattern",
+        "label": "Health Check Pattern",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "uses",
+        "to": "tool:prometheus"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:circuit_breaker_specifications_by_running_integration_tests_"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:circuit_breaker"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:graceful_degradation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:retry_with_backoff"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:health_check_pattern"
+      }
+    ]
+  },
+  "tags": [
+    "circuit_breaker",
+    "resilience",
+    "fault_tolerance",
+    "service_reliability",
+    "distributed_systems",
+    "failure_prevention",
+    "software_architecture"
+  ],
+  "title": "Circuit Breaker for Downstream Service Resilience"
+}

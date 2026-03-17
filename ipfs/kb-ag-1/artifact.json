@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+
+  "kbType": "Feature",
+  "epistemicType": "procedural",
+  "domain": "agent.orchestration.multi_agent",
+
+  "title": "Designing Multi-Agent Orchestration Pipelines",
+  "summary": "A canonical procedure for designing multi-agent systems with explicit role separation, typed handoff contracts, shared state governance, and conflict resolution policy. Produces a pipeline specification that is deterministic, auditable, and composable. Root orchestration primitive — task decomposition, evaluation, and memory architectures derive from it.",
+  "tags": ["multi-agent", "orchestration", "agent-roles", "handoffs", "conflict-resolution", "A2A", "pipeline-design"],
+  "capabilities": [
+    "design-multi-agent-pipeline",
+    "define-agent-roles",
+    "specify-handoff-contracts",
+    "govern-shared-state",
+    "resolve-agent-conflicts",
+    "instrument-agent-traces"
+  ],
+  "confidence": 0.93,
+
+  "preconditions": [
+    "The task requires more than one capability domain or execution phase.",
+    "A single agent context window or capability set is insufficient for the full task."
+  ],
+
+  "cost_estimate": {
+    "human_hours": "2-4h",
+    "resource_class": "senior-engineer",
+    "automation_coverage": 0.4,
+    "notes": "Role decomposition and conflict resolution selection require domain judgment. Contract specification and instrumentation are templatable and partially automatable."
+  },
+
+  "payloadType": "procedure",
+  "steps": [
+    {
+      "id": "step_1",
+      "action": "Enumerate the full task scope. Identify natural phase boundaries where the output of one phase becomes the typed input to the next.",
+      "produces": ["task_scope_map"],
+      "rationale": "A boundary is only valid if it can be expressed as a named contract. If you cannot write 'Phase A produces X, Phase B consumes X', the boundary is wrong and agents will couple implicitly through shared assumptions. Implicit coupling breaks silently under load or model changes — it is the primary source of non-deterministic failures in multi-agent systems.",
+      "tooling": {
+        "automated": "Prompt: 'Given this task: {task_description}, list the execution phases in order. For each phase output JSON: [{phase_id, description, input_artifact_name, output_artifact_name}]. Flag any phase where input or output cannot be named.'",
+        "manual": "Draw the pipeline as boxes and arrows. Every arrow must have a name. If you cannot name an arrow, the phases are wrong — merge or re-split until every boundary is nameable."
+      }
+    },
+    {
+      "id": "step_2",
+      "action": "Assign exactly one role per agent from: Planner, Executor, Critic, Router, or Aggregator. No agent holds two roles.",
+      "inputs": ["task_scope_map"],
+      "produces": ["role_assignment_map"],
+      "rationale": "Dual-role agents create untestable behaviour — you cannot isolate which role caused a failure. The five roles are mutually exclusive by design. Any phase that seems to need a dual-role agent is a signal to split into two agents.",
+      "tooling": {
+        "automated": "Prompt: 'Map each phase in {task_scope_map} to exactly one of: Planner | Executor | Critic | Router | Aggregator. Output JSON: [{phase_id, agent_id, role, justification}]. Flag any ambiguous mapping.'",
+        "manual": "Role decision rules — Planner: output is a task list or plan. Executor: output is a concrete artifact (code, text, data). Critic: output is a boolean + reason. Router: output is a dispatch decision with destination. Aggregator: output is a merge of N inputs into one."
+      }
+    },
+    {
+      "id": "step_3",
+      "action": "Define the handoff contract for every agent boundary: input schema, output schema, error schema, and timeout SLA.",
+      "inputs": ["role_assignment_map"],
+      "produces": ["handoff_contracts"],
+      "rationale": "The handoff contract is the only interface between agents. Without it, agents couple through shared assumptions. Any agent change that alters the output schema without bumping the contract version is a silent breaking change.",
+      "tooling": {
+        "automated": "Contract template: { boundary_id, from_agent_id, to_agent_id, input: { required: [{name, type, description}], optional: [{name, type, description}] }, output: { required: [{name, type, description}], optional: [{name, type, description}] }, error: { codes: [{code, meaning}], schema: {} }, timeout_ms: number, version: '1.0.0' }",
+        "manual": "For each arrow in task_scope_map: write the contract. For each field ask: what happens if this field is absent? If the downstream agent breaks, the field is required. If it degrades gracefully, it is optional. Version the contract with semver — any removal of a required field is a major bump."
+      }
+    },
+    {
+      "id": "step_4",
+      "action": "Specify the shared state store: enumerate every shared key, assign exactly one writer per key, and declare the consistency model.",
+      "inputs": ["handoff_contracts"],
+      "produces": ["shared_state_spec"],
+      "rationale": "Multiple agents writing the same key without coordination produces non-deterministic output. The root cause of most multi-agent data corruption bugs is unintended write contention. The invariant is: one writer per key, all others are readers.",
+      "tooling": {
+        "automated": "State spec template per key: { key, description, writer_agent_id, reader_agent_ids: [], consistency: 'append-only' | 'last-writer-wins' | 'critic-arbitrated', conflict_ttl_ms: number }. Default to append-only wherever possible.",
+        "manual": "Decision tree — Can the key be append-only (event log)? Yes → use it. No, conflicts are rare and eventual consistency is OK → last-writer-wins. No, conflicts affect downstream decisions → critic-arbitrated. Document the choice with a one-line justification per key."
+      }
+    },
+    {
+      "id": "step_5",
+      "action": "Select conflict resolution strategy: last-writer-wins, Critic-arbitrated, or human-in-the-loop. Document the consistency trade-off accepted.",
+      "inputs": ["shared_state_spec"],
+      "produces": ["conflict_resolution_policy"],
+      "rationale": "Every multi-agent system will encounter a conflict. Choosing the strategy at design time prevents ad-hoc fixes under production pressure. The strategy is a consistency vs. latency trade-off that should be revisitable — so document the reasoning, not just the decision.",
+      "tooling": {
+        "automated": "Selection matrix: last-writer-wins → conflict_rate_estimate < 5% AND downstream_sensitivity = low. Critic-arbitrated → conflict_rate > 5% OR downstream_sensitivity = high. Human-in-the-loop → regulatory_requirement = true OR action_is_irreversible = true.",
+        "manual": "Conflict simulation: inject two agents writing conflicting values to the same key simultaneously. Trace the output. If acceptable, the strategy is validated. If not, move up the consistency ladder (LWW → Critic → Human)."
+      }
+    },
+    {
+      "id": "step_6",
+      "action": "Define termination conditions: success, failure, and partial-failure rollback procedure.",
+      "inputs": ["conflict_resolution_policy", "handoff_contracts"],
+      "produces": ["termination_spec"],
+      "rationale": "A pipeline without explicit termination conditions never cleans up after partial failure. The most common production incident pattern in multi-agent systems is a partial failure that leaves shared state in an inconsistent intermediate state, blocking all subsequent runs indefinitely.",
+      "tooling": {
+        "automated": "Termination spec template: { success: 'all handoff_contracts satisfied AND aggregator output passes Critic validation', failure: 'any agent exceeds timeout_ms OR emits error_schema', partial_failure: { action: 'cancel in-flight tasks', emit: 'last_valid_partial_result', log: 'trace_id + boundary_id of failure' } }",
+        "manual": "Test rollback: kill an Executor mid-run. Verify the pipeline terminates cleanly with the partial result. If it hangs or emits corrupted state, the termination spec is incomplete. Fix before proceeding."
+      }
+    },
+    {
+      "id": "step_7",
+      "action": "Instrument every handoff boundary: emit a structured trace event with agent_id, role, input_hash, output_hash, latency_ms, and status.",
+      "inputs": ["handoff_contracts", "termination_spec"],
+      "produces": ["instrumentation_spec"],
+      "rationale": "Without structured traces at boundaries, debugging a failure requires reconstructing execution order from unstructured logs — unreliable under concurrent execution. The trace event is the minimal observable unit. It enables replay, diff-based regression testing, and root-cause isolation to a specific boundary. It also feeds the evaluation pipeline (KB-AG-3) for regression detection.",
+      "tooling": {
+        "automated": "Trace event schema: { trace_id: uuid, span_id: uuid, parent_span_id: uuid | null, boundary_id: string, from_agent_id: string, to_agent_id: string, input_hash: 'keccak256(JSON.stringify(input))', output_hash: 'keccak256(JSON.stringify(output))', latency_ms: number, status: 'ok' | 'error' | 'timeout', error_code: string | null, timestamp: ISO8601 }",
+        "manual": "Completeness check: replay a known failure scenario and confirm you can identify the failing boundary from traces alone — without reading agent logs or source code. If you cannot isolate the boundary from traces, add fields until you can."
+      }
+    }
+  ],
+
+  "verification": {
+    "successConditions": [
+      "Every agent in role_assignment_map holds exactly one of the five defined roles",
+      "Every boundary in task_scope_map has a versioned handoff_contract with input, output, and error schemas",
+      "Every shared state key has exactly one writer_agent_id in shared_state_spec",
+      "conflict_resolution_policy is selected with a documented consistency trade-off",
+      "termination_spec covers success, failure, and partial_failure with tested rollback",
+      "instrumentation_spec defines trace events at every handoff boundary"
+    ],
+    "failureConditions": [
+      "Any agent holds two roles — cannot isolate failure cause in testing or production",
+      "Any handoff boundary lacks a typed contract — agents are implicitly coupled through assumptions",
+      "Multiple agents write to the same shared state key without coordination — non-deterministic output",
+      "No termination condition defined for partial failure — pipeline hangs indefinitely on partial failure",
+      "No trace events at boundaries — failures cannot be root-cause isolated without log reconstruction"
+    ],
+    "metrics": [
+      "agents_with_dual_roles == 0",
+      "boundaries_without_contract == 0",
+      "shared_state_keys_with_multiple_writers == 0",
+      "termination_spec_covers_partial_failure == true",
+      "boundaries_without_trace_events == 0"
+    ]
+  },
+
+  "interface": {
+    "inputs": [
+      { "name": "task_description",     "type": "string",   "description": "Full natural language or structured description of the task the pipeline must complete" },
+      { "name": "available_agents",     "type": "string[]", "description": "Declared agent types with their capability sets" },
+      { "name": "consistency_priority", "type": "string",   "description": "Trade-off preference: speed | consistency | human_oversight", "options": ["speed", "consistency", "human_oversight"] }
+    ],
+    "outputs": [
+      { "name": "pipeline_spec",        "type": "object",   "description": "Complete specification: role_assignment_map, handoff_contracts, shared_state_spec, conflict_resolution_policy, termination_spec, instrumentation_spec" },
+      { "name": "handoff_contracts",    "type": "object[]", "description": "Typed, versioned contracts for every agent boundary" },
+      { "name": "instrumentation_spec", "type": "object",   "description": "Trace event schema for every handoff boundary" }
+    ]
+  },
+
+  "artifactRefs": [],
+  "parentHashes": [],
+  "royaltyBps": 800,
+  "isSeed": true,
+  "publishedAt": "2026-03-16T00:00:00Z"
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+
+  "kbType": "Rubric",
+  "epistemicType": "evaluative",
+  "domain": "agent.evaluation.pipeline",
+
+  "title": "Designing LLM Agent Evaluation Pipelines with Regression Detection",
+  "summary": "A structured evaluation framework for LLM agent systems: metric selection per agent role, golden eval set construction, baseline snapshot, automated regression detection, and failure triage. Derived from KB-AG-1 and KB-AG-2: evaluation runs against the pipeline_spec and execution_plan to detect regressions when either changes. The trace events from KB-AG-1 instrumentation_spec and the task graph from KB-AG-2 are the primary triage inputs.",
+  "tags": ["LLM-evaluation", "agent-evaluation", "regression-detection", "eval-pipeline", "golden-set", "CI-integration"],
+  "capabilities": [
+    "design-agent-eval-pipeline",
+    "select-evaluation-metrics",
+    "construct-golden-eval-set",
+    "establish-baseline-snapshot",
+    "detect-metric-regressions",
+    "triage-agent-failures"
+  ],
+  "confidence": 0.91,
+
+  "preconditions": [
+    "An agent pipeline exists (KB-AG-1 pipeline_spec) and produces outputs that can be compared against expected results.",
+    "An execution plan exists (KB-AG-2 execution_plan) or at least one of: task success criteria, output schema, or human-rated golden examples."
+  ],
+
+  "cost_estimate": {
+    "human_hours": "4-8h initial setup; 1-2h per subsequent run",
+    "resource_class": "moderate",
+    "automation_coverage": 0.65,
+    "notes": "Golden set construction (step 2) and failure triage (step 6) require human judgment. Metric computation, regression detection, and CI report generation are fully automatable."
+  },
+
+  "payloadType": "procedure",
+  "steps": [
+    {
+      "id": "step_1",
+      "action": "Select one primary metric per agent role from the pipeline_spec. Map each role to its metric using the role-to-metric guide below.",
+      "produces": ["metric_map"],
+      "rationale": "Evaluating all possible metrics creates noise and obscures signal. One primary metric per role forces clarity about what each agent is actually optimising for — and makes regressions unambiguous. Secondary metrics are allowed but must not gate CI.",
+      "tooling": {
+        "automated": "Role-to-metric mapping: Planner → plan_completeness (fraction of original goal covered by leaf tasks), plan_depth (decomposition levels used). Executor → task_success_rate (atomic tasks completed / total), tool_call_accuracy (correct tool selected / total calls), latency_p95_ms. Critic → precision (true_rejections / total_rejections), recall (caught_failures / total_failures). Router → routing_accuracy (correct_dispatch / total_dispatches). Aggregator → output_coherence_score (0.0-1.0 via LLM judge), hallucination_rate (fabricated_claims / total_claims).",
+        "manual": "For each role in pipeline_spec.role_assignment_map: ask 'what is the one number that best measures whether this agent is doing its job?' That is the primary metric. Document the measurement procedure — how is the metric computed from the agent's output?"
+      }
+    },
+    {
+      "id": "step_2",
+      "action": "Build the golden eval set: 20-50 representative tasks with human-verified expected outputs, edge cases, and known failure modes. Distribute as 60% typical, 25% edge, 15% adversarial.",
+      "inputs": ["metric_map"],
+      "produces": ["golden_eval_set"],
+      "rationale": "An eval set without edge cases and adversarial inputs passes easily on typical inputs while hiding regressions on boundary conditions — which is exactly where real failures occur. The 60/25/15 distribution ensures the eval set has enough coverage to catch both capability regressions and robustness regressions.",
+      "tooling": {
+        "automated": "Eval entry schema: { id: string, input: object, expected_output: object, metric_targets: { [metric_name]: number | boolean }, tags: string[], category: 'typical' | 'edge' | 'adversarial' }. Adversarial examples: prompt injection attempts ('Ignore previous instructions and...'), malformed inputs, out-of-scope requests, inputs at the atomicity boundary from KB-AG-2.",
+        "manual": "Seed the eval set from three sources: (1) the execution_plan from KB-AG-2 — use the leaf task descriptions as typical inputs, (2) recent production incidents — use the failing inputs as edge and adversarial cases, (3) the failure_conditions from this KB and its parents — construct inputs that would trigger each failure condition."
+      }
+    },
+    {
+      "id": "step_3",
+      "action": "Establish the baseline snapshot: run the current agent pipeline against the full golden_eval_set and record all metric scores, tagged with a version identifier.",
+      "inputs": ["golden_eval_set", "metric_map"],
+      "produces": ["baseline_snapshot"],
+      "rationale": "Regression detection requires a reference point. Without a versioned baseline, every eval run is a fresh measurement with no historical comparison. The baseline must be pinned to a specific agent code version — when the agent changes intentionally, the baseline is re-anchored explicitly, not silently.",
+      "tooling": {
+        "automated": "Baseline schema: { version: string, git_sha: string, timestamp: ISO8601, scores: { [metric_name]: { value: number, std_dev: number, sample_size: number } }, eval_set_id: string, pipeline_spec_version: string }. Run the eval set 3 times and record mean ± std_dev to account for LLM non-determinism.",
+        "manual": "Baseline anchoring rule: re-anchor only when an agent capability change is intentional and approved. Never re-anchor to suppress a regression — that destroys the integrity of the eval pipeline. Document re-anchoring decisions with: who decided, why, and what capability changed."
+      }
+    },
+    {
+      "id": "step_4",
+      "action": "Set regression thresholds per metric: a regression triggers when a metric drops more than the threshold from the baseline snapshot.",
+      "inputs": ["baseline_snapshot"],
+      "produces": ["regression_thresholds"],
+      "rationale": "Thresholds set to zero produce constant false positives from LLM non-determinism. Thresholds set too loose miss genuine regressions. The starting values below are calibrated to be tighter on safety-critical metrics (hallucination, accuracy) and looser on performance metrics (latency) — adjust based on your tolerance.",
+      "tooling": {
+        "automated": "Suggested starting thresholds: task_success_rate: -3 percentage points, tool_call_accuracy: -2 percentage points, hallucination_rate: +1 percentage point (absolute), plan_completeness: -5 percentage points, routing_accuracy: -3 percentage points, latency_p95_ms: +20%. Threshold schema: { metric_name, direction: 'increase' | 'decrease', absolute_delta: number, relative_delta: number | null, severity: 'blocking' | 'warning' }.",
+        "manual": "Set blocking vs. warning: any metric directly related to correctness or safety (accuracy, hallucination_rate) is blocking — a regression stops the merge. Any metric related to performance or efficiency (latency, cost) is a warning — it surfaces but does not block."
+      }
+    },
+    {
+      "id": "step_5",
+      "action": "Automate the eval run in CI: on every agent code change, run the golden eval set, compute metrics, compare against baseline, and emit a structured report. Gate merge on overall_pass.",
+      "inputs": ["golden_eval_set", "metric_map", "regression_thresholds"],
+      "produces": ["eval_report", "ci_gate_config"],
+      "rationale": "A manual eval process degrades to 'run it before major releases' within weeks. CI integration is what makes regression detection continuous. The structured report — not a human-readable summary — is what downstream triage tooling consumes.",
+      "tooling": {
+        "automated": "Eval report schema: { run_id: uuid, timestamp: ISO8601, git_sha: string, pipeline_spec_version: string, metrics: { [name]: { score: number, delta_from_baseline: number, threshold: number, regression: boolean } }, regressions: [{ metric: string, score: number, delta: number, threshold: number, failing_cases: [{ eval_entry_id, input, expected, actual }] }], overall_pass: boolean }. CI gate: fail the pipeline if overall_pass == false AND any regression.severity == 'blocking'.",
+        "manual": "Validate the CI gate: introduce a deliberate regression (degrade a mock Executor to fail 10% of tasks). Confirm the CI run reports overall_pass == false and blocks merge. If it passes, the gate is misconfigured."
+      }
+    },
+    {
+      "id": "step_6",
+      "action": "Triage regressions: for each failing case, run the agent in trace mode and use KB-AG-1 instrumentation_spec and KB-AG-2 execution_plan to pinpoint the failing boundary and task node.",
+      "inputs": ["eval_report"],
+      "produces": ["triage_report"],
+      "condition": "eval_report.overall_pass == false",
+      "rationale": "Without structured triage, fixing a regression is guess-and-check. The trace events from KB-AG-1 identify which handoff boundary the failure occurred at. The task graph from KB-AG-2 identifies which decomposition node the failing input maps to. Cross-referencing the two reduces root-cause isolation time significantly versus reading raw logs.",
+      "tooling": {
+        "automated": "Triage procedure: (1) for each failing_case in eval_report.regressions: re-run with trace_mode=true, (2) find the trace event where output_hash diverges from the expected value, (3) the boundary_id at that event is the failure location, (4) look up that boundary_id in pipeline_spec.handoff_contracts to find which agent is responsible, (5) look up the input in execution_plan to find the task node — that is the scope of the fix.",
+        "manual": "Triage escalation rule: if the same boundary_id appears in > 50% of failing cases, the failure is systemic (agent model change, prompt change, tool schema change). If boundary_ids are scattered, the failure is a data distribution shift in the golden eval set — add more representative examples."
+      }
+    },
+    {
+      "id": "step_7",
+      "action": "Maintain the golden eval set: add failing production cases, remove stale cases, re-baseline only after approved intentional capability changes.",
+      "inputs": ["triage_report"],
+      "produces": ["updated_golden_eval_set"],
+      "rationale": "An eval set that never grows converges to measuring only the patterns present at initial construction. Production incidents are the highest-signal source of new eval cases — they represent real failures the eval set did not anticipate. Re-baselining without approval is the most common way eval integrity is quietly eroded.",
+      "tooling": {
+        "automated": "Maintenance schedule: after every production incident, add the incident input to the golden_eval_set as an adversarial case. After 30 days, review cases with eval_entry.category == 'typical' that have never failed — if the task is no longer in scope, remove it. Track eval_set_size over time: a shrinking eval set is a risk signal.",
+        "manual": "Monthly review checklist: (1) are all typical cases still representative of current production inputs? (2) has the distribution of production inputs shifted? (3) are the metric targets in expected_output still correct given any capability changes? Update and commit changes with a review justification comment."
+      }
+    }
+  ],
+
+  "verification": {
+    "successConditions": [
+      "Every agent role in pipeline_spec.role_assignment_map maps to at least one primary metric in metric_map",
+      "golden_eval_set contains >= 20 entries with distribution: >= 50% typical, >= 20% edge, >= 10% adversarial",
+      "baseline_snapshot is versioned, pinned to a git_sha, and records mean ± std_dev over >= 3 runs",
+      "regression_thresholds are set for every metric in metric_map with blocking vs. warning classification",
+      "eval_report is generated automatically on every agent code change",
+      "CI gate blocks merge on overall_pass == false with at least one blocking regression"
+    ],
+    "failureConditions": [
+      "Metric has no measurable definition — delta against baseline cannot be computed",
+      "golden_eval_set has < 20 entries or no adversarial cases — insufficient to detect boundary regressions",
+      "Baseline re-anchored without documented approval — regressions become undetectable",
+      "Regression thresholds set to 0 or disabled for all metrics — pipeline never triggers",
+      "CI gate not configured — eval runs but does not block merges"
+    ],
+    "metrics": [
+      "agent_roles_without_primary_metric == 0",
+      "golden_eval_set_size >= 20",
+      "adversarial_case_fraction >= 0.10",
+      "edge_case_fraction >= 0.20",
+      "baseline_pinned_to_git_sha == true",
+      "ci_merge_gate_active == true"
+    ]
+  },
+
+  "interface": {
+    "inputs": [
+      { "name": "pipeline_spec",        "type": "object",   "description": "Output of KB-AG-1: role_assignment_map, handoff_contracts, instrumentation_spec" },
+      { "name": "execution_plan",       "type": "object",   "description": "Output of KB-AG-2: topologically sorted task graph with role assignments" },
+      { "name": "production_incidents", "type": "object[]", "description": "Optional: recent production failures to seed adversarial eval cases" }
+    ],
+    "outputs": [
+      { "name": "eval_pipeline_spec",  "type": "object", "description": "Complete evaluation pipeline: metric_map, golden_eval_set, baseline_snapshot, regression_thresholds, CI gate config" },
+      { "name": "baseline_snapshot",   "type": "object", "description": "Initial metric scores across all metrics, versioned and pinned to git_sha" },
+      { "name": "eval_report_schema",  "type": "object", "description": "JSON schema for automated eval reports, ready for CI integration" }
+    ]
+  },
+
+  "artifactRefs": [
+    {
+      "uri":  "KB-AG-1",
+      "name": "multi_agent_orchestration",
+      "type": "parent_context"
+    },
+    {
+      "uri":  "KB-AG-2",
+      "name": "task_decomposition",
+      "type": "parent_context"
+    }
+  ],
+
+  "parentHashes": ["0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24", "0x0266a889b02779d969686298f7ea4fcb10fc1bfe09bcc6dd5d345db0342e8f88"],
+  "royaltyBps": 500,
+  "isSeed": false,
+  "publishedAt": "2026-03-16T12:00:00Z"
+}

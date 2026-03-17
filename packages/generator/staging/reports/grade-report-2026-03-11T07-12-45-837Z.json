@@ -1,0 +1,5976 @@
+{
+  "timestamp": "2026-03-11T07:12:45.837Z",
+  "total": 7064,
+  "pctRefined": 98.69762174405436,
+  "pctMarginal": 0,
+  "pctFailed": 0.05662514156285391,
+  "goNoGo": "proceed",
+  "anchorCount": 6972,
+  "standardCount": 0,
+  "domainBreakdown": {
+    "software.security": {
+      "refined": 513,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.799220272904457
+    },
+    "data.schema.validation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "knowledge.graphs": {
+      "refined": 222,
+      "marginal": 0,
+      "failed": 2,
+      "avgScore": 2.7468749999999984
+    },
+    "agent.execution": {
+      "refined": 439,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7963553530751484
+    },
+    "agent.tool_selection": {
+      "refined": 205,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.800000000000002
+    },
+    "algorithm.data_structure_selection": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning": {
+      "refined": 455,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7991208791208555
+    },
+    "sql.optimization": {
+      "refined": 158,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7924050632911466
+    },
+    "universal.knowledge": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.architecture.decomposition": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "finance.payment.pci": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.algorithmic": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.testing": {
+      "refined": 605,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7993388429751773
+    },
+    "agent.planning.hierarchical": {
+      "refined": 53,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.error_recovery": {
+      "refined": 279,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7992831541218535
+    },
+    "software.design_patterns": {
+      "refined": 153,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000074
+    },
+    "mobile.ota.codepush": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.testing.forge_fuzzing": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.product.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture": {
+      "refined": 313,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7987220447284202
+    },
+    "meta.protocol": {
+      "refined": 180,
+      "marginal": 0,
+      "failed": 1,
+      "avgScore": 2.7627071823204483
+    },
+    "database.schema_design": {
+      "refined": 130,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000065
+    },
+    "agent.reasoning": {
+      "refined": 353,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.79660056657222
+    },
+    "invariant.architecture": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.search.inverted_index": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ai.safety.policy.audit": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.prompting": {
+      "refined": 221,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7963800904977365
+    },
+    "agent.tools.capability_matching": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "search.ranking.cold_start": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.temporal": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.dead_code": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.debugging": {
+      "refined": 57,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7929824561403516
+    },
+    "ux.ui.dark_mode": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "universal.ux_ui": {
+      "refined": 8,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "mobile.offline.queue": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.streaming.windowing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.redteam.persona": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.medallion.lineage": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.decision_theory": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.typography": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.data": {
+      "refined": 10,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.observability": {
+      "refined": 71,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.800000000000003
+    },
+    "finance.payment.gateway": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.memory.context_budget": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "evm.solidity": {
+      "refined": 248,
+      "marginal": 0,
+      "failed": 1,
+      "avgScore": 2.7520080321285083
+    },
+    "software.security.input_sanitization": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "platform.api.environment": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems.replication": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.monitoring.policy_violation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.presence.cursor": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.abductive": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "realtime.crdt.convergence": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.mesh.mtls": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.caching.cache_stampede": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.security_scan": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.architecture": {
+      "refined": 29,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999985
+    },
+    "ml.anomaly.detection": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.presence.throttling": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.entity.similarity": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.tools.chaining": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "system.event_sourcing.event_store": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "web.frontend.ux": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.memory.conversation_state": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "documentation.specification": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.frontend": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "compiler.opt.dead_code": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.prompting.structured_output": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "knowledge.versioning": {
+      "refined": 34,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999985
+    },
+    "data.lakehouse.time_travel": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.sharding.strategy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.guardrails.output_validation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "documentation.adr": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.security": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.cqrs": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.transaction.saga": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems": {
+      "refined": 96,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000047
+    },
+    "finance.payment.webhook": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.memory.long_term_retrieval": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "blockchain.wallet.eip712_signing": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.autoscaling": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.performance": {
+      "refined": 43,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.799999999999998
+    },
+    "software.architecture.hexagonal": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.reasoning.evidence_evaluation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "compiler.parser.pratt": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.mesh.retry": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.ota.rollback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.lsp.goto": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.helm.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.responsive": {
+      "refined": 11,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.planning.parallel_execution": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.tools.input_adaptation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ux.ui.interaction_flows": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.task_decomposition": {
+      "refined": 55,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000007
+    },
+    "web3.token.erc1155": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.ranking.ndcg": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.quality.rag_eval": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.contract.architecture": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.quality.dependency_management": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.sharding.key_design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems.idempotency": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.integration": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.quality.readability": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.sharding.rebalance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.predictive_maintenance": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.memory.prioritization": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "frontend.rendering": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "platform.k8s.operator": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.policy.pii_redaction": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.monitoring.transparency": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.serving.batch": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.optimization": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "algorithm.complexity_analysis": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.goal_definition": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "frontend.css": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "algorithm.constraint_satisfaction": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "mobile.offline.network_detection": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.optimization": {
+      "refined": 60,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000016
+    },
+    "ai.safety.injection.sandboxing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.confidence.interval": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.load": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.documentation": {
+      "refined": 12,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "compiler.types.inference": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.property_based": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.calibration": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.meta_analysis": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.schema.normalization": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.lifecycle.deep_links": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.resource_allocation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.architecture.interface_segregation": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "failure_debug.devops": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "tooling.ast.treesitter": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.ux": {
+      "refined": 11,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "universal.security": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.execution.api_patterns": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "experimentation.flags.override": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.causal": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.quality.documentation_coverage": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "invariant.distributed": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.systems_thinking": {
+      "refined": 8,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "saas.api": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "research.simulation.monte_carlo": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.cicd.rollback_strategy": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "deep.adversarial": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.service_boundaries": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.monitoring.incident_response": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "frontend.a11y": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ai.safety.policy.grounding": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.retrieval.semantic_search": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "tooling.codegen.migration": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.iterative": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "documentation.api": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "realtime.ot.transform": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "crypto.identity.did": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "frontend.state": {
+      "refined": 8,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "compiler.opt.constant_folding": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.tradeoff_analysis": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "crypto.signatures.verification": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.interaction": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "lakehouse.iceberg.design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.api.migration": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.freshness": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.scenario_evaluation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "infra.serverless.cold_start": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "mlops.training.reproducibility": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.observability": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ai.safety.eval.agentic": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "infra.kubernetes.resource_limits": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ai.retrieval.hybrid_search": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.testing.fuzz": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.gas.sstore": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.complex_modeling": {
+      "refined": 10,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "platform.sre.toil": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.query.stats": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.presence.list": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.scientific": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "security.supply_chain.sbom": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.multi_agent.delegation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.security.rate_limiting": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "database.document.schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.transaction.deadlock": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ux.ui.wcag": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "project.env.config": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.architecture.multitenant": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "tooling.build.workspace": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.deductive": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.memory.sliding_window": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.error_recovery.circuit_breaker": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.777777777777778
+    },
+    "platform.mesh.traffic": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.format.selection": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.memory.knowledge_summarization": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7555555555555555
+    },
+    "realtime.crdt.persistence": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "networking.auth.oauth": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.regression": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "deep.reliability": {
+      "refined": 10,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ai.retrieval.chunking": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ai.safety.redteam.methodology": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "failure_debug.software": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "system.search.relevance_tuning": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "datamesh.product.interface": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.event_sourcing.snapshot": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.components": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "experimentation.flags.sdk": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.rag.embedding_selection": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.single_responsibility": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.payment.state_machine": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "project.cicd.files": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.redteam.scenarios": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.injection.indirect": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.layout": {
+      "refined": 10,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "database.olap.columnar": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "security.zero_trust.identity_first": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ml.evaluation.metrics": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "antipattern.distributed": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "security.supply_chain.slsa": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.cli.interactive": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.incremental.fingerprint": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.ast.scope": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.index.update": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.gitops.argocd": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "documentation.runbooks": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.entity.blocking": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.push.silent": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.research_repro": {
+      "refined": 8,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.75
+    },
+    "agent.planning.fallback": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "crypto.commitment.pedersen": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.catalog.usage": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.milestone": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.architecture.fault_tolerant": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ai.output_validation": {
+      "refined": 21,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.799999999999999
+    },
+    "web3.oracle.price_feed": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.evaluation.pipeline": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.code_quality": {
+      "refined": 14,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.data.ingestion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.retrieval.citation_grounding": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "datamesh.catalog.governance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.websocket.heartbeat": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.reentrancy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.frontend.perf": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "realtime.notifications.preference": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.eval.robustness": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.ota.feature_flags": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.arch_evolution": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "realtime.ot.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.fraud.velocity": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.zero_downtime": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "web3.indexing.handler": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.tools.invocation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "project.config.management": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "blockchain.wallet.eip1271": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.platform": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.parser.packrat": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.idempotent_api": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "project.build.artifacts": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.4
+    },
+    "software.architecture.backpressure": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.plugin": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.retrieval.context_filtering": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "datamesh.contract.evolution": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.long_horizon": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "web3.defi.governance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.memory.context_compression": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "deep.causal_reasoning": {
+      "refined": 8,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.reasoning.contradiction_detection": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.memory.entity_tracking": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "database.index.maintenance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.infra": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "finance.compliance.aml": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.observability.logging": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "infra.edge.cdn_strategy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.perf.battery": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.quality.labels": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.uncertainty": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.security.key_rotation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.codegen.openapi": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.query.bulk": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.clean_architecture": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.architecture.bounded_context": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.chain_of_thought": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.backend": {
+      "refined": 8,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "finance.compliance.pii_handling": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.time_travel": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compliance.access_control": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "api.graphql.schema_federation": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "invariant.reliability": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.incremental.parallel": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.locking.reentrant": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.optimistic.partial": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.docs": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "mobile.nav.coordinator": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.stats.bayesian": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.events.topic_encoding": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.5999999999999996
+    },
+    "system.caching.cache_aside": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.vector.index": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "failure_debug.performance": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.indexing": {
+      "refined": 54,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ux.ui.design_system": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "algorithm.parallel_pipeline": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.state_machine.loop_detection": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "mlops.registry.lineage": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.ot.client_buffering": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.websocket.protocol": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "algorithm.pathfinding": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "antipattern.data": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.crosschain.token_bridge": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.security.api_auth": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "documentation.onboarding": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.reflection": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "kg.rdf.provenance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.push.payload": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.query.lock": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.dx": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.catalog.lineage": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.rag.reranking": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "invariant.software": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.planning.priority_scheduling": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ai.retrieval.ranking": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "saas.reliability": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "experimentation.ab.mutual_exclusion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.frontend.a11y": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.websocket.auth": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.dependency_graph": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "experimentation.ab.exposure": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.event_sourcing.projection": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ml.simulation.forecasting": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "project.docs.structure": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.tools.discovery": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "blockchain.indexing.subgraph_schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.payment.capture": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compliance.audit_logging": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.caching.ttl_strategy": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.monitoring": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.a11y.contrast": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.concurrency.actor_model": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.drift.label": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.multiregion.failover": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.testing": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.reasoning.multi_step": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "software.dependency.vulnerability_scanning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.caching.write_through": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.compliance.reporting": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.probabilistic.modeling": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.solidity.security": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "verification.architecture": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "search.vector.multi_vector": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.rag.context_fusion": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.inductive": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "ml.rlhf.preference": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.observability": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.monitoring.anomaly": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.data.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.gas.batch": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.api.golden_path": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.monitoring.user_feedback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.oracle.twap": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.saga.compensation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.testing.foundry_invariants": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.crdt.orset": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "security.supply_chain.dependency_poisoning": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "realtime.optimistic.conflict": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.push.rich": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.observability": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "security.incident_response.playbook": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "mlops.serving.realtime": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.tools.authorization": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.plugin.isolation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.aa.batch": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.quality.abandonment": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.crosschain.idempotency": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.codegen.scaffold": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.lifecycle.launch_time": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.data.labeling": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.entity.deduplication": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.unit_generation": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "compiler.types.gradual": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.registry.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.redteam.reporting": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.offline.cache": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.injection.defense": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.registry.avro": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.push.registration": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.governance.compliance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ux.ui.state_management": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.eval.bias": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.fine_tuning.dpo_alignment": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.api_design.backwards_compat": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.quality.immutable_data": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.security.auth": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.serving.fallback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.architecture_conformance": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "universal.devops": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "invariant.data_ml": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "deep.risk_analysis": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.planning.backtracking": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "compiler.grammar.design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "failure_debug.frontend": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.build.lint_pipeline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "failure_debug.distributed": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "devops.container.orchestration": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.migration.zero_downtime": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.tracing": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.architecture.event_driven": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "algorithm.dynamic_programming": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.gas.immutables": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "dx.cogload.defaults": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.tools.output_validation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.forecasting.time_series": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.opt.pass_ordering": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.offline.conflict": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems.messaging": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "mlops.drift.shadow": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.replication.logical": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.registry.design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.registry.migration": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.hybrid.ensemble": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.fault_injection": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.drift.retraining": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.bayesian.inference": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.tools.result_aggregation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "web3.oracle.randomness": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.reconciliation.schedule": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.ranking.click_signals": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.k8s.hpa": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems.partitioning": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.performance.bundle_splitting": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.ir.ssa": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.metrics.scorecard": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.performance.core_web_vitals": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ux.ui.typography": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.sharding.cross_shard": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.ledger.immutability": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.ab.bucketing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.proxy.transparent": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.perf.gpu": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.decision_trees": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "infra.service_mesh.mtls": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.execution.workflow_orchestration": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "database.migration.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.oracle_manipulation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.refactoring": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.guardrails.self_reflection": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "mlops.training.distributed": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "api.graphql.subscription_design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.static_analysis": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.quality.code_review": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.gitops.drift": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.caching.eviction_policy": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "experimentation.metrics.definition": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.routing.semantic": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "tooling.repl.magic_commands": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.injection.test": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.debugging.trace_analysis": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "dx.cogload.automation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "knowledge.graphs.traversal": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "antipattern.frontend": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "project.structure.modular": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.eval.regression": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.sre.oncall": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "dx.cogload.context_switching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.entity.evaluation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "verification.code_quality": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.optimization.latency_reduction": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.offline.background_sync": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.websocket.reconnect": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.rollout.canary": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.selection": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compliance.data_retention": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.continuous": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.front_running": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.complexity": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.security.zero_trust": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.replication.conflict": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.ddd": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.query.optimization": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.query.spell_correction": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "blockchain.l2.zk_rollup": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "tooling.plugin.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.debugging.replay_debugging": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.schema.types": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.testing": {
+      "refined": 7,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "infra.kubernetes.rollout_strategy": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.crosschain.state_sync": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.contract.negotiation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.currency.rounding": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.build.dependency_graph": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.upgrade_auth": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "crypto.zk.circuit_design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.metrics.long_term": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "antipattern.architecture": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "compiler.types.narrowing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.ranking.xgboost": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.layered": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.fulltext.indexing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.guardrails.execution_monitoring": {
+      "refined": 8,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "web3.token.soulbound": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.monitoring.capability_drift": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.billing.dunning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.error_recovery.retry_backoff": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "search.index.warm": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "security.incident_response.forensics": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.rdf.canonicalization": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.schema_evolution": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.catalog.tagging": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "universal.performance": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.replication.lag": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.sre.postmortem": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.ast.serialization": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.policy.refuse": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.devops": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.schema.design": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.architecture": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.frontend.maintain": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.crdt.rga": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.optimistic.rollback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.repl.multiline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.index.replication": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.presence.offline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.token.bonding_curve": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.reconciliation.intercompany": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.architecture": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.refactoring.feature_flag_migration": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.refactoring.strangler_fig": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7
+    },
+    "web3.defi.liquidation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.reconciliation.exception": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.perf": {
+      "refined": 6,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "database.transaction.long_running": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.sre.capacity": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.build.incremental": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.injection.context_isolation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.finetune.lora": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.security.threat_modeling": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ml.eval.baseline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "project.structure.monorepo": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.engineering": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.repl.input": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.codegen.debug_info": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web.performance": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.types.generics": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.rdf.jsonld": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.catalog.search": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.rag.eval_ragas": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.monitoring.slo_definition": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "software.testing.coverage": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "platform.helm.values": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "security.zero_trust.microsegmentation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.transformation.idempotent_sql": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.hypothesis_generation": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.composition.capability_negotiation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.analysis.shape": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "api.rest.pagination_patterns": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.circular_deps": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "project.deps.package": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.monolith_vs_microservice": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.product.design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.formatter.algorithm": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.ast.visitor": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.incremental.red_green": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.monitoring.error_budget": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "realtime.crdt.selection": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "protocol.framing.length_prefix": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.redteam.automated": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.codegen.template": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.token.erc721": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.gitops.secrets": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.a11y.touch_targets": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.stats.sequential": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.leakage": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.tools.injection_defense": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.error_recovery.compensating": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.analysis.taint": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.codebase.dependency_pruning": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "security.devsecops.sast_integration": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.query.rewrite": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.crosschain.rollup": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.orchestration.multi_agent": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.multi_agent.conflict": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "tooling.cli.progress": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "documentation.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.query.expansion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.planning.constraint_based": {
+      "refined": 9,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "tooling.lsp.incremental_sync": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.separation_of_concerns": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.nav.stack": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.types.nominal": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.analysis.nullability": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.experiments.comparison": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.metrics.denominator": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "verification.security": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "realtime.ot.text_ops": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.transaction.isolation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.sre.chaos": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "documentation.system_design": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ai.safety.monitoring.incident": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.codegen.validation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.cli.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.contract.registry": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.lifecycle.state_preservation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.proxy.storage_collision": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.contract.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.deployment.create2_factory": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.flash_loan": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.quality.head_torso_tail": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.solidity.access_control": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.discovery.capability_index": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.stats.mde": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.lsp.completion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.perf.benchmarking": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.defi.eip4626": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.rag.chunking_strategy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.ot.server_authority": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.vector.compression": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.drift.alerting": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.token.erc20": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.incremental.salsa": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.decision_tree": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.catalog.design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "defi.amm.invariant_math": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "platform.api.idp": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.gitops.flux": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.registry.promotion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.ranking": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.refactoring.parallel_change": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "database.transaction.two_phase": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.warehouse.schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.helm.chart": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.proxy.uups": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.statistics.hypothesis_testing": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.rdf.inference": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.query.entity": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.codegen.wasm": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.aa.upgrade": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.policy.rate_limiting": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.olap.cost": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.nav.transition": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.validation.framework": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.governance.duration": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.lsp.performance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.compaction": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.replication": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "api.graphql.dataloader_pattern": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.crosschain.ccip": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.message_broker.kafka_consumer": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "agent.tools.selection": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.nav.modal": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.quality.data_contracts": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.regression": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.sparql.named_graph": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.analysis.symbolic_exec": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.tools.sandboxing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.overflow": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.notifications.batching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.react.component_patterns": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.ab_shadow": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.optimistic.loading_states": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "protocol.framing.delimiter": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.crdt.state_based": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.billing.revenue_recognition": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.query.plan": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "blockchain.indexing.event_handlers": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.api.provisioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.finops.budgets": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "blockchain.l2.optimistic_rollup": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ml.risk.scoring": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.analysis.effect": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.sparql.aggregation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.ensemble.prediction": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.api.service_catalog": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.injection.monitoring": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.sparql.path": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.mesh.authorization": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.analysis.reachability": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.experiments.registry": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ux.ui.spacing": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "datamesh.registry.protobuf": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.kubernetes.deployment": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.quality.linting": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "datamesh.product.lifecycle": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.reconciliation.tolerance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.workflow.goal_driven": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.codegen.schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.training.hyperparameter": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.routing.capability": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.testing.contract": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.dos": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.index.covering": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.error_recovery.graceful_degradation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.sparql.basic": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.opt.inlining": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.dependency_inversion": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "experimentation.ab.holdout": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.sharding.fan_out": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "verification.performance": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ai.safety.monitoring.session_analysis": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.abstraction_layers": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.offline.sync": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.security.data_storage": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "crypto.keystore.management": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.opt.loop": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.interaction": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.finetune.evaluation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.access_control": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.governance.replication": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.ab.multivariate": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.billing.invoice": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.events.log_filtering": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.plugin.lifecycle": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "frontend.react.state_management": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.gas.loops": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.push.analytics": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.ranking.ltr": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.human": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.ledger.accounts": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.build.affected": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "algorithm.graph_traversal": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.flags.evaluation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.serving.caching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.quality.zero_results": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.ledger.balance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "blockchain.l2.bridge_security": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "defi.lending.collateral_management": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.inference.speculative_decoding": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.incremental.dependency": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.parser.ast_design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.perf.memory": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.medallion.bronze": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.crosschain.bridge_security": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "dx.cogload.abstractions": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.injection.privilege_separation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.codegen.instruction_selection": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.ledger.reconciliation_balance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.catalog.quality_scores": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.experimental.protocol": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.k8s.reconciler": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.payment.split": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.contract.semantic": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ux.ui.accessibility": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "devops.cicd.canary_deploy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.notifications.push": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "infra.secrets.vault_rotation": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.metrics.surrogate": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.deployment.upgrade_scripts": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.service_mesh": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.olap.incremental": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.product.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.lifecycle.memory_pressure": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.hybrid.learned_sparse": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.ranking.diversity": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.debugging.failure_taxonomy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "meta.protocol.attribution": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.flags.kill_switch": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.metrics.pipeline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.index.btree": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.drift.concept": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.reconciliation.matching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.k8s.multi_cluster": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.lakehouse.delta_lake": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.push.deep_link": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.injection.output_validation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.metrics.northstar": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.metrics.data_quality": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.locking.leader_election": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.finops.waste": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.vector.similarity": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.contract.schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "infra.kubernetes.health_probes": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "antipattern.concurrency": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.flags.audit": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.api_versioning": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "ml.ops.prompt_versioning": {
+      "refined": 5,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.metrics": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.finops.tagging": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.transaction.idempotency": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.streaming.pipeline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.vector.evaluation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.compliance.retention": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.security.invariant_testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.index.partial": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.properties": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.push.delivery": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.resilience": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.optimistic.queue": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.eval.benchmarks": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "algorithm.approximation": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "defi.yield.auto_compounding": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "experimentation.ab.logging": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.security.audit_logging": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.a11y.announcements": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.multiregion.chaos": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.currency.revaluation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.concurrency.lock_free": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.a11y.switch_control": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.indexing.events": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.modularization": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "algorithm.topological_scheduling": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.plugin.api": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.repl.testing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "protocol.framing.compression": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.ir.cfg": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.locking.deadlock": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "protocol.framing.streaming": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.governance.calendar": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.encoding": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.error_recovery.detection": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.payment.routing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.lakehouse.iceberg_format": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.transformation.dbt_incremental": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.decision_records": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.sparql.construct": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.inference.batching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.class_hierarchy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.optimistic.cache": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.lineage.tracking": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "antipattern.devops": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.ledger.double_entry": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.security": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "protocol.framing.fixed": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.literature.review": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.eval.human_feedback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.cli.output_format": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.optimization.token_efficiency": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.sharding.schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.drift.data": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.sre.slo": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.data.filtering": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.redteam.agentic": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.embedding": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.quality.offline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.reuse": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.nav.tab": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.feature_store.serving_layer": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.loosely_coupled": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.security.secret_storage": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "devops.incident": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.api.paved_road": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.rdf.named_graphs": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.pooling.read_replica": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.lsp.architecture": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.billing.credits": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.k8s.crd": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.locking.advisory": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.lifecycle.scene": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.finetune.catastrophic": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.cli.completion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "documentation.srs": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.modular": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.safety.policy.layered": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.compliance.kyc": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.query.window": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.timeseries.compression": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.registry.ci": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "defi.lending.liquidation_engine": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.fine_tuning.instruction_tuning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.aa.bundler": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "protocol.framing.encryption": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.inference.quantization": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.stats.segment": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.indexing.pagination": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.payment.reconciliation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.contract.monitoring": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.query.suggestion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.notifications.rate_limiting": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.index.backup": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.ast.pattern_matching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.stats.proportion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.currency.conversion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.data.augmentation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.k8s.resource_limits": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.currency.precision": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.query.semantic_parsing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.solidity.patterns": {
+      "refined": 3,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7999999999999994
+    },
+    "web3.indexing.aggregates": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.offline.storage_quota": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.rollout.automation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.sparql.federation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.crdt.op_based": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.flags.caching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.documentation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "networking.api.versioning": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.governance.interleaving": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.websocket.backpressure": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.plugin.hooks": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.cli.help": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.payment.retry": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.deduplication": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.rollout.ring": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.confusion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.vector.index": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.background": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.streaming.event_processing": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "knowledge.graphs.deduplication": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.build.bundler": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.finops.reserved": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.oracle.automation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.nav.declarative": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.finops.showback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.index.deletion": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.plugin.discovery": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.fraud.scoring": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.data.normalization": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.incremental.interface": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ux.ui.design_tokens": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.experiments.search": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.mesh.observability": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.fraud.alert": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.aa.recovery": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.api.dependency": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "api.rest.idempotency_design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.medallion.quality": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.product.sla": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.sharding.hotspot": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "search.vector.reindex": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.serving.scaling": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.memory.architecture": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.linter.performance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.feature.scaling": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.replication.cdc": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.experiments.hypothesis": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.pooling.overflow": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.catalog.metadata": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.parser.recursive_descent": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.mesh.circuit_breaker": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.ab.srm": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.parser.concrete_syntax": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.query.cache": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.opt.register_alloc": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.websocket.lifecycle": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "realtime.notifications.read_tracking": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "datamesh.product.access": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems.consensus": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.pooling.multitenancy": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.ota.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.nav.back_gesture": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.reproducibility": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.sparql.optimization": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.embedding.entity": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.defi.lending": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.timeseries.schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mobile.ota.ci_cd": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.cqrs.read_model": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.multiregion.cost": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.backend": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "data.etl.pipeline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "algorithm.heuristic_search": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.codegen.stack_layout": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.4
+    },
+    "lakehouse.medallion.incremental": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.parser.span": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "research.causal.inference": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "saas.repo": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.oracle.pull": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.token.vesting": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.embedding.transE": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.fraud.chargeback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.migration.rollback": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.rollout.geographic": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.ast.type_inference": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.saga.choreography": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.microservice": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.benchmarking.capability_eval": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.defi.fee_distribution": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "evm.assembly.yul_optimization": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.lexer.regex": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.pooling.timeout": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "system.message_broker.offset_management": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.k8s.pod_disruption": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.types.unification": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.alignment": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.olap.partitioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "compiler.incremental.cache": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.governance.review": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.evaluation.performance": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.cli.config": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.graph.design": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.gas.assembly": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "mlops.data.sampling": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "networking.http.caching": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.entity.coreference": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.index.gin": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.pooling.health": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "software.architecture.observability": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.build.remote_cache": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.cli.plugin_loading": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.mesh.ingress": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "web3.indexing.offchain": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "finance.compliance.audit_log": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "platform.finops.egress": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "experimentation.flags.gradual_rollout": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.ast.codemod": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "lakehouse.medallion.pipeline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "tooling.build.task_pipeline": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ml.eval.sliced": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "kg.ontology.axioms": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "database.olap.schema": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    }
+  }
+}

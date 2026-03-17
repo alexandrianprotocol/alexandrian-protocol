@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x70bd4bfe03230d9fea894be0b562d343afe79654f0be238bd6cc09324c30ac3d
+  artifactHash: 0xfb70cc474560f95e492c28c9a03c249763a6b17f56ae47a1dfbefaa04828fe32
+  title:        Modular Library System Design
+  domain:       universal.architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  24
+  graph edges:  23
+  artifact.json size: 3418 bytes
+  meta.json size:     4391 bytes

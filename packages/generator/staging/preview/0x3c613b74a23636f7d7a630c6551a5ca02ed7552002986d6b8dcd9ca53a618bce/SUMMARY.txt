@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x3c613b74a23636f7d7a630c6551a5ca02ed7552002986d6b8dcd9ca53a618bce
+  artifactHash: 0x2b7113c7ae22d3b0145f0abfad785c1b34d7b6e2ee7da54fc3f46ff7568a1633
+  title:        Execution Monitoring and Observability in AI Systems
+  domain:       ai.guardrails.execution_monitoring
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      7
+  graph nodes:  27
+  graph edges:  26
+  artifact.json size: 3414 bytes
+  meta.json size:     5250 bytes

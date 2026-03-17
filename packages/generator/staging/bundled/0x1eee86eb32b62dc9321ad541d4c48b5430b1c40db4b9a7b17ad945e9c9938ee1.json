@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xebe92ebf8f4389f89d97d7e22d76374d255c16636bcf92d15dea7076e725ef52",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.state_machine.loop_detection",
+  "rootCid": "QmdxsuQNaZMVCDwvusGUnhJWbUifWxT9WfaG3B7iCAKaL8",
+  "title": "Agent Execution Loop Detection in State Machines"
+}

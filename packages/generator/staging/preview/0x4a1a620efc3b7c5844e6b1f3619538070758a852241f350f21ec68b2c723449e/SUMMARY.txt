@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x4a1a620efc3b7c5844e6b1f3619538070758a852241f350f21ec68b2c723449e
+  artifactHash: 0x30013e38a6d8b60126a6d329dcb80ec08c17693403903878124efbddb13bb1a2
+  title:        Safe Subprocess Invocation for CLI Agents
+  domain:       agent.execution
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      6
+  graph nodes:  23
+  graph edges:  26
+  artifact.json size: 3481 bytes
+  meta.json size:     4716 bytes

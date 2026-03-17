@@ -1,0 +1,584 @@
+[
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM coding assistant",
+    "timestamp": "2026-03-17T00:27:15.555Z",
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescanTx": "https://basescan.org/tx/0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "domain": "agent.evaluation.pipeline",
+        "royaltyBps": 600,
+        "basescanTx": "https://basescan.org/tx/0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:00:31.000Z",
+        "hashMatch": true
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:24:05.000Z",
+        "hashMatch": true
+      }
+    ],
+    "model": "claude-opus-4-5",
+    "response": null
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM coding assistant",
+    "timestamp": "2026-03-17T00:48:20.697Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "domain": "agent.evaluation.pipeline",
+        "royaltyBps": 600,
+        "basescan": "https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:00:31.000Z",
+        "domain": "agent.orchestration.multi_agent",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:24:05.000Z",
+        "domain": "agent.evaluation.pipeline",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "claude-opus-4-5",
+    "response": null,
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM coding assistant",
+      "model": "claude-opus-4-5",
+      "timestamp": "2026-03-17T00:48:32.701Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM coding assistant",
+    "timestamp": "2026-03-17T00:48:37.435Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "domain": "agent.evaluation.pipeline",
+        "royaltyBps": 600,
+        "basescan": "https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:00:31.000Z",
+        "domain": "agent.orchestration.multi_agent",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:24:05.000Z",
+        "domain": "agent.evaluation.pipeline",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "claude-opus-4-5",
+    "response": null,
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM coding assistant",
+      "model": "claude-opus-4-5",
+      "timestamp": "2026-03-17T00:48:50.961Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM",
+    "timestamp": "2026-03-17T01:18:55.882Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "domain": "agent.evaluation.pipeline",
+        "royaltyBps": 600,
+        "basescan": "https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:00:31.000Z",
+        "domain": "agent.orchestration.multi_agent",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-16T08:24:05.000Z",
+        "domain": "agent.evaluation.pipeline",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "claude-opus-4-5",
+    "response": null,
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM",
+      "model": "claude-opus-4-5",
+      "timestamp": "2026-03-17T01:19:07.912Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM",
+    "timestamp": "2026-03-17T01:42:15.019Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "domain": "agent.evaluation.pipeline",
+        "royaltyBps": 600,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:41:57.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:42:07.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "claude-opus-4-5",
+    "response": null,
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM",
+      "model": "claude-opus-4-5",
+      "timestamp": "2026-03-17T01:42:24.663Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM",
+    "timestamp": "2026-03-17T02:07:20.952Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:41:57.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "gpt-4o",
+    "response": "To design a multi-agent pipeline for evaluating a Large Language Model (LLM), we will adhere to the structured approach presented in KB-AG-1. This procedure ensures a deterministic, auditable, and composable design through explicit role separation, carefully defined handoff contracts, shared state governance, and conflict resolution strategies.\n\n### Step 1: Enumerate the Full Task Scope\nFirst, we need to outline the complete process of evaluating an LLM and identify phase boundaries. Key phases could include:\n- **Input Preparation Phase**: where input data is curated and transformed for the model.\n- **Execution Phase**: where the LLM performs inference on the input data.\n- **Evaluation Phase**: where the outputs from the LLM are assessed against benchmarks or evaluation criteria.\n- **Aggregation Phase**: where results are compiled, anomalies are identified, and reports are generated.\n\nEach of these phases should have clear boundaries expressed as named contracts. For example, the Input Preparation Phase produces \"Prepared Input Data\" which the Execution Phase consumes.\n\n### Step 2: Assign One Role per Agent\nAccording to KB-AG-1, assign the following roles without overlap:\n- **Input Preparer (Planner)**: Curates and formats input data for the LLM.\n- **Executor**: Runs the LLM inference tasks using prepared inputs.\n- **Evaluator (Critic)**: Assesses output while considering benchmarks or expected outcomes.\n- **Result Aggregator**: Gathers evaluation metrics and generates the final report.\n- **Data Router**: Handles data flow between these agents.\n\nEach agent has a distinct responsibility aligning with one of the five agent roles: Planner, Executor, Critic, Router, or Aggregator.\n\n### Step 3: Define Handoff Contracts\nEach boundary between roles needs a clear contract:\n- **Input Preparer to Executor**: Input Schema detailing required format and completeness.\n- **Executor to Evaluator**: Output Schema including expected inference details and execution metadata.\n- **Evaluator to Aggregator**: Error Schema for evaluation results and anomalies.\n- **Aggregator to External Systems**: Results Schema for finalized reports.\n\nEach contract should include input, output, error schemas, and specify timeout SLAs, ensuring robust inter-agent interaction.\n\n### Step 4: Specify the Shared State Store\nIdentify and manage the shared data:\n- Define keys for shared LLM results, evaluation metrics, and aggregate reports.\n- Assign a single agent responsible for writing each key to avoid unintended write collision:\n  - E.g., the Executor writes raw inference output; the Evaluator writes assessment metrics.\n\nClarify the consistency model that the system will use, potentially eventual consistency for aggregations.\n\n### Step 5: Select Conflict Resolution Strategy\nChoose a strategy such as **Critic-arbitrated**, where the Evaluator Agent can arbitrate discrepancies or conflicts observed in outputs or evaluations. Document trade-offs between consistency and latency, considering the evaluation’s precision requirements.\n\n### Step 6: Define Termination Conditions\nArticulate when the pipeline stops for:\n- **Success**: All phase outputs meet expected criteria without errors.\n- **Failure**: A critical error occurs that prevents further evaluation.\n- **Partial-Failure Rollback**: Mechanism to undo any changes made by incomplete phases, ensuring shared state integrity.\n\nIn summary, by applying the principles from KB-AG-1, we can assemble a deterministic and auditable pipeline to evaluate an LLM, enhancing methodical clarity and operational resilience.",
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM",
+      "model": "gpt-4o",
+      "timestamp": "2026-03-17T02:07:37.760Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM",
+    "timestamp": "2026-03-17T02:20:11.800Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:41:57.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "gpt-4o",
+    "response": "To design a multi-agent pipeline for evaluating a Large Language Model (LLM), we will follow the procedures outlined in KB-AG-1. This will involve defining roles for each agent, specifying contracts and shared states, and setting termination conditions. Here are the detailed steps:\n\n### Step 1: Enumerate the Full Task Scope\nWe begin by identifying the phases involved in evaluating an LLM and establish clear boundaries with named contracts between them.\n\n1. **Data Collection Phase:** Collect input data for model evaluation. \n   - Produces: \"Evaluation Dataset\"\n   - Consumes: None (initial input)\n\n2. **Model Evaluation Phase:** Execute the LLM with the evaluation dataset.\n   - Produces: \"Raw Evaluation Output\"\n   - Consumes: \"Evaluation Dataset\"\n\n3. **Critique Phase:** Assess the raw outputs for accuracy and other required metrics.\n   - Produces: \"Evaluation Metrics\"\n   - Consumes: \"Raw Evaluation Output\"\n\n4. **Result Aggregation Phase:** Collect and integrate results into a comprehensive report.\n   - Produces: \"Evaluation Report\"\n   - Consumes: \"Evaluation Metrics\"\n\nThese boundaries are validated by their ability to be expressed as named contracts between phases (Per KB-AG-1).\n\n### Step 2: Assign Roles to Agents\nPer the mandate that no agent holds more than one role, the roles are assigned as follows:\n\n- **Planner:** Tasked with setting up and maintaining the evaluation plan and schedule.\n- **Executor:** Executes the model with the dataset and generates the raw output.\n- **Critic:** Analyzes the raw outputs, computes metrics, and identifies errors or mismatches.\n- **Aggregator:** Compiles the results, prepares them for the report phase, and ensures thorough documentation.\n\nNo dual-role agents are involved (Per KB-AG-1).\n\n### Step 3: Define Handoff Contracts\nOutline the handoff contracts for agent boundaries:\n\n- **From Planner to Executor:**\n  - Input Schema: Plan details, dataset requirements\n  - Output Schema: Confirmation of dataset readiness\n  - Error Schema: Dataset preparation errors\n  - SLA: Completion time for initiation\n\n- **From Executor to Critic:**\n  - Input Schema: Raw model output\n  - Output Schema: Initial evaluation metrics\n  - Error Schema: Execution errors (performance, timeout)\n  - SLA: Execution time constraints\n\n- **From Critic to Aggregator:**\n  - Input Schema: Evaluation metrics and error reports\n  - Output Schema: Compiled result sets\n  - Error Schema: Metric computation errors\n  - SLA: Analysis timeframe\n\nEach contract version is defined to ensure deterministic and auditable processing (Per KB-AG-1).\n\n### Step 4: Specify Shared State Store\nDefine the shared state keys and access specifications:\n\n- **Shared State Key: \"Current Evaluation State\"**\n  - Writer: Planner\n  - Readers: Executor, Critic, Aggregator\n  - Consistency Model: Strong consistency to ensure all agents operate on the latest state\n\nThis specification ensures only one writer per key, resolving potential non-deterministic outputs (Per KB-AG-1).\n\n### Step 5: Select Conflict Resolution Strategy\nGiven the potential for disagreements or errors, a Critic-arbitrated strategy is preferred:\n\n- **Conflicts:** Dispute over metric accuracy or output validity\n- **Resolution:** The Critic role inspects metrics and potentially adjusts based on normative guidelines\n- **Trade-off:** An increased review time for higher accuracy and reliability (Per KB-AG-1).\n\n### Step 6: Define Termination Conditions\nExplicitly state the conditions for pipeline completion:\n\n- **Success:** All evaluation steps completed without errors, full report generated.\n- **Failure:** Critical errors unresolved; process rollback occurs to last intact state.\n- **Partial-Failure Rollback:** Intermediate states cleaned up if conflicts cannot be resolved, ensuring no erroneous state affects future runs (Per KB-AG-1).\n\nBy following these structured, well-defined steps, an effective and reliable multi-agent pipeline for evaluating an LLM can be realized, ensuring determinism and auditability (Per KB-AG-1).",
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM",
+      "model": "gpt-4o",
+      "timestamp": "2026-03-17T02:20:26.162Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM",
+    "timestamp": "2026-03-17T02:26:53.416Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "domain": "agent.evaluation.pipeline",
+        "royaltyBps": 500,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:41:57.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:42:07.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "gpt-4o",
+    "response": "To design a multi-agent pipeline for evaluating a Large Language Model (LLM), we can integrate procedures from both KB-AG-1 and KB-AG-3. The following steps outline the design and evaluation process in a structured and methodical manner.\n\n### Step 1: Designing the Multi-Agent Pipeline\n\n1. **Enumerate the Task Scope**:\n   - Identify the natural phase boundaries of the evaluation process. For instance:\n     - **Phase A**: Task Generation — Produces task input specifications.\n     - **Phase B**: LLM Execution — Consumes task inputs and produces outputs.\n     - **Phase C**: Output Evaluation — Consumes LLM outputs and evaluates them against expected results.\n   - Ensure each phase has a clear input and output defined by a contract between phases (Per KB-AG-1).\n\n2. **Assign Roles to Agents**:\n   - **Planner**: Responsible for generating task specs and planning the evaluation scenarios.\n   - **Executor**: Executes the tasks using the LLM.\n   - **Critic**: Evaluates the outputs of the LLM against expected results.\n   - **Aggregator**: Compiles output metrics from the Critic into an overall evaluation report.\n   - Ensure no agent holds more than one role (Per KB-AG-1).\n\n3. **Define Handoff Contracts**:\n   - Specify input, output, and error schemas for each inter-agent interaction:\n     - Task spec format between Planner and Executor.\n     - Execution output format between Executor and Critic.\n     - Evaluation metric format between Critic and Aggregator.\n   - Define timeout SLAs for each handoff to manage performance expectations (Per KB-AG-1).\n\n4. **Specify Shared State**:\n   - Identify shared state keys like 'Task Specs', 'LLM Outputs', 'Evaluation Metrics' and assign only one writer per key, others should be readers (Per KB-AG-1).\n\n5. **Select Conflict Resolution Strategy**:\n   - Adopt a Critic-arbitrated strategy for resolving any discrepancies in metric evaluations.\n   - Document the consistency trade-off decision (Per KB-AG-1).\n\n6. **Define Termination Conditions**:\n   - Success: All tasks successfully evaluated and metrics compiled.\n   - Failure: Evaluation or execution errors exceed tolerance.\n   - Partial-Failure Rollback: Predefined steps to revert any part-processed tasks (Per KB-AG-1).\n\n### Step 2: Designing the Evaluation Pipeline with Regression Detection\n\n1. **Select Evaluation Metrics**:\n   - **Planner**: Coverage of task scenarios.\n   - **Executor**: LLM execution accuracy.\n   - **Critic**: Correctness of evaluation metrics.\n   - Ensure these metrics align with the agents' increasing clarity of role performance (Per KB-AG-3).\n\n2. **Build the Golden Eval Set**:\n   - Construct a set of 20-50 tasks with 60% typical, 25% edge, and 15% adversarial cases. This ensures comprehensive coverage for testing the LLM (Per KB-AG-3).\n\n3. **Establish the Baseline Snapshot**:\n   - Record the current pipeline's full set of metric scores against the golden eval set, tagged with a version identifier for historical comparison (Per KB-AG-3).\n\n4. **Set Regression Thresholds**:\n   - Define thresholds specific to each metric, tighter for safety-critical metrics (e.g., hallucination) and looser for performance metrics (e.g., latency) (Per KB-AG-3).\n\n5. **Automate Eval Runs in CI**:\n   - Integrate the evaluation within CI workflows to ensure continuous regression detection:\n     - Compute metrics and compare against baseline, emit a structured, machine-readable report (Per KB-AG-3).\n\n6. **Triage Regressions**:\n   - Leverage trace mode to pinpoint failing boundaries and task nodes, using handoff boundary failures and task graph decompositions to isolate root causes efficiently (Per KB-AG-3).\n\n### Outcome\nBy applying these procedures, you gain a deterministic, auditable, and composable multi-agent pipeline capable of evaluating an LLM with rigor and precision, per the best practices outlined in the verified KBs. This pipeline aims to maintain high-efficiency evaluation even as agent roles or the underlying model evolve.",
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM",
+      "model": "gpt-4o",
+      "timestamp": "2026-03-17T02:27:14.988Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM",
+    "timestamp": "2026-03-17T02:48:12.723Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:41:57.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "gpt-4o",
+    "response": "To design a multi-agent pipeline for evaluating a Large Language Model (LLM), we will follow the canonical procedure outlined in KB-AG-1. This involves defining the task scope, assigning roles to agents, specifying handoff contracts, governing shared states, resolving potential conflicts, and defining termination conditions.\n\n### Step 1: Enumerate the Task Scope\nFirst, we need to identify the full scope of tasks involved in evaluating an LLM and define the boundaries where outputs of one phase become inputs to another. For example:\n- **Phase 1:** Model Generation - LLM generates a response based on a specific input.\n  - Output: Generated text\n- **Phase 2:** Response Evaluation - Generated text is evaluated for quality, relevance, and correctness.\n  - Input: Generated text\n  - Output: Evaluation score or feedback\n- **Phase 3:** Feedback Loop - Utilize the evaluation results to inform future model adjustments.\n  - Input: Evaluation results\n  - Output: Adjusted model parameters or improvements suggestions\n\nPer KB-AG-1, these boundaries must be expressible as named contracts to ensure each phase transitions smoothly to the next without implicit coupling.\n\n### Step 2: Assign Roles to Agents\nAssigning specific roles to agents ensures clarity and isolated behavior:\n- **Planner:** Plans the structure of evaluation tasks (e.g., criteria for evaluation).\n- **Executor:** Executes the LLM to generate specific outputs.\n- **Critic:** Evaluates the outputs based on predefined criteria.\n- **Router:** Directs outputs to appropriate next phases or re-routes based on feedback.\n- **Aggregator:** Gathers all results and prepares a final report or summary of evaluation.\n\nEach agent holds exactly one role, adhering to KB-AG-1 guidelines to prevent untestable behavior.\n\n### Step 3: Define Handoff Contracts\nEvery agent boundary defined in step 1 requires a detailed handoff contract:\n- **From Executor to Critic:**\n  - **Input Schema:** Generated text\n  - **Output Schema:** Evaluated score with metadata\n  - **Error Schema:** Execution errors (e.g., LLM timed out)\n  - **Timeout SLA:** Maximum acceptable generation time\n- **From Critic to Feedback Loop:**\n  - **Input Schema:** Evaluation score\n  - **Output Schema:** Feedback for model tuning\n  - **Error Schema:** Evaluation errors (e.g., invalid criteria match)\n\nKB-AG-1 emphasizes the importance of versioning these contracts to ensure compatibility across updates.\n\n### Step 4: Specify Shared State Governance\nDefine a shared state store with strict writer-reader delineations:\n- **Shared Keys:**\n  - GeneratedText: Writer - Executor\n  - EvaluationResults: Writer - Critic\n  - Feedback: Writer - Critic\n\nNo more than one agent must write to a shared state key to prevent data corruption, per the guidance in KB-AG-1.\n\n### Step 5: Select Conflict Resolution Strategy\nIn case of conflicting evaluations or feedback inconsistencies:\n- Use a **Critic-arbitrated** approach: The Critic agent resolves disputes based on predefined rules.\n- Document the consistency model accepted, highlighting any trade-offs between consistency and latency, as per KB-AG-1.\n\n### Step 6: Define Termination Conditions\nClarify clear termination conditions for the pipeline:\n- **Success Conditions:** All evaluations are completed with feedback integrated.\n- **Failure Conditions:** Any phase fails to deliver within specified error schemas or timeouts.\n- **Partial-Failure Rollback:** Revert to prior stable state and notify stakeholders for manual intervention or system alert.\n\nPer KB-AG-1, these conditions help ensure the system does not indefinitely linger in an inconsistent state due to failures, safeguarding continuous operations.\n\nBy adhering to these steps, a deterministic, auditable, and composable multi-agent pipeline for LLM evaluation can be constructed, minimizing risks associated with implicit role coupling, unhandled conflicts, and indeterminate state changes.",
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM",
+      "model": "gpt-4o",
+      "timestamp": "2026-03-17T02:48:24.774Z"
+    }
+  },
+  {
+    "task": "design a multi-agent pipeline for evaluating an LLM",
+    "timestamp": "2026-03-17T02:55:33.805Z",
+    "sdkInterface": {
+      "indexer": "TheGraphIndexerAdapter",
+      "sdk": "AlexandrianSDK",
+      "core": "Core.fetchArtifactVerified"
+    },
+    "knowledgeBlocksUsed": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "domain": "agent.orchestration.multi_agent",
+        "royaltyBps": 0,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      },
+      {
+        "id": "KB-AG-2",
+        "hash": "0x0266a889b02779d969686298f7ea4fcb10fc1bfe09bcc6dd5d345db0342e8f88",
+        "cid": "QmYGBH1HsHHy6t9VQ6tzKEpA4pFafZXxY3babLQpGW8FHi",
+        "domain": "agent.planning.task_decomposition",
+        "royaltyBps": 600,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "domain": "agent.evaluation.pipeline",
+        "royaltyBps": 500,
+        "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      }
+    ],
+    "verified": [
+      {
+        "id": "KB-AG-1",
+        "hash": "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "cid": "QmPorCfvbVGYaqz9Ngz2ybTxZZxEmnn39NcFHXJJViVZzA",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:41:57.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      },
+      {
+        "id": "KB-AG-2",
+        "hash": "0x0266a889b02779d969686298f7ea4fcb10fc1bfe09bcc6dd5d345db0342e8f88",
+        "cid": "QmYGBH1HsHHy6t9VQ6tzKEpA4pFafZXxY3babLQpGW8FHi",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:42:03.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      },
+      {
+        "id": "KB-AG-3",
+        "hash": "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0",
+        "cid": "QmUysbUkvwEwo6Tnph6s6X76K46QpoxAET8ZEeMNxDnvoU",
+        "curator": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+        "publishedAt": "2026-03-17T01:42:07.000Z",
+        "checks": {
+          "hashFormatOk": true,
+          "hashMatches": true
+        },
+        "sdkMethod": "AlexandrianSDK.getKB + Core.fetchArtifactVerified"
+      }
+    ],
+    "model": "gpt-4o",
+    "response": "To design a multi-agent pipeline for evaluating a Large Language Model (LLM), we will utilize the procedures outlined in KB-AG-1, KB-AG-2, and KB-AG-3. Here is a structured approach to creating this pipeline:\n\n### Step 1: Design Multi-Agent Orchestration Pipeline\n**1. Enumerate the Full Task Scope:**\n- Break down the evaluation task into discrete phases that can be represented using named contracts. For example: \n  - Phase A generates test cases.\n  - Phase B executes the LLM against these test cases.\n  - Phase C collects and evaluates the results.\n  - Phase D reports findings and potential regressions.\n- Ensure that each phase transition is a clear handoff, expressed as 'Phase A produces X, Phase B consumes X.' (Per KB-AG-1)\n\n**2. Assign Roles to Agents:**\n- Assign roles based on the predefined categories: \n  - Planner: Responsible for decomposing the evaluation goal into tasks.\n  - Executor: Runs the LLM with test inputs.\n  - Critic: Evaluates performance metrics.\n  - Router: Manages the flow between agents and resolves dependencies.\n  - Aggregator: Compiles final evaluation reports.\n- Each agent should have one unique role only. (Per KB-AG-1)\n\n**3. Define Handoff Contracts:**\n- Specify the input, output, error schema, and timeout Service Level Agreement (SLA) for every agent boundary.\n- The contract delineates agent interactions and prevents implicit assumptions. (Per KB-AG-1)\n\n**4. Specify Shared State Store:**\n- Define keys such as test_case_data, execution_results, and evaluation_metrics.\n- Designate exactly one agent as the writer for each key to avoid write contention. (Per KB-AG-1)\n\n**5. Select Conflict Resolution Strategy:**\n- Choose a resolution strategy like last-writer-wins if simple, or Critic-arbitrated for more complex evaluations.\n- Document the trade-offs involved in the chosen approach. (Per KB-AG-1)\n\n**6. Define Termination Conditions:**\n- Specify conditions for success, failure, and partial-failure rollback to ensure the pipeline cleans up after partial failures. This prevents future runs from being blocked. (Per KB-AG-1)\n\n### Step 2: Implement Hierarchical Task Decomposition\n**1. Parse the Evaluation Goal:**\n- Establish an evaluation goal root node with a unique ID, description, and set status to pending. (Per KB-AG-2)\n\n**2. Define Atomicity Boundary:**\n- Tasks are atomic when executable by one deterministic action, survey if it includes a tool call or function without branching. (Per KB-AG-2)\n\n**3. Recursive Decomposition of Tasks:**\n- For each non-atomic node, prompt the Planner agent to decompose into structured child tasks with explicit dependencies. (Per KB-AG-2)\n\n**4. Set Decomposition Depth and Detect Cycles:**\n- Cap depth at four levels by default and run Kahn’s algorithm to ensure there are no cycles. Flag nodes for human review beyond depth limits. (Per KB-AG-2)\n\n**5. Annotate Parallel Task Opportunities:**\n- Identify independent tasks at the same depth for concurrent execution, marked with execution_mode=parallel if infrastructure supports it. (Per KB-AG-2)\n\n### Step 3: Design Evaluation Pipeline with Regression Detection\n**1. Select Evaluation Metrics:**\n- Assign one primary metric per agent role; e.g., accuracy for Executors, latency for Routers, etc. Use a role-to-metric guide. (Per KB-AG-3)\n\n**2. Build a Golden Eval Set:**\n- Create a set of 20-50 representative tasks with human-verified expected outputs and known failures, distributed as 60% typical, 25% edge, 15% adversarial. (Per KB-AG-3)\n\n**3. Establish Baseline Snapshot:**\n- Run the evaluation pipeline on the golden eval set to form a baseline with a version ID. Record results for regression comparison. (Per KB-AG-3)\n\n**4. Establish Regression Thresholds:**\n- Define thresholds for metric changes that will trigger a regression flag, adjusting for safety-critical metrics. (Per KB-AG-3)\n\n**5. Automate Evaluation in CI:**\n- Integrate automated evaluations into continuous integration systems to ensure constant regression checks on code changes. Emit structured reports. (Per KB-AG-3)\n\n**6. Triage Regressions:**\n- Utilize task graphs and trace events for isolating failures, cross-referencing trim regression isolation time significantly. (Per KB-AG-3)\n\nThis structured design approach ensures each aspect of the LLM evaluation pipeline is thoughtfully architected for clarity, stability, and reliability, fulfilling both immediate and ongoing evaluation needs.",
+    "sdkUsageRecord": {
+      "kbHashes": [
+        "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+        "0x0266a889b02779d969686298f7ea4fcb10fc1bfe09bcc6dd5d345db0342e8f88",
+        "0xd32a951458cf3042090ec7d568a1184dbc22095a8d050dfbb080c3a3a31587d0"
+      ],
+      "task": "design a multi-agent pipeline for evaluating an LLM",
+      "model": "gpt-4o",
+      "timestamp": "2026-03-17T02:56:07.571Z"
+    }
+  }
+]

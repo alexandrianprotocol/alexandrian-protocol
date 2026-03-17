@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "COMPUTE_FROM_CANONICAL_ENVELOPE",
+
+  "kbType": "ComplianceChecklist",
+  "epistemicType": "empirical",
+  "domain": "web3.security",
+
+  "title": "ERC-20 Mainnet Deploy Security Gate",
+  "summary": "Composite pre-mainnet security gate for ERC-20 token contracts. Requires reentrancy clearance, integer arithmetic clearance, and access control clearance — each from their respective audit KB — before authorizing a mainnet deploy transaction. No clearance, no deploy.",
+  "tags": ["solidity", "ERC-20", "mainnet-deploy", "security-gate", "pre-deploy-audit"],
+  "capabilities": ["authorize-mainnet-deploy", "composite-security-audit", "gate-deployment"],
+  "confidence": 0.93,
+  "highestSeverity": "critical",
+
+  "preconditions": [
+    "KB-SEC-1 (Reentrancy — CEI Pattern Verification) has been run against the contract.",
+    "KB-SEC-2 (Integer Arithmetic Safety — Unchecked Blocks) has been run, or the contract contains no unchecked blocks.",
+    "KB-SEC-3 (Role-Based Access Control Audit) has been run against the contract.",
+    "A testnet deployment of the contract exists for bytecode comparison."
+  ],
+
+  "cost_estimate": {
+    "human_hours": "1-2h (orchestration only — parent KB runtime not included)",
+    "resource_class": "security-lead",
+    "automation_coverage": 0.6,
+    "notes": "Items 1-3 are orchestration steps that collect parent KB outputs. Item 4 (bytecode comparison) is automatable with cast. Item 5 (clearance timestamp check) is a scripted date comparison."
+  },
+
+  "payloadType": "checklist",
+  "checklist": [
+    {
+      "item": "Run 'Reentrancy — Checks-Effects-Interactions Pattern Verification' against the contract. All 5 checklist items must pass. Collect the reentrancy_clearance boolean and external_call_inventory outputs.",
+      "severity": "critical",
+      "rationale": "Reentrancy is the highest-impact vulnerability class in DeFi by total funds lost. No ERC-20 with external call sites should reach mainnet without this clearance. The parent KB encodes the complete procedure.",
+      "tooling": {
+        "automated": "Run parent KB tooling: slither --detect reentrancy-eth,reentrancy-no-eth,reentrancy-benign; forge test --match-contract MockAttacker",
+        "manual": "Execute all 5 items from 'Reentrancy — Checks-Effects-Interactions Pattern Verification'; collect signed clearance artifact."
+      },
+      "produces": "reentrancy_clearance"
+    },
+    {
+      "item": "Run 'Integer Arithmetic Safety — Unchecked Blocks in Solidity 0.8+' against the contract, or confirm the contract contains zero unchecked blocks (precondition satisfied by absence). Collect the overflow_clearance boolean.",
+      "severity": "high",
+      "rationale": "Gas-optimized arithmetic in unchecked blocks is a subtle, high-impact vulnerability class. If unchecked blocks exist, the parent KB encodes the complete procedure. If absent, this item is vacuously satisfied — document the confirmation.",
+      "tooling": {
+        "automated": "grep -rn 'unchecked' src/ — if empty, document zero unchecked blocks and mark cleared; else run parent KB tooling.",
+        "manual": "Execute all 5 items from 'Integer Arithmetic Safety — Unchecked Blocks in Solidity 0.8+'; collect signed clearance artifact."
+      },
+      "produces": "overflow_clearance"
+    },
+    {
+      "item": "Run 'Role-Based Access Control — Ownable and AccessControl Audit' against the contract. All 8 checklist items must pass. Collect the rbac_clearance boolean, privileged_function_list, and role_requirement_map outputs.",
+      "severity": "critical",
+      "rationale": "Misconfigured access control — particularly deployer admin retention and single-step ownership transfer — is consistently among the top critical findings in pre-mainnet audits. The parent KB encodes the complete procedure.",
+      "tooling": {
+        "automated": "Run parent KB tooling: slither --detect unprotected-upgrade; cast call {contract} hasRole(...) {deployer}",
+        "manual": "Execute all 8 items from 'Role-Based Access Control — Ownable and AccessControl Audit'; collect signed clearance artifact."
+      },
+      "produces": "rbac_clearance"
+    },
+    {
+      "item": "Verify that the contract bytecode deployed on testnet matches the audited source exactly. Compare compiler version, optimizer runs, and constructor arguments between the testnet deployment and the planned mainnet deploy configuration.",
+      "severity": "high",
+      "rationale": "Auditing source and deploying different bytecode is a known failure mode. A compiler version change or optimizer setting difference can alter code paths in ways the audit did not cover. The audit result is bound to a specific compilation — any deviation requires re-audit.",
+      "tooling": {
+        "automated": "cast code {testnet_contract_address} — compare against cast keccak $(forge inspect ContractName bytecode); or use forge verify-bytecode",
+        "manual": "Cross-reference hardhat.config.js (or foundry.toml) compiler and optimizer settings used for testnet deploy against the mainnet deploy script."
+      },
+      "produces": "bytecode_equivalence_confirmation"
+    },
+    {
+      "item": "Confirm all three clearance artifacts are present, each dated within 30 days of the planned mainnet deploy transaction timestamp, before any signatory countersigns the deploy transaction.",
+      "severity": "critical",
+      "rationale": "Clearances have a validity window because the contract source or deployment configuration can change between audit and deploy. A clearance older than 30 days may not reflect the current state. Signing a deploy transaction without all three current clearances attached is a critical process violation — not a documentation gap.",
+      "tooling": {
+        "automated": "date comparison script: assert (deploy_date - clearance_date).days <= 30 for each clearance",
+        "manual": "Collect timestamped clearance artifacts; attach to deploy transaction request; obtain sign-off only after all three are confirmed present and current."
+      },
+      "produces": "deploy_authorization"
+    }
+  ],
+
+  "verification": {
+    "successConditions": [
+      "reentrancy_clearance == true, dated within 30 days of deploy transaction",
+      "overflow_clearance == true (or contract has zero unchecked blocks, documented), dated within 30 days",
+      "rbac_clearance == true, dated within 30 days of deploy transaction",
+      "Testnet bytecode matches audited source with identical compiler version and optimizer settings",
+      "deploy_authorization issued with all three clearance artifacts attached and timestamps verified"
+    ],
+    "failureConditions": [
+      "Any clearance is false or absent — deployment is blocked regardless of other checks — CRITICAL",
+      "Any clearance is older than 30 days — re-run the corresponding parent KB — CRITICAL",
+      "Bytecode mismatch between testnet deployment and planned mainnet compiler config — HIGH",
+      "Deploy transaction countersigned before all three clearances are collected and attached — CRITICAL"
+    ],
+    "metrics": [
+      "clearance_count == 3",
+      "clearance_age_days <= 30",
+      "bytecode_equivalence == true",
+      "time_to_full_clearance <= 96h"
+    ]
+  },
+
+  "interface": {
+    "inputs": [
+      { "name": "contract_source",    "type": "solidity-source", "description": "Solidity source files (.sol) for the ERC-20 contract — same files used in parent KB audits" },
+      { "name": "testnet_deployment", "type": "evm-address",     "description": "0x-prefixed contract address on testnet for bytecode comparison" },
+      { "name": "compiler_config",    "type": "compiler-config", "description": "hardhat.config.js or foundry.toml specifying compiler version, optimizer runs, and constructor args", "options": ["hardhat-config", "foundry-toml"] }
+    ],
+    "outputs": [
+      { "name": "deploy_authorization", "type": "boolean", "description": "True only when all three clearances are present, current, and bytecode equivalence is confirmed" },
+      {
+        "name": "clearance_bundle",
+        "type": "object",
+        "description": "Signed bundle containing all three clearances with timestamps and auditor wallet addresses",
+        "schema": {
+          "reentrancy_clearance":   { "type": "boolean", "description": "Output of KB-SEC-1" },
+          "overflow_clearance":     { "type": "boolean", "description": "Output of KB-SEC-2 (or vacuously true if zero unchecked blocks)" },
+          "rbac_clearance":         { "type": "boolean", "description": "Output of KB-SEC-3" },
+          "timestamps": {
+            "reentrancy_cleared_at": { "type": "string", "format": "ISO 8601" },
+            "overflow_cleared_at":   { "type": "string", "format": "ISO 8601" },
+            "rbac_cleared_at":       { "type": "string", "format": "ISO 8601" }
+          },
+          "auditor_signatures": {
+            "type": "array",
+            "items": { "type": "string", "format": "evm-address" },
+            "description": "EOA or multisig addresses that countersigned each clearance"
+          }
+        }
+      }
+    ]
+  },
+
+  "artifactRefs": [
+    {
+      "uri":  "ipfs://PENDING",
+      "name": "smart_contract_security_patterns",
+      "type": "patterns_reference"
+    }
+  ],
+
+  "parentHashes": [
+    "REPLACE_WITH_KB_SEC_1_KBHASH",
+    "REPLACE_WITH_KB_SEC_2_KBHASH",
+    "REPLACE_WITH_KB_SEC_3_KBHASH"
+  ],
+  "royaltyBps": 300,
+  "isSeed": false,
+  "publishedAt": "2026-03-08T00:00:00Z"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x253db93567595b9c930c393e00e1137cf89ae0db0b9af9cd15014077fb374e7d
+  artifactHash: 0x7673b2ec421cb5613a2d615f3b645977bc7f0ca58211e924c8faf56926a2367f
+  title:        Batch Collection and Processing for Reduced Overhead in AI Prompting
+  domain:       agent.execution
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  17
+  graph edges:  22
+  artifact.json size: 3114 bytes
+  meta.json size:     3888 bytes

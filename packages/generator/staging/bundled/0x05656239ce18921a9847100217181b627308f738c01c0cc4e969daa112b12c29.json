@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xbed51ed97c13af2c9d6c6d7a6afdaeb3cdde8e854cf0a91a26b71b752cc6b0e7",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.opt.dead_code",
+  "rootCid": "QmWmjH85bCeLPSL7Jq24hhcAwowvS8yubbnKZCtQ3dCGPX",
+  "title": "Dead Code Elimination Optimization in Compilers"
+}

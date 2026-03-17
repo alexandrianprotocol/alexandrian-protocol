@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x52ca27c442049c828995bb9dc29210e05b3094768e9de8b88653238c1eac392a",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "sql.optimization",
+  "rootCid": "Qmdzb5Vs45CLKUDBUFWjoH7Hy8zJPHrsXof1R6fhLz8nHB",
+  "title": "Batch Related Entity Fetches to Prevent N+1 Queries"
+}

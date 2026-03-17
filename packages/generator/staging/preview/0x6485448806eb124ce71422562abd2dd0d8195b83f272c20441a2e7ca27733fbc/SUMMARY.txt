@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x6485448806eb124ce71422562abd2dd0d8195b83f272c20441a2e7ca27733fbc
+  artifactHash: 0xbf7fbbb888edeb15b8582e2b357712f99dccb6b574ff33808c5e7558e0b71a36
+  title:        Scientific Workflow Documentation for Reproducibility
+  domain:       universal.research_repro
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  20
+  graph edges:  24
+  artifact.json size: 3665 bytes
+  meta.json size:     4446 bytes

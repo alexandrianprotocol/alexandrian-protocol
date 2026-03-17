@@ -1,0 +1,218 @@
+{
+  "domain": "database.schema_design",
+  "isSeed": true,
+  "kbHash": "0x3f7732ef7ea99db28d61fd39808c5b71b046bb44eeb58a74c38903b30eeec543",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:03.986Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Database Normalization and AI Prompting Integration",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Run EXPLAIN ANALYZE on queries to identify columns frequently used in WHERE clauses and normalize ta",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Invoke AI models to generate potential query patterns and validate schema against these patterns for",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Set up automated tests using pgTAP to ensure schema changes maintain data integrity and performance ",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Release a CI/CD pipeline with Liquibase to manage and version schema changes, ensuring consistency a",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Observe query performance with pg_stat_statements and alert if p95 query time exceeds 100ms for 5 co",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:explain_analyze",
+        "label": "Explain Analyze",
+        "type": "tool"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:smoke_test_pass_rate_gte_1_0_before_promoting",
+        "label": "smoke_test_pass_rate >= 1.0 before promoting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:database_normalization",
+        "label": "Database Normalization",
+        "type": "reference"
+      },
+      {
+        "id": "ref:ai_prompting_techniques",
+        "label": "AI Prompting Techniques",
+        "type": "reference"
+      },
+      {
+        "id": "ref:liquibase",
+        "label": "Liquibase",
+        "type": "reference"
+      },
+      {
+        "id": "ref:pgtap",
+        "label": "pgTAP",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "uses",
+        "to": "tool:explain_analyze"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:smoke_test_pass_rate_gte_1_0_before_promoting"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:database_normalization"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:ai_prompting_techniques"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:liquibase"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:pgtap"
+      }
+    ]
+  },
+  "tags": [
+    "database_schema_design",
+    "normalization",
+    "ai_prompting",
+    "query_optimization",
+    "data_integrity",
+    "performance_monitoring",
+    "ci_cd"
+  ],
+  "title": "Database Normalization and AI Prompting Integration"
+}

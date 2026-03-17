@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xd00e3d8346bdd0dcfa266b35ab7c6769392342de275fa6ae2c498c16be40b343",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "failure_debug.software",
+  "rootCid": "Qmbxb5edmHP7kXtdSfBZtXX31SKVYySccCKSFWRYKq4Np3",
+  "title": "Race Condition Identification via Synchronization Instrumentation"
+}

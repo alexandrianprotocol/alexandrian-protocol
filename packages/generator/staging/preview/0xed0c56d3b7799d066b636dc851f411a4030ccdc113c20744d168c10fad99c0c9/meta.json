@@ -1,0 +1,277 @@
+{
+  "domain": "ai.prompting",
+  "isSeed": true,
+  "kbHash": "0xed0c56d3b7799d066b636dc851f411a4030ccdc113c20744d168c10fad99c0c9",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:12:06.754Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Establishing Seed Prompt for Consistent AI Output",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Capture the initial prompt requirements using a structured template to ensure completeness using dom",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Assert the prompt against a set of predefined criteria to ensure clarity and relevance by asserting ",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Draft a clear and concise seed prompt using the validated requirements using domain-appropriate tool",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Inspect the seed prompt with domain experts to ensure it meets the intended objectives by applying t",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Document the final seed prompt in a version-controlled repository for traceability using domain-appr",
+        "type": "step"
+      },
+      {
+        "id": "step:6",
+        "label": "Invoke the exact seed prompt in all relevant AI model interactions to maintain consistency by invoki",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:review_duration_ms",
+        "label": "review duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:reviewer_id",
+        "label": "reviewer id",
+        "type": "output"
+      },
+      {
+        "id": "out:review_log",
+        "label": "review log",
+        "type": "output"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:the_prompt_against_a_set_of_predefined_criteria_to_ensure_cl",
+        "label": "the prompt against a set of predefined criteria to ensure clarity and relevance by asserting all required fields conform",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:field_validation_pass_rate_gte_1_0",
+        "label": "field_validation_pass_rate >= 1.0",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:mandatory_item_fail_count_lt_1",
+        "label": "mandatory_item_fail_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:domain_driven_design",
+        "label": "Domain Driven Design",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      },
+      {
+        "id": "ref:metrics_aggregation",
+        "label": "Metrics Aggregation",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:5",
+        "rel": "precedes",
+        "to": "step:6"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:review_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:reviewer_id"
+      },
+      {
+        "from": "out:review_duration_ms",
+        "rel": "logged_to",
+        "to": "out:review_log"
+      },
+      {
+        "from": "out:reviewer_id",
+        "rel": "logged_to",
+        "to": "out:review_log"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:the_prompt_against_a_set_of_predefined_criteria_to_ensure_cl"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:mandatory_item_fail_count_lt_1"
+      },
+      {
+        "from": "step:6",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:domain_driven_design"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:metrics_aggregation"
+      }
+    ]
+  },
+  "tags": [
+    "ai_prompting",
+    "reproducibility",
+    "consistency",
+    "prompt_engineering",
+    "version_control",
+    "domain_expertise"
+  ],
+  "title": "Establishing Seed Prompt for Consistent AI Output"
+}

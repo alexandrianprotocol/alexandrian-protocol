@@ -1,0 +1,42 @@
+{
+  "name": "@alexandrian/generator",
+  "version": "0.1.0",
+  "description": "Off-chain KB generation pipeline — produces staging queue of valid CanonicalEnvelopes",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "generate": "node dist/index.js --mode all",
+    "generate:seeds": "node dist/index.js --mode seeds",
+    "generate:derived": "node dist/index.js --mode derived",
+    "generate:all": "node dist/index.js --mode all",
+    "generate:1k-ai": "node scripts/run-1k-with-ai.mjs",
+    "repair": "node dist/index.js --mode repair",
+    "repair:dry": "node dist/index.js --mode repair --dry-run",
+    "scan-quality": "node dist/index.js --mode scan-quality",
+    "grade-seeds": "node dist/index.js --mode grade-seeds",
+    "repair:refined-dimensions": "node dist/scripts/repair-refined-dimensions.js",
+    "repair:refined-dimensions:dry": "node dist/scripts/repair-refined-dimensions.js --dry-run",
+    "repair:marginal-dimensions": "node dist/scripts/repair-refined-dimensions.js --dir marginal",
+    "repair:marginal-dimensions:dry": "node dist/scripts/repair-refined-dimensions.js --dir marginal --dry-run",
+    "preview": "node scripts/preview-bundle.mjs",
+    "preview:validate": "node scripts/preview-bundle.mjs --sample 20 --validate",
+    "bundle": "node scripts/bundle-artifacts.mjs",
+    "bundle:dry": "cross-env DRY_RUN=true node scripts/bundle-artifacts.mjs",
+    "bundle:local": "node scripts/bundle-local.mjs --clean",
+    "bundle:check-stale": "node scripts/check-bundle-freshness.mjs",
+    "publish": "node scripts/publish.mjs",
+    "publish:dry": "cross-env DRY_RUN=true node scripts/publish.mjs"
+  },
+  "dependencies": {
+    "@alexandrian/protocol": "workspace:*",
+    "dotenv": "^16.4.5",
+    "js-sha3": "^0.9.3",
+    "openai": "6.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "cross-env": "10.1.0",
+    "typescript": "^5.0.0"
+  }
+}

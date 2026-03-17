@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x71a8a9927f6faab9bcbe6f51f3849966a8b8c20a7b1d877dda46f33ee3156b93
+  artifactHash: 0x8966a2a716bf131017d788d7c9dbc546fb7f9e5aec4e20fcf9ba26251a8e359f
+  title:        Application Secrets Management
+  domain:       software.security
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      6
+  graph nodes:  25
+  graph edges:  26
+  artifact.json size: 3765 bytes
+  meta.json size:     5017 bytes

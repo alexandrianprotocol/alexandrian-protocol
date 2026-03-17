@@ -1,0 +1,72 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Implement a systematic approach to detect performance regressions by benchmarking current software against a baseline, leveraging task decomposition for detailed analysis."
+  ],
+  "confidence": 1,
+  "domain": "software.testing",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x6ca0fd981f39639b6984657e9ef30b5adda3cd2caa86d6fcff387db718d304a1",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Capture baseline performance metrics using Apache JMeter and store results in a time-series database like InfluxDB.",
+      "step": 1
+    },
+    {
+      "action": "Decompose tasks using agent.planning.task_decomposition to identify critical performance paths using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Run performance tests on new software versions using the same JMeter scripts and compare results against the baseline using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Set up Grafana dashboards to visualize performance differences and alert when deviations exceed 5% of baseline metrics.",
+      "step": 4
+    },
+    {
+      "action": "Assert procedure output by cross-referencing with historical performance data and adjust thresholds as necessary by asserting all required fields conform to the schema definition; emit VALIDATION_FAILED with field path on the first failing field; assert field_validation_pass_rate >= 1.0.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:04.018Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Establish a robust framework for detecting performance regressions by comparing current software performance against a defined baseline using task decomposition strategies.",
+  "tags": [
+    "performance_testing",
+    "regression_detection",
+    "task_decomposition",
+    "benchmarking",
+    "metrics_aggregation",
+    "distributed_tracing",
+    "software_testing"
+  ],
+  "title": "Baseline Comparison Benchmarking for Performance Regression Detection",
+  "verification": {
+    "failureConditions": [
+      "Performance regressions go undetected due to inadequate baseline metrics.",
+      "False positives occur due to overly sensitive thresholds.",
+      "Task decomposition fails to identify critical performance paths; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "procedure output by cross-referencing with historical performance data and adjust thresholds as necessary by asserting a",
+      "field_validation_pass_rate >= 1.0",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Performance tests consistently detect regressions exceeding 5% deviation from baseline; assert error_rate < 0.001 and operation_completed = true.",
+      "Grafana alerts trigger correctly when performance deviates from baseline; assert error_rate < 0.001 and operation_completed = true.",
+      "Task decomposition accurately identifies and logs critical performance paths; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

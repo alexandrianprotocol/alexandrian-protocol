@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1a6829d2f7c3a52873547154c7ee7032307b0e18d0522fd90060db526027a7df
+  artifactHash: 0xc20f142ec8c4f52d497b78d279bbd3994b9d23b1c2c290aa9318100bd2177fb7
+  title:        Optimizing SQL Read Models for Event Sourcing
+  domain:       software.architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  17
+  graph edges:  19
+  artifact.json size: 2738 bytes
+  meta.json size:     3530 bytes

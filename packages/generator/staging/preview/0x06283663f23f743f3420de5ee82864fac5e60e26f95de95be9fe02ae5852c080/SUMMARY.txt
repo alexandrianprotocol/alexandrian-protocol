@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x06283663f23f743f3420de5ee82864fac5e60e26f95de95be9fe02ae5852c080
+  artifactHash: 0xff198c5bc709d43648739efbee515f0917b5edf0e5f1bd6aeff0674e3879dc9c
+  title:        Stateful Event Stream Processing
+  domain:       distributed.systems
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  20
+  graph edges:  22
+  artifact.json size: 3053 bytes
+  meta.json size:     4097 bytes

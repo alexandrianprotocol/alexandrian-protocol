@@ -1,0 +1,238 @@
+{
+  "domain": "software.architecture",
+  "isSeed": true,
+  "kbHash": "0xfdf4b636e3487d94377ba511aefb417c7cfb8144293f5623cdd9b85158183494",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:18:31.201Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Optimizing SQL Read Models with Key-Based Data Partitioning",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Run EXPLAIN ANALYZE on the 10 slowest queries and extract columns appearing in WHERE clauses across ",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Partition tables using the extracted columns as partition keys to distribute data evenly across part",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Instantiate indexes on partition keys to speed up query execution and reduce scan times by instantia",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Invoke pg_partman or similar tools to automate partition management and maintenance by invoking the ",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Set up monitoring with pg_stat_statements to track query performance and adjust partitioning strateg",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:creation_duration_ms",
+        "label": "creation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_log",
+        "label": "audit log",
+        "type": "output"
+      },
+      {
+        "id": "tool:explain_analyze",
+        "label": "Explain Analyze",
+        "type": "tool"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:resource_id_neq_null_and_resource_state_eq_active",
+        "label": "resource_id != null and resource_state = 'active'",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:event_sourcing",
+        "label": "Event Sourcing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:partitioned_storage",
+        "label": "Partitioned Storage",
+        "type": "reference"
+      },
+      {
+        "id": "ref:cqrs",
+        "label": "CQRS",
+        "type": "reference"
+      },
+      {
+        "id": "ref:snapshotting",
+        "label": "Snapshotting",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:creation_duration_ms"
+      },
+      {
+        "from": "out:creation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_log"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "uses",
+        "to": "tool:explain_analyze"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:resource_id_neq_null_and_resource_state_eq_active"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:event_sourcing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:partitioned_storage"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:cqrs"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:snapshotting"
+      }
+    ]
+  },
+  "tags": [
+    "event_sourcing",
+    "data_partitioning",
+    "sql_optimization",
+    "query_performance",
+    "scalability",
+    "database_design",
+    "read_models"
+  ],
+  "title": "Optimizing SQL Read Models with Key-Based Data Partitioning"
+}

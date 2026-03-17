@@ -1,0 +1,67 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Define and validate success metrics for input adaptation in tools, ensuring error-free operations and valid results."
+  ],
+  "confidence": 0.93,
+  "domain": "agent.tools.input_adaptation",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x42ee68fe3138125b506e6981f8211b342d24aa51613b120a5274e1d0c26584c1",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Capture input specifications using domain-specific tools, ensuring error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail for traceability.",
+      "step": 1
+    },
+    {
+      "action": "Assert captured specifications with domain-appropriate tools, confirming error_count < 1 and result_valid = true; ensure operation_duration_ms and result_code are logged to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Specify criteria and metrics using domain-specific tools, ensuring error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail for compliance.",
+      "step": 3
+    },
+    {
+      "action": "Assert procedure output with domain-specific tools, confirming error_count < 1 and result_valid = true; ensure operation_duration_ms and result_code are logged to audit trail.",
+      "step": 4
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:03.985Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Establish success metrics for input adaptation in tools by defining criteria, metrics, and validation steps, ensuring error-free and valid results.",
+  "tags": [
+    "input_adaptation",
+    "software_architecture",
+    "metrics",
+    "validation",
+    "structured_logging",
+    "domain_driven_design",
+    "traceability"
+  ],
+  "title": "Input Adaptation Success Metrics for Tools",
+  "verification": {
+    "failureConditions": [
+      "Invalid results when error_count exceeds threshold, causing inaccurate adaptations and potential tool failures.",
+      "Audit trail gaps when operation_duration_ms and result_code are not logged, causing traceability issues in adaptation processes."
+    ],
+    "metrics": [
+      "captured specifications with domain-appropriate tools, confirming error_count < 1 and result_valid = true",
+      "procedure output with domain-specific tools, confirming error_count < 1 and result_valid = true",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "error_count < 1",
+      "result_valid = true",
+      "operation_duration_ms < 500ms",
+      "result_code in [200, 201]; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

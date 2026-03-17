@@ -1,0 +1,93 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine systematic hypothesis generation with AI prompting to enhance reasoning capabilities and streamline hypothesis validation."
+  ],
+  "confidence": 0.93,
+  "domain": "agent.reasoning",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0x089380a781b05a9a3c064571cfdaea943811130142a2c76fd47cc6d50c7366aa",
+  "kbType": "PromptEngineering",
+  "parentHashes": [],
+  "payloadType": "reference",
+  "procedure": [
+    {
+      "action": "Extract key insights from both 'Systematic Testable Hypothesis Generation' and 'AI Prompting' knowledge bases using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Invoke a graph-based tool like Neo4j to map relationships and identify overlapping concepts between the two knowledge bases by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 2
+    },
+    {
+      "action": "Reconcile artifacts by creating a unified workflow using a tool like Apache NiFi to automate data flow between the two systems by applying field-level structural comparison on shared key fields; flag conflicts where hash(A.field) != hash(B.field) and log to conflict_log; assert merge_error_count < 1.",
+      "step": 3
+    },
+    {
+      "action": "Run validation scripts using PyTest to ensure the merged output maintains integrity and expected results.",
+      "step": 4
+    },
+    {
+      "action": "Utilize a machine learning model, such as a classifier in scikit-learn, to detect candidate hypotheses from the merged data using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    },
+    {
+      "action": "Assign results using a decision tree algorithm to determine the validity and relevance of each hypothesis using a deterministic decision matrix: evaluate each criterion in priority order; assign first matching class or UNCLASSIFIED; assert confidence_score >= 0.7 for all classified records.",
+      "step": 6
+    }
+  ],
+  "publishedAt": "2026-03-11T03:18:31.344Z",
+  "royaltyBps": 400,
+  "schemaVersion": "2.5",
+  "summary": "Integrate systematic hypothesis generation with AI prompting by merging insights from both knowledge bases, aligning workflows, and validating outputs.",
+  "tags": [
+    "agent_reasoning",
+    "ai_prompting",
+    "knowledge_base",
+    "hypothesis_generation",
+    "workflow_integration",
+    "data_validation",
+    "machine_learning"
+  ],
+  "title": "Systematic Testable Hypothesis Generation with AI Prompting",
+  "verification": {
+    "failureConditions": [
+      "Merged output lacks coherence, leading to invalid hypotheses.",
+      "Overlapping concepts are not correctly identified, causing redundant workflows.",
+      "Validation scripts fail, resulting in undetected errors in hypothesis generation; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "response_status < 400 and response_time_ms < 5000",
+      "merge_error_count < 1",
+      "confidence_score >= 0.7 for all classified records",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Check that the merged workflow produces coherent hypotheses in 95% of test cases",
+      "Ensure validation scripts pass with no errors in 100% of test runs",
+      "Verify that candidate detection identifies relevant hypotheses in at least 90% of cases"
+    ]
+  }
+}

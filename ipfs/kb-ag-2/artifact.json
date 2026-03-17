@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "0x0266a889b02779d969686298f7ea4fcb10fc1bfe09bcc6dd5d345db0342e8f88",
+
+  "kbType": "Practice",
+  "epistemicType": "procedural",
+  "domain": "agent.planning.task_decomposition",
+
+  "title": "Implementing Hierarchical Task Decomposition for LLM Agents",
+  "summary": "A structured procedure for decomposing a complex goal into an executable task graph — recursively splitting non-atomic tasks into ordered subtasks with typed dependency edges, depth limits, cycle detection, and parallelism annotation. Derived from KB-AG-1: decomposition is the first operation the Planner agent runs before dispatching tasks to Executors via handoff contracts.",
+  "tags": ["task-decomposition", "hierarchical-planning", "agent-planning", "goal-directed", "DAG", "LLM-agents", "Planner"],
+  "capabilities": [
+    "decompose-complex-goals",
+    "build-task-dependency-graph",
+    "identify-atomic-tasks",
+    "detect-circular-decomposition",
+    "annotate-parallel-tasks",
+    "produce-execution-plan"
+  ],
+  "confidence": 0.92,
+
+  "preconditions": [
+    "A goal or task description is available as input.",
+    "The goal cannot be completed in a single tool call or LLM prompt — it requires sequencing."
+  ],
+
+  "cost_estimate": {
+    "human_hours": "1-3h",
+    "resource_class": "moderate",
+    "automation_coverage": 0.7,
+    "notes": "LLM-guided decomposition (step 3) is automatable with a structured output prompt. Cycle detection (step 5) is algorithmic. Atomicity boundary judgment (step 2) and max-depth flagging require configuration and validation logic."
+  },
+
+  "payloadType": "procedure",
+  "steps": [
+    {
+      "id": "step_1",
+      "action": "Parse the goal into a root node with a unique id, description, status=pending, and empty children array.",
+      "produces": ["root_node"],
+      "rationale": "The root node is the contract between the caller and the Planner. It must be parseable by the Executor without ambiguity. Every subsequent step extends this graph — starting with a well-formed root prevents malformed graph state from propagating downstream.",
+      "tooling": {
+        "automated": "Root node schema: { id: 'root', description: string, status: 'pending', children: [], is_atomic: false, depth: 0 }. Validate: description is non-empty, id is unique within graph.",
+        "manual": "Rewrite the goal as a single, unambiguous sentence with a clear done condition. If you cannot write a done condition, the goal is underspecified — clarify before decomposing."
+      }
+    },
+    {
+      "id": "step_2",
+      "action": "Define the atomicity boundary: a task is atomic when a single tool call, a single LLM prompt, or a single deterministic function can complete it with no internal branching.",
+      "inputs": ["root_node"],
+      "produces": ["atomicity_definition"],
+      "rationale": "Without a clear atomicity boundary, decomposition either stops too early (leaving non-executable leaf nodes) or recurses indefinitely (producing over-decomposed micro-tasks the Executor cannot parallelise efficiently). The atomicity definition is the shared contract between Planner and Executor — document it explicitly.",
+      "tooling": {
+        "automated": "Atomicity test prompt: 'Can this task be completed by calling a single function, tool, or prompt with no if/else branching? Task: {task_description}. Answer: yes | no. If no, explain what branching is required.'",
+        "manual": "Decision heuristic — atomic if: (a) maps directly to one tool call schema, OR (b) fits in one LLM prompt with a single output type, OR (c) is a single deterministic computation (sort, filter, format). Non-atomic if: requires a decision, has multiple output types, or contains sub-goals."
+      }
+    },
+    {
+      "id": "step_3",
+      "action": "Recursively decompose each non-atomic node: prompt the LLM with the node description and atomicity definition; receive a structured JSON list of child tasks with dependency edges.",
+      "inputs": ["root_node", "atomicity_definition"],
+      "produces": ["task_graph_draft"],
+      "condition": "node.is_atomic == false",
+      "rationale": "Unstructured decomposition produces inconsistent task granularity and missing dependencies. A structured output prompt with schema validation forces the LLM to make dependency edges explicit — preventing silent coupling between tasks that should be independent.",
+      "tooling": {
+        "automated": "Decomposition prompt: 'Decompose this task into subtasks. Task: {node.description}. Atomicity rule: {atomicity_definition}. Output JSON only: { subtasks: [{ id: string, description: string, is_atomic: boolean, depends_on: string[] }] }. Rules: (1) each subtask is smaller in scope than the parent, (2) depends_on lists only sibling ids, (3) if depends_on is empty the task can start immediately.' Validate JSON schema before accepting. Re-prompt once on schema failure; abort on second failure.",
+        "manual": "After LLM decomposition, read each subtask description aloud. Ask: does this task have exactly one done condition? Is it smaller in scope than its parent? If either answer is no, re-decompose that node."
+      }
+    },
+    {
+      "id": "step_4",
+      "action": "Enforce maximum decomposition depth. Default: 4 levels. At the depth limit, mark remaining non-atomic tasks as leaf nodes and add them to flagged_nodes for human review.",
+      "inputs": ["task_graph_draft"],
+      "produces": ["depth_bounded_graph", "flagged_nodes"],
+      "rationale": "Without a depth limit, decomposition recurses indefinitely on underspecified or circular goals. Flagged nodes are not failures — they are signals that the goal at that node needs clarification before execution. Returning them as warnings allows the pipeline to make partial progress while surfacing the ambiguity.",
+      "tooling": {
+        "automated": "Depth check: traverse task_graph_draft BFS-order. For each node at depth >= max_depth: set node.is_leaf = true, add to flagged_nodes with { node_id, description, depth, reason: 'max_depth_reached' }. Do not recurse further.",
+        "manual": "Review flagged_nodes after decomposition. For each: ask whether the task is genuinely non-atomic or whether it is under-specified. If under-specified, clarify the goal and re-run decomposition on that branch."
+      }
+    },
+    {
+      "id": "step_5",
+      "action": "Run cycle detection on the dependency graph using Kahn's algorithm. Return the cycle path as an error and abort if a cycle is found.",
+      "inputs": ["depth_bounded_graph"],
+      "produces": ["validated_task_graph"],
+      "rationale": "A cycle in the dependency graph means two tasks each require the other to complete first — an unresolvable deadlock. Cycles most often appear when the LLM hallucinated a dependency edge or when two tasks are genuinely circular (indicating a design flaw in the goal decomposition). Abort, not just warn — a cyclic graph cannot be executed.",
+      "tooling": {
+        "automated": "Kahn's algorithm: (1) build in_degree map for all nodes, (2) initialise queue with all nodes where in_degree == 0, (3) while queue non-empty: dequeue node, decrement in_degree of all children, enqueue children where in_degree reaches 0, (4) if processed_count < total_nodes: cycle exists. Return cycle path: run DFS from any unprocessed node to find the cycle members.",
+        "manual": "If cycle detected: inspect the depends_on arrays of the cycle members. Identify the edge that represents the LLM hallucination or the genuine circular dependency. Either remove the erroneous edge or re-decompose the cyclic nodes into a linear sequence."
+      }
+    },
+    {
+      "id": "step_6",
+      "action": "Annotate parallel opportunities: tasks at the same depth level with no dependency edges between them can execute concurrently. Set execution_mode=parallel on these nodes.",
+      "inputs": ["validated_task_graph"],
+      "produces": ["parallelism_annotations"],
+      "rationale": "Sequential execution of parallelisable tasks multiplies latency unnecessarily. Parallelism annotation at planning time — not at execution time — allows the Executor to dispatch concurrently without needing to re-analyse the graph at runtime. Only annotate parallel when the Executor infrastructure explicitly supports concurrent dispatch.",
+      "tooling": {
+        "automated": "For each depth level: group nodes with no edges between them → mark execution_mode=parallel. Group nodes with edges → mark execution_mode=sequential. Output: { node_id, execution_mode, parallel_group_id? }.",
+        "manual": "Sanity check: for each parallel group, verify that running the tasks in any interleaved order produces the same result. If order matters, there is a missing dependency edge — add it."
+      }
+    },
+    {
+      "id": "step_7",
+      "action": "Produce the final execution plan: topologically sorted task list with agent role assignments, dependency edges, and parallelism annotations.",
+      "inputs": ["validated_task_graph", "parallelism_annotations"],
+      "produces": ["execution_plan"],
+      "rationale": "The execution plan is the output contract from the Planner to the Executor layer (KB-AG-1 handoff contract: Planner → Executor). It must be a valid topological ordering of the validated task graph — each task appears after all its dependencies. This plan also feeds directly into the evaluation pipeline (KB-AG-3): regression tests run against the execution plan structure.",
+      "tooling": {
+        "automated": "Topological sort output schema: { plan_id: uuid, goal: string, tasks: [{ id, description, agent_role, depends_on: [], execution_mode: 'sequential' | 'parallel', parallel_group_id: string | null, is_atomic: true, depth: number }], flagged_nodes: [], max_depth_used: number, total_tasks: number }",
+        "manual": "Validate the plan by simulation: mentally execute the first three tasks in order. Do their outputs satisfy the inputs of their dependents? If not, a dependency edge is missing. Fix in the validated_task_graph and re-sort."
+      }
+    }
+  ],
+
+  "verification": {
+    "successConditions": [
+      "All leaf nodes satisfy the atomicity definition",
+      "Cycle detection passes — topological sort completes on all nodes",
+      "Decomposition depth does not exceed the configured max_depth",
+      "All task ids are unique within the graph",
+      "execution_plan is a valid topological ordering of validated_task_graph",
+      "Each parallel group contains only tasks with no dependency edges between members"
+    ],
+    "failureConditions": [
+      "Cycle detected in dependency graph — abort execution, return cycle path",
+      "LLM decomposition produces invalid JSON on two consecutive attempts — abort and surface error to caller",
+      "A leaf node at max_depth remains non-atomic — add to flagged_nodes, do not abort",
+      "Two tasks share the same id — id collision corrupts dependency resolution, abort"
+    ],
+    "metrics": [
+      "leaf_nodes_satisfying_atomicity / total_leaf_nodes == 1.0",
+      "cycle_count == 0",
+      "max_depth_used <= max_depth_configured",
+      "duplicate_task_ids == 0",
+      "flagged_nodes_count reported in output"
+    ]
+  },
+
+  "interface": {
+    "inputs": [
+      { "name": "goal",           "type": "string", "description": "The complex goal to decompose into an executable task graph" },
+      { "name": "max_depth",      "type": "number", "description": "Maximum decomposition depth before flagging", "default": 4 },
+      { "name": "atomicity_rule", "type": "string", "description": "Natural language definition of what makes a task atomic in this context" }
+    ],
+    "outputs": [
+      { "name": "execution_plan",      "type": "object",   "description": "Topologically sorted task list with role assignments, dependencies, and parallelism annotations — output contract to Executor layer (KB-AG-1)" },
+      { "name": "flagged_nodes",       "type": "object[]", "description": "Tasks at max_depth that remain non-atomic — require human review or goal clarification" },
+      { "name": "decomposition_depth", "type": "number",   "description": "Actual maximum depth reached" }
+    ]
+  },
+
+  "artifactRefs": [
+    {
+      "uri":  "KB-AG-1",
+      "name": "multi_agent_orchestration",
+      "type": "parent_context"
+    }
+  ],
+
+  "parentHashes": ["0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24"],
+  "royaltyBps": 600,
+  "isSeed": false,
+  "publishedAt": "2026-03-16T12:00:00Z"
+}

@@ -1,0 +1,73 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine dependency-driven action sequencing with AI prompting to enhance agent planning efficiency and accuracy."
+  ],
+  "confidence": 0.93,
+  "domain": "agent.planning",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x1229b60e62fe6f31af90eee63559f7cae979be735750b3d524073443b394c4b3",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Extract dependencies using a directed acyclic graph (DAG) to model task sequences using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Compose AI prompting by training a model on domain-specific datasets to generate action sequences by composing module interfaces via adapter pattern; assert input/output type contracts match before connecting; assert integration_error_count < 1 after contract validation.",
+      "step": 2
+    },
+    {
+      "action": "Invoke a constraint solver to enforce domain-specific rules on generated sequences by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 3
+    },
+    {
+      "action": "Simulate sequences in a controlled environment to evaluate feasibility and correctness using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Log sequence execution metrics and adjust DAG or prompts based on performance data using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:03.991Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Specialize dependency-driven action sequencing for agent planning by integrating AI prompting techniques, ensuring domain-specific constraints are respected.",
+  "tags": [
+    "agent_planning",
+    "dependency_management",
+    "ai_prompting",
+    "domain_specific",
+    "action_sequencing",
+    "constraint_solving",
+    "performance_optimization"
+  ],
+  "title": "Dependency-Driven Action Sequencing in Agent Planning",
+  "verification": {
+    "failureConditions": [
+      "Action sequences violate domain constraints; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Generated sequences are inefficient or non-optimal; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Dependency graph becomes cyclic, causing execution deadlocks."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "input/output type contracts match before connecting",
+      "integration_error_count < 1 after contract validation",
+      "response_status < 400 and response_time_ms < 5000",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Run unit tests to ensure sequences respect all domain constraints; assert error_rate < 0.001 and operation_completed = true.",
+      "Benchmark sequence execution time against baseline metrics; assert error_rate < 0.001 and operation_completed = true.",
+      "Validate that all dependencies are resolved before action execution; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

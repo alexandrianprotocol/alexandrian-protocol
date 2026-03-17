@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "path": "artifact.json",
+      "role": "canonical_hash_target"
+    },
+    {
+      "path": "manifest.json",
+      "role": "manifest"
+    },
+    {
+      "path": "meta.json",
+      "role": "indexer_sidecar"
+    }
+  ],
+  "generatedAt": "2026-03-11T03:18:31.348Z",
+  "kbHash": "0x759e6880e2e117774588c7fa9c1c569078bfd24621738ee105a855035d80d9f9",
+  "manifestVersion": "1",
+  "rootCid": "PENDING"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x02fc0a26bfad211f4ef99490cc352ab25b7e70510dad5555be21261fc46a62b6
+  artifactHash: 0x5047660b7543bc37b91f5a0a4fdafd5a47b61eca583ec310b5b74ce06167bb34
+  title:        Priority Scheduling
+  domain:       agent.planning
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    4 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  13
+  graph edges:  22
+  artifact.json size: 2486 bytes
+  meta.json size:     3154 bytes

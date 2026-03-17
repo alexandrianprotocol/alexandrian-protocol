@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x2e00f4a314c44c4f210b2bd6599576a0aa4613ba8f42812357b494e0033f2aab
+  artifactHash: 0xac9c742ace240179a8248d28392f975f07f63704b90cd34d61052d0246743f5e
+  title:        Event-Sourced State Management in Solidity Contracts
+  domain:       evm.solidity
+  kbType:       Practice
+  epistemicType:empirical
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  15
+  graph edges:  17
+  artifact.json size: 3270 bytes
+  meta.json size:     3370 bytes

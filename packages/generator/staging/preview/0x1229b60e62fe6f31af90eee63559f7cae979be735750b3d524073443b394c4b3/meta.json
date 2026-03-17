@@ -1,0 +1,233 @@
+{
+  "domain": "agent.planning",
+  "isSeed": true,
+  "kbHash": "0x1229b60e62fe6f31af90eee63559f7cae979be735750b3d524073443b394c4b3",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:03.991Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Dependency-Driven Action Sequencing in Agent Planning",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Extract dependencies using a directed acyclic graph (DAG) to model task sequences using domain-appro",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Compose AI prompting by training a model on domain-specific datasets to generate action sequences by",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Invoke a constraint solver to enforce domain-specific rules on generated sequences by invoking the t",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Simulate sequences in a controlled environment to evaluate feasibility and correctness using domain-",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log sequence execution metrics and adjust DAG or prompts based on performance data using domain-appr",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:input_output_type_contracts_match_before_connecting",
+        "label": "input/output type contracts match before connecting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:integration_error_count_lt_1_after_contract_validation",
+        "label": "integration_error_count < 1 after contract validation",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:domain_driven_design",
+        "label": "Domain Driven Design",
+        "type": "reference"
+      },
+      {
+        "id": "ref:cqrs",
+        "label": "CQRS",
+        "type": "reference"
+      },
+      {
+        "id": "ref:saga_pattern",
+        "label": "Saga Pattern",
+        "type": "reference"
+      },
+      {
+        "id": "ref:ai_prompting_techniques",
+        "label": "AI Prompting Techniques",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:input_output_type_contracts_match_before_connecting"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:integration_error_count_lt_1_after_contract_validation"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:domain_driven_design"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:cqrs"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:saga_pattern"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:ai_prompting_techniques"
+      }
+    ]
+  },
+  "tags": [
+    "agent_planning",
+    "dependency_management",
+    "ai_prompting",
+    "domain_specific",
+    "action_sequencing",
+    "constraint_solving",
+    "performance_optimization"
+  ],
+  "title": "Dependency-Driven Action Sequencing in Agent Planning"
+}

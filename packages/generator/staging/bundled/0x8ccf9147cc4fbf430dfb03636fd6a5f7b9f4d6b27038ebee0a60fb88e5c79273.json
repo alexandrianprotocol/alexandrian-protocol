@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xedda37b679608e5abf7fb512676a64add2d876bc08e3c3cdf335e4ef5ecfc59f",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.execution",
+  "rootCid": "QmNMhw9fT5WUuZMDN3Ubfjw39UK75ot7yWhw1wGgv3eQ1A",
+  "title": "Implementing Idempotent Operation Pattern in Agents"
+}

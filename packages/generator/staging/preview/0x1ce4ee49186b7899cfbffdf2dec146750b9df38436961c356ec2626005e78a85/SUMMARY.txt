@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1ce4ee49186b7899cfbffdf2dec146750b9df38436961c356ec2626005e78a85
+  artifactHash: 0x302323fed6eaad706af8b749e74f9aa1e4b6b229d1517ecd6e307da63b17d70a
+  title:        Chain-of-Thought Suppression
+  domain:       agent.reasoning.chain_of_thought
+  kbType:       PromptEngineering
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  16
+  graph edges:  21
+  artifact.json size: 3010 bytes
+  meta.json size:     3816 bytes

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xe6734037bc7dd12f2f2999afbf0f4f8d641abe75a1351d5ce5aad2476f507d2f",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.query.lock",
+  "rootCid": "QmT7di5fJxX3UYrwQmXT3wzXemf5XHQ7oF76d52yQyKQyd",
+  "title": "Lock Contention Reduction in Database Queries"
+}

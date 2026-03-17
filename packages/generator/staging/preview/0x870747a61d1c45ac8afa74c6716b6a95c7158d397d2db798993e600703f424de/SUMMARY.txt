@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x870747a61d1c45ac8afa74c6716b6a95c7158d397d2db798993e600703f424de
+  artifactHash: 0x852bb92bacf681e9bd6008fc84999c626a0eb941f4fe90141857f9f3d5169b21
+  title:        Inductive Reasoning Knowledge Base Composition
+  domain:       agent.reasoning
+  kbType:       PromptEngineering
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  17
+  graph edges:  29
+  artifact.json size: 2804 bytes
+  meta.json size:     4196 bytes

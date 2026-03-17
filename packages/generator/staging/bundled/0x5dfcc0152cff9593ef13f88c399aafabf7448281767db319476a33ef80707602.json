@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x0f0a2aede54240dcee8f313963ef6f78593dd202ddc5b25614fb2e11766dbb41",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity",
+  "rootCid": "QmehkyUmdmrxTiLMdqXmaKoaDBAMjhmHoisaij8sphUBzY",
+  "title": "EVM Solidity: Reentrancy Guard"
+}

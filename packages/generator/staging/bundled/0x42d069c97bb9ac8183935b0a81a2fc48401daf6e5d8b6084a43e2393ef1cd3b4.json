@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xc7ca8665bf74ebb3593f4cd45ca0b093d975f07074139600290aac828abc92b9",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.transaction.long_running",
+  "rootCid": "QmQCYN9F3uJK26a9AsFUjpxk7Kuek25j3NtKLvNfGVSRME",
+  "title": "Safe Management of Long-Running Database Transactions"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0xfdcac1516b0c2dd77a158c1ca06a90bc095713442a7f0146e114a906423bc869
+  artifactHash: 0xa07835d5c1684cdfa20de1bac1c3d6b88b35480280d5f72c9d3013597890b5d7
+  title:        Systematic Threat Modeling for Software Security Planning
+  domain:       software.security
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  19
+  graph edges:  25
+  artifact.json size: 3233 bytes
+  meta.json size:     4048 bytes

@@ -45,6 +45,8 @@ export interface SDKConfig {
   inferDomain?: (question: string) => string;
 }
 
+export const ARTIFACT_HASH_ZERO = "0x0000000000000000000000000000000000000000000000000000000000000000" as const;
+
 export interface PublishOptions {
   /** Stake in wei — must meet contract minStakeAmount */
   stake: bigint;
@@ -54,6 +56,10 @@ export interface PublishOptions {
   parents?: OnChainAttributionLink[];
   /** Override trust tier — defaults to HumanStaked */
   trustTier?: TrustTier;
+  /** sha256(artifact content) for on-chain integrity verification; use ARTIFACT_HASH_ZERO if not computed */
+  artifactHash?: string;
+  /** Override on-chain curator address (defaults to signer). Use when publishing on behalf of a DAO or human curator. */
+  curator?: string;
 }
 
 export interface PublishDerivedOptions {
@@ -67,6 +73,10 @@ export interface PublishDerivedOptions {
   sourceWeights?: number[];
   /** @deprecated Use sourceWeights. */
   parentWeights?: number[];
+  /** sha256(artifact content) for on-chain integrity verification; use ARTIFACT_HASH_ZERO if not computed */
+  artifactHash?: string;
+  /** Override on-chain curator address (defaults to signer). Use when publishing on behalf of a DAO or human curator. */
+  curator?: string;
 }
 
 export interface OnChainAttributionLink {
@@ -162,18 +172,16 @@ export interface Verified<T> {
   reason?: string;
 }
 
+/** Minimal on-chain KB record. CID/domain/type are in KBPublished events; use indexer for full metadata. */
 export interface OnChainKB {
   curator: string;
-  kbType: number;
-  trustTier: number;
-  cid: string;
-  embeddingCid: string;
-  domain: string;
-  licenseType: string;
-  queryFee: bigint;
   timestamp: number;
-  version: string;
+  queryFee: bigint;
   exists: boolean;
+  /** From getArtifactHash (sha256 of artifact content). */
+  artifactHash: string;
+  /** From getCidDigest (keccak256 of CID); full CID in KBPublished event. */
+  cidDigest: string;
 }
 
 export interface ReputationRecord {

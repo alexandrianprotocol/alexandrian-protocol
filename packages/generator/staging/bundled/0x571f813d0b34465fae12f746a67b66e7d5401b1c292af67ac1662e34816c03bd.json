@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xa1ab62375685d30155cab045a0789b585d76dd7ca3edea67ecfc1fd8bba2e550",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity.security",
+  "rootCid": "Qmd3FBQ6uTvpVJVWjgPPKm8kZtR9p8dZY5ud92NAUzvCCc",
+  "title": "Reentrancy Guard Pattern"
+}

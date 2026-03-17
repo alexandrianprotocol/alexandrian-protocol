@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xc6c9ae9a0bca174f0b1f69725144672c16ab29207cdb070f0a3c608a52e42ce0",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "infra.service_mesh.mtls",
+  "rootCid": "QmNiBzk1DwuboaqsX1vLcRS6LgQJWqrboEahfJ34WWrJs2",
+  "title": "Mutual TLS Enforcement in Service Mesh"
+}

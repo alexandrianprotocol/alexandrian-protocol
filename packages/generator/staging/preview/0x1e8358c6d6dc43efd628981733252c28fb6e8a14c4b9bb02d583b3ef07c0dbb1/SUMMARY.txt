@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1e8358c6d6dc43efd628981733252c28fb6e8a14c4b9bb02d583b3ef07c0dbb1
+  artifactHash: 0x333bfd507609e8770a4cb564c0cff260a120c43b4843ee9937de96d2b29a37c7
+  title:        Approximate Nearest Neighbor Vector Index Implementation
+  domain:       search.vector.index
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  14
+  graph edges:  13
+  artifact.json size: 3052 bytes
+  meta.json size:     3118 bytes

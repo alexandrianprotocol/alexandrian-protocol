@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x19bf2cc386122869db5925501653459194fc7d88633f1c7bd250aa38db053e1b",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "realtime.crdt.convergence",
+  "rootCid": "QmW5ek5bVLKJiKBCWG82WSKKYqBNHKA7ifNnbVWAwWTopN",
+  "title": "CRDT Convergence Validation Under Concurrent Operations"
+}

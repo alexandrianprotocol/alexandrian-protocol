@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xa0f8cd3fd7f0801b3c0cae8c3306fe17f3377406d9ed5175ad0d683303690910",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.index.covering",
+  "rootCid": "QmV4MZfcceU3iTd4348f1BB2NaYqJL1zvqaGgzRmmKgFmB",
+  "title": "Designing Covering Indexes to Eliminate Table Lookups"
+}

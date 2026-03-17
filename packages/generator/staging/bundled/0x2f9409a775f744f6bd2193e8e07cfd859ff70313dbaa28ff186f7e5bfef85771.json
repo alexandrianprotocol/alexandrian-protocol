@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x2a8ee69b849e6a877c16d89aca5434fae2e0409a6cd977b66eade5b084d287a7",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "mlops.drift.shadow",
+  "rootCid": "Qmb1WShnGXaWiQL6m3rYApn2HL5rkJhNC5547AUcLARxmS",
+  "title": "Shadow Deployment for Model Drift Validation"
+}

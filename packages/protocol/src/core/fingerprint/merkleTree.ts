@@ -1,4 +1,5 @@
-import { keccak_256 } from "js-sha3";
+import sha3pkg from "js-sha3";
+const { keccak_256 } = sha3pkg as unknown as { keccak_256(msg: string | ArrayBufferView): string };
 import { canonicalize } from "../../canonical.js";
 
 const LEAF_TAG = "LEAF_V1";

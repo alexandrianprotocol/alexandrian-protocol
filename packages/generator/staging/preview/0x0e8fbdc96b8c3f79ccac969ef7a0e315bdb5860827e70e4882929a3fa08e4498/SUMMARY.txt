@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x0e8fbdc96b8c3f79ccac969ef7a0e315bdb5860827e70e4882929a3fa08e4498
+  artifactHash: 0xf74b3d0925612085f969a2d5932114f2ec7558cb100fac686268376e9a052562
+  title:        Gas Optimization via Storage Packing
+  domain:       evm.solidity
+  kbType:       Practice
+  epistemicType:empirical
+  payloadType:  procedure
+  confidence:   0.88
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  19
+  graph edges:  24
+  artifact.json size: 3257 bytes
+  meta.json size:     4129 bytes

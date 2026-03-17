@@ -1,0 +1,198 @@
+{
+  "domain": "agent.error_recovery",
+  "isSeed": true,
+  "kbHash": "0x05d110933f870bc912ea3ed89a033a0f62653cd361e752904f88cb87266da119",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:03.989Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Exponential and Linear Backoff for AI Prompting Error Recovery",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Initialize retry logic with exponential backoff using a base delay of 100ms, doubling the delay with",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Invoke linear backoff for retries by increasing the delay by 200ms with each attempt, capping at 1 s",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Compose retry logic with AI prompting mechanisms, ensuring retries are triggered only on transient e",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Log each retry attempt with structured logging, capturing delay times and error messages for post-mo",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Set up monitoring alerts to trigger if retry attempts exceed 3 consecutive failures within a 10-minu",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:input_output_type_contracts_match_before_connecting",
+        "label": "input/output type contracts match before connecting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:integration_error_count_lt_1_after_contract_validation",
+        "label": "integration_error_count < 1 after contract validation",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:retry_with_backoff",
+        "label": "Retry with Backoff",
+        "type": "reference"
+      },
+      {
+        "id": "ref:graceful_degradation",
+        "label": "Graceful Degradation",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:input_output_type_contracts_match_before_connecting"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:integration_error_count_lt_1_after_contract_validation"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:retry_with_backoff"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:graceful_degradation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      }
+    ]
+  },
+  "tags": [
+    "error_recovery",
+    "ai_prompting",
+    "retry_strategy",
+    "system_resilience",
+    "structured_logging",
+    "monitoring",
+    "backoff_control"
+  ],
+  "title": "Exponential and Linear Backoff for AI Prompting Error Recovery"
+}

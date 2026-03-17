@@ -4,6 +4,7 @@ const hre = require("hardhat");
 const QUERY_FEE = hre.ethers.parseEther("0.001");
 const MIN_STAKE = hre.ethers.parseEther("0.001");
 const RELATIONSHIP = "0x00000000";
+const ARTIFACT_HASH_ZERO = "0x0000000000000000000000000000000000000000000000000000000000000000";
 
 async function deployV2() {
   const Factory = await hre.ethers.getContractFactory("AlexandrianRegistryV2");
@@ -13,6 +14,8 @@ async function deployV2() {
 }
 
 async function publishKB(registry, signer, contentHash, queryFee = QUERY_FEE, parents = []) {
+  const isSeed = parents.length === 0;
+  const minimumRequiredParents = isSeed ? 0 : 2;
   return registry.connect(signer).publishKB(
     contentHash,
     signer.address,
@@ -25,6 +28,9 @@ async function publishKB(registry, signer, contentHash, queryFee = QUERY_FEE, pa
     queryFee,
     "1.0.0",
     parents,
+    isSeed,
+    minimumRequiredParents,
+    ARTIFACT_HASH_ZERO,
     { value: MIN_STAKE }
   );
 }
@@ -58,7 +64,23 @@ describe("V2 registry canonical", function () {
       relationship: RELATIONSHIP,
     }));
     await expect(
-      publishKB(registry, curator, contentHash, QUERY_FEE, manyParents)
+      registry.connect(curator).publishKB(
+        contentHash,
+        curator.address,
+        0,
+        0,
+        "ipfs://x",
+        "",
+        "test",
+        "MIT",
+        QUERY_FEE,
+        "1.0.0",
+        manyParents,
+        false,
+        2,
+        ARTIFACT_HASH_ZERO,
+        { value: MIN_STAKE }
+      )
     ).to.be.revertedWithCustomError(registry, "TooManyParents");
   });
 
@@ -94,12 +116,15 @@ describe("V2 registry canonical", function () {
   });
 
   it("routes parent royalty via DAG to parent pending balance", async function () {
-    const parentHash = hre.ethers.keccak256(hre.ethers.toUtf8Bytes("kb-parent"));
+    const parentHashA = hre.ethers.keccak256(hre.ethers.toUtf8Bytes("kb-parent-a"));
+    const parentHashB = hre.ethers.keccak256(hre.ethers.toUtf8Bytes("kb-parent-b"));
     const childHash = hre.ethers.keccak256(hre.ethers.toUtf8Bytes("kb-child"));
-    await publishKB(registry, parentCurator, parentHash);
+    await publishKB(registry, parentCurator, parentHashA);
+    await publishKB(registry, parentCurator, parentHashB);
 
     await publishKB(registry, curator, childHash, QUERY_FEE, [
-      { parentHash, royaltyShareBps: 1000, relationship: RELATIONSHIP },
+      { parentHash: parentHashA, royaltyShareBps: 1000, relationship: RELATIONSHIP },
+      { parentHash: parentHashB, royaltyShareBps: 0, relationship: RELATIONSHIP },
     ]);
 
     await registry.connect(querier).settleQuery(childHash, querier.address, { value: QUERY_FEE });

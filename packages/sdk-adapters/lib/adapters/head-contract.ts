@@ -4,7 +4,7 @@ import type { PoolHead } from "../pools.js";
 import { compareCandidates } from "@alexandrian/protocol";
 
 const REGISTRY_ABI = [
-  "event KBPublished(bytes32 indexed contentHash, address indexed curator, uint8 indexed kbType, string domain, uint256 queryFee, uint256 timestamp)",
+  "event KBPublished(bytes32 indexed contentHash, address indexed curator, uint8 indexed kbType, string domain, uint96 queryFee, uint64 timestamp, address agent, string cid, string embeddingCid)",
   "function getStake(bytes32 contentHash) external view returns (tuple(uint256 amount, uint256 lockedUntil, bool slashed))",
 ];
 

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xa8cd2fe3f5462ff4f0892e7ec3a5ea613be2c677b87bef5c2c9daaf92ef1c092",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "software.architecture",
+  "rootCid": "QmV1D1So46EQGRw2Bfvvb8noU1MGRLr2eQDyNWgoVPPKFu",
+  "title": "Implement Saga Pattern for Distributed Microservice Transactions"
+}

@@ -1,0 +1,263 @@
+{
+  "domain": "software.testing",
+  "isSeed": true,
+  "kbHash": "0x5402a78e70ff7de667567b4fb7bfa1d20e384caa90ce61ed94feb4fc6fb3c874",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:12:06.801Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Rule-Based State Consistency Verification",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Reconcile artifacts from AI prompting and rule-based systems by applying domain-specific tooling",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Assert merged output by running JSON Schema draft-07 validation on all fields",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Filter candidate inconsistencies using domain-specific anomaly detection algorithms",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assign results by applying machine learning models trained on historical data",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log all operations with timestamps and unique identifiers to an audit trail for traceability and com",
+        "type": "step"
+      },
+      {
+        "id": "out:discrepancies",
+        "label": "discrepancies",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:all_operations_with_timestamps",
+        "label": "all operations with timestamps",
+        "type": "output"
+      },
+      {
+        "id": "out:unique_identifiers",
+        "label": "unique identifiers",
+        "type": "output"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "assert:merge_error_count_lt_1",
+        "label": "merge_error_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:merged_output_by_running_json_schema_draft_07_validation_on_",
+        "label": "merged output by running JSON Schema draft-07 validation on all fields",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:field_validation_pass_rate_gte_1_0",
+        "label": "field_validation_pass_rate >= 1.0",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_log_operation_duration_ms_and_result_co",
+        "label": "error_count < 1 and log operation_duration_ms and result_code",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:confidence_score_gte_0_7_for_all_classified_records",
+        "label": "confidence_score >= 0.7 for all classified records",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:event_sourcing",
+        "label": "Event Sourcing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:cqrs",
+        "label": "CQRS",
+        "type": "reference"
+      },
+      {
+        "id": "ref:distributed_tracing",
+        "label": "Distributed Tracing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:discrepancies"
+      },
+      {
+        "from": "out:discrepancies",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:all_operations_with_timestamps"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:unique_identifiers"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:all_operations_with_timestamps",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:unique_identifiers",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:merge_error_count_lt_1"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:merged_output_by_running_json_schema_draft_07_validation_on_"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_log_operation_duration_ms_and_result_co"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:confidence_score_gte_0_7_for_all_classified_records"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:event_sourcing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:cqrs"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:distributed_tracing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      }
+    ]
+  },
+  "tags": [
+    "software_testing",
+    "ai_prompting",
+    "state_consistency",
+    "knowledge_base",
+    "data_validation",
+    "anomaly_detection",
+    "machine_learning"
+  ],
+  "title": "Rule-Based State Consistency Verification"
+}

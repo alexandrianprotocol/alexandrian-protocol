@@ -1,0 +1,129 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Alexandrian Protocol — The Graph Schema
+# All entity IDs are derived deterministically from on-chain state only.
+# Full reindex from genesis converges to identical entity state.
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""
+A published knowledge base unit. Stable identity via contentHash.
+id = contentHash.toHex()
+"""
+type KnowledgeBlock @entity(immutable: false) {
+  id: ID!
+
+  # ── Identity (set at publish time, immutable) ───────────────────────────────
+  contentHash: Bytes!
+  domain: String!
+  curator: Bytes!
+  creator: Bytes!         # publishing agent wallet (event.params.agent)
+  kbType: Int!            # KBType enum: 0=Practice 1=Feature 2=StateMachine 3=PromptEngineering 4=ComplianceChecklist 5=Rubric
+  queryFee: BigInt!
+  cid: String!
+  embeddingCid: String!
+
+  # ── Block coordinates (required by TheGraphIndexerAdapter) ──────────────────
+  blockNumber: BigInt!
+  publishLogIndex: BigInt!
+  timestamp: BigInt!
+
+  # ── Stake & slash ───────────────────────────────────────────────────────────
+  stakeAmount: BigInt!
+  isSlashed: Boolean!
+
+  # ── Reputation ──────────────────────────────────────────────────────────────
+  reputationScore: Int!   # 0–1000; formula: min(1000, min(500,queryVolume*2) + min(100,endorsements*20))
+  queryVolume: BigInt!
+  endorsementCount: BigInt!
+
+  # ── Settlement signals (materialized, M2 ranking substrate) ─────────────────
+  settlementCount: BigInt!
+  totalSettledValue: BigInt!
+  uniquePayerCount: BigInt!
+  lastSettledAt: BigInt!
+
+  # ── Lineage topology ────────────────────────────────────────────────────────
+  childCount: Int!
+  lineageDepth: Int!      # max DAG depth from any root ancestor
+
+  # ── Relations ───────────────────────────────────────────────────────────────
+  parents: [ParentEdge!]! @derivedFrom(field: "child")
+  children: [ParentEdge!]! @derivedFrom(field: "parent")
+  settlements: [Settlement!]! @derivedFrom(field: "kb")
+}
+
+"""
+A directed derivation edge in the lineage DAG.
+id = parentHash.toHex() + "-" + childHash.toHex()
+"""
+type ParentEdge @entity(immutable: true) {
+  id: ID!
+  parent: KnowledgeBlock!
+  child: KnowledgeBlock!
+  royaltyShareBps: Int!     # basis points (1/10000) of settlement value routed to parent
+  relationshipType: String! # bytes4 hex: "0x70617265"=parent "0x72656665"=reference "0x65766964"=evidence
+  blockNumber: BigInt!
+  logIndex: BigInt!
+}
+
+"""
+A single settleQuery execution.
+id = txHash.toHex() + "-" + logIndex.toString()
+"""
+type Settlement @entity(immutable: true) {
+  id: ID!
+  txHash: Bytes!
+  blockNumber: BigInt!
+  logIndex: BigInt!
+  timestamp: BigInt!
+  value: BigInt!            # total ETH settled (msg.value)
+  protocolFee: BigInt!      # 2% protocol cut
+  queryNonce: BigInt!       # per-KB monotonic counter
+  kb: KnowledgeBlock!
+  payer: Bytes!             # consuming agent address
+  royalties: [RoyaltyDistribution!]! @derivedFrom(field: "settlement")
+}
+
+"""
+A single royalty payment to a parent KB contributor.
+id = settlement.id + "-" + recipient.toHex() + "-" + kb.id
+"""
+type RoyaltyDistribution @entity(immutable: true) {
+  id: ID!
+  settlement: Settlement!
+  kb: KnowledgeBlock!   # parent KB receiving this attribution payment
+  recipient: Bytes!     # address receiving the ETH
+  amount: BigInt!
+}
+
+"""
+A registered agent (publisher, validator, etc.).
+id = agent address (lowercase hex)
+"""
+type Agent @entity(immutable: false) {
+  id: ID!
+  role: Int!            # AgentRole: 0=Explorer 1=Synthesizer 2=Validator 3=Publisher
+  operator: Bytes       # optional human/org wallet; nullable
+  registeredAt: BigInt!
+  blockNumber: BigInt!
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Internal helpers — not intended for external consumers
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""
+Maps txHash → settlementId so RoyaltyPaid handlers can link back to their Settlement.
+id = txHash.toHex()
+"""
+type _TxContext @entity(immutable: false) {
+  id: ID!
+  settlementId: String!
+}
+
+"""
+Tracks unique payers per KB for uniquePayerCount materialization.
+id = kbId + "-" + payerAddress.toHex()
+"""
+type _Payer @entity(immutable: true) {
+  id: ID!
+}

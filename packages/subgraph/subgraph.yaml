@@ -1,0 +1,48 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: AlexandrianRegistryV2
+    network: base
+    source:
+      address: "0xD1F216E872a9ed4b90E364825869c2F377155B29"
+      abi: AlexandrianRegistryV2
+      startBlock: 43460876
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - KnowledgeBlock
+        - ParentEdge
+        - Settlement
+        - RoyaltyDistribution
+        - Agent
+        - _TxContext
+        - _Payer
+      abis:
+        - name: AlexandrianRegistryV2
+          file: ./abis/AlexandrianRegistryV2.json
+      eventHandlers:
+        - event: KBPublished(indexed bytes32,indexed address,indexed uint8,string,uint96,uint64,address,string,string)
+          handler: handleKBPublished
+        - event: AttributionLinked(indexed bytes32,indexed bytes32,uint16,bytes4)
+          handler: handleAttributionLinked
+        - event: KBStaked(indexed bytes32,indexed address,uint256)
+          handler: handleKBStaked
+        - event: KBUnstaked(indexed bytes32,indexed address,uint256)
+          handler: handleKBUnstaked
+        - event: KBSlashed(indexed bytes32,indexed address,uint256,string)
+          handler: handleKBSlashed
+        - event: QuerySettled(indexed bytes32,indexed address,uint256,uint256,uint64)
+          handler: handleQuerySettled
+        - event: RoyaltyPaid(indexed bytes32,indexed address,uint256)
+          handler: handleRoyaltyPaid
+        - event: ReputationUpdated(indexed bytes32,uint16,uint32)
+          handler: handleReputationUpdated
+        - event: KBEndorsed(indexed bytes32,indexed address)
+          handler: handleKBEndorsed
+        - event: AgentRegistered(indexed address,uint8,address)
+          handler: handleAgentRegistered
+      file: ./src/mappings.ts

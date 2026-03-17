@@ -2,7 +2,7 @@
 
 TypeScript SDK for the Alexandrian Protocol — on-chain knowledge identity, royalty DAG, and query-fee settlement on Base.
 
-**Contract**: `0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000` (Base mainnet, chainId 8453)
+**Contract**: `0xD1F216E872a9ed4b90E364825869c2F377155B29` (Base mainnet, chainId 8453)
 
 ---
 
@@ -91,7 +91,7 @@ console.log("Settled:", tx.hash);
 ```typescript
 // Full KB record
 const kb = await sdk.getKB(contentHash);
-console.log(kb.curator, kb.queryFee, kb.domain);
+console.log(kb.curator, kb.queryFee, kb.artifactHash);
 
 // Stake, reputation, attribution DAG
 const stake = await sdk.getStake(contentHash);
@@ -206,7 +206,7 @@ import { buildProofSpecV1, computeProofHash } from "@alexandrian/sdk-adapters";
 
 const proof = buildProofSpecV1({
   chainId: "8453",
-  contract: "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
+  contract: "0xD1F216E872a9ed4b90E364825869c2F377155B29",
   kbId: contentHash,
   blockNumber: "12345678",
   state: { totalFeesEarned: "1000000000000000", lastSettledAt: "1700000000" },

@@ -1,0 +1,74 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine insights from benchmark testing and agent planning KBs to create a unified testing procedure that ensures accuracy and efficiency."
+  ],
+  "confidence": 0.93,
+  "domain": "software.testing",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x5a35736d72c981aa2afd629e27aa025a32970cf6a95a6e6c0b64ad82e2ac2802",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Reconcile artifacts from benchmark testing and agent planning by using domain-specific tools like Apache JMeter; ensure all shared steps are aligned and log discrepancies to merge_log by applying field-level structural comparison on shared key fields; flag conflicts where hash(A.field) != hash(B.field) and log to conflict_log; assert merge_error_count < 1.",
+      "step": 1
+    },
+    {
+      "action": "Assert the merged output by running JSON Schema draft-07 validation on all fields; emit VALIDATION_FAILED with field path on the first failing field by asserting all required fields conform to the schema definition; emit VALIDATION_FAILED with field path on the first failing field; assert field_validation_pass_rate >= 1.0.",
+      "step": 2
+    },
+    {
+      "action": "Filter candidate anomalies by applying statistical analysis on operation_duration_ms; flag any outliers beyond 3 standard deviations and log to anomaly_log.",
+      "step": 3
+    },
+    {
+      "action": "Assign results by using a machine learning model trained on historical data; ensure classification accuracy > 95% and log misclassifications to classification_log.",
+      "step": 4
+    },
+    {
+      "action": "Log operation_duration_ms and result_code for each test case to an audit trail; ensure logs are stored in a secure, immutable format for compliance using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:03.997Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Integrate benchmark testing with agent planning derived knowledge base by merging workflows and validating outputs using domain-specific tools.",
+  "tags": [
+    "software_testing",
+    "benchmark_testing",
+    "knowledge_base",
+    "data_integration",
+    "validation",
+    "logging",
+    "machine_learning"
+  ],
+  "title": "Benchmark Testing",
+  "verification": {
+    "failureConditions": [
+      "Inconsistent data when merge omits NULL handling: records with NULL key fields are silently dropped, causing referential integrity violations in downstream consumers.",
+      "Inaccurate classification when model is not updated with recent data, causing misclassification and incorrect decision-making.",
+      "Anomalies undetected when statistical thresholds are not properly set, leading to unnoticed performance degradation."
+    ],
+    "metrics": [
+      "merge_error_count < 1",
+      "the merged output by running JSON Schema draft-07 validation on all fields",
+      "field_validation_pass_rate >= 1.0",
+      "error_count < 1 and result_valid = true"
+    ],
+    "successConditions": [
+      "error_count < 1",
+      "result_valid = true",
+      "classification_accuracy > 0.95",
+      "operation_duration_ms < 500ms",
+      "log_entries_count = test_cases_count"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "manifestVersion": "1",
+  "kbId": "KB-SEC-1",
+  "kbHash": "COMPUTE_FROM_CANONICAL_ENVELOPE",
+  "rootCid": "PENDING",
+  "generatedAt": "2026-03-08T00:00:00Z",
+  "files": [
+    { "path": "artifact.json", "role": "canonical_hash_target" },
+    { "path": "manifest.json", "role": "manifest"              },
+    { "path": "meta.json",     "role": "indexer_sidecar"       }
+  ]
+}

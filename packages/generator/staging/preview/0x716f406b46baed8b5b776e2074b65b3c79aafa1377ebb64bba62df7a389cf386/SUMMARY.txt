@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x716f406b46baed8b5b776e2074b65b3c79aafa1377ebb64bba62df7a389cf386
+  artifactHash: 0x1ca84a87880379775e566e9ac16502d961f4d6660ac6314684aed1d679becf4b
+  title:        Testing Strategy Evaluation
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    4 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  16
+  graph edges:  21
+  artifact.json size: 2594 bytes
+  meta.json size:     3473 bytes

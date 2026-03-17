@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x26e5037bb089e537fac1027423f9cebc6a504404f473b6051f7e9026c971f193",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.ir.ssa",
+  "rootCid": "QmYZQ5NKn14mXAqLMri8rHCKVZ2yym18LHs8kW7N9aYivG",
+  "title": "Static Single Assignment Form Conversion"
+}

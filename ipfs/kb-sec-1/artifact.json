@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "COMPUTE_FROM_CANONICAL_ENVELOPE",
+
+  "kbType": "ComplianceChecklist",
+  "epistemicType": "procedural",
+  "domain": "web3.security",
+
+  "title": "Reentrancy — Checks-Effects-Interactions Pattern Verification",
+  "summary": "Verify that every external call site in a Solidity contract follows Checks-Effects-Interactions order, preventing reentrancy attacks by ensuring state is finalized before control leaves the contract.",
+  "tags": ["solidity", "reentrancy", "CEI", "smart-contract-security", "audit"],
+  "capabilities": ["detect-reentrancy", "audit-external-calls", "verify-CEI-order"],
+  "confidence": 0.95,
+  "highestSeverity": "critical",
+
+  "preconditions": [
+    "Contract contains at least one external call site: .call(), .transfer(), .send(), or an interface/library call that invokes external code."
+  ],
+
+  "cost_estimate": {
+    "human_hours": "4-8h",
+    "resource_class": "security-auditor",
+    "automation_coverage": 0.5,
+    "notes": "Slither covers items 1-3 partially. Items 4 (cross-function reentrancy) and 5 (mock attacker) require manual analysis and test authoring respectively."
+  },
+
+  "payloadType": "checklist",
+  "checklist": [
+    {
+      "item": "Map every external call site in the contract: .call(), .transfer(), .send(), and any interface or library call that invokes external code.",
+      "severity": "medium",
+      "rationale": "You cannot audit what you have not located. A complete call-site map is the prerequisite for all subsequent checks.",
+      "tooling": {
+        "automated": "slither --detect reentrancy-eth,reentrancy-no-eth,reentrancy-benign",
+        "manual": "grep -rn '\\.call\\b\\|\\.transfer\\b\\|\\.send\\b' src/"
+      },
+      "produces": "external_call_inventory"
+    },
+    {
+      "item": "At each call site, verify CEI order: all state variable writes complete before the external call executes.",
+      "severity": "critical",
+      "rationale": "An attacker re-entering the function before state is updated can drain funds or corrupt protocol state. CEI violation is the root cause of the DAO hack and most reentrancy losses.",
+      "tooling": {
+        "automated": "slither --detect reentrancy-eth",
+        "manual": "For each entry in external_call_inventory, trace all preceding state writes and confirm no write occurs after the call."
+      },
+      "produces": "cei_order_verification"
+    },
+    {
+      "item": "Confirm the nonReentrant modifier (or equivalent mutex) is present on all public and external state-changing functions that make external calls.",
+      "severity": "high",
+      "rationale": "CEI order alone does not protect against cross-function reentrancy. The mutex prevents re-entry through any guarded function sharing the same lock.",
+      "tooling": {
+        "automated": "grep -rn 'nonReentrant\\|ReentrancyGuard' src/ — verify coverage against external_call_inventory",
+        "manual": "Cross-reference each function in external_call_inventory against the modifier list."
+      },
+      "produces": "mutex_coverage_report"
+    },
+    {
+      "item": "Check for cross-function reentrancy: identify pairs of functions that share state where one makes an external call and the other reads or writes that state.",
+      "severity": "high",
+      "rationale": "Single-function reentrancy guards do not protect against an attacker re-entering via a different function that shares the same storage slot.",
+      "tooling": {
+        "automated": "slither --detect reentrancy-no-eth (partial — catches benign cross-function cases)",
+        "manual": "Build a shared-state dependency graph across all functions; flag any function pair where one has an external call and the other accesses the same slot."
+      },
+      "produces": "cross_function_reentrancy_map"
+    },
+    {
+      "item": "Test with a mock attacker contract that calls back into the target on receive() or fallback() and attempts to re-enter the function under test.",
+      "severity": "medium",
+      "rationale": "Static analysis confirms structure; dynamic testing confirms behavior under adversarial conditions. A passing mock attacker test is the only way to validate that guards hold end-to-end.",
+      "tooling": {
+        "automated": "forge test --match-contract MockAttacker (Foundry) or hardhat test --grep reentrancy",
+        "manual": "Author MockAttacker.sol: implement receive() that calls back the target function; assert attacker balance does not increase."
+      },
+      "produces": "reentrancy_test_result"
+    }
+  ],
+
+  "verification": {
+    "successConditions": [
+      "external_call_inventory complete and cross-referenced against source",
+      "No CEI violation found at any call site in cei_order_verification",
+      "nonReentrant modifier coverage == 1.0 across all guarded entry points",
+      "cross_function_reentrancy_map shows zero unprotected paths",
+      "Mock attacker test produces zero successful re-entries"
+    ],
+    "failureConditions": [
+      "Any external call executes before all relevant state writes in the same function — CRITICAL",
+      "nonReentrant modifier absent on a public state-changing function that makes an external call — HIGH",
+      "Cross-function reentrancy path identified with no mutex protection — HIGH",
+      "Mock attacker test succeeds in re-entering the function — CRITICAL"
+    ],
+    "metrics": [
+      "unguarded_external_calls == 0",
+      "reentrancy_modifier_coverage == 1.0",
+      "cross_function_reentrancy_paths == 0",
+      "mock_attacker_successful_reentries == 0"
+    ]
+  },
+
+  "interface": {
+    "inputs": [
+      { "name": "contract_source",  "type": "solidity-source", "description": "Solidity source files (.sol) for the contract under audit" },
+      { "name": "test_environment", "type": "test-framework",  "description": "Hardhat or Foundry environment for dynamic attacker simulation", "options": ["hardhat", "foundry"] }
+    ],
+    "outputs": [
+      { "name": "reentrancy_clearance",    "type": "boolean", "description": "True when all 5 checks pass with zero violations" },
+      { "name": "external_call_inventory", "type": "object",  "description": "Map of all external call sites annotated with CEI status and mutex coverage", "schema": { "call_site": "string", "function": "string", "cei_compliant": "boolean", "mutex_present": "boolean" } }
+    ]
+  },
+
+  "artifactRefs": [
+    {
+      "uri":  "ipfs://PENDING",
+      "name": "smart_contract_security_patterns",
+      "type": "patterns_reference"
+    }
+  ],
+
+  "parentHashes": [],
+  "royaltyBps": 800,
+  "isSeed": true,
+  "publishedAt": "2026-03-08T00:00:00Z"
+}

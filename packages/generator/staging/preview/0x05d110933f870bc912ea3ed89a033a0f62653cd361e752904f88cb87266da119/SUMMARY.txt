@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x05d110933f870bc912ea3ed89a033a0f62653cd361e752904f88cb87266da119
+  artifactHash: 0x22e4063a1e5d7c76aa1ceebad91503ab3e29bf05d021c51541f760e1f9b67db1
+  title:        Exponential and Linear Backoff for AI Prompting Error Recovery
+  domain:       agent.error_recovery
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  16
+  graph edges:  18
+  artifact.json size: 3370 bytes
+  meta.json size:     3575 bytes

@@ -1,0 +1,215 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "0x574542249886be6e935764c9b1518b57bae71cab15de273a41d39c190c5d0d20",
+  "kbType": "Practice",
+  "epistemicType": "procedural",
+  "domain": "engineering.api.design",
+  "title": "Stable Production API Design",
+  "summary": "A canonical procedure for converting a vague service requirement into a versioned, contract-first API design — resource model, HTTP semantics, error schema, authentication scheme, and versioning strategy — before any implementation begins. Root engineering primitive: API contract specification (KB-ENG-2) and implementation (KB-ENG-3) both derive from the resource model and error schema produced here.",
+  "tags": [
+    "api_design",
+    "rest",
+    "resource_modeling",
+    "error_schema",
+    "versioning",
+    "contract_first",
+    "backend"
+  ],
+  "capabilities": [
+    "define-resource-model",
+    "map-http-semantics",
+    "design-error-schema",
+    "specify-auth-scheme",
+    "plan-api-versioning",
+    "produce-api-design-document",
+    "validate-design-with-consumer-review"
+  ],
+  "confidence": 0.93,
+  "preconditions": [
+    "A service or resource to expose has been identified with a clear domain boundary.",
+    "At least one consumer use case is known — an API designed without a consumer perspective will over-index on implementation convenience."
+  ],
+  "cost_estimate": {
+    "human_hours": "2-4h",
+    "resource_class": "senior-engineer",
+    "automation_coverage": 0.35,
+    "notes": "Resource model and error schema require domain judgment. HTTP semantics mapping, versioning strategy selection, and consumer review are template-driven and partially automatable. The design document is human-authored but structurally constrained by step outputs."
+  },
+  "payloadType": "procedure",
+  "steps": [
+    {
+      "id": "step_1",
+      "action": "Define the resource model: identify core entities, their scalar attributes, and relationships (one-to-one, one-to-many, many-to-many). Assign each entity a singular noun name.",
+      "produces": [
+        "resource_model"
+      ],
+      "rationale": "Every API design decision — URL structure, HTTP method selection, schema shape, authorization scope — derives from the resource model. Defining it last, or alongside endpoint design, causes endpoint proliferation and breaking changes. A resource model defined before URLs prevents the most common API design mistake: conflating actions with resources.",
+      "tooling": {
+        "automated": "Prompt: 'List the core entities for {service_description}. For each entity output JSON: { name: string (singular noun), attributes: [{name, type, required}], relationships: [{target_entity, cardinality: \"1:1\"|\"1:N\"|\"M:N\", direction: \"owned-by\"|\"references\"}] }. Exclude UI state. Exclude derived fields.'",
+        "manual": "Whiteboard entities as nouns. If two entities always appear together in every operation, consider merging. If one entity has sub-resources that have a meaningful lifecycle without the parent, model them independently. Reject any entity name that is a verb — that is an action masquerading as a resource."
+      }
+    },
+    {
+      "id": "step_2",
+      "action": "Map HTTP methods to resource operations using semantic correctness: GET (safe + idempotent), PUT/PATCH (idempotent), POST (non-idempotent creation or action), DELETE (idempotent removal). Annotate each operation with its safety and idempotency properties.",
+      "inputs": [
+        "resource_model"
+      ],
+      "produces": [
+        "http_operation_map"
+      ],
+      "rationale": "Violating HTTP semantics breaks client retry logic, caching, and CDN behavior silently. A GET that mutates state will be cached incorrectly. A non-idempotent PUT will double-process retried requests. Annotating safety and idempotency at design time forces explicit decisions — and makes the contract machine-readable for client libraries.",
+      "tooling": {
+        "automated": "For each entity in resource_model, generate the standard resource operations: GET /entities (list), GET /entities/{id} (fetch), POST /entities (create), PUT /entities/{id} (full replace), PATCH /entities/{id} (partial update), DELETE /entities/{id} (remove). Flag any operation where the method semantic is ambiguous — these require explicit design decisions.",
+        "manual": "Safety test: 'Can a proxy cache this response without asking the origin?' — if yes, it must be GET. Idempotency test: 'Does calling this twice produce the same server state as calling it once?' — if yes, it can be PUT/DELETE; if no, it must be POST. Mark any POST with a note explaining why it is non-idempotent."
+      }
+    },
+    {
+      "id": "step_3",
+      "action": "Design the error schema: define the standard error body structure, assign status codes to error categories, and classify each error as retryable or fatal.",
+      "inputs": [
+        "http_operation_map"
+      ],
+      "produces": [
+        "error_schema"
+      ],
+      "rationale": "An API without a documented error schema forces clients to parse error messages as strings — making error handling brittle and locale-dependent. The retryability classification is what prevents clients from retrying fatal errors indefinitely. Status codes without a machine-readable body are insufficient: 422 means nothing if the body does not identify which field failed validation.",
+      "tooling": {
+        "automated": "Standard error body schema: { error: { code: string (machine-readable, SCREAMING_SNAKE_CASE), message: string (human-readable), retryable: boolean, details: object | null, request_id: string } }. Status code mapping: 400 → INVALID_INPUT (fatal), 401 → UNAUTHORIZED (fatal), 403 → FORBIDDEN (fatal), 404 → NOT_FOUND (fatal), 409 → CONFLICT (context-dependent), 422 → VALIDATION_FAILED (fatal), 429 → RATE_LIMITED (retryable), 500 → INTERNAL_ERROR (retryable), 503 → SERVICE_UNAVAILABLE (retryable).",
+        "manual": "For each operation in http_operation_map: list all failure modes. For each failure mode: choose the status code, assign an error code, and write the retryability rule. Reject any error that uses 500 for a client mistake — that obscures client bugs. Reject any error that uses 400 for a server failure — that breaks client retry logic."
+      }
+    },
+    {
+      "id": "step_4",
+      "action": "Specify the authentication and authorization scheme: select the token mechanism, define resource-level access tiers, and document the token lifetime and scope model.",
+      "inputs": [
+        "resource_model",
+        "http_operation_map"
+      ],
+      "produces": [
+        "auth_scheme"
+      ],
+      "rationale": "Authentication and authorization are retrofitted onto APIs more often than any other concern — and retrofit auth is where most API security vulnerabilities originate. Defining access tiers per resource at design time prevents the default-to-open pattern: new endpoints shipping with no auth because it was not planned. Token lifetime and scope must be documented in the design, not inferred from implementation.",
+      "tooling": {
+        "automated": "Auth tier classification per operation: PUBLIC (no token required), USER (Bearer JWT, user scope), ADMIN (Bearer JWT, admin scope), SERVICE (mTLS or service API key). For each operation in http_operation_map: assign an auth tier. For JWT: document { algorithm, lifetime_seconds, issuer, audience, required_claims }. For API keys: document { rotation_policy, revocation_mechanism }.",
+        "manual": "Least-privilege check: for each operation, ask 'what is the minimum scope that should be able to call this?' Default to USER, escalate to ADMIN only when the operation affects other users' data or system configuration. Flag any PUBLIC operation that returns user-specific data — that is a data exposure risk."
+      }
+    },
+    {
+      "id": "step_5",
+      "action": "Plan the API versioning strategy: choose URI-based (/v1/entities) or header-based (Accept: application/vnd.api+json;version=1) versioning, define the backward compatibility contract, and document the deprecation policy.",
+      "inputs": [
+        "http_operation_map",
+        "auth_scheme"
+      ],
+      "produces": [
+        "versioning_strategy"
+      ],
+      "rationale": "An API deployed without a versioning strategy cannot be changed without breaking clients. The choice between URI-based and header-based versioning is a maintainability trade-off: URI-based is more discoverable and easier to route; header-based is cleaner but requires client discipline. Both are valid — the important thing is that the choice is explicit and applied consistently from day one. A deprecation policy defined before v1 ships is far cheaper than one negotiated with live clients.",
+      "tooling": {
+        "automated": "Backward compatibility rules: additive changes are safe (new optional fields, new endpoints, new optional parameters). Breaking changes require a version bump: removing fields, changing field types, removing endpoints, changing status code semantics, changing error codes. Deprecation schedule template: { deprecated_version, sunset_date: 'baseline_date + 12_months', migration_path: string, header: 'Deprecation: true; Sunset: {date}' }.",
+        "manual": "Versioning decision matrix: if your consumers are internal services you control → header-based is manageable. If consumers are third-party developers → URI-based, because it is visible in browser address bars and curl commands. If you serve both → URI-based. Document the rationale with the team; changing versioning strategy after launch is a breaking change."
+      }
+    },
+    {
+      "id": "step_6",
+      "action": "Produce the API design document: an annotated resource table listing every endpoint, its method, auth tier, request and response shapes, error codes, idempotency property, and versioning status.",
+      "inputs": [
+        "resource_model",
+        "http_operation_map",
+        "error_schema",
+        "auth_scheme",
+        "versioning_strategy"
+      ],
+      "produces": [
+        "api_design_document"
+      ],
+      "rationale": "The design document is the single artifact that proves the preceding five steps produced a coherent, internally consistent API before any code is written. It is also the input to the OpenAPI contract step (KB-ENG-2) and the implementation step (KB-ENG-3). Without it, the pipeline from design to spec to code has no audit trail — and inconsistencies between spec and implementation are only discovered at integration time.",
+      "tooling": {
+        "automated": "Resource table template per endpoint: { endpoint: 'METHOD /path', version: 'v1', auth_tier: string, idempotent: boolean, request_schema: object_ref, response_schema: object_ref, error_codes: string[], notes: string }. Generate the table from the outputs of steps 1-5.",
+        "manual": "Design review checklist: (1) every endpoint has exactly one resource as its subject, (2) no two endpoints perform the same operation on the same resource via different methods, (3) every error code in error_schema appears in at least one endpoint's error_codes list, (4) auth tiers are consistent — a user-level READ and an admin-level WRITE on the same resource should not use the same tier."
+      }
+    },
+    {
+      "id": "step_7",
+      "action": "Validate the design with a consumer review: give the api_design_document to one consumer team (or a mock client) and ask them to implement three representative operations against it without asking questions. Record every clarification requested.",
+      "inputs": [
+        "api_design_document"
+      ],
+      "produces": [
+        "consumer_review_findings"
+      ],
+      "rationale": "API design defects discovered during consumer review cost hours to fix. The same defects discovered after implementation cost days. A consumer review with a 'no questions' protocol surfaces every ambiguity the design takes for granted: missing error codes, underspecified request fields, unclear auth requirements. Each clarification request is a defect in the design, not a gap in the consumer's knowledge.",
+      "tooling": {
+        "automated": "Review protocol: share api_design_document only — no verbal explanation, no Slack messages. Ask the consumer to implement: (1) a CREATE operation, (2) a LIST operation with filtering, (3) an error handling path. After 30 minutes, collect all questions and blockers as consumer_review_findings: { question, endpoint_affected, root_cause: 'missing_field' | 'ambiguous_error_code' | 'unclear_auth' | 'missing_example' | 'other' }.",
+        "manual": "For each finding in consumer_review_findings: update api_design_document before proceeding to KB-ENG-2. Do not carry clarifications into the OpenAPI spec as verbal addenda — every consumer will hit the same gap. If more than 3 findings share root_cause == 'missing_field', the resource model (step 1) needs revision."
+      }
+    }
+  ],
+  "verification": {
+    "successConditions": [
+      "resource_model names all entities as singular nouns with attributes and relationships typed",
+      "http_operation_map annotates every operation with safety and idempotency properties",
+      "error_schema defines a standard body structure with machine-readable error codes and retryability for all status codes in use",
+      "auth_scheme assigns an auth tier to every operation with documented token lifetime and scope",
+      "versioning_strategy documents the backward compatibility contract and deprecation schedule",
+      "api_design_document passes consumer review with zero unanswered clarification requests"
+    ],
+    "failureConditions": [
+      "Endpoints defined before resource model — causes inconsistent URL structure and breaking changes on rename",
+      "No error schema defined — clients parse error messages as strings, breaking on i18n or message changes",
+      "Auth tiers not assigned at design time — new endpoints ship without auth by default",
+      "No versioning strategy defined before v1 ships — every future change risks breaking deployed clients",
+      "Consumer review skipped — design defects survive into the OpenAPI spec and implementation unchanged"
+    ],
+    "metrics": [
+      "endpoints_without_resource_mapping == 0",
+      "operations_without_idempotency_annotation == 0",
+      "error_codes_with_retryability_undefined == 0",
+      "operations_without_auth_tier == 0",
+      "consumer_review_unresolved_findings == 0"
+    ]
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "service_description",
+        "type": "string",
+        "description": "Natural language description of the service or resource to expose, including known consumer use cases"
+      },
+      {
+        "name": "consumer_teams",
+        "type": "string[]",
+        "description": "List of teams or systems that will consume this API — used to scope the consumer review in step 7"
+      },
+      {
+        "name": "auth_infrastructure",
+        "type": "string",
+        "description": "Existing auth infrastructure available: JWT issuer, API key service, mTLS setup",
+        "optional": true
+      }
+    ],
+    "outputs": [
+      {
+        "name": "api_design_document",
+        "type": "object",
+        "description": "Annotated resource table: every endpoint with method, auth tier, request/response shape, error codes, idempotency, and version — input to KB-ENG-2 and KB-ENG-3"
+      },
+      {
+        "name": "error_schema",
+        "type": "object",
+        "description": "Standard error body structure with status code mappings, machine-readable error codes, and retryability classification"
+      },
+      {
+        "name": "consumer_review_findings",
+        "type": "object[]",
+        "description": "Documented clarification requests from consumer review, all resolved before handoff to spec step"
+      }
+    ]
+  },
+  "artifactRefs": [],
+  "parentHashes": [],
+  "royaltyBps": 0,
+  "isSeed": true,
+  "publishedAt": "2026-03-17T00:00:00Z"
+}

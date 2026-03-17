@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x9d45a7042881b664d28fbfe751f97ae8bd460c3bc38927848581649f2ece734e",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.error_recovery.compensating",
+  "rootCid": "QmSTfrePscKcWzykdDK2Reqvz4zJwUcEpwGbPTYsb3q3Jt",
+  "title": "Compensating Transactions in Workflow Failure Recovery"
+}

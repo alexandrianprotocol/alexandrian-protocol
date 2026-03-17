@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xe17511051facd5ef89db3f73022df6675ef7d0b390441f05f0d94f80db91edd0",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "system.event_sourcing.event_store",
+  "rootCid": "Qmdw2NceeeQpmchEvjFNvx1cKTyJnnrsPfvxPHy44gGgTb",
+  "title": "Append-Only Event Store Design"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x27585f9cc09bca661d15ad70bbf2595f3d8be1167cd4a6ab8e646925acdf6ce7
+  artifactHash: 0xa1dbefb4d5c710ea8b9afd2f5d01af911d8f560f60ced19ce9cb2816b04ba6e9
+  title:        Hierarchical Task Decomposition for Agent Planning
+  domain:       agent.planning.task_decomposition
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      6
+  graph nodes:  19
+  graph edges:  20
+  artifact.json size: 3127 bytes
+  meta.json size:     4171 bytes

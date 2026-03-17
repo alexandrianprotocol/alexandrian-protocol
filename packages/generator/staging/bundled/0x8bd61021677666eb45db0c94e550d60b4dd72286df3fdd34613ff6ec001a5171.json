@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x79008cc637b52ad9fdb2f06b7778b65d519b4eb401429192883e64c1194c64e1",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "realtime.notifications.rate_limiting",
+  "rootCid": "QmaCYFoeNkzsbzE2c23sTJrNMvsCZfDX7YrAa7FpxxQ7jn",
+  "title": "Token Bucket Rate Limiting for Notification Delivery"
+}

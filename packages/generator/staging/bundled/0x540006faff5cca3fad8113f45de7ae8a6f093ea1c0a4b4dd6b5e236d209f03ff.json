@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xc6e4d89933f9ef75a630435496250859a8808296cb6a2ef8c15b391b9eec516b",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity",
+  "rootCid": "QmYcbhBdnE6ddVrgYxSFewnHW3x92nfMf7N7PnCusqPLRa",
+  "title": "Reentrancy Guard: Checks-Effects-Interactions Pattern"
+}

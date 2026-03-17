@@ -1,0 +1,18 @@
+{
+  "kbHash":      "0x0266a889b02779d969686298f7ea4fcb10fc1bfe09bcc6dd5d345db0342e8f88",
+  "kbId":        "KB-AG-2",
+  "title":       "Implementing Hierarchical Task Decomposition for LLM Agents",
+  "domain":      "agent.planning.task_decomposition",
+  "kbType":      "Practice",
+  "payloadType": "procedure",
+  "tags":        ["task-decomposition", "hierarchical-planning", "agent-planning", "goal-directed", "DAG"],
+  "isSeed":      false,
+  "royaltyBps":  600,
+  "depth":       1,
+  "parentIds":   ["KB-AG-1"],
+  "score": {
+    "classification": "high-value",
+    "weighted": 2.9
+  },
+  "publishedAt": "2026-03-16T12:00:00Z"
+}

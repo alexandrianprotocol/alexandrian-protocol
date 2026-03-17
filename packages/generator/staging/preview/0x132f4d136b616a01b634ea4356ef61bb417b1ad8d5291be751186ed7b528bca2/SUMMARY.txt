@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x132f4d136b616a01b634ea4356ef61bb417b1ad8d5291be751186ed7b528bca2
+  artifactHash: 0x09a171ff3c28fa8831643c935402b8a75cd7fdbdeb2ef19ae54d985cb06b0ffc
+  title:        Allowlist Schema Validation with Solidity
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  17
+  graph edges:  17
+  artifact.json size: 3018 bytes
+  meta.json size:     3638 bytes

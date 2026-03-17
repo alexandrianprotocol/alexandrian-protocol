@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x8de45896343c116a5e9c4a06eabed8e727d5590945d729303c0d8c6d2d3e4825",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.opt.inlining",
+  "rootCid": "QmVd4gLB93cW5nMsKchaJBbmz9ijPigaKeCewzK551J9PF",
+  "title": "Function Inlining Optimization Passes in Compiler"
+}

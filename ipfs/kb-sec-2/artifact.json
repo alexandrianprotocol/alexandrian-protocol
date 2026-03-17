@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "COMPUTE_FROM_CANONICAL_ENVELOPE",
+
+  "kbType": "ComplianceChecklist",
+  "epistemicType": "procedural",
+  "domain": "web3.security",
+
+  "title": "Integer Arithmetic Safety — Unchecked Blocks in Solidity 0.8+",
+  "summary": "Audit all unchecked arithmetic blocks in Solidity 0.8+ contracts to verify that each block relies on a documented, tested invariant and that no user-controlled input reaches unchecked arithmetic without prior bounds validation.",
+  "tags": ["solidity", "integer-overflow", "unchecked", "arithmetic-safety", "audit"],
+  "capabilities": ["detect-overflow", "audit-unchecked-blocks", "verify-arithmetic-invariants"],
+  "confidence": 0.95,
+  "highestSeverity": "critical",
+
+  "preconditions": [
+    "Contract contains at least one unchecked { } block. If no unchecked blocks exist, this KB is vacuously satisfied and need not be run."
+  ],
+
+  "cost_estimate": {
+    "human_hours": "3-6h",
+    "resource_class": "security-auditor",
+    "automation_coverage": 0.45,
+    "notes": "Static tools locate unchecked blocks and flag user-input taint (items 1, 5). Invariant verification (item 2) and boundary testing (item 3) require manual test authoring and fuzzer setup."
+  },
+
+  "payloadType": "checklist",
+  "checklist": [
+    {
+      "item": "Find all unchecked { } blocks in the contract. For each block, document in source comments or the audit report the specific invariant that makes overflow or underflow impossible at that site.",
+      "severity": "high",
+      "rationale": "Solidity 0.8+ adds default overflow checks at gas cost. Developers use unchecked to save gas, but each use must have a documented justification — an absence of documentation is itself an audit finding, regardless of whether overflow is actually possible.",
+      "tooling": {
+        "automated": "grep -rn 'unchecked' src/ — produces line-number inventory",
+        "manual": "Review AST or source for every unchecked block; flag any without a preceding invariant comment."
+      },
+      "produces": "unchecked_block_inventory"
+    },
+    {
+      "item": "For each unchecked block, verify the documented invariant holds at every function entry point that can reach the block, under all possible call sequences.",
+      "severity": "high",
+      "rationale": "An invariant that holds locally may be violated by a state change in another function. Verification must consider the full reachability graph, not just the local scope.",
+      "tooling": {
+        "automated": "echidna: write property that asserts invariant before each unchecked block; echidna-test Contract.sol --config echidna.yml",
+        "manual": "Trace all call paths that reach each unchecked block; verify the invariant constraint is enforced at every entry."
+      },
+      "produces": "invariant_verification_report"
+    },
+    {
+      "item": "Run boundary tests at type limits: uint256 max (2^256 - 1 = type(uint256).max), int256 min (-2^255 = type(int256).min) and max (2^255 - 1 = type(int256).max), and zero. Confirm no unchecked operation overflows or underflows at these boundaries.",
+      "severity": "high",
+      "rationale": "Type-limit edges are the primary source of arithmetic vulnerabilities. Explicit boundary tests must be in the test suite for every unchecked block — fuzzing alone does not reliably hit these exact values.",
+      "tooling": {
+        "automated": "forge test --fuzz-runs 100000 (Foundry) — configure invariant tests with bound(x, 0, type(uint256).max)",
+        "manual": "Write explicit Hardhat/Foundry unit tests for each unchecked block at type(uint256).max, type(int256).min, type(int256).max, and 0."
+      },
+      "produces": "boundary_test_results"
+    },
+    {
+      "item": "Check loop counters inside unchecked blocks for overflow. Verify that the maximum iteration count, given all reachable input values, cannot cause the counter to wrap around to zero.",
+      "severity": "high",
+      "rationale": "Loop counter overflow in an unchecked block is a common gas-optimization bug that produces an infinite loop or incorrect termination, causing denial of service or silent logic failure at scale.",
+      "tooling": {
+        "automated": "slither --detect incorrect-equality (flags counter comparisons that could wrap); manual review for increment patterns",
+        "manual": "For each unchecked loop counter: determine max array length or iteration bound from all callers; confirm counter type cannot wrap at that bound."
+      },
+      "produces": "loop_counter_overflow_assessment"
+    },
+    {
+      "item": "Confirm that no user-controlled input — calldata arguments, msg.value, or external return values — reaches unchecked arithmetic without prior validation that constrains the input within safe bounds.",
+      "severity": "critical",
+      "rationale": "Unchecked blocks are safe only when inputs are bounded by the contract's own logic. User-controlled inputs directly invalidate the invariant: an attacker can pass max uint256 and force an overflow or underflow.",
+      "tooling": {
+        "automated": "slither --detect controlled-array-length,taint — traces user-controlled values through the call graph",
+        "manual": "For each unchecked block, identify all data sources and verify each is validated (bounded by require, checked arithmetic, or type constraint) before reaching the unchecked operation."
+      },
+      "produces": "user_input_reach_analysis"
+    }
+  ],
+
+  "verification": {
+    "successConditions": [
+      "Every unchecked block has a documented invariant in source comments or audit report",
+      "Invariant verified to hold at every reachable entry point under all call sequences",
+      "Boundary tests pass at type(uint256).max, type(int256).min, type(int256).max, and 0 for every unchecked operation",
+      "No loop counter overflow path found under maximum reachable iteration count",
+      "Zero user-controlled inputs reach unchecked arithmetic without upstream bounds validation"
+    ],
+    "failureConditions": [
+      "Any unchecked block lacks a documented invariant — HIGH",
+      "Invariant violated by a reachable state change in another function — HIGH",
+      "Any boundary test produces overflow or underflow — HIGH",
+      "Loop counter wraps to zero under a valid call sequence — HIGH",
+      "User-controlled input reaches unchecked arithmetic without validation — CRITICAL"
+    ],
+    "metrics": [
+      "unchecked_blocks_with_documented_invariant / total_unchecked_blocks == 1.0",
+      "boundary_test_failures == 0",
+      "loop_counter_overflow_paths == 0",
+      "user_controlled_unchecked_inputs == 0"
+    ]
+  },
+
+  "interface": {
+    "inputs": [
+      { "name": "contract_source", "type": "solidity-source", "description": "Solidity source files (.sol) for the contract under audit" },
+      { "name": "test_suite",      "type": "test-framework",  "description": "Existing test suite to extend with boundary and fuzz cases", "options": ["hardhat", "foundry"] }
+    ],
+    "outputs": [
+      { "name": "overflow_clearance",        "type": "boolean", "description": "True when all 5 checks pass with zero violations" },
+      { "name": "unchecked_block_inventory", "type": "object",  "description": "Map of all unchecked blocks with invariant status, boundary test coverage, and taint analysis result", "schema": { "block_location": "string", "invariant_documented": "boolean", "boundary_tests_pass": "boolean", "user_input_tainted": "boolean" } }
+    ]
+  },
+
+  "artifactRefs": [
+    {
+      "uri":  "ipfs://PENDING",
+      "name": "smart_contract_security_patterns",
+      "type": "patterns_reference"
+    }
+  ],
+
+  "parentHashes": [],
+  "royaltyBps": 800,
+  "isSeed": true,
+  "publishedAt": "2026-03-08T00:00:00Z"
+}

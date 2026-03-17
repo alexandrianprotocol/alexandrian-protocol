@@ -1,0 +1,108 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Define and utilize a consistent seed prompt to ensure stable and reproducible AI-generated outputs."
+  ],
+  "confidence": 1,
+  "domain": "ai.prompting",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      },
+      {
+        "description": "logged to review log",
+        "name": "review duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to review log",
+        "name": "reviewer id",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "review log",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0xed0c56d3b7799d066b636dc851f411a4030ccdc113c20744d168c10fad99c0c9",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Capture the initial prompt requirements using a structured template to ensure completeness using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Assert the prompt against a set of predefined criteria to ensure clarity and relevance by asserting all required fields conform to the schema definition; emit VALIDATION_FAILED with field path on the first failing field; assert field_validation_pass_rate >= 1.0.",
+      "step": 2
+    },
+    {
+      "action": "Draft a clear and concise seed prompt using the validated requirements using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Inspect the seed prompt with domain experts to ensure it meets the intended objectives by applying the checklist line by line; assert mandatory_item_fail_count < 1; log review_duration_ms and reviewer_id to review_log.",
+      "step": 4
+    },
+    {
+      "action": "Document the final seed prompt in a version-controlled repository for traceability using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    },
+    {
+      "action": "Invoke the exact seed prompt in all relevant AI model interactions to maintain consistency by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 6
+    }
+  ],
+  "publishedAt": "2026-03-11T03:12:06.754Z",
+  "royaltyBps": 500,
+  "schemaVersion": "2.5",
+  "summary": "A seed prompt acts as a fixed starting point, reducing variability in AI responses by providing a stable context. This technique is essential for reproducible results and controlled experimentation in prompt engineering.",
+  "tags": [
+    "ai_prompting",
+    "reproducibility",
+    "consistency",
+    "prompt_engineering",
+    "version_control",
+    "domain_expertise"
+  ],
+  "title": "Establishing Seed Prompt for Consistent AI Output",
+  "verification": {
+    "failureConditions": [
+      "Inconsistent AI outputs across different runs; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Difficulty in reproducing results for experiments; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Increased variability in AI response quality; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "the prompt against a set of predefined criteria to ensure clarity and relevance by asserting all required fields conform",
+      "field_validation_pass_rate >= 1.0",
+      "mandatory_item_fail_count < 1",
+      "response_status < 400 and response_time_ms < 5000",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Check that the seed prompt is stored in a version-controlled system",
+      "Verify that AI outputs remain consistent across multiple runs with the same seed",
+      "Ensure that the seed prompt is reviewed and approved by domain experts"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x39fe14bdd0cce7b19a38a278e7ee2a55e6a37c1c8a76e455bfb4ecccdd835325",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "experimentation.flags.evaluation",
+  "rootCid": "QmQFU9stLxGyViWmkqwkEBKTPZC1qTTK67V8ZENf7gTeNx",
+  "title": "Deterministic Feature Flag Evaluation Engine Design"
+}

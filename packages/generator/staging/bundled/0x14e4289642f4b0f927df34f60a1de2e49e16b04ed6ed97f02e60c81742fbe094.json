@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x1278557d331733e415a35a9ddd2507a0027e09626d52c8b4c1820c212e9ba827",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.incremental.fingerprint",
+  "rootCid": "QmcwF4ZbKtaHbFBrteKzf1ioXLJHP7cueSpt53MBdErnHn",
+  "title": "Fingerprinting Compilation Inputs for Cache Validity"
+}

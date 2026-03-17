@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "COMPUTE_FROM_CANONICAL_ENVELOPE",
+
+  "kbType": "ComplianceChecklist",
+  "epistemicType": "procedural",
+  "domain": "web3.security",
+
+  "title": "Role-Based Access Control — Ownable and AccessControl Audit",
+  "summary": "Audit the access control architecture of a Solidity contract to verify that privileged functions are correctly gated, ownership transfer is two-step, admin roles are revoked post-initialization, and no role assignment bypasses timelock or multisig controls.",
+  "tags": ["solidity", "access-control", "RBAC", "Ownable", "AccessControl", "audit"],
+  "capabilities": ["audit-access-control", "verify-role-separation", "detect-privilege-escalation"],
+  "confidence": 0.95,
+  "highestSeverity": "critical",
+
+  "preconditions": [
+    "Contract uses OpenZeppelin Ownable, Ownable2Step, AccessControl, or a custom access control modifier pattern."
+  ],
+
+  "cost_estimate": {
+    "human_hours": "4-8h",
+    "resource_class": "security-auditor",
+    "automation_coverage": 0.3,
+    "notes": "Automated tools find privileged function candidates and single-step ownership patterns. Items 1c, 3, and 6 require business-logic understanding that cannot be automated."
+  },
+
+  "payloadType": "checklist",
+  "checklist": [
+    {
+      "item": "Enumerate all privileged functions: those gated by onlyOwner, onlyRole, or any custom modifier that restricts callers. Produce a complete list with the contract name, function name, and modifier applied.",
+      "severity": "medium",
+      "rationale": "A complete privilege map is the prerequisite for all access control findings. Ungated functions that should be privileged are the most commonly missed finding in this category.",
+      "tooling": {
+        "automated": "slither --detect unprotected-upgrade; grep -rn 'onlyOwner\\|onlyRole\\|modifier' src/",
+        "manual": "Review all public and external functions; flag any that modify protocol state or configuration without a caller restriction."
+      },
+      "produces": "privileged_function_list"
+    },
+    {
+      "item": "For each privileged function in privileged_function_list, document the required role (e.g. MINTER_ROLE, DEFAULT_ADMIN_ROLE, owner) and verify the modifier correctly enforces that role — no logic gaps or typos in role bytes.",
+      "severity": "high",
+      "rationale": "Modifier names can shadow role identifiers or be applied inconsistently. A function labeled onlyAdmin may not actually check DEFAULT_ADMIN_ROLE if the modifier is custom and poorly implemented.",
+      "tooling": {
+        "automated": "slither --print function-summary — shows modifier list per function",
+        "manual": "For each modifier, trace its implementation and verify the role it checks matches the intended role constant."
+      },
+      "produces": "role_requirement_map"
+    },
+    {
+      "item": "Flag any privileged function whose role restriction lacks a documented business justification. A function that can pause the protocol, upgrade the implementation, or drain funds must have a documented reason why that privilege exists and who holds it.",
+      "severity": "high",
+      "rationale": "Privilege without documented intent is a governance risk, not just a security risk. Auditors and token holders cannot evaluate whether a privilege is appropriate if its purpose is not stated.",
+      "tooling": {
+        "automated": "none — requires business logic understanding and documentation review",
+        "manual": "For each function in role_requirement_map, verify a documented justification exists in the audit report, NatSpec, or governance documentation."
+      },
+      "produces": "unjustified_privilege_findings"
+    },
+    {
+      "item": "Verify that ownership transfer uses a two-step pattern: transferOwnership() proposes the new owner, and acceptOwnership() must be called by the nominee to complete the transfer. A single-step transfer is a critical finding.",
+      "severity": "critical",
+      "rationale": "Single-step ownership transfer permanently bricks the contract if the new owner address is incorrect — a typo, wrong network, or compromised key. Two-step forces the nominee to prove they control the destination address.",
+      "tooling": {
+        "automated": "grep -rn 'Ownable2Step\\|acceptOwnership\\|pendingOwner' src/ — absence is a finding",
+        "manual": "Verify transferOwnership() sets a pendingOwner rather than immediately overwriting _owner; verify acceptOwnership() is callable only by pendingOwner."
+      },
+      "produces": "ownership_transfer_verification"
+    },
+    {
+      "item": "Confirm that renounceOwnership() cannot leave the contract in a permanently uncontrollable state. Either the function is overridden to revert, or all critical functions remain callable without an owner.",
+      "severity": "high",
+      "rationale": "Renounced ownership is irrecoverable. If critical contract functions require owner-level access, renouncing permanently disables them. This must be an explicit, documented design decision — not an inherited function that was never considered.",
+      "tooling": {
+        "automated": "grep -rn 'renounceOwnership' src/ — check if overridden",
+        "manual": "Trace all onlyOwner functions; determine if protocol remains operational with owner == address(0); document the finding either way."
+      },
+      "produces": "renounce_safety_assessment"
+    },
+    {
+      "item": "Verify that DEFAULT_ADMIN_ROLE (or equivalent highest-privilege role) is explicitly revoked from the deployer address after contract initialization completes. Check post-deployment state on testnet.",
+      "severity": "critical",
+      "rationale": "Contracts leaving the deployer as DEFAULT_ADMIN_ROLE in production create a single point of compromise: a stolen deployer key can instantly reassign all roles. This is the most commonly found critical access control bug in deployed contracts.",
+      "tooling": {
+        "automated": "cast call {contract} 'hasRole(bytes32,address)' $(cast keccak 'DEFAULT_ADMIN_ROLE') {deployer_addr} — should return false post-init",
+        "manual": "Trace deployment script step-by-step; confirm the final step revokes DEFAULT_ADMIN_ROLE from msg.sender."
+      },
+      "produces": "admin_role_post_init_status"
+    },
+    {
+      "item": "Verify that every role assignment and revocation is gated: no single EOA should execute grantRole() or revokeRole() in a single transaction without a timelock delay (minimum 48h) or multisig threshold (minimum 2-of-N).",
+      "severity": "critical",
+      "rationale": "Ungated role assignment means a compromised admin key can instantly escalate privileges, add malicious addresses to privileged roles, or disable security mechanisms. Timelocks and multisigs distribute the attack surface and give stakeholders a reaction window.",
+      "tooling": {
+        "automated": "slither --detect unprotected-upgrade (partial); check if grantRole routes through TimelockController",
+        "manual": "For every grantRole/revokeRole call path: confirm it routes through TimelockController.schedule() with minDelay >= 172800 (48h) OR requires Gnosis Safe threshold >= 2."
+      },
+      "produces": "role_assignment_gate_verification"
+    },
+    {
+      "item": "Test role state under all deployment and upgrade paths: initial deploy, proxy upgrade, emergency pause and unpause, and ownership handoff to multisig. Confirm role assignments are correct in every end state.",
+      "severity": "high",
+      "rationale": "Access control bugs appear most frequently at state transitions — upgrades and emergency procedures — not in the steady state. Each path must be explicitly simulated because role state is not always re-initialized correctly after an upgrade.",
+      "tooling": {
+        "automated": "forge test --match-test testUpgrade,testPause,testRoleHandoff (Foundry) — write explicit state-transition tests",
+        "manual": "For each deployment and upgrade path: run the full script sequence in a fork environment; call hasRole() for all critical roles after each transition."
+      },
+      "produces": "role_state_transition_test_results"
+    }
+  ],
+
+  "verification": {
+    "successConditions": [
+      "privileged_function_list complete with zero ungated functions that modify state",
+      "role_requirement_map shows every modifier correctly enforces its intended role",
+      "unjustified_privilege_findings is empty or all findings have accepted documentation",
+      "Two-step ownership transfer confirmed in source and tested on testnet",
+      "renounceOwnership() overridden to revert or protocol documented as owner-independent",
+      "deployer holds DEFAULT_ADMIN_ROLE == false in post-initialization state",
+      "All grantRole/revokeRole paths route through timelock >= 48h or multisig threshold >= 2",
+      "Role state correct in all deployment and upgrade path end states"
+    ],
+    "failureConditions": [
+      "Any state-modifying function accessible without a caller restriction — CRITICAL",
+      "Modifier implementation does not match the intended role constant — HIGH",
+      "Single-step ownership transfer in use — CRITICAL",
+      "Deployer holds DEFAULT_ADMIN_ROLE in post-initialization production state — CRITICAL",
+      "Any grantRole/revokeRole path executable by a single EOA without timelock — CRITICAL",
+      "Role state incorrect in any deployment or upgrade path end state — HIGH"
+    ],
+    "metrics": [
+      "ungated_state_modifying_functions == 0",
+      "ownership_transfer_steps == 2",
+      "deployer_admin_role_post_init == false",
+      "ungated_role_assignments == 0",
+      "role_state_test_paths_passing == 1.0"
+    ]
+  },
+
+  "interface": {
+    "inputs": [
+      { "name": "contract_source",     "type": "solidity-source", "description": "Solidity source files (.sol) including proxy and upgrade logic" },
+      { "name": "deployment_scripts",  "type": "deploy-script",   "description": "Deployment and initialization scripts to trace post-deploy role state", "options": ["hardhat-script", "foundry-script", "shell"] },
+      { "name": "test_environment",    "type": "test-framework",  "description": "Fork test environment for simulating deployment and upgrade paths", "options": ["hardhat", "foundry"] }
+    ],
+    "outputs": [
+      { "name": "rbac_clearance",           "type": "boolean", "description": "True when all 8 checks pass with zero critical or high violations" },
+      { "name": "privileged_function_list", "type": "object",  "description": "Complete inventory of privileged functions with role requirements and gating status", "schema": { "function": "string", "modifier": "string", "role_constant": "string", "gated": "boolean" } },
+      { "name": "role_requirement_map",     "type": "object",  "description": "Map from function selector to role constant with modifier verification status", "schema": { "selector": "string", "role": "string", "modifier_verified": "boolean", "justification_documented": "boolean" } }
+    ]
+  },
+
+  "artifactRefs": [
+    {
+      "uri":  "ipfs://PENDING",
+      "name": "smart_contract_security_patterns",
+      "type": "patterns_reference"
+    }
+  ],
+
+  "parentHashes": [],
+  "royaltyBps": 800,
+  "isSeed": true,
+  "publishedAt": "2026-03-08T00:00:00Z"
+}

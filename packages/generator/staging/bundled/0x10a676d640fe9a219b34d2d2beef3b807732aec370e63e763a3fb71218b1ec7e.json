@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x14438c5d0650ab8510dfc5c8355756ce68057b5301d34459c6064c462ebab49c",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.solidity",
+  "rootCid": "QmNoYzR2N1qmpoMfVxboy4nwVD9Y2ivHwDdHZbR6uJpCyK",
+  "title": "Constant-Time Secret Comparison Using keccak256 Hashing in Solidity"
+}

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x8a0ea0185941637e6e65782a1e964790b8320865eb7fcfb0532d0819cf9b1150",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.types.inference",
+  "rootCid": "QmTFNPZWeyQCGkAX5VpeAht7EoZwrgS2pvyEvc6eWtKVVB",
+  "title": "Hindley-Milner Type Inference Implementation"
+}

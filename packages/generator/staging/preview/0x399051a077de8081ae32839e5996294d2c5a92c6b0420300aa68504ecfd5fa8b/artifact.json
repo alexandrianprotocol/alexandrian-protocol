@@ -1,0 +1,73 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine distributed transaction management with agent planning to ensure robust and coherent process execution across systems."
+  ],
+  "confidence": 0.93,
+  "domain": "software.architecture",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x399051a077de8081ae32839e5996294d2c5a92c6b0420300aa68504ecfd5fa8b",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Reconcile artifacts from Saga Pattern and agent planning by applying a field-level structural comparison on shared key fields; flag conflicts where hash(A.field) ≠ hash(B.field) and log to conflict_log.",
+      "step": 1
+    },
+    {
+      "action": "Assert the merged output for consistency by asserting all required fields pass JSON Schema draft-07 validation; emit VALIDATION_FAILED with field path on the first failing field.",
+      "step": 2
+    },
+    {
+      "action": "Filter transaction candidates by executing a domain-specific query that identifies potential transaction initiators; log candidate IDs and query execution time to candidate_log by applying a predicate filter with threshold score > 0.6 on each candidate record; discard records below threshold and log detection_count; assert false_positive_rate < 0.05.",
+      "step": 3
+    },
+    {
+      "action": "Assign transaction results by applying a machine learning model trained on historical transaction data; assert model confidence > 0.9 and log classification results to classification_log.",
+      "step": 4
+    },
+    {
+      "action": "Log operation duration and result code for each transaction step to an audit trail using a structured logging format; ensure logs are indexed and searchable within 5 minutes of generation using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:37.349Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Integrate Saga Pattern for distributed transactions with agent planning derived knowledge base by merging workflows and aligning shared steps for seamless operation.",
+  "tags": [
+    "distributed_transactions",
+    "saga_pattern",
+    "agent_planning",
+    "knowledge_base",
+    "workflow_integration",
+    "structured_logging",
+    "machine_learning"
+  ],
+  "title": "Saga Pattern Integration",
+  "verification": {
+    "failureConditions": [
+      "Inconsistent transaction states when merge omits NULL handling: records with NULL key fields are silently dropped, causing referential integrity violations in downstream consumers.",
+      "Inaccurate transaction classification when model confidence threshold is not met, causing misclassification and incorrect downstream processing.",
+      "Delayed log indexing when logging infrastructure is misconfigured, causing delays in audit trail availability and hindering real-time monitoring."
+    ],
+    "metrics": [
+      "the merged output for consistency by asserting all required fields pass JSON Schema draft-07 validation",
+      "false_positive_rate < 0.05",
+      "model confidence > 0.9 and log classification results to classification_log",
+      "error_count < 1 and result_valid = true"
+    ],
+    "successConditions": [
+      "error_count < 1",
+      "result_valid = true",
+      "operation_duration_ms < 500ms",
+      "log_indexing_time < 5 minutes"
+    ]
+  }
+}

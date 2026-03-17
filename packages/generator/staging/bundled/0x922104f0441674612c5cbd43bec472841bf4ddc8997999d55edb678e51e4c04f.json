@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xf5d9e477a9e4dcbff39d944f766cb45655c44fb243a8b5e03ee8a01c3df5adaf",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "experimentation.rollout.ring",
+  "rootCid": "QmXHmeFoVdqjmQxb5dc97BkNsf5C8ZDfrZyqR64MNrthGc",
+  "title": "Ring-Based Deployment Rollout Architecture Design"
+}

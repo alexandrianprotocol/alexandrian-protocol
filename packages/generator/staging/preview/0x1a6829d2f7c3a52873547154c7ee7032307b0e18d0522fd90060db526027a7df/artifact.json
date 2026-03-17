@@ -1,0 +1,71 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine event sourcing with SQL read models to enhance data retrieval efficiency and consistency by leveraging agent execution insights."
+  ],
+  "confidence": 0.93,
+  "domain": "software.architecture",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x1a6829d2f7c3a52873547154c7ee7032307b0e18d0522fd90060db526027a7df",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Reconcile artifacts from event sourcing and agent execution by applying field-level structural comparison on shared key fields; flag conflicts where hash(A.field) ≠ hash(B.field) and log to conflict_log.",
+      "step": 1
+    },
+    {
+      "action": "Assert merged output for consistency by asserting all required fields pass JSON Schema draft-07 validation; emit VALIDATION_FAILED with field path on the first failing field.",
+      "step": 2
+    },
+    {
+      "action": "Filter candidate events for read model updates by executing SQL queries that identify changes in event streams; ensure query execution time is logged and below 100ms.",
+      "step": 3
+    },
+    {
+      "action": "Assign results from event streams using domain-specific classification algorithms; ensure classification accuracy is logged and exceeds 95%.",
+      "step": 4
+    },
+    {
+      "action": "Log operation duration and result code for each step to an audit trail using structured logging; ensure logs are accessible for compliance and debugging purposes using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:53.997Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Optimize SQL read models by integrating event sourcing insights with agent execution knowledge, ensuring efficient data retrieval and consistency.",
+  "tags": [
+    "event_sourcing",
+    "sql_read_models",
+    "data_consistency",
+    "structured_logging",
+    "metrics_aggregation",
+    "data_retrieval",
+    "agent_execution"
+  ],
+  "title": "Optimizing SQL Read Models for Event Sourcing",
+  "verification": {
+    "failureConditions": [
+      "Inconsistent data when merge omits NULL handling: records with NULL key fields are silently dropped, causing referential integrity violations in downstream consumers.",
+      "High latency in read models when SQL queries are not optimized for event stream changes, causing delayed data retrieval.",
+      "Incorrect classification results when domain-specific algorithms are not properly tuned, leading to inaccurate data insights."
+    ],
+    "metrics": [
+      "merged output for consistency by asserting all required fields pass JSON Schema draft-07 validation",
+      "error_count < 1 and result_valid = true"
+    ],
+    "successConditions": [
+      "operation_duration_ms < 100ms",
+      "classification_accuracy > 95%",
+      "error_count < 1",
+      "result_valid = true"
+    ]
+  }
+}

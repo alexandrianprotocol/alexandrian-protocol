@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x6605151f966f9ccd488d69c6d098e6f5505f2846e023f3488512f03198c77d34
+  artifactHash: 0x42a3acb169d8d0e1c04a99a2a21dcf4664857ce76e6b273ec62d0304e2db0638
+  title:        Experiment Replication Procedure for Key Results
+  domain:       experimentation.governance.replication
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  15
+  graph edges:  24
+  artifact.json size: 3323 bytes
+  meta.json size:     3894 bytes

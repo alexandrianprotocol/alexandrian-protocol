@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x2bdef0731f830fca887a24b6188a1050138ded6c72820f075807826882eff840",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "ml.feature.embedding",
+  "rootCid": "QmQgd7iAiwpxwHaY2Eaid4rYteowR9Zdn1ZndMcpYv4hN5",
+  "title": "Entity Embedding Generation for Sparse Categorical Features"
+}

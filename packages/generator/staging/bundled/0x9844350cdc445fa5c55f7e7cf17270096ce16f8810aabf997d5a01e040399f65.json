@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x48609becf115be5d8b3b2a30c5e121c303d0c77ccc3ff7e7ab14c8aa5a4f312c",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.parser.recursive_descent",
+  "rootCid": "QmSaKtEeKNtFrqCTTuQxGQ7SC9qguGKSZbQtv3QcrDebVV",
+  "title": "Recursive Descent Parser for LL(1) Grammars"
+}

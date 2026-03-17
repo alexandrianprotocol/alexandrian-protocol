@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0xed0c56d3b7799d066b636dc851f411a4030ccdc113c20744d168c10fad99c0c9
+  artifactHash: 0xb80853770b71cd138eacc845e286fbae75001f9d895dd8aa62e469484a08c9b6
+  title:        Establishing Seed Prompt for Consistent AI Output
+  domain:       ai.prompting
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   1
+  procedure:    6 steps
+  capabilities: 1
+  metrics:      6
+  graph nodes:  22
+  graph edges:  28
+  artifact.json size: 4134 bytes
+  meta.json size:     4858 bytes

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x1410394c3ac5f835b6f223e4133ea95b53c3456788abb7318803d2390afcbc3c",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.planning",
+  "rootCid": "QmUZGBBwDrP77QDf1LvoywtM6NCDQ7ymwMy5z6j2cRzjEC",
+  "title": "Bounded Plan-Execute-Verify Agent Loop"
+}

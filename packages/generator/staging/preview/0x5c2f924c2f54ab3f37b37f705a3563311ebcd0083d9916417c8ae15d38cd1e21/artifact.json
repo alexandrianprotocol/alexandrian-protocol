@@ -1,0 +1,89 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Use property-based and contract testing to validate LLM outputs, focusing on structural, semantic, and factual properties to maintain reliability during model updates."
+  ],
+  "confidence": 0.93,
+  "domain": "ai.prompting",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0x5c2f924c2f54ab3f37b37f705a3563311ebcd0083d9916417c8ae15d38cd1e21",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Specify output properties using JSON Schema to capture expected structural and semantic attributes.",
+      "step": 1
+    },
+    {
+      "action": "Invoke Hypothesis to generate diverse prompt variants that test defined properties across LLM outputs by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 2
+    },
+    {
+      "action": "Run semantic similarity checks with Sentence Transformers to ensure outputs meet semantic expectations using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Establish consumer-driven contracts using Pact to define and verify expected interactions with LLM outputs.",
+      "step": 4
+    },
+    {
+      "action": "Compose contract tests into CI/CD pipelines to automatically validate outputs against defined contracts by composing module interfaces via adapter pattern; assert input/output type contracts match before connecting; assert integration_error_count < 1 after contract validation.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:18:31.313Z",
+  "royaltyBps": 400,
+  "schemaVersion": "2.5",
+  "summary": "Adapt property-based and contract testing to LLM outputs by focusing on output properties rather than exact matches, ensuring robustness across prompt variations and model changes.",
+  "tags": [
+    "ai_prompting",
+    "property_based_testing",
+    "contract_testing",
+    "llm_outputs",
+    "model_reliability",
+    "semantic_validation",
+    "ci_cd_integration"
+  ],
+  "title": "Applying Property-Based and Contract Testing to LLM Outputs",
+  "verification": {
+    "failureConditions": [
+      "Silent regressions occur during model updates; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Outputs fail to meet structural expectations; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Semantic drift in outputs across prompt variations; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "response_status < 400 and response_time_ms < 5000",
+      "error_count < 1 and result_valid = true",
+      "input/output type contracts match before connecting",
+      "integration_error_count < 1 after contract validation",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "All generated prompt variants pass property-based tests",
+      "Contract tests pass in CI/CD pipeline with no failures",
+      "Semantic similarity scores exceed 0.8 for key outputs"
+    ]
+  }
+}

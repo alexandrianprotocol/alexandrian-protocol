@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x0104413ee771cd93da696f55b966bbda540334329786661c385ba1799d213fe9
+  artifactHash: 0xe949dbec1089a059602692308fec861484cf9431b667d4767c4b78849d2e838d
+  title:        Coverage-Guided Fuzzing for Security-Critical Parsers
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  19
+  graph edges:  27
+  artifact.json size: 3036 bytes
+  meta.json size:     4346 bytes

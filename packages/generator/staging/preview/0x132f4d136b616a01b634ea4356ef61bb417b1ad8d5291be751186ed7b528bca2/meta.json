@@ -1,0 +1,198 @@
+{
+  "domain": "software.testing",
+  "isSeed": true,
+  "kbHash": "0x132f4d136b616a01b634ea4356ef61bb417b1ad8d5291be751186ed7b528bca2",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:53.975Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Allowlist Schema Validation with Solidity",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Specify JSON schema for input data and store in a version-controlled repository by specifying schema",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Invoke Solidity's ABIEncoderV2 to parse input data and match against the JSON schema by invoking the",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Invoke a pre-processing layer in the API Gateway to validate input data against the schema before fo",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Log validation results using Structured Logging to track schema compliance using domain-appropriate ",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Release a test suite using Truffle to simulate input scenarios and verify schema adherence.",
+        "type": "step"
+      },
+      {
+        "id": "out:validation_results_using_structured_logging",
+        "label": "validation results using Structured Logging",
+        "type": "output"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:test_coverage_gte_0_8_for_the_modified_module_before_marking",
+        "label": "test_coverage >= 0.8 for the modified module before marking complete",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:api_gateway",
+        "label": "API Gateway",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      },
+      {
+        "id": "ref:immutable_infrastructure",
+        "label": "Immutable Infrastructure",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:validation_results_using_structured_logging"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:validation_results_using_structured_logging",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:test_coverage_gte_0_8_for_the_modified_module_before_marking"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:api_gateway"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:immutable_infrastructure"
+      }
+    ]
+  },
+  "tags": [
+    "software_testing",
+    "solidity",
+    "schema_validation",
+    "smart_contracts",
+    "input_validation",
+    "api_gateway",
+    "structured_logging"
+  ],
+  "title": "Allowlist Schema Validation with Solidity"
+}

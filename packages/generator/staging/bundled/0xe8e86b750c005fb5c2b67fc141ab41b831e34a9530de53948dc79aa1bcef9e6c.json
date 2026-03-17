@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x550cd0c76db5e50747e4c7ebe82f222752c24f2a0e2a8f25e125b6f388febef5",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.execution",
+  "rootCid": "QmdrhqNCXkXQgEu54akWALdQEucdAFgEKHu4jtqoFSWtPr",
+  "title": "Exponential Backoff Retry Pattern for Transient Failures"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1229b60e62fe6f31af90eee63559f7cae979be735750b3d524073443b394c4b3
+  artifactHash: 0xdca1c678cce912af11dd89126b5d566834c3a2bde5fbcdd6d531ab5cfc7313a3
+  title:        Dependency-Driven Action Sequencing in Agent Planning
+  domain:       agent.planning
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  18
+  graph edges:  23
+  artifact.json size: 3354 bytes
+  meta.json size:     4140 bytes

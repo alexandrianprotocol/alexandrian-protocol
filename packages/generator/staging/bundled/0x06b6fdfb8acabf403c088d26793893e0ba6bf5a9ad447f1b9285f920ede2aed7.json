@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x2a5de6a94353bb634def9fb8368bec5544e9bc637b914ed6a4830babc3fda879",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "mobile.ota.rollback",
+  "rootCid": "QmbuzLpGgF9C95SACdqVNcC8NBA43un2KrEK27eFNX9FT8",
+  "title": "OTA Update Rollback Mechanism Design"
+}

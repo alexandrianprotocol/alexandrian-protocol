@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x25d48a7dddc6718c053d44861d61b221f13efc4a7bd5e164e892b00d1d3c8ec5",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "software.security",
+  "rootCid": "QmQ4zRvHaMV4QQByv3GfuEkQR6oCFGNnQhTRHqrT1xa4ho",
+  "title": "SQL Injection Prevention via Parameterized Queries"
+}

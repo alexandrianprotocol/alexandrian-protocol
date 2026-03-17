@@ -57,10 +57,13 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
     error CIDRequired();
     error DomainRequired();
     error TooManyParents();
+    error NotEnoughParents();
+    error SeedHasParents();
     error NoSelfReference();
     error ParentNotRegistered();
     error DuplicateParent();
     error SharesExceedDistributable();
+    error QueryFeeExceedsMax();
 
     // KB existence
     error KBNotRegistered();
@@ -97,6 +100,9 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
     // Identity linking
     error IdentityAlreadyLinked();
 
+    // Agent registry
+    error AgentAlreadyRegistered();
+
     // Admin
     error FeeTooHigh();
     error SlashRateTooHigh();
@@ -118,6 +124,13 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
         HumanStaked,     // 0  human curator, full accountability
         AgentDerived,    // 1  derived from Tier 0 KBs
         AgentDiscovered  // 2  novel agent content, probationary
+    }
+
+    enum AgentRole {
+        Explorer,
+        Synthesizer,
+        Validator,
+        Publisher
     }
 
     // =========================================================================
@@ -178,18 +191,24 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
         uint256 lastUpdated;
     }
 
+    /// @dev Minimal on-chain record. CID and artifact hash stored in separate mappings; domain/type emitted in events for indexer.
     struct KnowledgeBlock {
-        address   curator;
-        KBType    kbType;
-        TrustTier trustTier;
-        string    cid;
-        string    embeddingCid;
-        string    domain;
-        string    licenseType;
-        uint256   queryFee;
-        uint256   timestamp;
-        string    version;
-        bool      exists;
+        address curator;
+        uint64  timestamp;
+        uint96  queryFee;   // supports up to ~79k ETH
+        bool    exists;
+    }
+
+    /// @dev sha256(artifact content) for off-chain integrity verification.
+    mapping(bytes32 => bytes32) public artifactHashes;
+
+    /// @dev Multihash digest of CID (keccak256(cid)); indexer gets full CID from KBPublished event.
+    mapping(bytes32 => bytes32) public cidDigest;
+
+    struct AgentProfile {
+        bool       exists;
+        AgentRole  role;
+        address    operator;  // human/org wallet, optional
     }
 
     // =========================================================================
@@ -210,9 +229,10 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
     mapping(bytes32 => ReputationRecord)  public reputation;
 
     mapping(address => bytes32[]) public curatorBlocks;
-    mapping(uint8   => bytes32[]) public blocksByType;
-    mapping(bytes32 => bytes32[]) public blocksByDomain;
-    mapping(bytes32 => bytes32[]) public derivedBlocks;
+    // blocksByType / blocksByDomain / derivedBlocks removed; indexer reconstructs from KBPublished / AttributionLinked events
+
+    /// @dev Agent registry: wallet => profile (role, operator). Enables attribution and anti-sybil.
+    mapping(address => AgentProfile) public agents;
 
     uint256 public constant MAX_PARENTS = 8;
 
@@ -267,12 +287,14 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
     event AssetRegistered(bytes32 indexed assetId, bytes32 indexed fingerprint, string cid, address indexed creator, uint256 timestamp);
     event DerivationRegistered(bytes32 indexed derivedId, bytes32 indexed parentId, uint256 depth);
     event LicenseUpdated(bytes32 indexed assetId, License license);
+    event AssetDeactivated(bytes32 indexed assetId, address indexed creator);
 
     // =========================================================================
     // EVENTS  V1
     // =========================================================================
 
-    event KBPublished(bytes32 indexed contentHash, address indexed curator, KBType indexed kbType, string domain, uint256 queryFee, uint256 timestamp);
+    /// @param cid Full IPFS CID (indexer uses this; on-chain we store only cidDigest).
+    event KBPublished(bytes32 indexed contentHash, address indexed curator, KBType indexed kbType, string domain, uint96 queryFee, uint64 timestamp, address agent, string cid, string embeddingCid);
     event KBStaked(bytes32 indexed contentHash, address indexed curator, uint256 amount);
     event KBUnstaked(bytes32 indexed contentHash, address indexed curator, uint256 amount);
     event KBSlashed(bytes32 indexed contentHash, address indexed curator, uint256 slashedAmount, string reason);
@@ -296,6 +318,7 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
     event Paused(address indexed by);
     event Unpaused(address indexed by);
     event IdentityLinked(bytes32 indexed previousIdentity, bytes32 indexed newIdentity);
+    event AgentRegistered(address indexed agent, AgentRole role, address operator);
 
     // =========================================================================
     // MODIFIERS
@@ -344,6 +367,9 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
 
     /// @notice Publish a Knowledge Block. Curator may differ from msg.sender (allows seeding / delegated publish).
     /// @dev Trust model: we do not require curator == msg.sender. See docs/PROTOCOL-TRUST-AND-SUBGRAPH.md.
+    /// @param isSeed If true, parents must be empty. If false, parents.length >= minimumRequiredParents.
+    /// @param minimumRequiredParents Minimum parent count for derived KBs (ignored when isSeed is true).
+    /// @param artifactHash sha256(artifact content) for off-chain integrity verification.
     function publishKB(
         bytes32           contentHash,
         address           curator,
@@ -355,7 +381,10 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
         string  calldata  licenseType,
         uint256           queryFee,
         string  calldata  version,
-        AttributionLink[] calldata parents
+        AttributionLink[] calldata parents,
+        bool              isSeed,
+        uint8             minimumRequiredParents,
+        bytes32           artifactHash
     ) external payable nonReentrant whenNotPaused {
         if (contentHash == bytes32(0))             revert InvalidHash();
         if (curator == address(0))                 revert InvalidCurator();
@@ -364,26 +393,27 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
         if (bytes(cid).length == 0)                revert CIDRequired();
         if (bytes(domain).length == 0)             revert DomainRequired();
         if (parents.length > MAX_PARENTS)          revert TooManyParents();
+        if (queryFee > type(uint96).max)           revert QueryFeeExceedsMax();
+
+        if (isSeed) {
+            if (parents.length != 0) revert SeedHasParents();
+        } else {
+            if (parents.length < minimumRequiredParents) revert NotEnoughParents();
+        }
 
         _validateAttributionShares(contentHash, parents);
 
         knowledgeBlocks[contentHash] = KnowledgeBlock({
-            curator:      curator,
-            kbType:       kbType,
-            trustTier:    trustTier,
-            cid:          cid,
-            embeddingCid: embeddingCid,
-            domain:       domain,
-            licenseType:  licenseType,
-            queryFee:     queryFee,
-            timestamp:    block.timestamp,
-            version:      version,
-            exists:       true
+            curator:   curator,
+            timestamp: uint64(block.timestamp),
+            queryFee:  uint96(queryFee),
+            exists:    true
         });
+        artifactHashes[contentHash] = artifactHash;
+        cidDigest[contentHash] = keccak256(bytes(cid));
 
         for (uint256 i = 0; i < parents.length; i++) {
             attributionDAG[contentHash].push(parents[i]);
-            derivedBlocks[parents[i].parentHash].push(contentHash);
             emit AttributionLinked(contentHash, parents[i].parentHash, parents[i].royaltyShareBps, parents[i].relationship);
         }
 
@@ -401,12 +431,19 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
         });
 
         curatorBlocks[curator].push(contentHash);
-        blocksByType[uint8(kbType)].push(contentHash);
-        // Domain index key must match subgraph: keccak256(bytes(domain))
-        blocksByDomain[keccak256(bytes(domain))].push(contentHash);
 
-        emit KBPublished(contentHash, curator, kbType, domain, queryFee, block.timestamp);
+        emit KBPublished(contentHash, curator, kbType, domain, uint96(queryFee), uint64(block.timestamp), msg.sender, cid, embeddingCid);
         emit KBStaked(contentHash, curator, msg.value);
+    }
+
+    /// @notice Register or update an agent (publisher wallet) for attribution and role validation.
+    /// @param agent Wallet address of the agent.
+    /// @param role Explorer | Synthesizer | Validator | Publisher.
+    /// @param operator Optional human/org wallet; use address(0) if none.
+    function registerAgent(address agent, AgentRole role, address operator) external onlyOwner {
+        if (agent == address(0)) revert InvalidCurator();
+        agents[agent] = AgentProfile({ exists: true, role: role, operator: operator });
+        emit AgentRegistered(agent, role, operator);
     }
 
     // =========================================================================
@@ -597,11 +634,21 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
         return knowledgeBlocks[contentHash].curator;
     }
 
-    /// @notice Returns the full KnowledgeBlock struct for a registered KB.
+    /// @notice Returns the minimal on-chain KnowledgeBlock for a registered KB. CID and artifact hash via getCidDigest / getArtifactHash; domain/type from KBPublished events.
     /// @param contentHash The KB content hash.
     function getKnowledgeBlock(bytes32 contentHash)
         external view kbExists(contentHash) returns (KnowledgeBlock memory)
     { return knowledgeBlocks[contentHash]; }
+
+    /// @notice Returns the artifact integrity hash (sha256 of artifact content) for a KB.
+    function getArtifactHash(bytes32 contentHash) external view kbExists(contentHash) returns (bytes32) {
+        return artifactHashes[contentHash];
+    }
+
+    /// @notice Returns the CID digest (keccak256 of CID string) for a KB. Full CID is in KBPublished event.
+    function getCidDigest(bytes32 contentHash) external view kbExists(contentHash) returns (bytes32) {
+        return cidDigest[contentHash];
+    }
 
     /// @notice Returns all AttributionLink edges for a KB (the on-chain royalty DAG).
     /// @param contentHash The KB content hash.
@@ -625,25 +672,6 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
     /// @param curator The curator wallet address.
     function getCuratorBlocks(address curator) external view returns (bytes32[] memory) {
         return curatorBlocks[curator];
-    }
-
-    /// @notice Returns all KB content hashes registered under a given KBType.
-    /// @param kbType The KBType enum value to filter by.
-    function getBlocksByType(KBType kbType) external view returns (bytes32[] memory) {
-        return blocksByType[uint8(kbType)];
-    }
-
-    /// @notice Returns all KB content hashes for a given domain string.
-    /// @dev The domain is keccak256-hashed to form the mapping key. Pass the exact domain string.
-    /// @param domain The human-readable domain string (e.g. "software.security").
-    function getBlocksByDomain(string calldata domain) external view returns (bytes32[] memory) {
-        return blocksByDomain[keccak256(bytes(domain))];
-    }
-
-    /// @notice Returns all KB content hashes that cite `parentHash` as a direct attribution parent.
-    /// @param parentHash The parent KB content hash.
-    function getDerivedBlocks(bytes32 parentHash) external view returns (bytes32[] memory) {
-        return derivedBlocks[parentHash];
     }
 
     /// @notice Returns true if `childHash` has `parentHash` as a direct attribution parent.
@@ -784,6 +812,7 @@ contract AlexandrianRegistryV2 is Ownable, ReentrancyGuard, IERC2981 {
     function deactivateAsset(bytes32 assetId) external assetExists(assetId) {
         if (assets[assetId].creator != msg.sender) revert OnlyCreator();
         assets[assetId].active = false;
+        emit AssetDeactivated(assetId, msg.sender);
     }
     /// @notice Returns all asset IDs registered by a creator address.
     function getCreatorAssets(address creator) external view returns (bytes32[] memory) { return creatorAssets[creator]; }

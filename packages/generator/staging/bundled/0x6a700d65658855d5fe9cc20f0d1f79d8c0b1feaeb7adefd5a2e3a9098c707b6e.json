@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x089d9aa49a93c92c287c2461db580f1dedb1aee8e012ea034d69721694f1fed5",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.incremental.dependency",
+  "rootCid": "QmbGSsLYyXHrkMUq9PBobMeyyMHLcu9RFBGyNQvYxCDc42",
+  "title": "Incremental Build Dependency Tracking"
+}

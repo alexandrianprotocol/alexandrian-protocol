@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x0a544a93905de086198cec0e9b8496a899bd377fa1d67135239a16c2dd4fa17d",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.transaction.deadlock",
+  "rootCid": "QmaqDyoZteeJZUbAUMRbPcWLxgCmj9JhPXRbuHm38mBW5C",
+  "title": "Database Deadlock Detection"
+}

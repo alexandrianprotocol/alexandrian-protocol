@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x1f14ca7e8a7ce2cb0b8ea7cc94335bd732c3f1fe776e3d3f23663000b0843e3d
+  artifactHash: 0x04fe1304f8fcf693e97a7d21f1dcd4b699e38af747e1be8697e775debbc6458f
+  title:        Secret Management
+  domain:       software.security
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      2
+  graph nodes:  14
+  graph edges:  18
+  artifact.json size: 2495 bytes
+  meta.json size:     3131 bytes

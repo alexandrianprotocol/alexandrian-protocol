@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x53e67df91571ea0d1ec813bfec8e2027995d1e67e7e1b1802307bc25a52eb0f9",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.error_recovery",
+  "rootCid": "QmZYxTgbGPNJhcMMksGAPNtwjvLkTXtmbEug9vDqE3u8BV",
+  "title": "Circuit Breaker Pattern in Error Recovery"
+}

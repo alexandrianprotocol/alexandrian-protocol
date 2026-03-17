@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x27f041ea7769b99b64723354541914ba57346618426e79c067c9c41459df2855
+  artifactHash: 0x7647f260b8e2ee491bd8588e12793562d609c57d933fc21341bed53fd853c608
+  title:        Specialized Code Refactoring Strategy
+  domain:       software.design_patterns
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  19
+  graph edges:  23
+  artifact.json size: 3226 bytes
+  meta.json size:     4156 bytes

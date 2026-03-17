@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x130b5e0b0a5e3c832021cdf0e73820180b87a46c20737b5b9c31a627e3fa3150",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "experimentation.flags.kill_switch",
+  "rootCid": "QmPcof23guy4CiPNpu1KsnkJTPeSJeaddWJJaQczruLBsm",
+  "title": "Kill Switch Pattern for Emergency Feature Disablement"
+}

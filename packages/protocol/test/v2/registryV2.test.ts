@@ -12,7 +12,9 @@ import { ethers } from "hardhat";
 import type { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 
 const CONTENT_HASH_A = ethers.keccak256(ethers.toUtf8Bytes("kb-v2-a"));
+const CONTENT_HASH_B = ethers.keccak256(ethers.toUtf8Bytes("kb-v2-b"));
 const CONTENT_HASH_CHILD = ethers.keccak256(ethers.toUtf8Bytes("kb-v2-child"));
+const ARTIFACT_HASH_ZERO = "0x0000000000000000000000000000000000000000000000000000000000000000";
 const QUERY_FEE = ethers.parseEther("0.001");
 const MIN_STAKE = ethers.parseEther("0.001");
 const ROYALTY_BPS = 1000; // 10% to parent
@@ -52,6 +54,8 @@ async function publishKB(
   queryFee: bigint = QUERY_FEE,
   parents: { parentHash: string; royaltyShareBps: number; relationship: string }[] = []
 ) {
+  const isSeed = parents.length === 0;
+  const minimumRequiredParents = isSeed ? 0 : 2;
   return registry.connect(signer).publishKB(
     contentHash,
     signer.address,
@@ -68,6 +72,9 @@ async function publishKB(
       royaltyShareBps: p.royaltyShareBps,
       relationship: p.relationship,
     })),
+    isSeed,
+    minimumRequiredParents,
+    ARTIFACT_HASH_ZERO,
     { value: MIN_STAKE }
   );
 }
@@ -93,8 +100,11 @@ describe("V2 — canonical registry", () => {
       const kb = await registry.getKnowledgeBlock(CONTENT_HASH_A);
       expect(kb.exists).to.equal(true);
       expect(kb.curator).to.equal(curator.address);
-      expect(kb.domain).to.equal("cybersecurity");
       expect(kb.queryFee).to.equal(QUERY_FEE);
+      const digest = await registry.getCidDigest(CONTENT_HASH_A);
+      expect(digest).to.equal(ethers.keccak256(ethers.toUtf8Bytes("ipfs://cid")));
+      const artHash = await registry.getArtifactHash(CONTENT_HASH_A);
+      expect(artHash).to.equal(ARTIFACT_HASH_ZERO);
     });
 
     it("enforces MAX_PARENTS (8)", async () => {
@@ -116,6 +126,9 @@ describe("V2 — canonical registry", () => {
           QUERY_FEE,
           "1.0.0",
           manyParents,
+          false,
+          2,
+          ARTIFACT_HASH_ZERO,
           { value: MIN_STAKE }
         )
       ).to.be.revertedWithCustomError(registry, "TooManyParents");
@@ -123,6 +136,7 @@ describe("V2 — canonical registry", () => {
 
     it("rejects duplicate parents", async () => {
       await publishKB(registry, parentCurator, CONTENT_HASH_A);
+      await publishKB(registry, parentCurator, CONTENT_HASH_B);
       const dupParents = [
         { parentHash: CONTENT_HASH_A, royaltyShareBps: 500, relationship: RELATIONSHIP },
         { parentHash: CONTENT_HASH_A, royaltyShareBps: 500, relationship: RELATIONSHIP },
@@ -134,11 +148,45 @@ describe("V2 — canonical registry", () => {
 
     it("allows parent shares to total 10000 bps", async () => {
       await publishKB(registry, parentCurator, CONTENT_HASH_A);
+      await publishKB(registry, parentCurator, CONTENT_HASH_B);
+      await expect(
+        publishKB(registry, curator, CONTENT_HASH_CHILD, QUERY_FEE, [
+          { parentHash: CONTENT_HASH_A, royaltyShareBps: 10000, relationship: RELATIONSHIP },
+          { parentHash: CONTENT_HASH_B, royaltyShareBps: 0, relationship: RELATIONSHIP },
+        ])
+      ).to.not.be.reverted;
+    });
+
+    it("reverts when seed has parents (SeedHasParents)", async () => {
+      await publishKB(registry, parentCurator, CONTENT_HASH_A);
+      await expect(
+        registry.connect(curator).publishKB(
+          ethers.keccak256(ethers.toUtf8Bytes("seed-with-parent")),
+          curator.address,
+          0,
+          0,
+          "ipfs://x",
+          "",
+          "test",
+          "MIT",
+          QUERY_FEE,
+          "1.0.0",
+          [{ parentHash: CONTENT_HASH_A, royaltyShareBps: 1000, relationship: RELATIONSHIP }],
+          true,
+          0,
+          ARTIFACT_HASH_ZERO,
+          { value: MIN_STAKE }
+        )
+      ).to.be.revertedWithCustomError(registry, "SeedHasParents");
+    });
+
+    it("reverts when derived has fewer than minimumRequiredParents (NotEnoughParents)", async () => {
+      await publishKB(registry, parentCurator, CONTENT_HASH_A);
       await expect(
         publishKB(registry, curator, CONTENT_HASH_CHILD, QUERY_FEE, [
           { parentHash: CONTENT_HASH_A, royaltyShareBps: 10000, relationship: RELATIONSHIP },
         ])
-      ).to.not.be.reverted;
+      ).to.be.revertedWithCustomError(registry, "NotEnoughParents");
     });
   });
 
@@ -204,8 +252,10 @@ describe("V2 — canonical registry", () => {
   describe("royalty DAG", () => {
     it("parent curator receives royalty in pendingWithdrawals when child is queried", async () => {
       await publishKB(registry, parentCurator, CONTENT_HASH_A);
+      await publishKB(registry, parentCurator, CONTENT_HASH_B);
       await publishKB(registry, curator, CONTENT_HASH_CHILD, QUERY_FEE, [
         { parentHash: CONTENT_HASH_A, royaltyShareBps: ROYALTY_BPS, relationship: RELATIONSHIP },
+        { parentHash: CONTENT_HASH_B, royaltyShareBps: 0, relationship: RELATIONSHIP },
       ]);
 
       await registry.connect(querier).settleQuery(CONTENT_HASH_CHILD, querier.address, { value: QUERY_FEE });
@@ -224,8 +274,10 @@ describe("V2 — canonical registry", () => {
   describe("share split", () => {
     it("does not underflow when protocol fee changes after publish", async () => {
       await publishKB(registry, parentCurator, CONTENT_HASH_A);
+      await publishKB(registry, parentCurator, CONTENT_HASH_B);
       await publishKB(registry, curator, CONTENT_HASH_CHILD, QUERY_FEE, [
         { parentHash: CONTENT_HASH_A, royaltyShareBps: 10000, relationship: RELATIONSHIP },
+        { parentHash: CONTENT_HASH_B, royaltyShareBps: 0, relationship: RELATIONSHIP },
       ]);
       await registry.connect(owner).setProtocolFee(1000); // 10%
       const split = await registry.getShareSplit(CONTENT_HASH_CHILD);
@@ -304,9 +356,14 @@ describe("V2 — canonical registry", () => {
 
         for (let d = 0; d < depth; d++) {
           const parents =
-            d === 0
+            d <= 1
               ? []
               : [
+                  {
+                    parentHash: ids[d - 2],
+                    royaltyShareBps: randInt(rng, 100, 2000),
+                    relationship: RELATIONSHIP,
+                  },
                   {
                     parentHash: ids[d - 1],
                     royaltyShareBps: randInt(rng, 100, 2000),
@@ -361,9 +418,14 @@ describe("V2 — canonical registry", () => {
 
       for (let d = 0; d < depth; d++) {
         const parents =
-          d === 0
+          d <= 1
             ? []
             : [
+                {
+                  parentHash: ids[d - 2],
+                  royaltyShareBps: randInt(rng, 200, 1500),
+                  relationship: RELATIONSHIP,
+                },
                 {
                   parentHash: ids[d - 1],
                   royaltyShareBps: randInt(rng, 200, 1500),

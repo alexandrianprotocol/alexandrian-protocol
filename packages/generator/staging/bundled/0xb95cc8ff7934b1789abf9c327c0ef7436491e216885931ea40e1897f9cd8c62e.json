@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x59c6cf11d295c6eee599eced029841bcaa24480ec5913f6f55596b0815fbc829",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "sql.optimization",
+  "rootCid": "QmeUePujcxst5rMmB7oPhv7K8UxWJhM9UaX4Zkk6rhefmt",
+  "title": "Applying Index Hints for Query Optimization"
+}

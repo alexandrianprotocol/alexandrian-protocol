@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x64b996f19c6179ca3d68798795a58bfb70df1a3da9e05b0550f9bb8246569368
+  artifactHash: 0xf268399cdd9d153b229cd103cb1a6a61a3dc5e531154bb1474c3463bbbf5865b
+  title:        Batch Processing Composition in Software Architecture
+  domain:       agent.execution
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.95
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  19
+  graph edges:  21
+  artifact.json size: 3583 bytes
+  meta.json size:     3985 bytes

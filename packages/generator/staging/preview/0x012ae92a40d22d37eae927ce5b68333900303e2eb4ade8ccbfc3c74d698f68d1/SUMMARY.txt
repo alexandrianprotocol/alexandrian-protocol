@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x012ae92a40d22d37eae927ce5b68333900303e2eb4ade8ccbfc3c74d698f68d1
+  artifactHash: 0x16a47938dce88b4eedd3fc6d05ae96eba1877b5375d49eddbc0fd69c58555c9e
+  title:        Consumer-Driven Contract Testing
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  20
+  graph edges:  27
+  artifact.json size: 3723 bytes
+  meta.json size:     4642 bytes

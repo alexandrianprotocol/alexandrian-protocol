@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x52c08faa49c5e9529ebd770efc50d46365adf03a88c0c45e77b22c01d4f6c5da",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.execution",
+  "rootCid": "QmW6PECpXPGdtfFzSrg6NtSiRoyYp8UWUkZpmpUB2xj9qt",
+  "title": "Enforcing Valid State Transitions in Explicit State Machines"
+}

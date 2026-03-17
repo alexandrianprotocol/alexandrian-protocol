@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x4ea3aa10d4d7f9b239a2c9740478f979bf0e332ec12265f804df3241da4d4cd1",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "distributed.systems",
+  "rootCid": "QmRq275e3BhcYrXeuUinET4PTvcA5AwNkEDgkViRc4Rbqq",
+  "title": "Key-Based Data Partitioning for Scalable Query Pruning"
+}

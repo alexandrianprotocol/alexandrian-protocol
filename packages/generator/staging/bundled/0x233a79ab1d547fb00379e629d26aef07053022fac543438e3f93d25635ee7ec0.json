@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x463fb1e2e1635bc5632a6be3c54a384c5bf64ba25446528b355267e2a8572e96",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "finance.payment.capture",
+  "rootCid": "QmSLmtQdG9LaqLUvyc3H3mjF1bjb13WQ9DhMjS8ZA7R98k",
+  "title": "Auth-and-Capture Payment Flow Implementation"
+}

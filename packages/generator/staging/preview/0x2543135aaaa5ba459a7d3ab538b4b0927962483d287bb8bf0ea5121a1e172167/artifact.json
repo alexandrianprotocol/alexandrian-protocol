@@ -1,0 +1,71 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Implement conflict resolution in knowledge graphs using specialized tools and techniques tailored to software architecture domains, ensuring accuracy and auditability."
+  ],
+  "confidence": 0.93,
+  "domain": "knowledge.graphs",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x2543135aaaa5ba459a7d3ab538b4b0927962483d287bb8bf0ea5121a1e172167",
+  "kbType": "ComplianceChecklist",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Execute conflict resolution by executing domain-specific algorithms like graph-based reconciliation using Neo4j; ensure error_count < 1 and result_valid = true.",
+      "step": 1
+    },
+    {
+      "action": "Log operation_duration_ms and result_code to an audit trail using structured logging tools like ELK Stack for traceability and compliance using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Restate the resolution procedure by incorporating domain-specific constraints such as architectural patterns; verify error_count < 1 and result_valid = true.",
+      "step": 3
+    },
+    {
+      "action": "Assert procedure output by running domain-specific validation scripts; ensure error_count < 1 and result_valid = true, logging all metrics.",
+      "step": 4
+    },
+    {
+      "action": "Invoke domain-appropriate tooling like RDF4J to validate and reconcile data, ensuring consistency across the knowledge base with error_count < 1.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:04.035Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Resolve conflicts in knowledge graphs by applying domain-specific constraints and tools, ensuring error-free and valid results with comprehensive logging.",
+  "tags": [
+    "knowledge_graphs",
+    "software_architecture",
+    "conflict_resolution",
+    "structured_logging",
+    "domain_driven_design",
+    "data_validation"
+  ],
+  "title": "Knowledge Conflict Resolution",
+  "verification": {
+    "failureConditions": [
+      "Inconsistent data when domain-specific constraints are not applied, causing unresolved conflicts and inaccurate knowledge representation.",
+      "Audit trail gaps when logging is incomplete, leading to difficulties in tracing operations and verifying compliance.",
+      "Invalid results when domain-specific validation is skipped, causing downstream systems to consume incorrect data."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "procedure output by running domain-specific validation scripts",
+      "all operations have corresponding log entries"
+    ],
+    "successConditions": [
+      "error_count < 1",
+      "result_valid = true",
+      "operation_duration_ms < 500ms",
+      "log completeness: assert all operations have corresponding log entries"
+    ]
+  }
+}

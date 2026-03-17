@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x00bd7d47704e0f110994825cc31a7595f2fdf1e939d6a53c6aa2b8ae5cdf7ed6
+  artifactHash: 0x2e53b1d488c9b816b185adc6b7b3a030e5d8c6de5823ab7f13f96f9cb6208729
+  title:        PCI-Compliant Payment Data Handling
+  domain:       finance.payment.pci
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  17
+  graph edges:  27
+  artifact.json size: 3318 bytes
+  meta.json size:     4179 bytes

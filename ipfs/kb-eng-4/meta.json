@@ -1,0 +1,26 @@
+{
+  "kbHash": "0xc481b00215bda9fd757e7c123459ce5cbe0d1de2b55b6e9f98ae2b99d1eba5e3",
+  "kbId": "KB-ENG-4",
+  "title": "API Endpoint Security: Authentication, Authorization, and Input Validation",
+  "domain": "engineering.api.security",
+  "kbType": "ComplianceChecklist",
+  "payloadType": "checklist",
+  "tags": [
+    "api_security",
+    "authentication",
+    "authorization",
+    "jwt",
+    "rbac",
+    "input_validation",
+    "rate_limiting",
+    "owasp"
+  ],
+  "isSeed": false,
+  "royaltyBps": 500,
+  "depth": 2,
+  "score": {
+    "classification": "derived",
+    "weighted": 2.1
+  },
+  "publishedAt": "2026-03-17T00:00:00Z"
+}

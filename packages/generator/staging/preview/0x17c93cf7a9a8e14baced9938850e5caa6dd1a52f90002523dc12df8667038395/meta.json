@@ -1,0 +1,213 @@
+{
+  "domain": "software.security",
+  "isSeed": true,
+  "kbHash": "0x17c93cf7a9a8e14baced9938850e5caa6dd1a52f90002523dc12df8667038395",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:03.966Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Credential-Based User Authentication with Token Issuance",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Compose OAuth 2.0 for token issuance and set token expiration to 15 minutes by composing module inte",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Initialize AI-driven security prompts using OpenAI's GPT-3 to challenge users with context-aware que",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Invoke JWT for token encoding and ensure tokens are signed with RS256 algorithm following the specif",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Set up a Redis cache to store active tokens and invalidate them upon logout or expiration using doma",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Invoke HTTPS for all authentication endpoints and enforce HSTS with a max-age of 31536000 seconds.",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:redis",
+        "label": "Redis",
+        "type": "tool"
+      },
+      {
+        "id": "assert:input_output_type_contracts_match_before_connecting",
+        "label": "input/output type contracts match before connecting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:integration_error_count_lt_1_after_contract_validation",
+        "label": "integration_error_count < 1 after contract validation",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:test_coverage_gte_0_8_for_the_modified_module_before_marking",
+        "label": "test_coverage >= 0.8 for the modified module before marking complete",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:oauth_2_0",
+        "label": "OAuth 2.0",
+        "type": "reference"
+      },
+      {
+        "id": "ref:jwt",
+        "label": "JWT",
+        "type": "reference"
+      },
+      {
+        "id": "ref:openai_gpt_3",
+        "label": "OpenAI GPT-3",
+        "type": "reference"
+      },
+      {
+        "id": "ref:redis",
+        "label": "Redis",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:4",
+        "rel": "uses",
+        "to": "tool:redis"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:input_output_type_contracts_match_before_connecting"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:integration_error_count_lt_1_after_contract_validation"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:test_coverage_gte_0_8_for_the_modified_module_before_marking"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:oauth_2_0"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:jwt"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:openai_gpt_3"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:redis"
+      }
+    ]
+  },
+  "tags": [
+    "software_security",
+    "token_authentication",
+    "ai_security",
+    "jwt",
+    "oauth2",
+    "https",
+    "redis"
+  ],
+  "title": "Credential-Based User Authentication with Token Issuance"
+}

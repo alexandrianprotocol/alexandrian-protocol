@@ -1,0 +1,17 @@
+{
+  "kbHash":      "0xb43e01c593055391b14c08a93aeb672a995ce4c5f3176533dd6f340dd2c57c24",
+  "kbId":        "KB-AG-1",
+  "title":       "Designing Multi-Agent Orchestration Pipelines",
+  "domain":      "agent.orchestration.multi_agent",
+  "kbType":      "Feature",
+  "payloadType": "procedure",
+  "tags":        ["multi-agent", "orchestration", "agent-roles", "handoffs", "conflict-resolution", "A2A"],
+  "isSeed":      true,
+  "royaltyBps":  800,
+  "depth":       0,
+  "score": {
+    "classification": "anchor",
+    "weighted": 3.1
+  },
+  "publishedAt": "2026-03-16T00:00:00Z"
+}

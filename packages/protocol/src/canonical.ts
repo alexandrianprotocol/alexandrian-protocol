@@ -6,7 +6,10 @@
  */
 
 import { createHash } from "crypto";
-import { keccak_256 } from "js-sha3";
+// js-sha3 is CJS — use default import for ESM compatibility.
+// With esModuleInterop, the module.exports object becomes the default.
+import sha3pkg from "js-sha3";
+const { keccak_256 } = sha3pkg as unknown as { keccak_256(msg: string | ArrayBufferView): string };
 import { CID } from "multiformats";
 import { create as createDigest } from "multiformats/hashes/digest";
 import * as sha2 from "multiformats/hashes/sha2";

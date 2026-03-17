@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xa7260848ab2876154b801846ef038dd63196ba6d313b6428949d5403807e3804",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.transaction.two_phase",
+  "rootCid": "QmXbDeVBYoDszLYZvMfHxJoaA8tBmtqdPHnDqv44L5C7Wd",
+  "title": "Two-Phase Commit Protocol for Distributed Transactions"
+}

@@ -1,0 +1,173 @@
+{
+  "domain": "meta.protocol",
+  "isSeed": true,
+  "kbHash": "0x3d611d36aef87f540af9d28bcf5439c2b39b75819febc5e904fc4f040c3d1be2",
+  "kbType": "PromptEngineering",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:37.363Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Event Sourcing",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Reconcile artifacts by applying domain-specific tooling to combine event logs and partitioned data, ",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Assert merged output by running JSON Schema draft-07 validation on combined data",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Filter partition candidates by executing EXPLAIN ANALYZE on the top 10 slowest queries, identifying ",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assign results using domain-specific tooling to categorize data into partitions, ensuring each parti",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log operation duration and result code to an audit trail, ensuring operation_duration_ms < 500ms and",
+        "type": "step"
+      },
+      {
+        "id": "tool:explain_analyze",
+        "label": "Explain Analyze",
+        "type": "tool"
+      },
+      {
+        "id": "assert:merge_error_count_lt_1",
+        "label": "merge_error_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:merged_output_by_running_json_schema_draft_07_validation_on_",
+        "label": "merged output by running JSON Schema draft-07 validation on combined data",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:field_validation_pass_rate_gte_1_0",
+        "label": "field_validation_pass_rate >= 1.0",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:confidence_score_gte_0_7_for_all_classified_records",
+        "label": "confidence_score >= 0.7 for all classified records",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:event_sourcing",
+        "label": "Event Sourcing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:key_based_data_partitioning",
+        "label": "Key-Based Data Partitioning",
+        "type": "reference"
+      },
+      {
+        "id": "ref:cqrs",
+        "label": "CQRS",
+        "type": "reference"
+      },
+      {
+        "id": "ref:immutable_infrastructure",
+        "label": "Immutable Infrastructure",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:3",
+        "rel": "uses",
+        "to": "tool:explain_analyze"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:merge_error_count_lt_1"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:merged_output_by_running_json_schema_draft_07_validation_on_"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:confidence_score_gte_0_7_for_all_classified_records"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:event_sourcing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:key_based_data_partitioning"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:cqrs"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:immutable_infrastructure"
+      }
+    ]
+  },
+  "tags": [
+    "event_sourcing",
+    "data_partitioning",
+    "knowledge_dags",
+    "scalable_queries",
+    "deterministic_systems",
+    "data_management",
+    "query_optimization"
+  ],
+  "title": "Event Sourcing"
+}

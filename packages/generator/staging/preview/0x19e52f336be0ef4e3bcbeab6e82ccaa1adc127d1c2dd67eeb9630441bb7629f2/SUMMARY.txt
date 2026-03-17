@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x19e52f336be0ef4e3bcbeab6e82ccaa1adc127d1c2dd67eeb9630441bb7629f2
+  artifactHash: 0xd503d5233154de43e2f0d1a500c684dc6c3681296495da68865b6a337280bc7f
+  title:        Data Consistency Model Evaluation in Distributed Systems
+  domain:       distributed.systems
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    6 steps
+  capabilities: 1
+  metrics:      7
+  graph nodes:  31
+  graph edges:  40
+  artifact.json size: 4172 bytes
+  meta.json size:     6737 bytes

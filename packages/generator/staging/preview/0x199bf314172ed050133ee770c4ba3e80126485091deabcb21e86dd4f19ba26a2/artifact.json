@@ -1,0 +1,71 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Ensure schema-based transformations are tailored to specific tool requirements, enhancing compatibility and performance."
+  ],
+  "confidence": 1,
+  "domain": "agent.tool_selection",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x199bf314172ed050133ee770c4ba3e80126485091deabcb21e86dd4f19ba26a2",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Specify schema requirements by analyzing tool documentation and extracting input specifications by specifying schema, constraints, and invariants in machine-readable form; include at least one falsifiable acceptance criterion where error_rate < 0.001.",
+      "step": 1
+    },
+    {
+      "action": "Invoke JSON Schema to model input transformations, ensuring compliance with tool-specific constraints by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 2
+    },
+    {
+      "action": "Invoke transformation logic using a library like 'ajv' to validate inputs against the defined schema following the specified pattern; write a unit test covering the primary code path; assert test_coverage >= 0.8 for the modified module before marking complete.",
+      "step": 3
+    },
+    {
+      "action": "Test transformed inputs with a suite of unit tests covering edge cases and invalid data scenarios using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Release the transformation module in a staging environment and conduct integration tests with the target tool using blue-green deployment strategy; run smoke_test() against new instance before switching traffic; assert smoke_test_pass_rate >= 1.0 before promoting.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:04.023Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Specialize schema-based input transformation by integrating domain-specific constraints and examples, ensuring seamless tool interfacing in software architecture.",
+  "tags": [
+    "schema_transformation",
+    "tool_integration",
+    "software_architecture",
+    "input_validation",
+    "domain_specific_design"
+  ],
+  "title": "Schema-Based Input Transformation for Tool Interfacing",
+  "verification": {
+    "failureConditions": [
+      "Incompatible input formats lead to tool errors; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Transformation logic fails under edge cases; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Schema updates are not propagated, causing integration failures."
+    ],
+    "metrics": [
+      "response_status < 400 and response_time_ms < 5000",
+      "test_coverage >= 0.8 for the modified module before marking complete",
+      "error_count < 1 and result_valid = true",
+      "smoke_test_pass_rate >= 1.0 before promoting",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Input transformations pass all unit tests with 100% coverage; assert error_rate < 0.001 and operation_completed = true.",
+      "Integration tests confirm compatibility with the target tool; assert error_rate < 0.001 and operation_completed = true.",
+      "Schema changes trigger automated validation workflows; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

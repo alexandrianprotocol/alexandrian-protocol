@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x67be0b245af9a64d2d81da97768f34866d5bb5928c99588a1364d25e3ede4111",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "software.testing",
+  "rootCid": "QmZLft21J9zbyV3XLQ7mYcoiWVz5UeSots6QzaAjmyHzcw",
+  "title": "Property-Based Testing for Event-Sourced Aggregates"
+}

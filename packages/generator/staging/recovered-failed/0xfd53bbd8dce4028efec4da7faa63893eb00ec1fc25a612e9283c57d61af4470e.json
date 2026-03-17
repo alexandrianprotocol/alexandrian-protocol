@@ -1,0 +1,50 @@
+{
+  "title": "Composing Knowledge Attribution via Content Hash",
+  "summary": "Integrate Knowledge Attribution via Content Hash with Agent Planning Derived KB by merging artifacts, validating outputs, detecting candidates, and classifying results.",
+  "standard": "Ensure seamless integration of knowledge bases by aligning workflows and validating merged outputs.",
+  "procedure": [
+    "Execute merge_artifacts using a content hash to combine data from both KBs following the defined protocol with boundary checks; assert exit_code < 1 and success_indicator = true; emit completion_event on success.",
+    "Run schema validation on the merged output to ensure data integrity with automated substep verification; assert substep_pass_count = substep_total and error_count < 1; persist results before advancing.",
+    "Execute a candidate detection algorithm to identify overlapping entities by executing the transformation function on each input record; assert output_schema_valid = true and error_count < 1; log transformation_duration_ms.",
+    "Invoke a machine learning classifier to categorize detected candidates by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+    "Execute a consistency check on classified results to ensure alignment with original KBs with validated preconditions and scoped tooling; assert error_count < 1 and output_valid = true; record result_code to operation_log."
+  ],
+  "references": [
+    "Domain Driven Design",
+    "API Composition",
+    "Data Mesh"
+  ],
+  "failure_modes": [
+    "Data integrity issues if schema validation fails; this occurs when the precondition for the operation is not verified before execution, allowing the error to propagate.",
+    "Inaccurate candidate detection leading to misclassification.",
+    "Inconsistent results if classification algorithms are misaligned; this occurs when required context is unavailable at execution time, causing the step to proceed with incomplete information."
+  ],
+  "verification": [
+    "Merged output passes schema validation checks; assert error_rate < 0.001 and operation_completed = true.",
+    "Candidate detection accuracy exceeds 90%; assert accuracy_score >= 0.95 and false_positive_rate < 0.05.",
+    "Classified results maintain consistency with original KBs; assert data_loss_count < 1 and replication_lag_ms < 500."
+  ],
+  "tags": [
+    "knowledge_attribution",
+    "content_hash",
+    "agent_planning",
+    "data_integration",
+    "machine_learning",
+    "schema_validation",
+    "consistency_check"
+  ],
+  "domain": "meta.protocol",
+  "_quality": {
+    "score": 2.8,
+    "classification": "anchor",
+    "dimensions": {
+      "executability": 3,
+      "atomicity": 3,
+      "epistemicHonesty": 3,
+      "depth": 3
+    },
+    "failureReasons": [],
+    "scoredAt": "2026-03-11T07:17:53.329Z",
+    "repairedAt": "2026-03-11T07:17:53.329Z"
+  }
+}

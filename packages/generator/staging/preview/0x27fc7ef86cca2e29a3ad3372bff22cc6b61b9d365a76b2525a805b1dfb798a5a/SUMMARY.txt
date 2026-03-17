@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x27fc7ef86cca2e29a3ad3372bff22cc6b61b9d365a76b2525a805b1dfb798a5a
+  artifactHash: 0xb1c7f3cf2eb2c1caabdfdcbcfb182210c13bf9a970f87d0e9094959de705bc96
+  title:        Stepwise Decomposition to Third Normal Form with Knowledge Graphs
+  domain:       database.schema_design
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    6 steps
+  capabilities: 1
+  metrics:      7
+  graph nodes:  23
+  graph edges:  25
+  artifact.json size: 4001 bytes
+  meta.json size:     4853 bytes

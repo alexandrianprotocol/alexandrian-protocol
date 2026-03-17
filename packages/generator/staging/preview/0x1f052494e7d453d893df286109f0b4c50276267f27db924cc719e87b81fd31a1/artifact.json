@@ -1,0 +1,70 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Buffer client operations to ensure consistency during server round-trips in real-time operational transformation systems."
+  ],
+  "confidence": 0.93,
+  "domain": "realtime.ot.client_buffering",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x1f052494e7d453d893df286109f0b4c50276267f27db924cc719e87b81fd31a1",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Initialize an operation buffer with a fixed size limit of 100 operations, using a FIFO queue to manage incoming client operations and prevent overflow using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Buffer each client operation by appending it to the operation buffer; if buffer size exceeds 100, trigger a buffer overflow warning and discard the oldest operation using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Compose new operations by merging buffered operations with a common base state using operational transformation functions to ensure consistency before sending to the server using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Upon receiving server acknowledgment, transform buffered operations by applying server-acknowledged operations to each buffered operation, ensuring all operations are in sync with the server state using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Flush the operation buffer by removing operations that have been acknowledged by the server, ensuring the buffer only contains pending operations using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:04.014Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Procedure for buffering client operations in real-time OT systems to manage server round-trip delays.",
+  "tags": [
+    "realtime_ot",
+    "client_buffering",
+    "consistency",
+    "server_round_trip",
+    "operational_transformation",
+    "buffer_management"
+  ],
+  "title": "Buffering Client Operations During Server Round-Trip",
+  "verification": {
+    "failureConditions": [
+      "Data inconsistency occurs when operations are not buffered properly, causing out-of-order execution and conflicting states.",
+      "Buffer overflow when too many operations are queued without server acknowledgment, causing loss of operations and potential data loss.",
+      "Delayed client feedback when buffer processing is inefficient, causing user interface lag and poor user experience."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "FIFO order maintained in buffer",
+      "buffer contains only unacknowledged operations"
+    ],
+    "successConditions": [
+      "buffer_size <= 100",
+      "operation_order_correctness: assert FIFO order maintained in buffer",
+      "acknowledged_operations_flushed: assert buffer contains only unacknowledged operations"
+    ]
+  }
+}

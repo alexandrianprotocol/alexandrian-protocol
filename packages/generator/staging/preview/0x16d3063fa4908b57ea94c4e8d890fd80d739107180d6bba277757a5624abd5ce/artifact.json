@@ -1,0 +1,72 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Ensure raw data ingestion pipelines are robust, scalable, and maintain data integrity for machine learning applications."
+  ],
+  "confidence": 0.93,
+  "domain": "mlops.data.ingestion",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x16d3063fa4908b57ea94c4e8d890fd80d739107180d6bba277757a5624abd5ce",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Assert incoming data against a predefined schema using JSON Schema draft-07; log validation errors with field paths to a centralized error tracking system.",
+      "step": 1
+    },
+    {
+      "action": "Deduplicate incoming data by applying a hash-based comparison on key fields; store unique records in a temporary staging area before final processing using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Partition data by date and key attributes using a consistent hashing algorithm; ensure partitions are balanced by monitoring partition size distribution using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Write validated and deduplicated data to a data lakehouse using Apache Parquet format; ensure atomic writes by leveraging transactional capabilities of the storage system.",
+      "step": 4
+    },
+    {
+      "action": "Invoke a monitoring system to track data ingestion metrics such as throughput and error rates; alert when error rate exceeds 0.5% over a 10-minute window.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:04.003Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Procedure for designing raw data ingestion pipelines in ML, focusing on schema validation, deduplication, and partitioning.",
+  "tags": [
+    "mlops",
+    "data_ingestion",
+    "schema_validation",
+    "deduplication",
+    "partitioning",
+    "data_lake",
+    "scalability",
+    "data_integrity"
+  ],
+  "title": "Raw Data Ingestion Pipeline Design for ML",
+  "verification": {
+    "failureConditions": [
+      "Data loss occurs when schema validation is bypassed, causing malformed records to be ingested and corrupting downstream ML models.",
+      "Duplicate records are ingested when deduplication logic fails, leading to skewed model training data and inaccurate predictions.",
+      "Imbalanced partitions occur when partitioning logic does not account for data distribution, causing performance bottlenecks during data retrieval."
+    ],
+    "metrics": [
+      "incoming data against a predefined schema using JSON Schema draft-07",
+      "error_count < 1 and result_valid = true"
+    ],
+    "successConditions": [
+      "schema_validation_error_rate < 0.5%",
+      "deduplication_success_rate > 99.5%",
+      "partition_size_variance < 10%",
+      "data_ingestion_throughput > 1000 records/second"
+    ]
+  }
+}

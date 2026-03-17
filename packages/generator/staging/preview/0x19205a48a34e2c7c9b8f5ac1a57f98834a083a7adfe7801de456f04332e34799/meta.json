@@ -1,0 +1,298 @@
+{
+  "domain": "agent.planning.task_decomposition",
+  "isSeed": true,
+  "kbHash": "0x19205a48a34e2c7c9b8f5ac1a57f98834a083a7adfe7801de456f04332e34799",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:03.968Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Task Decomposition Strategy Evaluation",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Capture detailed task specifications using user stories and acceptance criteria using domain-appropr",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Assert task specifications by conducting peer reviews and walkthroughs by asserting all required fie",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Inject measurable criteria and metrics using SMART goals for each decomposed task by injecting the c",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assert procedure output by running unit tests with >90% code coverage by asserting all required fiel",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Conduct integration tests to ensure decomposed tasks work cohesively using domain-appropriate toolin",
+        "type": "step"
+      },
+      {
+        "id": "step:6",
+        "label": "Inspect test results and iterate on task decomposition based on feedback by applying the checklist l",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:review_duration_ms",
+        "label": "review duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:reviewer_id",
+        "label": "reviewer id",
+        "type": "output"
+      },
+      {
+        "id": "out:review_log",
+        "label": "review log",
+        "type": "output"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:task_specifications_by_conducting_peer_reviews_and_walkthrou",
+        "label": "task specifications by conducting peer reviews and walkthroughs by asserting all required fields conform to the schema d",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:field_validation_pass_rate_gte_1_0",
+        "label": "field_validation_pass_rate >= 1.0",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:inject_success_eq_true_and_circular_dependency_count_lt_1",
+        "label": "inject_success = true and circular_dependency_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:procedure_output_by_running_unit_tests_with_gt90_code_covera",
+        "label": "procedure output by running unit tests with >90% code coverage by asserting all required fields conform to the schema de",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:mandatory_item_fail_count_lt_1",
+        "label": "mandatory_item_fail_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:domain_driven_design",
+        "label": "Domain Driven Design",
+        "type": "reference"
+      },
+      {
+        "id": "ref:bounded_context",
+        "label": "Bounded Context",
+        "type": "reference"
+      },
+      {
+        "id": "ref:api_composition",
+        "label": "API Composition",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      },
+      {
+        "id": "ref:metrics_aggregation",
+        "label": "Metrics Aggregation",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:5",
+        "rel": "precedes",
+        "to": "step:6"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:6",
+        "rel": "produces",
+        "to": "out:review_duration_ms"
+      },
+      {
+        "from": "step:6",
+        "rel": "produces",
+        "to": "out:reviewer_id"
+      },
+      {
+        "from": "out:review_duration_ms",
+        "rel": "logged_to",
+        "to": "out:review_log"
+      },
+      {
+        "from": "out:reviewer_id",
+        "rel": "logged_to",
+        "to": "out:review_log"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:task_specifications_by_conducting_peer_reviews_and_walkthrou"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:inject_success_eq_true_and_circular_dependency_count_lt_1"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:procedure_output_by_running_unit_tests_with_gt90_code_covera"
+      },
+      {
+        "from": "step:6",
+        "rel": "asserts",
+        "to": "assert:mandatory_item_fail_count_lt_1"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:domain_driven_design"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:bounded_context"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:api_composition"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:metrics_aggregation"
+      }
+    ]
+  },
+  "tags": [
+    "task_decomposition",
+    "software_testing",
+    "evaluation_framework",
+    "metrics",
+    "validation",
+    "integration_testing",
+    "unit_testing"
+  ],
+  "title": "Task Decomposition Strategy Evaluation"
+}

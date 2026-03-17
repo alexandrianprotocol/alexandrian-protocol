@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x3fc6fef106666ea38e9be6c29424e81cecfa6d542542f62b33e1f5aca2e61761",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "infra.secrets.vault_rotation",
+  "rootCid": "QmfNR1aiHBCR1sybzZXJsxAskfgQbRBdyvxrmSyFbyWWHE",
+  "title": "Automated Secret Rotation"
+}

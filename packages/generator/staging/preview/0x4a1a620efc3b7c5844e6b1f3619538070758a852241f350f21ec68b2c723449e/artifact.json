@@ -1,0 +1,75 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Integrate subprocess invocation safety measures with architectural best practices to enhance reliability and traceability in CLI agent operations."
+  ],
+  "confidence": 0.93,
+  "domain": "agent.execution",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x4a1a620efc3b7c5844e6b1f3619538070758a852241f350f21ec68b2c723449e",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Invoke subprocesses using a controlled environment by setting resource limits with ulimit and timeout commands to prevent resource exhaustion and ensure timely termination using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Capture and log subprocess stdout and stderr streams using tee command to a centralized logging system, ensuring all outputs are traceable and auditable using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Assert subprocess exit codes by checking against a predefined list of acceptable codes; trigger alerting mechanisms if unexpected codes are encountered by asserting all required fields conform to the schema definition; emit VALIDATION_FAILED with field path on the first failing field; assert field_validation_pass_rate >= 1.0.",
+      "step": 3
+    },
+    {
+      "action": "Reconcile subprocess outputs by applying JSON Schema validation on the combined output; log validation results and discrepancies to a structured audit trail by applying field-level structural comparison on shared key fields; flag conflicts where hash(A.field) != hash(B.field) and log to conflict_log; assert merge_error_count < 1.",
+      "step": 4
+    },
+    {
+      "action": "Invoke retry logic with exponential backoff using a retry library to handle transient subprocess failures, ensuring robustness without overwhelming the system following the specified pattern; write a unit test covering the primary code path; assert test_coverage >= 0.8 for the modified module before marking complete.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:04.016Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Ensure safe and efficient subprocess invocation for CLI agents by merging insights from software architecture and agent execution knowledge bases.",
+  "tags": [
+    "cli_agents",
+    "subprocess_management",
+    "error_handling",
+    "logging",
+    "retry_mechanism",
+    "resource_management",
+    "workflow_integrity"
+  ],
+  "title": "Safe Subprocess Invocation for CLI Agents",
+  "verification": {
+    "failureConditions": [
+      "Resource exhaustion occurs when subprocesses run without limits, causing system instability and potential crashes.",
+      "Loss of traceability when subprocess outputs are not logged, leading to difficulties in auditing and debugging.",
+      "Unexpected subprocess exit codes cause unhandled exceptions, leading to workflow disruptions and potential data loss."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "subprocess exit codes by checking against a predefined list of acceptable codes",
+      "field_validation_pass_rate >= 1.0",
+      "merge_error_count < 1",
+      "test_coverage >= 0.8 for the modified module before marking complete",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "subprocess_exit_code in [0, 1, 2]; assert error_rate < 0.001 and operation_completed = true.",
+      "operation_duration_ms < 5000",
+      "error_count < 1",
+      "result_valid = true"
+    ]
+  }
+}

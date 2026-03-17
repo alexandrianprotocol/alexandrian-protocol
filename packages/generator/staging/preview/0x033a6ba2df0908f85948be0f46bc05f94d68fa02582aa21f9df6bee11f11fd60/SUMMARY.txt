@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x033a6ba2df0908f85948be0f46bc05f94d68fa02582aa21f9df6bee11f11fd60
+  artifactHash: 0xfaca30fe3215ae77f23859e883d439eaaa5c50b360ca3adff008ca567b85f939
+  title:        Event Sourcing
+  domain:       software.architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  19
+  graph edges:  25
+  artifact.json size: 3123 bytes
+  meta.json size:     4345 bytes

@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x126bdf6689c240cddc803917959289d147c27e4d6e69bc4a89509b11bf588e14",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.pooling.read_replica",
+  "rootCid": "QmSFyAH5tfzxTtMwgrCoPCA99c6gpvojdgRTvpi5uBfUpT",
+  "title": "Routing Reads to Replica Pools"
+}

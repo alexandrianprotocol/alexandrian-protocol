@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x1111fdaa18b37d598c1d48f32f6ab6633e48541b855b6ed4bf7f91e29ba4e614",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "realtime.websocket.backpressure",
+  "rootCid": "QmXrdbW8fojjnZqj4DGvi1kB5MF4An7Diusmiug81xdWWb",
+  "title": "Backpressure Implementation in WebSocket Message Delivery"
+}

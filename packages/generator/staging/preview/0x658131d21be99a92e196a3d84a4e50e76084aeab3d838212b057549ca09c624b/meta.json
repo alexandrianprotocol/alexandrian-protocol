@@ -1,0 +1,226 @@
+{
+  "domain": "software.security",
+  "isSeed": true,
+  "kbHash": "0x658131d21be99a92e196a3d84a4e50e76084aeab3d838212b057549ca09c624b",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:00:04.040Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Secrets Management in AI-Prompting Applications",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Compose HashiCorp Vault or AWS Secrets Manager to securely store API keys and credentials by composi",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Initialize environment variables to access secrets, ensuring they are not hardcoded in the applicati",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Set up automated secret rotation every 30 days using cloud provider tools or custom scripts using do",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Invoke access controls using IAM roles to restrict secret access to authorized services only.",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log access attempts and anomalies using structured logging for audit and compliance purposes using d",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:input_output_type_contracts_match_before_connecting",
+        "label": "input/output type contracts match before connecting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:integration_error_count_lt_1_after_contract_validation",
+        "label": "integration_error_count < 1 after contract validation",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:all_required_keys_are_present_via_config_validate",
+        "label": "all required keys are present via config_validate()",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:config_validation_error_count_lt_1",
+        "label": "config_validation_error_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:aws_secrets_manager",
+        "label": "AWS Secrets Manager",
+        "type": "reference"
+      },
+      {
+        "id": "ref:hashicorp_vault",
+        "label": "HashiCorp Vault",
+        "type": "reference"
+      },
+      {
+        "id": "ref:iam_roles",
+        "label": "IAM Roles",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:input_output_type_contracts_match_before_connecting"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:integration_error_count_lt_1_after_contract_validation"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:all_required_keys_are_present_via_config_validate"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:config_validation_error_count_lt_1"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:aws_secrets_manager"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:hashicorp_vault"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:iam_roles"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      }
+    ]
+  },
+  "tags": [
+    "software_security",
+    "secrets_management",
+    "ai_prompting",
+    "access_control",
+    "structured_logging"
+  ],
+  "title": "Secrets Management in AI-Prompting Applications"
+}

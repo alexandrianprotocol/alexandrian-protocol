@@ -128,7 +128,7 @@ describe("canonicalizeContent", () => {
 describe("buildProofSpecV1 / computeProofHash", () => {
   const baseParams = {
     chainId: "8453",
-    contract: "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
+    contract: "0xD1F216E872a9ed4b90E364825869c2F377155B29",
     kbId: "0x" + "ab".repeat(32),
     blockNumber: "12345678",
     state: { totalFeesEarned: "1000000000000000", lastSettledAt: "1700000000" },

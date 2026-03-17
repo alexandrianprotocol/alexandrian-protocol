@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x060ca37566f3a097b99d03c3feca84ad2b9bf0e3bbc4c8c0800f0c08e45500e4",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.proxy.storage_collision",
+  "rootCid": "QmUiLkC3QmsfYSvuvQ2eYpiNDMFDZCw7oyw9VJ7nikZRK2",
+  "title": "Proxy Storage Collision Prevention in EVM"
+}

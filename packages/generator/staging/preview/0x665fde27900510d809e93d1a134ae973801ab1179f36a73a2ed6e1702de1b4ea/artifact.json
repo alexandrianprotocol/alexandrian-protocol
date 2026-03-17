@@ -1,0 +1,70 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine stepwise execution with AI prompting to streamline processes and improve decision-making in agent systems."
+  ],
+  "confidence": 0.93,
+  "domain": "agent.execution",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x665fde27900510d809e93d1a134ae973801ab1179f36a73a2ed6e1702de1b4ea",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Execute merge_artifacts by combining outputs from both stepwise execution and AI prompting using a unified data model using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Run validation scripts to ensure merged outputs meet predefined accuracy thresholds, using tools like Pytest or JUnit using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Utilize machine learning models to detect_candidates by analyzing merged data for potential action points using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Execute classification algorithms to classify_results, ensuring results align with expected categories using libraries like scikit-learn by executing the transformation function on each input record; assert output_schema_valid = true and error_count < 1; log transformation_duration_ms.",
+      "step": 4
+    },
+    {
+      "action": "Log all process steps using structured logging frameworks such as Logstash to maintain traceability and auditability using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:00:03.896Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Integrate stepwise execution with AI prompting by merging workflows, validating outputs, detecting candidates, and classifying results to enhance agent execution efficiency.",
+  "tags": [
+    "agent_execution",
+    "ai_prompting",
+    "workflow_integration",
+    "data_validation",
+    "machine_learning",
+    "structured_logging"
+  ],
+  "title": "Stepwise Execution with AI Prompting Knowledge Base",
+  "verification": {
+    "failureConditions": [
+      "Merged outputs are inaccurate due to incompatible data models.",
+      "Candidates are not detected due to insufficient training data.",
+      "Classification results are misaligned with expected categories; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "output_schema_valid = true and error_count < 1",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Merged outputs pass validation checks with 95% accuracy; assert error_rate < 0.001 and operation_completed = true.",
+      "Candidate detection achieves a recall rate of at least 90%; assert error_rate < 0.001 and operation_completed = true.",
+      "Classification accuracy exceeds 85% in test scenarios; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "domain": "agent.execution",
+  "isSeed": true,
+  "kbHash": "0x0ee043655161bb27faa010f99873e27ac31cac36a24fef6c14044bc14ef1c7f5",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:53.941Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Resilient Multi-Step Workflow Orchestration with Automatic Retries",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Specify workflow steps and dependencies using a Directed Acyclic Graph (DAG) in Apache Airflow by sp",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Initialize retry policies with exponential backoff for each task using Airflow's retry_delay and max",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Invoke error handling by setting on_failure_callback to log errors and trigger alerts via PagerDuty.",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Invoke Celery Executor to distribute task execution across multiple workers for scalability and faul",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Set up Airflow's SLA monitoring to alert when task execution exceeds predefined time limits using do",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:pagerduty",
+        "label": "Pagerduty",
+        "type": "tool"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:saga_pattern",
+        "label": "Saga Pattern",
+        "type": "reference"
+      },
+      {
+        "id": "ref:retry_with_backoff",
+        "label": "Retry with Backoff",
+        "type": "reference"
+      },
+      {
+        "id": "ref:graceful_degradation",
+        "label": "Graceful Degradation",
+        "type": "reference"
+      },
+      {
+        "id": "ref:health_check_pattern",
+        "label": "Health Check Pattern",
+        "type": "reference"
+      },
+      {
+        "id": "ref:distributed_tracing",
+        "label": "Distributed Tracing",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "uses",
+        "to": "tool:pagerduty"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:saga_pattern"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:retry_with_backoff"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:graceful_degradation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:health_check_pattern"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:distributed_tracing"
+      }
+    ]
+  },
+  "tags": [
+    "workflow_orchestration",
+    "resilience",
+    "automatic_retries",
+    "fault_tolerance",
+    "error_handling",
+    "distributed_systems",
+    "scalability",
+    "monitoring",
+    "alerting"
+  ],
+  "title": "Resilient Multi-Step Workflow Orchestration with Automatic Retries"
+}

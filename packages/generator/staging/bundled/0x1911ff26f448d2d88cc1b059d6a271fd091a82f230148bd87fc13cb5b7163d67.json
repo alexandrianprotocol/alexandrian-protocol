@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x9bbe6d137bb67187011e3f21210c17c4c93d238424d2cd2c1ec5fc99136b57ce",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "blockchain.wallet.eip1271",
+  "rootCid": "QmcWRgQ4CVZj9xzACKmm9EWpCxVieodg1KPkBqqd8omcXm",
+  "title": "EIP-1271 Contract Signature Verification"
+}

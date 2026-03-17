@@ -1,0 +1,248 @@
+{
+  "domain": "finance.payment.pci",
+  "isSeed": true,
+  "kbHash": "0x00bd7d47704e0f110994825cc31a7595f2fdf1e939d6a53c6aa2b8ae5cdf7ed6",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:53.984Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "PCI-Compliant Payment Data Handling",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Assert input format by checking that all payment data fields conform to PCI DSS requirements using a",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Tokenize card data by replacing card numbers with tokens using a PCI-compliant tokenization service",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Scope cardholder environment by isolating systems that store, process, or transmit cardholder data u",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Log data access by configuring audit logs to capture all access attempts to cardholder data",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Finalize compliance by conducting a PCI DSS self-assessment questionnaire (SAQ) annually",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:data_access_by_configuring_audit_logs",
+        "label": "data access by configuring audit logs",
+        "type": "output"
+      },
+      {
+        "id": "assert:input_format_by_checking_that_all_payment_data_fields_confor",
+        "label": "input format by checking that all payment data fields conform to PCI DSS requirements using a JSON Schema validator",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:field_validation_pass_rate_gte_1_0",
+        "label": "field_validation_pass_rate >= 1.0",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:tokenization",
+        "label": "Tokenization",
+        "type": "reference"
+      },
+      {
+        "id": "ref:network_segmentation",
+        "label": "Network Segmentation",
+        "type": "reference"
+      },
+      {
+        "id": "ref:audit_logging",
+        "label": "Audit Logging",
+        "type": "reference"
+      },
+      {
+        "id": "ref:pci_dss",
+        "label": "PCI DSS",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:data_access_by_configuring_audit_logs"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:data_access_by_configuring_audit_logs",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:input_format_by_checking_that_all_payment_data_fields_confor"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:field_validation_pass_rate_gte_1_0"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:tokenization"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:network_segmentation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:audit_logging"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:pci_dss"
+      }
+    ]
+  },
+  "tags": [
+    "pci_compliance",
+    "payment_processing",
+    "data_security",
+    "tokenization",
+    "network_segmentation",
+    "audit_logging",
+    "finance"
+  ],
+  "title": "PCI-Compliant Payment Data Handling"
+}

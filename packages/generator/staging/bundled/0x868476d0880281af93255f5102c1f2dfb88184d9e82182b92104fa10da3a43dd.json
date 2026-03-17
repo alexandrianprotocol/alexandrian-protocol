@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xb69d4b9c49851967a14cc1f2a91cd6f16157829d7dca0784db1a745509e050cb",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "platform.k8s.crd",
+  "rootCid": "QmcbZ5LpgSnJxK8o4g6v5JeSfscShoMiKpXd9BVhY9cr8C",
+  "title": "Effective Custom Resource Definition Design for Kubernetes Operators"
+}

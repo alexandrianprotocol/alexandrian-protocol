@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x5a35736d72c981aa2afd629e27aa025a32970cf6a95a6e6c0b64ad82e2ac2802
+  artifactHash: 0xf56f343b824e7acd2f4c0782ca8a2b4b1070092d32dbffba21f9e3ce109db57d
+  title:        Benchmark Testing
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  25
+  graph edges:  26
+  artifact.json size: 3065 bytes
+  meta.json size:     4463 bytes

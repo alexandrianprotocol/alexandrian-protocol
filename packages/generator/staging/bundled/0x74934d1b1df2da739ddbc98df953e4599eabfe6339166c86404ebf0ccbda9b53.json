@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x8615e20065f2b93c6d13bfd5f5073595dda60357def428e620f9fe52d5f300b4",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "antipattern.concurrency",
+  "rootCid": "QmNoi97tcZoKBvUjBSstHCAzyY4VjqWMUh75NcHAbmxpdz",
+  "title": "Avoid Shared Mutable State in Concurrent Systems"
+}

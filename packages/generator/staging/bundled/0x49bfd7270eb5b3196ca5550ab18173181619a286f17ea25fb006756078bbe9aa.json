@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x640c1b68922bc163e895d5c4db8e2c5a4d679b6363c7ecd31fe6b5587a39e220",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.analysis.taint",
+  "rootCid": "QmbZ4VVzSC4WpJjg3htnBYi9RzpCcN3WiJgVQSTD5uBNSB",
+  "title": "Taint Tracking for Security Vulnerability Detection"
+}

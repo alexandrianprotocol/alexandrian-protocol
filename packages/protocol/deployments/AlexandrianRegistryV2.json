@@ -3,10 +3,17 @@
   "contractName": "AlexandrianRegistryV2",
   "network": "base-mainnet",
   "chainId": 8453,
-  "address": "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
-  "deploymentTx": "0xd35f0e44504860e206568a298e0692bb5212a474125a08cace3d1e430cd8c3c4",
-  "deploymentBlock": 42593045,
+  "address": "0xD1F216E872a9ed4b90E364825869c2F377155B29",
+  "deploymentTx": "0xe7afc90d03cef3912f2f367f04babbb7c78b5860fb1c5a2d29992bac8e9d1954",
+  "deploymentBlock": 43460876,
   "deployer": "0x6939c3E5Fe823B1115Ece40948DF0fB99100465B",
+  "bytecodeHash": "0x7af73f23da918c5733fa8859a9d9743faecde378e3691a464fcfb22b60c3d51c",
+  "previousDeployment": {
+    "address": "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
+    "deploymentTx": "0xd35f0e44504860e206568a298e0692bb5212a474125a08cace3d1e430cd8c3c4",
+    "deploymentBlock": 42593045,
+    "note": "V2 initial deployment — missing getArtifactHash/getCidDigest selectors"
+  },
   "compiler": {
     "version": "0.8.20",
     "optimizer": {
@@ -16,8 +23,8 @@
     "viaIR": true
   },
   "verification": {
-    "basescan": "https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000#code",
-    "sourcify": "https://sourcify.dev/#/lookup/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000"
+    "basescan": "https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29#code",
+    "sourcify": "https://sourcify.dev/#/lookup/0xD1F216E872a9ed4b90E364825869c2F377155B29"
   },
   "abi": "./AlexandrianRegistryV2-abi.json"
 }

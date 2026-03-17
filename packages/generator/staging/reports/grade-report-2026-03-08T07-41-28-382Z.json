@@ -1,0 +1,672 @@
+{
+  "timestamp": "2026-03-08T07:41:28.382Z",
+  "total": 2893,
+  "pctRefined": 91.7386795713792,
+  "pctMarginal": 5.254061527825787,
+  "pctFailed": 0.13826477704804702,
+  "goNoGo": "proceed",
+  "anchorCount": 2647,
+  "standardCount": 7,
+  "domainBreakdown": {
+    "software.security": {
+      "refined": 250,
+      "marginal": 7,
+      "failed": 0,
+      "avgScore": 2.92645914396887
+    },
+    "agent.tool_selection": {
+      "refined": 102,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9784313725490197
+    },
+    "unknown": {
+      "refined": 136,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.5290441176470595
+    },
+    "agent.planning": {
+      "refined": 221,
+      "marginal": 7,
+      "failed": 0,
+      "avgScore": 2.906140350877191
+    },
+    "software.testing": {
+      "refined": 295,
+      "marginal": 7,
+      "failed": 0,
+      "avgScore": 2.9326158940397313
+    },
+    "agent.error_recovery": {
+      "refined": 139,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.974285714285715
+    },
+    "agent.execution": {
+      "refined": 209,
+      "marginal": 10,
+      "failed": 0,
+      "avgScore": 2.9269406392694046
+    },
+    "software.architecture": {
+      "refined": 149,
+      "marginal": 7,
+      "failed": 0,
+      "avgScore": 2.8769230769230787
+    },
+    "knowledge.graphs": {
+      "refined": 85,
+      "marginal": 32,
+      "failed": 2,
+      "avgScore": 2.725630252100837
+    },
+    "agent.reasoning": {
+      "refined": 156,
+      "marginal": 22,
+      "failed": 0,
+      "avgScore": 2.8365168539325847
+    },
+    "meta.protocol": {
+      "refined": 75,
+      "marginal": 16,
+      "failed": 1,
+      "avgScore": 2.8141304347826104
+    },
+    "agent.tools.capability_matching": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9
+    },
+    "software.debugging": {
+      "refined": 28,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9857142857142853
+    },
+    "software.design_patterns": {
+      "refined": 75,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.9453947368421063
+    },
+    "database.schema_design": {
+      "refined": 65,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8838461538461546
+    },
+    "ai.prompting": {
+      "refined": 108,
+      "marginal": 2,
+      "failed": 0,
+      "avgScore": 2.921818181818183
+    },
+    "agent.memory.context_budget": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.925
+    },
+    "evm.solidity": {
+      "refined": 111,
+      "marginal": 13,
+      "failed": 1,
+      "avgScore": 2.847599999999999
+    },
+    "distributed.systems.replication": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.85
+    },
+    "data.schema.validation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.tools.chaining": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "knowledge.versioning": {
+      "refined": 17,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.964705882352941
+    },
+    "sql.optimization": {
+      "refined": 79,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.865822784810128
+    },
+    "ai.guardrails.output_validation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.memory.long_term_retrieval": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9000000000000004
+    },
+    "distributed.systems": {
+      "refined": 47,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.889583333333333
+    },
+    "software.performance": {
+      "refined": 20,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.9285714285714284
+    },
+    "agent.reasoning.evidence_evaluation": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.75
+    },
+    "software.observability": {
+      "refined": 35,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.974285714285714
+    },
+    "agent.planning.hierarchical": {
+      "refined": 23,
+      "marginal": 3,
+      "failed": 0,
+      "avgScore": 2.8634615384615385
+    },
+    "software.testing.integration": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.memory.prioritization": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9124999999999996
+    },
+    "database.optimization": {
+      "refined": 27,
+      "marginal": 3,
+      "failed": 0,
+      "avgScore": 2.841666666666667
+    },
+    "agent.planning.resource_allocation": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.tools.input_adaptation": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.execution.api_patterns": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.reasoning.causal": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9000000000000004
+    },
+    "agent.planning.parallel_execution": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "crypto.signatures.verification": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.scenario_evaluation": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "agent.planning.task_decomposition": {
+      "refined": 27,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.951851851851852
+    },
+    "agent.memory.conversation_state": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.95
+    },
+    "agent.memory.sliding_window": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9125
+    },
+    "agent.error_recovery.circuit_breaker": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.95
+    },
+    "networking.auth.oauth": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "ai.retrieval.chunking": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.reasoning.contradiction_detection": {
+      "refined": 2,
+      "marginal": 2,
+      "failed": 0,
+      "avgScore": 2.6
+    },
+    "agent.memory.knowledge_summarization": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.6625
+    },
+    "ai.output_validation": {
+      "refined": 10,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9400000000000004
+    },
+    "database.indexing": {
+      "refined": 27,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8537037037037027
+    },
+    "ai.retrieval.citation_grounding": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9
+    },
+    "crypto.identity.did": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "ai.retrieval.ranking": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8499999999999996
+    },
+    "agent.reasoning.abductive": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9
+    },
+    "agent.tools.discovery": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.95
+    },
+    "agent.memory.context_compression": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9000000000000004
+    },
+    "agent.reasoning.multi_step": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9
+    },
+    "agent.prompting.structured_output": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "compliance.access_control": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.planning.milestone": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.reasoning.inductive": {
+      "refined": 3,
+      "marginal": 2,
+      "failed": 0,
+      "avgScore": 2.72
+    },
+    "agent.tools.output_validation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "distributed.systems.messaging": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.reasoning.decision_trees": {
+      "refined": 4,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.76
+    },
+    "ai.guardrails.self_reflection": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.95
+    },
+    "agent.planning.iterative": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.8000000000000003
+    },
+    "compliance.data_retention": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems.partitioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "ai.guardrails.execution_monitoring": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "ai.retrieval.semantic_search": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8499999999999996
+    },
+    "agent.multi_agent.delegation": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "distributed.systems.idempotency": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "software.observability.logging": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "ai.retrieval.hybrid_search": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.65
+    },
+    "agent.reasoning.uncertainty": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.95
+    },
+    "agent.execution.workflow_orchestration": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9125
+    },
+    "compliance.audit_logging": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "ml.evaluation.metrics": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "evm.solidity.security": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.planning.goal_definition": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.planning.dependency_graph": {
+      "refined": 1,
+      "marginal": 3,
+      "failed": 0,
+      "avgScore": 2.5500000000000003
+    },
+    "agent.error_recovery.retry_backoff": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.95
+    },
+    "agent.planning.fallback": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.8125
+    },
+    "software.security.rate_limiting": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.tools.result_aggregation": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9
+    },
+    "agent.reasoning.hypothesis_generation": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "meta.protocol.attribution": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.reasoning.deductive": {
+      "refined": 3,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.75
+    },
+    "software.security.input_sanitization": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9
+    },
+    "agent.planning.constraint_based": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7625
+    },
+    "ai.retrieval.context_filtering": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.7625
+    },
+    "agent.planning.priority_scheduling": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9
+    },
+    "agent.error_recovery.compensating": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "networking.api.versioning": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.memory.entity_tracking": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.9125
+    },
+    "agent.planning.backtracking": {
+      "refined": 2,
+      "marginal": 2,
+      "failed": 0,
+      "avgScore": 2.7
+    },
+    "agent.error_recovery.graceful_degradation": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "distributed.systems.consensus": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.65
+    },
+    "crypto.keystore.management": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "data.streaming.event_processing": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "software.testing.regression": {
+      "refined": 1,
+      "marginal": 1,
+      "failed": 0,
+      "avgScore": 2.5999999999999996
+    },
+    "agent.tools.invocation": {
+      "refined": 4,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.95
+    },
+    "evm.solidity.access_control": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "agent.evaluation.performance": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "networking.http.caching": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "knowledge.graphs.traversal": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.85
+    },
+    "evm.solidity.patterns": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "ml.ops.prompt_versioning": {
+      "refined": 2,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    },
+    "knowledge.graphs.deduplication": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 2.8
+    },
+    "agent.error_recovery.detection": {
+      "refined": 1,
+      "marginal": 0,
+      "failed": 0,
+      "avgScore": 3
+    }
+  }
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x3210b0b54e53e9e2453890ee3e18139bdb21e52ee0024f57dcac66ed4e3f7354
+  artifactHash: 0x2830f399b3e42e626ed67e731ed5eae5a42a683659a6e8d3f525205f5ef1e2d3
+  title:        Centralized State Transition Management
+  domain:       software.architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  16
+  graph edges:  24
+  artifact.json size: 2955 bytes
+  meta.json size:     3994 bytes

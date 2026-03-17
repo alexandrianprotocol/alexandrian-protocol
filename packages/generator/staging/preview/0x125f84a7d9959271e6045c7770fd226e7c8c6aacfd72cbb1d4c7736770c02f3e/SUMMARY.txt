@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x125f84a7d9959271e6045c7770fd226e7c8c6aacfd72cbb1d4c7736770c02f3e
+  artifactHash: 0x9f0dd8f6b541bea959cf13d39ed1d768abec805cd1c001dc3db62db647d541ee
+  title:        Constant-Time Secret Comparison in Solidity with Key-Based Data Partitioning
+  domain:       evm.solidity
+  kbType:       Practice
+  epistemicType:empirical
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  13
+  graph edges:  11
+  artifact.json size: 3005 bytes
+  meta.json size:     2927 bytes

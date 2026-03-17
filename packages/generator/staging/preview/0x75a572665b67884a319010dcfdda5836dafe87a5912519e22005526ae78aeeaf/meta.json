@@ -1,0 +1,263 @@
+{
+  "domain": "software.testing",
+  "isSeed": true,
+  "kbHash": "0x75a572665b67884a319010dcfdda5836dafe87a5912519e22005526ae78aeeaf",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:12:06.810Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Automated Regression Test Suite Execution Verification",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Execute the automated regression test suite using a CI/CD pipeline, ensuring all tests are triggered",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Capture test specifications using domain-appropriate tools like Selenium or JUnit",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Assert test execution results by asserting that error_count < 1 and result_valid = true",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Compose agent planning-derived knowledge bases to enhance test validation by cross-referencing expec",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log all test execution metrics, including operation_duration_ms and result_code, to a centralized lo",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:an_audit_trail",
+        "label": "an audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:junit",
+        "label": "Junit",
+        "type": "tool"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:test_execution_results_by_asserting_that_error_count_lt_1_an",
+        "label": "test execution results by asserting that error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:input_output_type_contracts_match_before_connecting",
+        "label": "input/output type contracts match before connecting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:integration_error_count_lt_1_after_contract_validation",
+        "label": "integration_error_count < 1 after contract validation",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:ci_cd_pipeline",
+        "label": "CI/CD Pipeline",
+        "type": "reference"
+      },
+      {
+        "id": "ref:agent_planning",
+        "label": "Agent Planning",
+        "type": "reference"
+      },
+      {
+        "id": "ref:automated_testing",
+        "label": "Automated Testing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      },
+      {
+        "id": "ref:metrics_aggregation",
+        "label": "Metrics Aggregation",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:3",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:an_audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:an_audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "uses",
+        "to": "tool:junit"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:test_execution_results_by_asserting_that_error_count_lt_1_an"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:input_output_type_contracts_match_before_connecting"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:integration_error_count_lt_1_after_contract_validation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:ci_cd_pipeline"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:agent_planning"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:automated_testing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:metrics_aggregation"
+      }
+    ]
+  },
+  "tags": [
+    "software_testing",
+    "regression_testing",
+    "ci_cd",
+    "agent_planning",
+    "test_automation",
+    "performance_monitoring",
+    "audit_logging"
+  ],
+  "title": "Automated Regression Test Suite Execution Verification"
+}

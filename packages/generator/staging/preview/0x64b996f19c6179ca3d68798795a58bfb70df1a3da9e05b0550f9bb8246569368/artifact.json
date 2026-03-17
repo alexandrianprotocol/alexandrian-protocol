@@ -1,0 +1,88 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Ensure batch processing tasks are efficiently integrated into existing software architecture workflows to optimize performance and resource utilization."
+  ],
+  "confidence": 0.95,
+  "domain": "agent.execution",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0x64b996f19c6179ca3d68798795a58bfb70df1a3da9e05b0550f9bb8246569368",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Execute batch processing tasks using a job scheduler like Apache Airflow to manage dependencies and timing using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Reconcile artifacts by using a data integration tool such as Apache NiFi to combine data from multiple sources by applying field-level structural comparison on shared key fields; flag conflicts where hash(A.field) != hash(B.field) and log to conflict_log; assert merge_error_count < 1.",
+      "step": 2
+    },
+    {
+      "action": "Run automated tests on the merged output using a CI/CD pipeline to ensure data integrity and correctness using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Invoke a machine learning model to detect candidates for optimization by analyzing processing logs and metrics by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 4
+    },
+    {
+      "action": "Assign results using a data classification tool like Apache Atlas to maintain data governance and compliance using a deterministic decision matrix: evaluate each criterion in priority order; assign first matching class or UNCLASSIFIED; assert confidence_score >= 0.7 for all classified records.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:18:31.352Z",
+  "royaltyBps": 400,
+  "schemaVersion": "2.5",
+  "summary": "Integrate batch processing with software architecture by merging workflows and validating outputs to enhance efficiency and consistency.",
+  "tags": [
+    "batch_processing",
+    "software_architecture",
+    "data_integration",
+    "workflow_optimization",
+    "data_governance",
+    "resource_management"
+  ],
+  "title": "Batch Processing Composition in Software Architecture",
+  "verification": {
+    "failureConditions": [
+      "Data inconsistency due to improper merging of artifacts.",
+      "Increased processing time from inefficient workflow integration; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Resource exhaustion from unoptimized batch processing tasks; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "merge_error_count < 1",
+      "response_status < 400 and response_time_ms < 5000",
+      "confidence_score >= 0.7 for all classified records",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Check that merged data passes all integrity tests in the CI/CD pipeline",
+      "Ensure batch processing tasks complete within defined SLA times",
+      "Monitor resource usage to confirm it remains within acceptable limits"
+    ]
+  }
+}

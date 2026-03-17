@@ -1,0 +1,69 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Normalize database schemas to 3NF or BCNF by decomposing tables to eliminate partial and transitive dependencies."
+  ],
+  "confidence": 1,
+  "domain": "database.schema_design",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x1203451b1465123b3bfaabbd2bdfdd0eddfde2dcff65ec7e0d0a63697349e1ad",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Run a dependency analysis on each table to identify functional dependencies using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Decompose tables by splitting them into smaller tables to eliminate partial dependencies using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Further decompose tables to remove transitive dependencies, ensuring all non-key attributes depend only on the primary key using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Verify that each decomposed table adheres to 3NF or BCNF by checking that all dependencies are either trivial or involve a superkey using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Invoke SQL queries to validate that no data is lost during decomposition by comparing row counts and data integrity before and after decomposition by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:54.051Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Ensure database schemas are normalized to Third Normal Form (3NF) or Boyce-Codd Normal Form (BCNF) to reduce redundancy and improve data integrity.",
+  "tags": [
+    "database_schema_design",
+    "normalization",
+    "data_integrity",
+    "functional_dependencies",
+    "database_design"
+  ],
+  "title": "Stepwise Decomposition to Third Normal Form or BCNF",
+  "verification": {
+    "failureConditions": [
+      "Data redundancy increases, leading to larger storage requirements.",
+      "Data anomalies occur during insert, update, or delete operations; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Complex queries result from poorly structured tables; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "response_status < 400 and response_time_ms < 5000",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Check that all tables are in 3NF or BCNF by validating functional dependencies; assert error_rate < 0.001 and operation_completed = true.",
+      "Ensure no data loss by comparing pre- and post-decomposition data integrity; assert error_rate < 0.001 and operation_completed = true.",
+      "Confirm that all non-key attributes are fully functionally dependent on the primary key; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

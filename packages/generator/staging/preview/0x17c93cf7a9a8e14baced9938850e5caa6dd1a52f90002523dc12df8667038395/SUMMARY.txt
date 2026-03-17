@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x17c93cf7a9a8e14baced9938850e5caa6dd1a52f90002523dc12df8667038395
+  artifactHash: 0x08399bd7d500ca4f9458a3ca7c4acb470e1d8883d586fba0bae9efd89afff988
+  title:        Credential-Based User Authentication with Token Issuance
+  domain:       software.security
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  19
+  graph edges:  18
+  artifact.json size: 3214 bytes
+  meta.json size:     3707 bytes

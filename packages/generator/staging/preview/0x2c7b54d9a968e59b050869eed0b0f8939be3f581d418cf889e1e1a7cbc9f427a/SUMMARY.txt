@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x2c7b54d9a968e59b050869eed0b0f8939be3f581d418cf889e1e1a7cbc9f427a
+  artifactHash: 0x30f301064329578f816efc9ec2c15fbea0d6ed8bf33bcdc94d1d9122483efd02
+  title:        Automated Property-Based Testing
+  domain:       software.testing
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  15
+  graph edges:  24
+  artifact.json size: 3402 bytes
+  meta.json size:     3729 bytes

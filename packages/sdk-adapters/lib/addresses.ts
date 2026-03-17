@@ -13,13 +13,16 @@ export const MAINNET_EXPLORER_URL = "https://basescan.org";
  * @see docs/MAINNET-ADDRESSES.md
  */
 export const MAINNET_REGISTRY_ADDRESS: string =
-  process.env.REGISTRY_ADDRESS_MAINNET ?? "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000";
+  process.env.REGISTRY_ADDRESS_MAINNET ?? "0xD1F216E872a9ed4b90E364825869c2F377155B29";
 
 /**
  * Mainnet subgraph query URL (for discover/trending/dashboards).
- * Set after deploying subgraph with network: base.
+ * Defaults to The Graph Studio endpoint; override with SUBGRAPH_URL_MAINNET env var.
+ * @see packages/subgraph/subgraph.yaml
  */
-export const MAINNET_SUBGRAPH_URL: string = process.env.SUBGRAPH_URL_MAINNET ?? "";
+export const MAINNET_SUBGRAPH_URL: string =
+  process.env.SUBGRAPH_URL_MAINNET ??
+  "https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest";
 
 /**
  * Safe accessor for the registry address.

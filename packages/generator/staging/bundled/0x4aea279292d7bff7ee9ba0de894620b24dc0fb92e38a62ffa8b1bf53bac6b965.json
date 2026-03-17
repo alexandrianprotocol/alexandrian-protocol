@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x4a8656102391aa773a900bbbf64ea30609fc57ae414d991a1147c06ed1a2e9b9",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "tooling.cli.progress",
+  "rootCid": "QmXUXQ7ob6jhVDhoC8FYzS96MBMKcVebBrf6wzMdtGbBFm",
+  "title": "CLI Progress Indicator Implementation for Long Operations"
+}

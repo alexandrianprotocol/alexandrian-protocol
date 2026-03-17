@@ -1,0 +1,24 @@
+{
+  "kbHash": "0x5181efedb5749f4e6157cf622e63969d3949c7f979258333a11d1b735714e57d",
+  "kbId": "KB-ENG-3",
+  "title": "RESTful API Implementation with Structured Error Handling",
+  "domain": "engineering.api.implementation",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "tags": [
+    "api_implementation",
+    "rest",
+    "schema_first",
+    "error_handling",
+    "structured_logging",
+    "graceful_shutdown"
+  ],
+  "isSeed": false,
+  "royaltyBps": 500,
+  "depth": 1,
+  "score": {
+    "classification": "derived",
+    "weighted": 2.4
+  },
+  "publishedAt": "2026-03-17T00:00:00Z"
+}

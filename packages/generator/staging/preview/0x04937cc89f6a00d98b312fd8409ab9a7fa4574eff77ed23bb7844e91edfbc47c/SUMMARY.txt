@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x04937cc89f6a00d98b312fd8409ab9a7fa4574eff77ed23bb7844e91edfbc47c
+  artifactHash: 0x32818573e5d123d40ec57b3decce655f774fc4ec37d8ca9e676898346d198ec7
+  title:        Cache Stampede Prevention
+  domain:       system.caching.cache_stampede
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  19
+  graph edges:  19
+  artifact.json size: 2987 bytes
+  meta.json size:     3737 bytes

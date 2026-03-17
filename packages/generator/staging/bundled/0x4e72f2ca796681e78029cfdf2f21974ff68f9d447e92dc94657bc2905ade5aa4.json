@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x251c9b9fc8246901c85dc0f2298376e3cb4727f1f2524d19f59fad567526644a",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.proxy.transparent",
+  "rootCid": "QmWyh7We53cEcaAWGZuCWx7waGyFTQQg6cq2y9sSyEV9uT",
+  "title": "Transparent Proxy Pattern for EVM"
+}

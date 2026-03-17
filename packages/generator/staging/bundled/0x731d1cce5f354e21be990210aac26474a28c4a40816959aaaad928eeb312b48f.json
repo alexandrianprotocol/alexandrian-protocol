@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x3960d7785d7d7f5325dae3d84add66959ba2fcff492ddd97937af62949d24fdd",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.execution",
+  "rootCid": "QmbTj2LboMqoWYRVs9CBFA4wUT5sL2dbtda2dq1q289EMK",
+  "title": "Exponential Backoff Retry Strategy"
+}

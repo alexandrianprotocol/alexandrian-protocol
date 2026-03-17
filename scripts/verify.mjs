@@ -436,7 +436,7 @@ const report = {
   ipfsThreeLayerBinding: {
     layer1: {
       label:     "Identity (Base mainnet)",
-      registry:  "0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000",
+      registry:  "0xD1F216E872a9ed4b90E364825869c2F377155B29",
       kbHash:    "0x83a6aad11d39584998f3f34fa45343d04a9e37062b3b603fc989e71d63871a0a",
       publishTx: "0x4afd4de47dbb47bdb9f5871f2e7fa9180ae93acce988a3221cb31b79c6f257de",
       block:     42735184,

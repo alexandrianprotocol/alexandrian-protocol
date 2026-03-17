@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x4f711011bb2d8d95879c420172089198544da1af713217b7176613b5f6ab0013",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "lakehouse.medallion.bronze",
+  "rootCid": "QmbKhRF7oHbdc91E5CECaBCYk5CtTG5MDaz4JRKTJSPhpu",
+  "title": "Bronze Layer Ingestion in Medallion Architecture"
+}

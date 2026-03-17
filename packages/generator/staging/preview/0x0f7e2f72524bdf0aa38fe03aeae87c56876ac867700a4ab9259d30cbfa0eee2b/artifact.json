@@ -1,0 +1,73 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Utilize domain-specific criteria to enhance AI tool selection and prompting, ensuring alignment with specialized capabilities."
+  ],
+  "confidence": 1,
+  "domain": "agent.tool_selection",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x0f7e2f72524bdf0aa38fe03aeae87c56876ac867700a4ab9259d30cbfa0eee2b",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Extract domain-specific requirements by analyzing historical data and user feedback using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Map AI tool capabilities to domain requirements using a capability matrix using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Initialize AI prompts with domain-specific language and constraints by loading environment-specific values from config file; assert all required keys are present via config_validate(); assert config_validation_error_count < 1.",
+      "step": 3
+    },
+    {
+      "action": "Run test prompts and compare outputs against domain-specific benchmarks using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 4
+    },
+    {
+      "action": "Run on prompt configurations based on output validation results up to max_iterations=10; halt when convergence_delta < 0.01 or no further improvement detected; log iteration_count and final_metric; assert final_metric > initial_metric.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:54.043Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Optimize AI tool selection by applying capability matching with domain-specific constraints, ensuring effective AI prompting and output validation.",
+  "tags": [
+    "ai_prompting",
+    "capability_matching",
+    "domain_specific",
+    "tool_selection",
+    "output_validation",
+    "structured_logging",
+    "domain_driven_design"
+  ],
+  "title": "Specialized Capability Matching in AI Prompting",
+  "verification": {
+    "failureConditions": [
+      "Inaccurate tool selection due to generic capability assessment.",
+      "Ineffective AI prompting leading to irrelevant outputs.",
+      "Misalignment between AI outputs and domain-specific needs; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "all required keys are present via config_validate()",
+      "config_validation_error_count < 1",
+      "final_metric > initial_metric",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Domain-specific benchmarks are met in 95% of test prompts; assert error_rate < 0.001 and operation_completed = true.",
+      "Capability matrix accurately reflects domain requirements; assert error_rate < 0.001 and operation_completed = true.",
+      "User feedback indicates improved relevance of AI outputs; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

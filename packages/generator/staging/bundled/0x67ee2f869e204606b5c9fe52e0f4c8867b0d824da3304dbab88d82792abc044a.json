@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xa5af29fa2c02fc4f779b395f2bd4b5e7e8b42ac0c355cb2fc3782718fd3ae304",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "tooling.build.affected",
+  "rootCid": "QmRSdrMrgym84WHyQ9Q7m4hJTbSkFrRMUNsH1uQMqzeafj",
+  "title": "Affected Package Computation for Incremental Builds"
+}

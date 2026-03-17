@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x1daffbbc413fe49d35d8e9faf29099ac54d2d437288a34c77356eb55f22dc1b4",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "agent.error_recovery",
+  "rootCid": "Qmf8hUGmJ2uPRuWpGm96BJkeXb7JZmrU7Y8tWDSw4D394J",
+  "title": "Circuit Breaker Pattern for Preventing Cascading Failures"
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x40291b2d0c93fa86d5150d2aaaab0c74b691d1285da185ab60859f3a741d2d2c
+  artifactHash: 0xb55c3fecaef5ab6659c0115d621d206b1efd3f6b0f6a6d38ca0f8e54ae15e2bb
+  title:        Emit Indexed Events for State Changes in Solidity
+  domain:       evm.solidity
+  kbType:       Practice
+  epistemicType:empirical
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  17
+  graph edges:  16
+  artifact.json size: 3204 bytes
+  meta.json size:     3538 bytes

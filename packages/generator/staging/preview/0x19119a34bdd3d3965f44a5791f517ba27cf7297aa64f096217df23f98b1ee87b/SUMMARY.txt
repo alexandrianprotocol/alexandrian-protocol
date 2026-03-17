@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x19119a34bdd3d3965f44a5791f517ba27cf7297aa64f096217df23f98b1ee87b
+  artifactHash: 0x19b9b56e1aa2e0126678e232cab2aa95caf7c4ff0e5435852ac5b2abf0ef927a
+  title:        Three Pillars Observability Implementation
+  domain:       invariant.architecture
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      1
+  graph nodes:  23
+  graph edges:  30
+  artifact.json size: 2868 bytes
+  meta.json size:     4229 bytes

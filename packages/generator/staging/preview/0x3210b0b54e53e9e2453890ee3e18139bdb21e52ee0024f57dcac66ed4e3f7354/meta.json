@@ -1,0 +1,228 @@
+{
+  "domain": "software.architecture",
+  "isSeed": true,
+  "kbHash": "0x3210b0b54e53e9e2453890ee3e18139bdb21e52ee0024f57dcac66ed4e3f7354",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:53.924Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Centralized State Transition Management",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Reconcile artifacts from both knowledge bases by applying domain-specific tooling to ensure all stat",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Assert merged output for consistency by asserting error_count < 1 and result_valid = true using doma",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Filter transition candidates by running domain-specific algorithms to identify potential state chang",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Assign results using domain-specific classification tools to categorize state transitions",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log all operations to an audit trail with detailed timestamps and result codes to ensure traceabilit",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:all_operations",
+        "label": "all operations",
+        "type": "output"
+      },
+      {
+        "id": "assert:merge_error_count_lt_1",
+        "label": "merge_error_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:merged_output_for_consistency_by_asserting_error_count_lt_1_",
+        "label": "merged output for consistency by asserting error_count < 1 and result_valid = true using domain-appropriate tooling",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:centralized_explicit_state_transition_management_pattern",
+        "label": "Centralized Explicit State Transition Management Pattern",
+        "type": "reference"
+      },
+      {
+        "id": "ref:domain_driven_design",
+        "label": "Domain Driven Design",
+        "type": "reference"
+      },
+      {
+        "id": "ref:structured_logging",
+        "label": "Structured Logging",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:all_operations"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:all_operations",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:merge_error_count_lt_1"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:merged_output_for_consistency_by_asserting_error_count_lt_1_"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:centralized_explicit_state_transition_management_pattern"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:domain_driven_design"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:structured_logging"
+      }
+    ]
+  },
+  "tags": [
+    "software_architecture",
+    "state_management",
+    "knowledge_base",
+    "workflow_integration",
+    "data_validation",
+    "logging",
+    "domain_driven_design"
+  ],
+  "title": "Centralized State Transition Management"
+}

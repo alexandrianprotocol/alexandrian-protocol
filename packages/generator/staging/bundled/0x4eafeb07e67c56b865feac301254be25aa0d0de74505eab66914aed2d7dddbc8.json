@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xc8751aa1ee573ea5e2691341480bd802dd3670cbe57d21af49c322f0abde306a",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "software.codebase.dead_code",
+  "rootCid": "QmWMJXSVduWbjxf514kJzEbvkL4mkCZq7V1LA7UcSFtPD2",
+  "title": "Dead Code Path Detection via Reachability Analysis"
+}

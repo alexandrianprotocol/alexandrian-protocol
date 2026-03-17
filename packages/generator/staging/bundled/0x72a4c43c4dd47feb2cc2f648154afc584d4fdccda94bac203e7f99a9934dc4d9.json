@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xd6bfe8242a7dba39166fc7668743b308872322d3c1734122f9677a958fdc7390",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "ai.safety.injection.output_validation",
+  "rootCid": "QmWMYThtfm5ZnkLMvAEs2rhvrosHaEqM7Cszb9N1YSro6Z",
+  "title": "LLM Output Injection Anomaly Validation"
+}

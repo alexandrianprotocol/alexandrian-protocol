@@ -1,0 +1,71 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Adapt the Transaction Pattern to AI prompting by incorporating domain-specific constraints, ensuring reliable execution and validation."
+  ],
+  "confidence": 1,
+  "domain": "agent.execution",
+  "epistemicType": "heuristic",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x178f05e3dd6ffa0803e99a94000492946af92b9b036c9a849ed8787dfbc37bb5",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Analyze AI prompting requirements and extract domain-specific constraints using domain experts using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 1
+    },
+    {
+      "action": "Design transaction steps with AI-specific examples, ensuring each step aligns with extracted constraints using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Invoke transaction logic using a state machine to manage AI prompt states and transitions following the specified pattern; write a unit test covering the primary code path; assert test_coverage >= 0.8 for the modified module before marking complete.",
+      "step": 3
+    },
+    {
+      "action": "Compose validation mechanisms to verify prompt execution against domain constraints by composing module interfaces via adapter pattern; assert input/output type contracts match before connecting; assert integration_error_count < 1 after contract validation.",
+      "step": 4
+    },
+    {
+      "action": "Log transaction outcomes and errors using structured logging for traceability and debugging using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:54.031Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Specialize the Transaction Pattern for AI prompting by integrating domain-specific constraints and examples, ensuring robust execution and validation.",
+  "tags": [
+    "ai_prompting",
+    "transaction_pattern",
+    "domain_specific_design",
+    "structured_logging",
+    "validation"
+  ],
+  "title": "Specialization of Transaction Pattern in AI Prompting",
+  "verification": {
+    "failureConditions": [
+      "AI prompts fail to execute due to missing domain constraints.",
+      "Transaction steps do not align with AI-specific requirements; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "Validation mechanisms miss domain-specific errors; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "test_coverage >= 0.8 for the modified module before marking complete",
+      "input/output type contracts match before connecting",
+      "integration_error_count < 1 after contract validation",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Run test cases to ensure AI prompts adhere to domain constraints; assert error_rate < 0.001 and operation_completed = true.",
+      "Check logs for structured entries of transaction states and errors; assert error_rate < 0.001 and operation_completed = true.",
+      "Simulate failure scenarios to verify transaction rollback mechanisms; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

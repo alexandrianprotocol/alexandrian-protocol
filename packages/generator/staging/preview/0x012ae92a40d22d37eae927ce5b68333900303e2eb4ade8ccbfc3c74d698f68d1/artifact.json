@@ -1,0 +1,109 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Implement Consumer-Driven Contract Testing to verify service interactions against predefined contracts using Pact, ensuring compatibility and reliability in service communication."
+  ],
+  "confidence": 0.93,
+  "domain": "software.testing",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to the audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to the audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "the audit trail",
+        "type": "log"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "all contract test results",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "metrics, including operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code,",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0x012ae92a40d22d37eae927ce5b68333900303e2eb4ade8ccbfc3c74d698f68d1",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Capture the contract specification using Pact's DSL by defining expected interactions and responses; ensure the specification is stored in a version-controlled repository.",
+      "step": 1
+    },
+    {
+      "action": "Execute the contract tests using Pact's CLI tool, asserting that error_count < 1 and result_valid = true; log operation_duration_ms and result_code to the audit trail for compliance.",
+      "step": 2
+    },
+    {
+      "action": "Assert the contract specification against the provider service using Pact's verification tool, ensuring all interactions are correctly implemented; assert error_count < 1 and result_valid = true.",
+      "step": 3
+    },
+    {
+      "action": "Compose the contract testing process into the CI/CD pipeline using a tool like Jenkins or GitHub Actions, ensuring automated execution on every build; monitor for failures and alert on discrepancies by composing module interfaces via adapter pattern; assert input/output type contracts match before connecting; assert integration_error_count < 1 after contract validation.",
+      "step": 4
+    },
+    {
+      "action": "Log all contract test results and metrics, including operation_duration_ms and result_code, to a centralized logging system for audit and analysis purposes using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:18:31.283Z",
+  "royaltyBps": 400,
+  "schemaVersion": "2.5",
+  "summary": "Implement Consumer-Driven Contract Testing using Pact to ensure service interactions meet agreed contracts, leveraging agent.tool_selection derived knowledge base for tool selection.",
+  "tags": [
+    "consumer_driven_contracts",
+    "pact",
+    "contract_testing",
+    "ci_cd_integration",
+    "service_compatibility",
+    "software_testing",
+    "tool_selection"
+  ],
+  "title": "Consumer-Driven Contract Testing",
+  "verification": {
+    "failureConditions": [
+      "Service incompatibility when contract tests are not executed, causing unexpected failures in production environments.",
+      "Inconsistent service behavior when contract specifications are outdated, leading to misaligned expectations between consumer and provider.",
+      "Increased error rates when contract tests are not integrated into CI/CD, causing undetected contract violations."
+    ],
+    "metrics": [
+      "the contract specification against the provider service using Pact's verification tool, ensuring all interactions are co",
+      "error_count < 1 and result_valid = true",
+      "input/output type contracts match before connecting",
+      "integration_error_count < 1 after contract validation"
+    ],
+    "successConditions": [
+      "error_count < 1",
+      "result_valid = true",
+      "operation_duration_ms < 500ms",
+      "contract_test_coverage >= 90%"
+    ]
+  }
+}

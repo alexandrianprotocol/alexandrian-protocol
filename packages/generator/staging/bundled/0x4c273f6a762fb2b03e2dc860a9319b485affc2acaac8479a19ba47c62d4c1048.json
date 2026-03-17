@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x793968f1bd6dd6dd02c8d50ffd9b8b27c0cfa1a9a896a82fd1fdfb5d2c6df811",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "evm.testing.forge_fuzzing",
+  "rootCid": "QmarvRUjcRuhCcb9A2NzjyADXnzMgSRu99oRNWfUwobPQ9",
+  "title": "Forge Fuzz Testing for EVM"
+}

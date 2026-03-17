@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x5f662a4c87f21a1abad3bd59268ee79efe950ac39d0b75e134628e0fbe6ea023",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "sql.optimization",
+  "rootCid": "QmVdQcUh24ThbNZ3GFQud1N5x97Vq4nG8zx8xRUhvCsr6Q",
+  "title": "Batching GraphQL Resolvers"
+}

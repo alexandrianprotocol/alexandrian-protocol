@@ -1,0 +1,98 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Combine event sourcing with key-based data partitioning to optimize SQL read models, improving query efficiency and scalability."
+  ],
+  "confidence": 0.93,
+  "domain": "software.architecture",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      },
+      {
+        "description": "logged to audit log",
+        "name": "creation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit log",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0xfdf4b636e3487d94377ba511aefb417c7cfb8144293f5623cdd9b85158183494",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Run EXPLAIN ANALYZE on the 10 slowest queries and extract columns appearing in WHERE clauses across >60% of queries.",
+      "step": 1
+    },
+    {
+      "action": "Partition tables using the extracted columns as partition keys to distribute data evenly across partitions using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Instantiate indexes on partition keys to speed up query execution and reduce scan times by instantiating the resource with the specified configuration; assert resource_id != null and resource_state = 'active'; log creation_duration_ms to audit_log.",
+      "step": 3
+    },
+    {
+      "action": "Invoke pg_partman or similar tools to automate partition management and maintenance by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 4
+    },
+    {
+      "action": "Set up monitoring with pg_stat_statements to track query performance and adjust partitioning strategy as needed using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:18:31.201Z",
+  "royaltyBps": 400,
+  "schemaVersion": "2.5",
+  "summary": "Enhance SQL read models in event sourcing by applying key-based data partitioning for efficient query pruning, ensuring scalable and performant data retrieval.",
+  "tags": [
+    "event_sourcing",
+    "data_partitioning",
+    "sql_optimization",
+    "query_performance",
+    "scalability",
+    "database_design",
+    "read_models"
+  ],
+  "title": "Optimizing SQL Read Models with Key-Based Data Partitioning",
+  "verification": {
+    "failureConditions": [
+      "Increased query latency due to inefficient partitioning.",
+      "Uneven data distribution leading to hotspots.",
+      "Complexity in partition management causing maintenance overhead."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "resource_id != null and resource_state = 'active'",
+      "response_status < 400 and response_time_ms < 5000",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Verify p95 query time is reduced by at least 30% after partitioning",
+      "Ensure no single partition exceeds 20% of total data volume",
+      "Check that query execution plans use partition pruning effectively"
+    ]
+  }
+}

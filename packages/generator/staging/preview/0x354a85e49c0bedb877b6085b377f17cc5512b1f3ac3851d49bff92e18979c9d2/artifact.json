@@ -1,0 +1,91 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Ensure all internal dependencies are scoped to a private registry and verify package integrity to prevent dependency confusion attacks."
+  ],
+  "confidence": 0.88,
+  "domain": "security.supply_chain.dependency_poisoning",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": [
+      {
+        "description": "logged to audit trail",
+        "name": "operation duration ms",
+        "type": "metric"
+      },
+      {
+        "description": "logged to audit trail",
+        "name": "result code",
+        "type": "metric"
+      },
+      {
+        "description": "structured audit record",
+        "name": "audit trail",
+        "type": "log"
+      }
+    ]
+  },
+  "isSeed": true,
+  "kbHash": "0x354a85e49c0bedb877b6085b377f17cc5512b1f3ac3851d49bff92e18979c9d2",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Initialize the package manager to scope internal namespaces to a private registry by setting the registry URL in the .npmrc or equivalent configuration file by loading environment-specific values from config file; assert all required keys are present via config_validate(); assert config_validation_error_count < 1.",
+      "step": 1
+    },
+    {
+      "action": "Commit the lockfile to version control to ensure all dependencies are resolved to specific versions, preventing unauthorized updates from public registries.",
+      "step": 2
+    },
+    {
+      "action": "Verify package integrity by checking the hash of downloaded packages against a known good hash using a tool like npm audit or yarn audit using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Observe for namespace squatting by periodically scanning public registries for packages with similar names to internal packages using a tool like npm-scope-check by polling the target metric at interval_ms < 60000; emit METRIC_ALERT if value exceeds threshold for 3 consecutive samples; assert alert_latency < 5000ms.",
+      "step": 4
+    },
+    {
+      "action": "Finalize defense status by running a security audit tool that checks for dependency confusion vulnerabilities and generates a report of any findings using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T03:18:31.258Z",
+  "royaltyBps": 300,
+  "schemaVersion": "2.5",
+  "summary": "Defend against dependency confusion attacks by scoping internal namespaces to a private registry, verifying package integrity, and monitoring for namespace squatting.",
+  "tags": [
+    "security",
+    "supply_chain",
+    "dependency_poisoning",
+    "package_management",
+    "namespace_squatting",
+    "private_registry",
+    "integrity_verification"
+  ],
+  "title": "Dependency Confusion Attack Defense",
+  "verification": {
+    "failureConditions": [
+      "Malicious packages are installed when internal namespaces are not scoped to a private registry, causing security breaches.",
+      "Unauthorized package updates occur when lockfiles are not committed, leading to potential dependency confusion attacks.",
+      "Package integrity is compromised when hashes are not verified, allowing tampered packages to be used in production."
+    ],
+    "metrics": [
+      "all required keys are present via config_validate()",
+      "config_validation_error_count < 1",
+      "error_count < 1 and result_valid = true",
+      "alert_latency < 5000ms",
+      "no vulnerabilities related to dependency confusion",
+      "error_rate < 0.001 and operation_completed = true",
+      "all dependencies resolve to private registry"
+    ],
+    "successConditions": [
+      "run npm audit",
+      "check lockfile integrity",
+      "hash(package) == known_good_hash for all internal packages"
+    ]
+  }
+}

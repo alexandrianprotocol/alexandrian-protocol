@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xd2b4d6345d360bdf5dfeb343f8a6163327cf41b00578a8dcfff6868615c2a475",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "realtime.optimistic.queue",
+  "rootCid": "QmcrKFRQCFwJvQG4rBinMmT22XVwCXjMCE8Xq8v9qd2b77",
+  "title": "Ordered Queuing of Optimistic Mutations"
+}

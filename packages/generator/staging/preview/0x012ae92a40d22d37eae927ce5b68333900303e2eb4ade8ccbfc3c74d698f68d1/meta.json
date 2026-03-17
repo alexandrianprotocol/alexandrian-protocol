@@ -1,0 +1,263 @@
+{
+  "domain": "software.testing",
+  "isSeed": true,
+  "kbHash": "0x012ae92a40d22d37eae927ce5b68333900303e2eb4ade8ccbfc3c74d698f68d1",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T03:18:31.283Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Consumer-Driven Contract Testing",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Capture the contract specification using Pact's DSL by defining expected interactions and responses",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Execute the contract tests using Pact's CLI tool, asserting that error_count < 1 and result_valid = ",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Assert the contract specification against the provider service using Pact's verification tool, ensur",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Compose the contract testing process into the CI/CD pipeline using a tool like Jenkins or GitHub Act",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Log all contract test results and metrics, including operation_duration_ms and result_code, to a cen",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:the_audit_trail",
+        "label": "the audit trail",
+        "type": "output"
+      },
+      {
+        "id": "out:all_contract_test_results",
+        "label": "all contract test results",
+        "type": "output"
+      },
+      {
+        "id": "out:metrics_including_operation_duration_ms",
+        "label": "metrics, including operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:jenkins",
+        "label": "Jenkins",
+        "type": "tool"
+      },
+      {
+        "id": "assert:the_contract_specification_against_the_provider_service_usin",
+        "label": "the contract specification against the provider service using Pact's verification tool, ensuring all interactions are co",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:input_output_type_contracts_match_before_connecting",
+        "label": "input/output type contracts match before connecting",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:integration_error_count_lt_1_after_contract_validation",
+        "label": "integration_error_count < 1 after contract validation",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:consumer_driven_contracts",
+        "label": "Consumer-Driven Contracts",
+        "type": "reference"
+      },
+      {
+        "id": "ref:pact",
+        "label": "Pact",
+        "type": "reference"
+      },
+      {
+        "id": "ref:ci_cd_pipeline",
+        "label": "CI/CD Pipeline",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:2",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:the_audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:the_audit_trail"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:all_contract_test_results"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:metrics_including_operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "out:all_contract_test_results",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:metrics_including_operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:4",
+        "rel": "uses",
+        "to": "tool:jenkins"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:the_contract_specification_against_the_provider_service_usin"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:input_output_type_contracts_match_before_connecting"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:integration_error_count_lt_1_after_contract_validation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:consumer_driven_contracts"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:pact"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:ci_cd_pipeline"
+      }
+    ]
+  },
+  "tags": [
+    "consumer_driven_contracts",
+    "pact",
+    "contract_testing",
+    "ci_cd_integration",
+    "service_compatibility",
+    "software_testing",
+    "tool_selection"
+  ],
+  "title": "Consumer-Driven Contract Testing"
+}

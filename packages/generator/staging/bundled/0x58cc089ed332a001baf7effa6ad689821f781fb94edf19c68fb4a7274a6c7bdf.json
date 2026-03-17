@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x01ee5518eb5c950ee5a903723d1c2571ea5c0412e3da3f36731c9466777e8127",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.codegen.wasm",
+  "rootCid": "Qmczy4TvWMW5XqJ6Xnb5jzPf8DT29EjoQbu9Vcw5Ty2Koc",
+  "title": "WebAssembly Bytecode Generation from IR"
+}

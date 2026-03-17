@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x0692148952e69b176bdf4a237e3488df5474c87a430a6c5d11f4fc508786b718
+  artifactHash: 0xf62aa1b94b4833a0cdde34fd4cabfffe6e775403b165575155502b2be7c0100a
+  title:        Weighted Criteria Matrix Specialization for Meta Protocol
+  domain:       agent.reasoning
+  kbType:       PromptEngineering
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      6
+  graph nodes:  19
+  graph edges:  34
+  artifact.json size: 3013 bytes
+  meta.json size:     5029 bytes

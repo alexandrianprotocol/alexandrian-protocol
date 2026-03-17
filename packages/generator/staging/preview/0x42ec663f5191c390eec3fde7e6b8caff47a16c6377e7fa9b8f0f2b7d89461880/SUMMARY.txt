@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x42ec663f5191c390eec3fde7e6b8caff47a16c6377e7fa9b8f0f2b7d89461880
+  artifactHash: 0x74575e22d836d20ae3b8038fc4e07f718d3c311a69ee8f38084b30e8c48de839
+  title:        Logging Strategy Evaluation with Agent Planning
+  domain:       software.observability
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.95
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  23
+  graph edges:  24
+  artifact.json size: 3461 bytes
+  meta.json size:     4561 bytes

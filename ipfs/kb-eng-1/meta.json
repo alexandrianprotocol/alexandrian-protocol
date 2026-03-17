@@ -1,0 +1,24 @@
+{
+  "kbHash": "0x574542249886be6e935764c9b1518b57bae71cab15de273a41d39c190c5d0d20",
+  "kbId": "KB-ENG-1",
+  "title": "Stable Production API Design",
+  "domain": "engineering.api.design",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "tags": [
+    "api_design",
+    "rest",
+    "resource_modeling",
+    "error_schema",
+    "versioning",
+    "contract_first"
+  ],
+  "isSeed": true,
+  "royaltyBps": 0,
+  "depth": 0,
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "publishedAt": "2026-03-17T00:00:00Z"
+}

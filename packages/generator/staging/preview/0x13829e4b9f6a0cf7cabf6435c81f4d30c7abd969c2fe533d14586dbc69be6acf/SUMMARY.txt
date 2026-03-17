@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x13829e4b9f6a0cf7cabf6435c81f4d30c7abd969c2fe533d14586dbc69be6acf
+  artifactHash: 0x9ac7139b65463de156a53420ac04bb3f3106cfc68d0391cd7ed6bb28e4fa48f4
+  title:        Agent Memory Prioritization in Software Architecture
+  domain:       agent.memory.prioritization
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      4
+  graph nodes:  18
+  graph edges:  20
+  artifact.json size: 3085 bytes
+  meta.json size:     3802 bytes

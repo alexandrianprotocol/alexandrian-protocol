@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x0823504ea9c73f7ae01ec1ba37931ea24f18cd5689efe0967ff93d082047577a",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "compiler.types.gradual",
+  "rootCid": "QmcRr1W5E6zerMMvAzj7UP35e83gfwpM7MU44c8iebSNLF",
+  "title": "Gradual Typing for Dynamic-to-Static Migration"
+}

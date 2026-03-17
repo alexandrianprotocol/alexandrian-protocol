@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x811e61a89a07119bc5291943bdaf647032fc87f04db9435d24d8af01c636be06",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "database.replication.conflict",
+  "rootCid": "QmemuUYipqoBjbMkox8xhHjcKcL4GwAasrap79nZFkgfyS",
+  "title": "Write Conflict Resolution in Multi-Primary Replication"
+}

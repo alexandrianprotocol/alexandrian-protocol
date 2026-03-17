@@ -1,0 +1,52 @@
+{
+  "title": "Composition",
+  "summary": "Integrate knowledge deduplication with agent error recovery by merging workflows and validating outputs to enhance knowledge base accuracy and resilience.",
+  "standard": "Combine knowledge deduplication and error recovery processes to create a unified knowledge base with improved accuracy and error handling.",
+  "procedure": [
+    "Run SPARQL queries to extract overlapping entities from both knowledge bases with automated substep verification; assert substep_pass_count = substep_total and error_count < 1; persist results before advancing.",
+    "Invoke RDF Schema to merge artifacts, ensuring compatibility and consistency by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+    "Execute SHACL constraints to validate the merged output for structural integrity by executing the transformation function on each input record; assert output_schema_valid = true and error_count < 1; log transformation_duration_ms.",
+    "Execute a machine learning model to detect candidate errors in the merged data following the defined protocol with boundary checks; assert exit_code < 1 and success_indicator = true; emit completion_event on success.",
+    "Assign results using a decision tree to determine error recovery actions using a deterministic decision matrix: evaluate each criterion in priority order; assign first matching class or UNCLASSIFIED; assert confidence_score >= 0.7 for all classified records."
+  ],
+  "references": [
+    "Event Sourcing",
+    "CQRS",
+    "Graceful Degradation",
+    "Retry with Backoff"
+  ],
+  "failure_modes": [
+    "Inconsistent data due to improper merging.",
+    "Loss of critical information during deduplication; this occurs when the triggering event is not handled at the correct boundary, causing the condition to surface in a downstream stage.",
+    "Increased error rates if recovery steps are misaligned; this occurs when required context is unavailable at execution time, causing the step to proceed with incomplete information."
+  ],
+  "verification": [
+    "Check that merged entities maintain unique identifiers; assert error_rate < 0.001 and operation_completed = true.",
+    "Ensure SHACL validation passes for all merged data; assert success_count >= expected_count and failure_count < 1.",
+    "Verify error recovery actions reduce error rates by 20%; assert output_valid = true and error_count < 1."
+  ],
+  "tags": [
+    "knowledge_graphs",
+    "data_integration",
+    "error_recovery",
+    "data_quality",
+    "rdf",
+    "sparql",
+    "machine_learning",
+    "data_validation"
+  ],
+  "domain": "knowledge.graphs",
+  "_quality": {
+    "score": 2.8,
+    "classification": "anchor",
+    "dimensions": {
+      "executability": 3,
+      "atomicity": 3,
+      "epistemicHonesty": 3,
+      "depth": 3
+    },
+    "failureReasons": [],
+    "scoredAt": "2026-03-11T07:17:53.311Z",
+    "repairedAt": "2026-03-11T07:17:53.311Z"
+  }
+}

@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x04b374a0b11cc549bf4ab95c8ec021dfd48179fc72e8fd8fd2975109785d644c
+  artifactHash: 0x7058f9b55315217908f33223e6e8051cfc41d2dd4f90fd818a810ea363627ce8
+  title:        Systematic Scenario Enumeration
+  domain:       agent.reasoning
+  kbType:       PromptEngineering
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      3
+  graph nodes:  15
+  graph edges:  19
+  artifact.json size: 2908 bytes
+  meta.json size:     3682 bytes

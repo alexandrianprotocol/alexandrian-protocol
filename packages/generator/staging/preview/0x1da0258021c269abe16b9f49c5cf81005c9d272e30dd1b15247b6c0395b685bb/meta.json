@@ -1,0 +1,188 @@
+{
+  "domain": "invariant.reliability",
+  "isSeed": true,
+  "kbHash": "0x1da0258021c269abe16b9f49c5cf81005c9d272e30dd1b15247b6c0395b685bb",
+  "kbType": "Practice",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:54.104Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Error Budget Enforcement for Reliability",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Specify service level objectives (SLOs) by identifying key performance indicators such as availabili",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Calculate the error budget by subtracting the SLO target from 100%",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Establish an error budget policy by setting rules for development activities",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Enforce the error budget policy by integrating automated alerts in the CI/CD pipeline",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Observe error budget consumption using a telemetry pipeline",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:alert_latency_lt_5000ms",
+        "label": "alert_latency < 5000ms",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:graceful_degradation",
+        "label": "Graceful Degradation",
+        "type": "reference"
+      },
+      {
+        "id": "ref:health_check_pattern",
+        "label": "Health Check Pattern",
+        "type": "reference"
+      },
+      {
+        "id": "ref:distributed_tracing",
+        "label": "Distributed Tracing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:metrics_aggregation",
+        "label": "Metrics Aggregation",
+        "type": "reference"
+      },
+      {
+        "id": "ref:telemetry_pipeline",
+        "label": "Telemetry Pipeline",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:alert_latency_lt_5000ms"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:graceful_degradation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:health_check_pattern"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:distributed_tracing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:metrics_aggregation"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:telemetry_pipeline"
+      }
+    ]
+  },
+  "tags": [
+    "reliability",
+    "error_budget",
+    "service_level_objectives",
+    "ci_cd",
+    "telemetry",
+    "innovation",
+    "performance_monitoring"
+  ],
+  "title": "Error Budget Enforcement for Reliability"
+}

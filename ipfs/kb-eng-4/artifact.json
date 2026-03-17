@@ -1,0 +1,196 @@
+{
+  "schemaVersion": "2.5",
+  "kbHash": "0xc481b00215bda9fd757e7c123459ce5cbe0d1de2b55b6e9f98ae2b99d1eba5e3",
+  "kbType": "ComplianceChecklist",
+  "epistemicType": "evaluative",
+  "domain": "engineering.api.security",
+  "title": "API Endpoint Security: Authentication, Authorization, and Input Validation",
+  "summary": "A security checklist for hardening a RESTful API service (KB-ENG-3) against authentication bypass, authorization failures, and injection attacks — covering JWT validation, RBAC enforcement, input sanitization, rate limiting, and OWASP API Security Top 10. Derived from KB-ENG-3: the implementation must be running and contract-tested before this checklist is applied. Each item maps to a specific vulnerability class and includes static analysis tooling and adversarial test procedures.",
+  "tags": [
+    "api_security",
+    "authentication",
+    "authorization",
+    "jwt",
+    "rbac",
+    "input_validation",
+    "rate_limiting",
+    "owasp",
+    "security_audit"
+  ],
+  "capabilities": [
+    "map-endpoint-auth-requirements",
+    "validate-jwt-bearer-tokens",
+    "enforce-rbac-authorization",
+    "sanitize-and-validate-inputs",
+    "implement-rate-limiting",
+    "audit-owasp-api-top10",
+    "write-adversarial-security-tests"
+  ],
+  "confidence": 0.94,
+  "highestSeverity": "critical",
+  "preconditions": [
+    "A running API service from KB-ENG-3 with passing contract integration tests is available.",
+    "The auth_scheme from KB-ENG-1 step 4 is available — auth tiers per endpoint are defined."
+  ],
+  "cost_estimate": {
+    "human_hours": "6-10h initial audit; 2-4h per new resource",
+    "resource_class": "security-engineer",
+    "automation_coverage": 0.5,
+    "notes": "Static analysis (semgrep, bearer) covers items 1-3 partially. IDOR and privilege escalation tests (item 7) require manual authoring and domain knowledge about the data model. Rate limiting configuration (item 5) requires load testing to calibrate thresholds."
+  },
+  "payloadType": "checklist",
+  "checklist": [
+    {
+      "item": "Map every endpoint to its authentication requirement from the auth_scheme (PUBLIC, USER, ADMIN, SERVICE). Verify the implementation matches the spec — no endpoint is PUBLIC that should be authenticated.",
+      "severity": "critical",
+      "rationale": "Authentication enforcement is the first gate in every API security model. An endpoint that should be authenticated but is accidentally PUBLIC exposes all user data reachable through that route without any credential. The most common cause is middleware ordering: an auth middleware installed after a route registration does not protect that route.",
+      "tooling": {
+        "automated": "Static analysis: bearer scan --only=jwt-missing-verification, semgrep --config=p/jwt. Cross-reference: extract all routes from the running server and compare their middleware stack against the auth_scheme from KB-ENG-1. Automated route audit: curl -u '' {endpoint} for every route; any 200 on a non-PUBLIC route is a critical finding.",
+        "manual": "Middleware order verification: in the framework's middleware chain, confirm auth middleware is registered before route handlers for every authenticated endpoint. For each PUBLIC endpoint: confirm it cannot return any user-specific data — a PUBLIC endpoint returning data that changes based on an Optional Authorization header is leaking data."
+      },
+      "produces": "auth_requirement_map"
+    },
+    {
+      "item": "Validate JWT/Bearer tokens on every authenticated endpoint: verify signature, expiry (exp), issuer (iss), audience (aud), and that the token is not revoked. Reject any token failing any check with 401.",
+      "severity": "critical",
+      "rationale": "JWT validation that checks only the signature — not expiry, issuer, and audience — accepts stolen tokens that have not yet expired, and accepts tokens issued by other services in the same JWT ecosystem (cross-service token confusion). The audience check is the most commonly omitted: a user's token for the frontend application should not be accepted by an admin API. Revocation checks are necessary for logout and account compromise scenarios.",
+      "tooling": {
+        "automated": "Validation checklist per token: (1) algorithm is RS256 or ES256 — reject HS256 with a symmetric secret for multi-service systems, (2) exp claim is in the future, (3) iss claim matches the configured issuer, (4) aud claim includes the service identifier, (5) token is not in the revocation list (Redis blacklist or DB lookup). Use a hardened JWT library: jose (Node), golang-jwt/jwt v5 (Go), PyJWT (Python). Never use alg=none or accept the algorithm from the token header.",
+        "manual": "Attack simulation: (1) send a request with an expired token — expect 401, (2) send a token with wrong audience — expect 401, (3) send a token signed with a different key — expect 401, (4) forge a token with alg=none header and a valid payload — expect 401. Any test returning 200 is a critical vulnerability."
+      },
+      "produces": "jwt_validation_report"
+    },
+    {
+      "item": "Enforce authorization at the data level: verify that each operation confirms the authenticated user has permission to access or modify the specific resource identified by the path parameter — not just that they are authenticated.",
+      "severity": "critical",
+      "rationale": "Authentication confirms identity; authorization confirms permission. An API that checks 'is the user logged in?' but not 'does this user own resource /orders/456?' is vulnerable to Insecure Direct Object Reference (IDOR) — the #1 OWASP API Security vulnerability. IDOR allows any authenticated user to read or modify any other user's data by guessing or enumerating resource IDs. The fix is not ID obfuscation (UUIDs instead of integers) — it is an explicit ownership or permission check in every handler that operates on a user-owned resource.",
+      "tooling": {
+        "automated": "RBAC enforcement: extract the user_id from the validated JWT claims. For every operation on a user-owned resource: query the resource and verify resource.owner_id == user_id before proceeding. For admin operations: verify the 'admin' scope is present in the token claims. Static analysis: semgrep rule to find handler functions that use path parameters but do not reference user_id from the request context.",
+        "manual": "IDOR test: create two test user accounts (User A and User B). Create a resource owned by User A. Authenticate as User B and attempt GET, PATCH, DELETE on User A's resource using its known ID. Expect 403 FORBIDDEN on all three. Any 200 or 404 (instead of 403) is an IDOR vulnerability. 404 hiding the existence of a resource is acceptable for non-sensitive resources but must be consistent."
+      },
+      "produces": "authorization_audit_report"
+    },
+    {
+      "item": "Validate and sanitize all inputs against the OpenAPI request body schema: reject excess fields, enforce type constraints, validate string formats, and sanitize string values to prevent injection.",
+      "severity": "high",
+      "rationale": "The request validation middleware from KB-ENG-3 enforces schema structure; sanitization goes further — it actively neutralizes injection payloads in string fields. An API that validates structure but does not sanitize content is vulnerable to SQL injection (if the ORM allows raw query fragments), command injection (if inputs reach shell commands), and stored XSS (if outputs are rendered in a browser). Injection is OWASP API Security #3 and #8. The defense is parameterized queries, output encoding, and rejecting strings that match known injection patterns before they reach persistence.",
+      "tooling": {
+        "automated": "Schema enforcement: additionalProperties: false on all request body schemas (already enforced in KB-ENG-2 step 4) — excess fields are rejected. Type coercion disabled in validation middleware (KB-ENG-3 step 2). String sanitization: for fields that reach SQL: use parameterized queries only, never string interpolation. For fields rendered in HTML responses: encode with DOMPurify or html.EscapeString. Static analysis: semgrep --config=p/sql-injection, semgrep --config=p/command-injection.",
+        "manual": "Injection probes: send SQL injection payloads (' OR '1'='1, 1; DROP TABLE users) in all string fields. Send command injection payloads (; ls -la, $(whoami)) in path and query parameters. Send oversized inputs (10MB string fields). Confirm the API returns 422 VALIDATION_FAILED for all probes and that the server logs show no SQL errors or command execution traces."
+      },
+      "produces": "input_sanitization_report"
+    },
+    {
+      "item": "Enforce rate limiting per authenticated user and per IP address for unauthenticated endpoints. Fail closed: when quota is exhausted, return 429 RATE_LIMITED with Retry-After header.",
+      "severity": "high",
+      "rationale": "An API without rate limiting has no defense against credential stuffing, enumeration attacks, or accidental DoS from a client bug. Per-user rate limiting prevents a single compromised account from exhausting server capacity. Per-IP rate limiting on unauthenticated endpoints prevents brute-force attacks against login and password-reset endpoints — the two most targeted endpoints in any API. The Retry-After header is required by RFC 9110 for 429 responses; without it, well-behaved clients back off exponentially instead of retrying immediately.",
+      "tooling": {
+        "automated": "Rate limiter: Redis-backed sliding window counter. Limits by endpoint type: authentication endpoints (POST /sessions, POST /password-reset) → 5 requests per minute per IP. Authenticated resource operations → 100 requests per minute per user_id. Admin operations → 20 requests per minute per user_id. Response headers on every request: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset. On 429: Retry-After: {seconds_until_reset}, body: { error: { code: 'RATE_LIMITED', retryable: true, details: { limit, remaining: 0, reset_at: ISO8601 } } }.",
+        "manual": "Load test validation: using k6 or wrk, send 200 requests per minute to an authenticated endpoint as a single user. Confirm requests 101-200 receive 429 with Retry-After. Confirm requests from a different user are not affected. For auth endpoints: simulate a brute-force login attempt (50 wrong passwords in 1 minute from the same IP). Confirm lockout triggers at the configured threshold."
+      },
+      "produces": "rate_limiting_config"
+    },
+    {
+      "item": "Audit the running API against the OWASP API Security Top 10 (2023 edition): verify each of the 10 categories with the specific check and tooling listed below.",
+      "severity": "high",
+      "rationale": "The OWASP API Security Top 10 is a structured taxonomy of the most frequently exploited API vulnerability classes. Running the full audit against the implemented API, rather than checking individual categories opportunistically, ensures complete coverage. Items 1-3 (BOLA, Broken Auth, Broken Object Property Authorization) are covered by checklist items 3-4 above. This item covers items 4-10.",
+      "tooling": {
+        "automated": "API4 — Unrestricted Resource Consumption: verify all list endpoints have pagination enforced (max page size) and that queries without limit parameters are rejected. API5 — Broken Function Level Authorization: test all HTTP methods (POST, PUT, DELETE) against endpoints using a user-level token — admin-only operations must return 403. API6 — Unrestricted Access to Sensitive Business Flows: identify business-critical sequences (purchase, password change, account delete) and confirm they have additional controls beyond auth (CSRF tokens, email confirmation). API7 — Server Side Request Forgery: test URL parameter fields with http://169.254.169.254/latest/meta-data (AWS metadata endpoint) — confirm the server does not return AWS metadata. API8 — Security Misconfiguration: check CORS headers (Access-Control-Allow-Origin must not be *), verify TLS certificate validity, confirm security headers are set (Strict-Transport-Security, X-Content-Type-Options, X-Frame-Options). API9 — Improper Inventory Management: confirm there are no active /v0/ or /dev/ routes in production. API10 — Unsafe Consumption of APIs: if the service calls third-party APIs, verify those responses are validated against a schema before being forwarded to clients.",
+        "manual": "For each of API4-API10: document the check performed, the tool or command used, and the result. Record any finding with its endpoint, request, and actual response. A finding is not a failed audit — it is a task card. Schedule remediation within the sprint."
+      },
+      "produces": "owasp_api_top10_audit_report"
+    },
+    {
+      "item": "Write adversarial security tests: for each vulnerability class identified in items 1-6, author an automated test that attempts the attack against the running service and asserts the correct rejection response.",
+      "severity": "medium",
+      "rationale": "Security audits are point-in-time checks. Adversarial tests are permanent regression guards: they run in CI on every code change and ensure that a future refactor does not accidentally reintroduce a vulnerability that was previously fixed. The test for a fixed IDOR vulnerability is the most valuable test in the suite — it is the exact scenario that was vulnerable, now encoded as a regression check. Without adversarial tests, security regressions are only caught by the next manual audit.",
+      "tooling": {
+        "automated": "Test matrix per vulnerability class: (1) IDOR: User B reads User A's resource → assert 403, (2) JWT alg=none: forge token → assert 401, (3) JWT wrong audience: token for other service → assert 401, (4) Rate limit: 200 req/min → assert 429 at threshold, (5) SQL injection: ' OR '1'='1 in string field → assert 422, (6) Missing auth: request without token to authenticated endpoint → assert 401, (7) Admin escalation: user-level token on admin endpoint → assert 403, (8) BFLA: wrong HTTP method on read-only endpoint (PATCH /public-resource) → assert 405.",
+        "manual": "Test authoring discipline: adversarial tests must use real HTTP requests against the running service — not mocked middleware. Tests must clean up any state they create. Tests must be deterministic: a test that passes because the rate limiter counter happened to be low is not a reliable gate. Tag all adversarial tests with @security so they can be run as a separate suite in security-focused CI pipelines."
+      },
+      "produces": "adversarial_test_suite"
+    }
+  ],
+  "verification": {
+    "successConditions": [
+      "auth_requirement_map shows every non-PUBLIC endpoint has auth middleware applied before the route handler",
+      "JWT validation rejects expired tokens, wrong-audience tokens, wrong-issuer tokens, and alg=none tokens — all confirmed by adversarial tests",
+      "IDOR test (User B accessing User A's resource) returns 403 on GET, PATCH, and DELETE",
+      "SQL injection probes in all string fields return 422 with no server-side SQL errors in logs",
+      "Rate limiting triggers at configured threshold with 429 RATE_LIMITED and Retry-After header",
+      "OWASP API Top 10 audit report documents all 10 categories with zero unmitigated CRITICAL or HIGH findings",
+      "Adversarial test suite covers all 8 attack vectors from item 7 — all passing in CI"
+    ],
+    "failureConditions": [
+      "Any authenticated endpoint returns 200 without a valid token — CRITICAL, auth middleware missing or misordered",
+      "JWT with alg=none accepted — CRITICAL, algorithm confusion vulnerability",
+      "User B successfully reads or modifies User A's resource — CRITICAL IDOR vulnerability",
+      "SQL injection payload reaches the database query without parameterization — HIGH, injection vulnerability",
+      "No rate limiting on authentication endpoints — HIGH, brute force and credential stuffing exposure",
+      "CORS misconfiguration: Access-Control-Allow-Origin: * on authenticated endpoints — HIGH, credential exposure to any origin"
+    ],
+    "metrics": [
+      "authenticated_endpoints_without_auth_middleware == 0",
+      "jwt_alg_none_accepted == false",
+      "idor_test_user_b_access_user_a_resource == 403",
+      "sql_injection_probe_reaching_database == 0",
+      "rate_limit_429_on_threshold_breach == true",
+      "owasp_critical_findings_unmitigated == 0",
+      "adversarial_test_suite_ci_passing == true"
+    ]
+  },
+  "interface": {
+    "inputs": [
+      {
+        "name": "running_api_service",
+        "type": "service",
+        "description": "Output of KB-ENG-3: running service with contract integration tests passing"
+      },
+      {
+        "name": "auth_scheme",
+        "type": "object",
+        "description": "Output of KB-ENG-1 step 4: auth tiers per endpoint with token lifetime and scope"
+      },
+      {
+        "name": "validated_openapi_spec",
+        "type": "object",
+        "description": "Output of KB-ENG-2: used to enumerate all endpoints for auth mapping and OWASP audit"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "security_clearance",
+        "type": "boolean",
+        "description": "True when all CRITICAL and HIGH checklist items pass with zero unmitigated findings"
+      },
+      {
+        "name": "owasp_api_top10_audit_report",
+        "type": "object",
+        "description": "Per-category audit results for all 10 OWASP API Security vulnerabilities with findings and remediation status"
+      },
+      {
+        "name": "adversarial_test_suite",
+        "type": "object[]",
+        "description": "Automated security tests for all 8 attack vectors, integrated into CI — permanent regression guards"
+      }
+    ]
+  },
+  "artifactRefs": [
+    {
+      "uri": "KB-ENG-3",
+      "name": "api_implementation",
+      "type": "parent_context"
+    },
+    {
+      "uri": "KB-ENG-1",
+      "name": "api_design",
+      "type": "grandparent_context"
+    }
+  ],
+  "parentHashes": [
+    "0x5181efedb5749f4e6157cf622e63969d3949c7f979258333a11d1b735714e57d"
+  ],
+  "royaltyBps": 500,
+  "isSeed": false,
+  "publishedAt": "2026-03-17T12:00:00Z"
+}

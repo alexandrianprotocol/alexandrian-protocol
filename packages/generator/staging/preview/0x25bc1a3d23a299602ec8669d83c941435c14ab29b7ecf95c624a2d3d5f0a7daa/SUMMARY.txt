@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x25bc1a3d23a299602ec8669d83c941435c14ab29b7ecf95c624a2d3d5f0a7daa
+  artifactHash: 0x2d736acd3bb37835a88a8afdfa71f90a6e6a42d1bdaf9ed86ddd292dfc89fdb6
+  title:        AI Prompting and Knowledge Graphs Composition
+  domain:       ai.prompting
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  18
+  graph edges:  20
+  artifact.json size: 3313 bytes
+  meta.json size:     3827 bytes

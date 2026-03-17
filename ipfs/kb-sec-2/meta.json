@@ -1,0 +1,17 @@
+{
+  "kbHash":      "COMPUTE_FROM_CANONICAL_ENVELOPE",
+  "kbId":        "KB-SEC-2",
+  "title":       "Integer Arithmetic Safety — Unchecked Blocks in Solidity 0.8+",
+  "domain":      "web3.security",
+  "kbType":      "ComplianceChecklist",
+  "payloadType": "checklist",
+  "tags":        ["solidity", "integer-overflow", "unchecked", "arithmetic-safety", "audit"],
+  "isSeed":      true,
+  "royaltyBps":  800,
+  "depth":       0,
+  "score": {
+    "classification": "anchor",
+    "weighted": 2.8
+  },
+  "publishedAt": "2026-03-08T00:00:00Z"
+}

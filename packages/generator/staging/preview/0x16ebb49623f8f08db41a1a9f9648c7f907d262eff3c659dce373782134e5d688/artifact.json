@@ -1,0 +1,73 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Establish a robust data governance framework within catalog systems to ensure compliance with organizational policies and regulatory requirements."
+  ],
+  "confidence": 0.93,
+  "domain": "datamesh.catalog.governance",
+  "epistemicType": "procedural",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x16ebb49623f8f08db41a1a9f9648c7f907d262eff3c659dce373782134e5d688",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Assert governance policies by running automated checks against a predefined policy schema using JSON Schema draft-07; log any validation errors to governance_log.",
+      "step": 1
+    },
+    {
+      "action": "Initialize governance workflows by deploying YAML-based workflow definitions to the catalog system using the 'kubectl apply' command; ensure all workflows are active and error-free by loading environment-specific values from config file; assert all required keys are present via config_validate(); assert config_validation_error_count < 1.",
+      "step": 2
+    },
+    {
+      "action": "Enforce policies by setting up automated triggers in the catalog system that execute compliance checks on data access events; log violations to policy_violation_log using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 3
+    },
+    {
+      "action": "Render compliance reports by querying the catalog system's audit logs using SQL to extract policy adherence metrics; export results to CSV for review by compliance officers.",
+      "step": 4
+    },
+    {
+      "action": "Conduct periodic audits by scheduling cron jobs to run compliance checks every 24 hours; alert the governance team if any discrepancies are found using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:54.048Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Procedure to implement data governance workflows in catalog systems, ensuring compliance and policy enforcement through structured validation and reporting.",
+  "tags": [
+    "data_governance",
+    "catalog_systems",
+    "compliance",
+    "policy_enforcement",
+    "data_mesh",
+    "audit_logging",
+    "workflow_management"
+  ],
+  "title": "Data Governance Workflow Implementation in Catalog Systems",
+  "verification": {
+    "failureConditions": [
+      "Non-compliance when workflows are misconfigured, causing policy checks to be bypassed and leading to unauthorized data access.",
+      "Data integrity issues when policy enforcement is inconsistent, causing conflicting data states across catalog entries.",
+      "Audit failures when compliance reports are incomplete due to missing or incorrect log entries, leading to regulatory penalties."
+    ],
+    "metrics": [
+      "governance policies by running automated checks against a predefined policy schema using JSON Schema draft-07",
+      "all required keys are present via config_validate()",
+      "config_validation_error_count < 1",
+      "error_count < 1 and result_valid = true"
+    ],
+    "successConditions": [
+      "policy_validation_errors = 0",
+      "workflow_deployment_errors = 0",
+      "policy_violation_log.count < 5 per day",
+      "compliance_report_completeness > 95%"
+    ]
+  }
+}

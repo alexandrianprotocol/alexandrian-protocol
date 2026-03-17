@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xa529b5ad69999645f0c87420d46bc114113e3439cdd18a39a3cec8ad354731b3",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "mlops.serving.scaling",
+  "rootCid": "QmNZL12RwCD2q7oSkeUo4MPPDwTUCB5LCR7aaSbzVi6pKs",
+  "title": "Auto-Scaling Policy Design for Model Serving Endpoints"
+}

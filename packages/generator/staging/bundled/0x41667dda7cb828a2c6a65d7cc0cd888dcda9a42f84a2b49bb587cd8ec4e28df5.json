@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xda6b90ba2956b6243e31a3d111a5526fb89804369ec1d47bc717ad06126e844b",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "realtime.presence.offline",
+  "rootCid": "QmTEmRwF1wYVccf1ZzH3RLeC2D8zVPWgETPfuz8QLVHPAb",
+  "title": "User Presence Detection via Heartbeat Interval Evaluation"
+}

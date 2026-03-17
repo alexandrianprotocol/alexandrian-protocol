@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xc06eb9da9f9007c62a77d68ab1d98c2af6b42cf3fdd23678a57cb9200395b391",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "experimentation.ab.bucketing",
+  "rootCid": "QmVywbNozAjvLALLjoa6aWYXj9aJroUrPkfoyfF1QwpG1e",
+  "title": "Traffic Bucketing for Experiment Isolation"
+}

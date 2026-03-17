@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x07fc4d63a1a0c6b50be199991299dfeee4c0797c7167eb95b55b85d2a54de526
+  artifactHash: 0x5e20b44756cbb242063092a042319839e89e39583d709eacc77e8e51546087c3
+  title:        Idempotent ETL Pipeline Pattern for Reliable Data Migration
+  domain:       database.schema_design
+  kbType:       Practice
+  epistemicType:procedural
+  payloadType:  procedure
+  confidence:   0.93
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      7
+  graph nodes:  21
+  graph edges:  20
+  artifact.json size: 3180 bytes
+  meta.json size:     4276 bytes

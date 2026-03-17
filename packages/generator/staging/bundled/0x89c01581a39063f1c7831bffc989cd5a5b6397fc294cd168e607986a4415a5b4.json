@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0xd8961b1f644de5b7f7eac64531369231ba0a98d5fff2ccfbed4ff2f14c80e09f",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "datamesh.registry.ci",
+  "rootCid": "QmVc9uzEYi5qfDsfQaKKZt1BEGSNV8B2dwTJ3MXAVCtYwM",
+  "title": "Schema Registry Validation in CI Pipelines"
+}

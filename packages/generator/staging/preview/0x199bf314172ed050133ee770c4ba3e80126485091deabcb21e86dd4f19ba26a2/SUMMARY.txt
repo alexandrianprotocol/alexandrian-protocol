@@ -1,0 +1,16 @@
+KB Preview
+  hash:         0x199bf314172ed050133ee770c4ba3e80126485091deabcb21e86dd4f19ba26a2
+  artifactHash: 0xb33ef9c65147344b29dd4a0fa8f84ac2b528e56f0107d38d3b10c6a7ba184c1b
+  title:        Schema-Based Input Transformation for Tool Interfacing
+  domain:       agent.tool_selection
+  kbType:       Practice
+  epistemicType:heuristic
+  payloadType:  procedure
+  confidence:   1
+  procedure:    5 steps
+  capabilities: 1
+  metrics:      5
+  graph nodes:  17
+  graph edges:  16
+  artifact.json size: 3421 bytes
+  meta.json size:     3549 bytes

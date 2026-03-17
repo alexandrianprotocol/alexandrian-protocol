@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x9bcee190b87ff2be55abd0dca85aca6ba41310a0904736221c142a9548f455d3",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "platform.k8s.multi_cluster",
+  "rootCid": "QmRYMTShVwwS69DGn5rfPECHJAD2kN3FvLD9wXLsPB2sZN",
+  "title": "Multi-Cluster Kubernetes Federation Architecture Design"
+}

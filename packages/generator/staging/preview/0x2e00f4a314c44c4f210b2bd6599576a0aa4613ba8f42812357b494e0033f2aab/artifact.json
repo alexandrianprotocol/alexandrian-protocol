@@ -1,0 +1,72 @@
+{
+  "artifactRefs": [],
+  "capabilities": [
+    "Emit structured events for every state change and avoid redundant on-chain state storage."
+  ],
+  "confidence": 1,
+  "domain": "evm.solidity",
+  "epistemicType": "empirical",
+  "interface": {
+    "inputs": [],
+    "outputs": []
+  },
+  "isSeed": true,
+  "kbHash": "0x2e00f4a314c44c4f210b2bd6599576a0aa4613ba8f42812357b494e0033f2aab",
+  "kbType": "Practice",
+  "parentHashes": [],
+  "payloadType": "procedure",
+  "procedure": [
+    {
+      "action": "Specify structured events in Solidity for each state transition using the 'event' keyword by specifying schema, constraints, and invariants in machine-readable form; include at least one falsifiable acceptance criterion where error_rate < 0.001.",
+      "step": 1
+    },
+    {
+      "action": "Emit events within contract functions using 'emit' to log state changes using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 2
+    },
+    {
+      "action": "Invoke Ethereum indexers like The Graph to replay events and reconstruct state off-chain by invoking the target API with the specified parameters; assert response_status < 400 and response_time_ms < 5000; log request_id and response_code.",
+      "step": 3
+    },
+    {
+      "action": "Invoke periodic on-chain snapshots using a 'checkpoint' function to reduce replay costs following the specified pattern; write a unit test covering the primary code path; assert test_coverage >= 0.8 for the modified module before marking complete.",
+      "step": 4
+    },
+    {
+      "action": "Audit emitted events for completeness and accuracy during contract testing using domain-appropriate tooling; assert error_count < 1 and result_valid = true; log operation_duration_ms and result_code to audit trail.",
+      "step": 5
+    }
+  ],
+  "publishedAt": "2026-03-11T02:59:54.072Z",
+  "royaltyBps": 0,
+  "schemaVersion": "2.5",
+  "summary": "Leverage EVM's event-sourced architecture to use emitted events as the authoritative source of truth, reducing on-chain storage costs and simplifying state reconstruction by indexers.",
+  "tags": [
+    "evm",
+    "solidity",
+    "event_sourcing",
+    "smart_contracts",
+    "blockchain",
+    "state_management",
+    "gas_optimization"
+  ],
+  "title": "Event-Sourced State Management in Solidity Contracts",
+  "verification": {
+    "failureConditions": [
+      "Increased gas costs due to redundant state storage.",
+      "Inaccurate state reconstruction if events are incomplete; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently.",
+      "High indexer replay costs without periodic snapshots; this occurs when the operation proceeds without pre-condition validation, allowing malformed input to propagate and corrupt downstream state silently."
+    ],
+    "metrics": [
+      "error_count < 1 and result_valid = true",
+      "response_status < 400 and response_time_ms < 5000",
+      "test_coverage >= 0.8 for the modified module before marking complete",
+      "error_rate < 0.001 and operation_completed = true"
+    ],
+    "successConditions": [
+      "Check emitted events match expected state changes during unit tests; assert error_rate < 0.001 and operation_completed = true.",
+      "Verify indexer can reconstruct state accurately from events; assert error_rate < 0.001 and operation_completed = true.",
+      "Measure gas usage to ensure it is optimized by avoiding redundant storage; assert error_rate < 0.001 and operation_completed = true."
+    ]
+  }
+}

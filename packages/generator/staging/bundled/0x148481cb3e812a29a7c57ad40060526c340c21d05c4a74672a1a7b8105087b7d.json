@@ -1,0 +1,7 @@
+{
+  "artifactHash": "0x5f779cfa7f7f90090428bf2bed138096a4f12ffdc16afeed31259cac4ff5bd20",
+  "bundledAt": "2026-03-11T23:16:37.545Z",
+  "domain": "antipattern.distributed",
+  "rootCid": "Qme9ENSW5QTmiSUULKmYav14P1bpFj3hMm7SodhjV4v7UY",
+  "title": "Avoid Synchronous Request Chains"
+}

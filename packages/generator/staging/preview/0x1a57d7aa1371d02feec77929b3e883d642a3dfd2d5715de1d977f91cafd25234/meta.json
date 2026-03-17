@@ -1,0 +1,233 @@
+{
+  "domain": "knowledge.graphs",
+  "isSeed": true,
+  "kbHash": "0x1a57d7aa1371d02feec77929b3e883d642a3dfd2d5715de1d977f91cafd25234",
+  "kbType": "ComplianceChecklist",
+  "payloadType": "procedure",
+  "publishedAt": "2026-03-11T02:59:54.083Z",
+  "score": {
+    "classification": "anchor",
+    "weighted": 3
+  },
+  "semanticGraph": {
+    "nodes": [
+      {
+        "id": "kb:self",
+        "label": "Source Credibility Evaluation in Knowledge Graphs",
+        "type": "kb"
+      },
+      {
+        "id": "step:1",
+        "label": "Run SPARQL queries to extract nodes with high centrality scores and verify their source against a tr",
+        "type": "step"
+      },
+      {
+        "id": "step:2",
+        "label": "Invoke Solidity static analysis tools to identify contract vulnerabilities and flag associated data ",
+        "type": "step"
+      },
+      {
+        "id": "step:3",
+        "label": "Execute PageRank algorithm to rank sources by credibility and cross-reference with external validati",
+        "type": "step"
+      },
+      {
+        "id": "step:4",
+        "label": "Set up automated alerts for data inconsistencies using a rule-based engine with predefined credibili",
+        "type": "step"
+      },
+      {
+        "id": "step:5",
+        "label": "Conduct manual audits on a random sample of high-impact nodes to ensure compliance with credibility ",
+        "type": "step"
+      },
+      {
+        "id": "out:operation_duration_ms",
+        "label": "operation duration ms",
+        "type": "output"
+      },
+      {
+        "id": "out:result_code",
+        "label": "result code",
+        "type": "output"
+      },
+      {
+        "id": "out:audit_trail",
+        "label": "audit trail",
+        "type": "output"
+      },
+      {
+        "id": "tool:sparql",
+        "label": "Sparql",
+        "type": "tool"
+      },
+      {
+        "id": "assert:error_count_lt_1_and_result_valid_eq_true",
+        "label": "error_count < 1 and result_valid = true",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:response_status_lt_400_and_response_time_ms_lt_5000",
+        "label": "response_status < 400 and response_time_ms < 5000",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:output_schema_valid_eq_true_and_error_count_lt_1",
+        "label": "output_schema_valid = true and error_count < 1",
+        "type": "assertion"
+      },
+      {
+        "id": "assert:error_rate_lt_0_001_and_operation_completed_eq_true",
+        "label": "error_rate < 0.001 and operation_completed = true",
+        "type": "assertion"
+      },
+      {
+        "id": "ref:domain_driven_design",
+        "label": "Domain Driven Design",
+        "type": "reference"
+      },
+      {
+        "id": "ref:event_sourcing",
+        "label": "Event Sourcing",
+        "type": "reference"
+      },
+      {
+        "id": "ref:immutable_infrastructure",
+        "label": "Immutable Infrastructure",
+        "type": "reference"
+      },
+      {
+        "id": "ref:distributed_tracing",
+        "label": "Distributed Tracing",
+        "type": "reference"
+      }
+    ],
+    "edges": [
+      {
+        "from": "kb:self",
+        "rel": "starts_with",
+        "to": "step:1"
+      },
+      {
+        "from": "step:1",
+        "rel": "precedes",
+        "to": "step:2"
+      },
+      {
+        "from": "step:2",
+        "rel": "precedes",
+        "to": "step:3"
+      },
+      {
+        "from": "step:3",
+        "rel": "precedes",
+        "to": "step:4"
+      },
+      {
+        "from": "step:4",
+        "rel": "precedes",
+        "to": "step:5"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:1",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "out:operation_duration_ms",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "out:result_code",
+        "rel": "logged_to",
+        "to": "out:audit_trail"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:4",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:operation_duration_ms"
+      },
+      {
+        "from": "step:5",
+        "rel": "produces",
+        "to": "out:result_code"
+      },
+      {
+        "from": "step:1",
+        "rel": "uses",
+        "to": "tool:sparql"
+      },
+      {
+        "from": "step:1",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:4",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:5",
+        "rel": "asserts",
+        "to": "assert:error_count_lt_1_and_result_valid_eq_true"
+      },
+      {
+        "from": "step:2",
+        "rel": "asserts",
+        "to": "assert:response_status_lt_400_and_response_time_ms_lt_5000"
+      },
+      {
+        "from": "step:3",
+        "rel": "asserts",
+        "to": "assert:output_schema_valid_eq_true_and_error_count_lt_1"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:domain_driven_design"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:event_sourcing"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:immutable_infrastructure"
+      },
+      {
+        "from": "kb:self",
+        "rel": "references",
+        "to": "ref:distributed_tracing"
+      }
+    ]
+  },
+  "tags": [
+    "knowledge_graphs",
+    "source_credibility",
+    "evm_solidity",
+    "data_validation",
+    "distributed_systems",
+    "data_integrity",
+    "automated_auditing"
+  ],
+  "title": "Source Credibility Evaluation in Knowledge Graphs"
+}
