@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x32fca7cf597a131e1f4a4f3ae53a10c54d10859b47c1aedbb50032208c1cd426",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "experimentation.rollout.canary",
-  "rootCid": "QmVquyhx6Tc5hnggRoCTeRDtxnmS4oVTJ1TZUvTMesprGG",
-  "title": "Canary Deployment Effectiveness Evaluation"
-}

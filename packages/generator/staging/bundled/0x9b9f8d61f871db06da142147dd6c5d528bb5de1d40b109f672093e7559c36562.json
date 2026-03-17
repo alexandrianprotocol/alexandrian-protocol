@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x1f4e6da7b34ea3bbdd4569687edd40f9c57f7c6389a1bc22090c0006c5114828",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmSDh31sYh6hrbFrLAHdQQw8EeksWcjVR4ApvCwqFZ4346",
-  "title": "Enforce Explicit CORS Allowlist for Credentialed Endpoints"
-}

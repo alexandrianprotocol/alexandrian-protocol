@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x04be5f2b02ec2fd88d8fb698d6713b88d4223f137991351d481d7eac002ef391",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "tooling.build.incremental",
-  "rootCid": "QmQp2PAknQ6H3LKv81QMn1S3x58TZnpDbvDm2vzGhrNKbV",
-  "title": "Incremental Compilation Strategy Design"
-}

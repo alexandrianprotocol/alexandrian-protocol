@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0bbbf10ec5f60c8b3b2cd9ee6b7966cb9b2525ebff11314d31672375479b467d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.migration.rollback",
-  "rootCid": "QmVtzE3LgDU7YL34XzQTgtXa7QC2dhjzpxMWfYNFFiMvZs",
-  "title": "Rollback-Safe Database Migration Design"
-}

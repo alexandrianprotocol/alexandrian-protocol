@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x1119a404b9dc6c00de8ba06226f725bb79dfc4dab1eaae3a714a67c1bb1ded2d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmQW4LpF1r8PtyronW395oBr6DA3qcNvsvKYeDEbzZhHh4",
-  "title": "Circuit Breaker Pattern for Error Recovery in Software Architecture"
-}

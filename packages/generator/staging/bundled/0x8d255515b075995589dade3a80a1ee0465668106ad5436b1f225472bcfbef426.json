@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb19f6f04622110156b093253cc6c80ab1f23b48bb894f58163484fb7d54b81b3",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "mlops.data.augmentation",
-  "rootCid": "Qmb9AhhJNfxoYYdhrA6TWoCWK2tu4uWwhW8DbLQxtLMrWY",
-  "title": "Deterministic Data Augmentation Pipeline Design"
-}

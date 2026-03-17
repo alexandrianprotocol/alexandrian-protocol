@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x966d184571cf64d86299911c611164be31203eb4ecc4b9a68ff067ef3bc55291",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "devops.cicd.rollback_strategy",
-  "rootCid": "QmZUarC5mhha1Ba11Ts7uKsgk5sS6giG3JFxRo1VQc19eu",
-  "title": "CI/CD Rollback Strategy Design"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xdfaaffed28bbefeb196885730608406f79dfa4263d9b44863758203cb87a1d5b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmWJG4u4ZYS3R7y39sv1YhUnDGBX5ukBQXHp452ihcUdHP",
-  "title": "Graceful Degradation for Agent Error Recovery"
-}

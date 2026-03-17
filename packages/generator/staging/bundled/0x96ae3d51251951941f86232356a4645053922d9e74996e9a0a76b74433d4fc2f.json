@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x27ccd251d0f1f79a8e40ff3ecd4ed6c0b6fb2f104d60d8bc37af8272a650b7b4",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmYLSMgSZXjPsMHGRyhNjk48pTtskJcacTv6CLeUWkD1mP",
-  "title": "Graceful Degradation via Fallback Path Activation in AI Prompting"
-}

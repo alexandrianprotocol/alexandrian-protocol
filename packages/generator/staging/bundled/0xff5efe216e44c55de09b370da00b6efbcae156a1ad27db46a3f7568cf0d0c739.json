@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x72fa91d289f4d6ca66b51b4b4eac7cc95c92c720ded5404879f6b21c257d3632",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmV6uSxLCrXvr92KnTtBtiUwEqLev8dF475RHMLTh1LW8M",
-  "title": "Role-Based Access Control Evaluation in Solidity"
-}

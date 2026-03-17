@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x917884239457b3c95fb26eae4dba5e6061e21f52022ed65fcaf941d58fdb5113",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ml.inference.quantization",
-  "rootCid": "QmPyVeJ2a9NfAJQ8gp7uEq8B8UMnhZvpBMhMiqo6CsrCCt",
-  "title": "Model Quantization Success Metrics for Inference"
-}

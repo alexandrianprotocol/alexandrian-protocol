@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x1bbbde123cd789cf634e4980fb7578ad46f20995277f59cac8de621ce79999be",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "experimentation.flags.caching",
-  "rootCid": "QmPwRB7CY2A4ygXEPkReN1KCZAuQpxNW7VS8MFf4kJzwHv",
-  "title": "Flag Evaluation Caching for Low-Latency Access"
-}

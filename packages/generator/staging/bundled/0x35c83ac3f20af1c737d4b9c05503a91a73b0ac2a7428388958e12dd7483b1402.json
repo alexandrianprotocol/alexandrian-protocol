@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa70ec5126827ff2d967e11dca367f43a72b6c37a113c4080681b4eb60ae5eed0",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "antipattern.frontend",
-  "rootCid": "QmdvQyjUSQHGHyuFMSUhEeeokr8v9TiMAFVwFHStaSHEHb",
-  "title": "Avoid Prop Drilling in Frontend Development"
-}

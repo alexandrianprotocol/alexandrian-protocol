@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x82a017d4354249e351659ef185b39f7e0689dc80259e3b315dd503b39dcd74fc",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmTuNnVQqX6Jpmh5orKa5Y16dyhGENfeaNQHFjL9BJXKeJ",
-  "title": "Event-Sourced State Management in Solidity Contracts"
-}

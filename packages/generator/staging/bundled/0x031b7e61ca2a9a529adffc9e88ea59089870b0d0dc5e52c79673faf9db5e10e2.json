@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x931cc72dbc2cdfe5bfceffef026138c918c169e22c81ef6ee367a6dcaee97697",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "lakehouse.medallion.lineage",
-  "rootCid": "QmQUYYho3LLsTwdNKdzdz3KyZTLUPyyP2cnJqqwVzbYS7N",
-  "title": "Data Lineage Tracking in Medallion Architecture"
-}

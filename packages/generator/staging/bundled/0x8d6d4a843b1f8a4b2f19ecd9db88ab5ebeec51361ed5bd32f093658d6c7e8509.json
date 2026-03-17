@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xc533091cd0671476502d8c0769b32cb41134d3335f2e103c228cfc8780794f74",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmXmjNn53eiHTTcfsAftkWp4jKv8w78U2n1MPh23gk7yvJ",
-  "title": "Circuit Breaker Pattern Integration"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6660905739fdc5b126ae4b366fe92e9ed7032eaad000d5b0f281f7a1aca54b56",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmTeKeNojsSbRJWQSvDozEadYmV3nWqYM29PFNSZRcVopB",
-  "title": "Constant-Time Comparison for Cryptographic Secrets in AI Prompting"
-}

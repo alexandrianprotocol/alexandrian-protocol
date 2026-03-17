@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5c92cc7e82fe7cdef1d25687eec13810b2bd581e4c6a08cde1dc821d1b581cbb",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmbbQwbarLeFQDeh276h6PvajfY5ygpk8HXninwVC1FBCk",
-  "title": "Enforce Parameterized Queries for SQL Security"
-}

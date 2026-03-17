@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe399cb1ae849ff3844c80711221055e0212709ac39ded76b116d2bae2308d729",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.crosschain.state_sync",
-  "rootCid": "QmX42yYmk3QjUX925BquQQJMnjKB7W2mEmfm8ZczXqi6jT",
-  "title": "Deterministic Cross-Chain State Synchronization Protocol"
-}

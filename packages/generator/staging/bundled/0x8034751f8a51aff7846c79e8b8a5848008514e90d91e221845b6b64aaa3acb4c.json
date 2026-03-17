@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x33853ec7156a2e52a1903ff60aa1e47c10c6a8e10bc9999f7e46027899f1e5a7",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "protocol.framing.fixed",
-  "rootCid": "QmZieB6y8Vw2BX6FCdKswFsGg9oSepXM8UmCzj5Fij9Ybv",
-  "title": "Fixed-Length Frame Protocol Design"
-}

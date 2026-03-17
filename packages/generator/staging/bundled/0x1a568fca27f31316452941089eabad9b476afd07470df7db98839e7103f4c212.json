@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x47b74b94c9c6ec9019e9ca9ff7bc44440f5c35ecd6a493db2dcfcf5f8cd26053",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "system.event_sourcing.snapshot",
-  "rootCid": "QmdNarJkooLKQhLNQpPsVFHuTVhFmzCE4PMTzqb5H4D4aK",
-  "title": "Aggregate Snapshots for Event Sourcing"
-}

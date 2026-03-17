@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x4ca30df028988ac20ca29b1bb86c6e05068c05cf7dbeeaaba8d322c1a754d825",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmPuQZdKnTCHLbN234TMRwxK9yJZFivNuhRGetvTwx4Qsf",
-  "title": "Store Application Secrets Using Dedicated Secrets Manager"
-}

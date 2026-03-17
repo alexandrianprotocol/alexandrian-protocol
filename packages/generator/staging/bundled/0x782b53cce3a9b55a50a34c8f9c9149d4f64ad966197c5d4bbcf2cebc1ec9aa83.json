@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x81c16293e828b071efc056509393c1c2397f8d095484bf4170b970fd42f37295",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.safety.eval.benchmarks",
-  "rootCid": "QmWexmnGNXxBwS8fbyeBBSbojAfMTYtA2feYMwadPQT2xQ",
-  "title": "Safety Evaluation Benchmark Design for LLMs"
-}

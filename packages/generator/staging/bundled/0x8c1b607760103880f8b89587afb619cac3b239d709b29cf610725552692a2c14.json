@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x32e588587d3d841adc90302adf55e1b8df87a37d448efe034ceb9512bb9b7f27",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmdxXuFEET4cP1ne3G9qrQkkH99jKqMTtzXEpBJgjHoZgn",
-  "title": "Persist Immutable Domain Events for Event Sourcing"
-}

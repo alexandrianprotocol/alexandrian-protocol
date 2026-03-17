@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5c31f7052c54ff5579243438e6067d49cba3897389bf17fe518ccbbac1a4021c",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmT22zpP3J5Lmhw4mUx2QAqPy95XgboyDXxwGB8Rb3cDVx",
-  "title": "Graceful Degradation in Error Recovery Knowledge Base"
-}

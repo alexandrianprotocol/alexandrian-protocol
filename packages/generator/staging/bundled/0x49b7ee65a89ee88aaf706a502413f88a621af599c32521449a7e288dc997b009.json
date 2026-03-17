@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x125372a366abcce3d7aca1990942be378d6874b83a5a793d7211f12f795a3c48",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmedkQuerSRPMB4jK4BcbEo9JcCz97qWZwnYihRLZrLLg5",
-  "title": "Graceful Degradation via Fallback Path Activation"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x87cf6539cfa3a90a42a2d5591c6b6330d852943481cfe3c5f1b3a93d9137aeba",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmNoGNqvK3D4BZNwBoQmdxkZ5oyejrJkW7JXnYNCP1sjj8",
-  "title": "Context-Aware Input Sanitization to Prevent Injection Attacks"
-}

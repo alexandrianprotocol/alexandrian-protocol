@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x941164fde989d1bd95601bd236eebae73b41a5ea37475a9f41e0e56fc0b7ad36",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.prompting",
-  "rootCid": "QmZ2kt4JJ4dNZ2mo3Dd8wztbChhFdkvUj87sc8LhsRA711",
-  "title": "LLM Output Validation Against Prompt Injection"
-}

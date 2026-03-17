@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3c7baa070e838e429c0df4ab08f7b00b265275b03c90560e2cd474fe0a67bb7d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "defi.amm.invariant_math",
-  "rootCid": "QmfKnCaQXx1zqadNeTh1vCRqNZX1peDiU7idUYkH3cEwkC",
-  "title": "AMM Constant-Product Invariant Verification"
-}

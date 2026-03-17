@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x21f4830cc91322d3e61913d0b8a3de5f06233a549cf34ac32266106d3d2c597b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmQ1fSZSThKxSs4sfg3yKvczF1Avmxk8X6iXtSNDCPduQN",
-  "title": "Integer Overflow Safety in Solidity"
-}

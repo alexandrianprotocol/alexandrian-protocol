@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x446c862849c68a7bab3f5341d324246f857cff8bed8de5db364f31aa24c0ecdd",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.reasoning.multi_step",
-  "rootCid": "QmZUM3QyANTzcebdp2MdWvn2dhgSkgWodoZDe5hXrR19EY",
-  "title": "Evaluating Multi-Step Reasoning Chains in Software Architecture"
-}

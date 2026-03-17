@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x1235310550cd219e548a6036690fa5a92d415fc35df1a7c4802a4e6495f58674",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "infra.kubernetes.health_probes",
-  "rootCid": "QmcuRwnNatqgEdVNQ5XSj3P7hRYGZdMo88W2HvYRdd3ebo",
-  "title": "Kubernetes Liveness"
-}

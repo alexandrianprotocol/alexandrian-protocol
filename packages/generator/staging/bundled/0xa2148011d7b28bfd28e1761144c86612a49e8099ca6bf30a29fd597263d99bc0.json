@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x2180ae5e06af62ec5a40c550db1c2d5f1b1a7460f1c29dd3e844adb1469a57a1",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.observability",
-  "rootCid": "QmYCTQdEMuUtVbHiVrUHzBs7xg2cjGksuaV8pfUkkf7emT",
-  "title": "Structured Logging for Contextual Event Diagnosis"
-}

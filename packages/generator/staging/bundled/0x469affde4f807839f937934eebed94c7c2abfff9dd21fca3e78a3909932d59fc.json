@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x09bc1a3cbb5ea92a382640d830c52590f3b8740b59c9b895b0c2f41143c024fc",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "data.transformation.idempotent_sql",
-  "rootCid": "QmejGbw7GdHUzvuThwzJbWowfqatHSExX88Yw1fRnJfhua",
-  "title": "Idempotent SQL Transformation Design"
-}

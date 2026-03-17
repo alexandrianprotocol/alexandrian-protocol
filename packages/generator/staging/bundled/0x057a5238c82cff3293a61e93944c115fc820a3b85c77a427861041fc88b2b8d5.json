@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x393f94e8f57726722e94f6ab718526c7cc76ed26409feba3bc66f7613325cb36",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning",
-  "rootCid": "QmdMwRqsukBYMMQdKCbqzNWVC3d6xoqKSLTCRsgPvhU3wu",
-  "title": "Dependency-Aware Priority Task Scheduling"
-}

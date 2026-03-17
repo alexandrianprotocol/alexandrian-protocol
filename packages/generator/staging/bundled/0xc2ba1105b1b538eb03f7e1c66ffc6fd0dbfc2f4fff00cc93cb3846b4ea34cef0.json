@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe3865e36e22d145c6f7c20400a0d0a3f7e1c413cfcd4db1aebc361ccbe4693c9",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.assembly.yul_optimization",
-  "rootCid": "QmcZS6ZZTZwqkxkFkAdvCfyXGqwnQt345jqqAAgm2JaqZX",
-  "title": "Yul Inline Assembly Gas Optimization Specialization"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xc512835a1b7d49a993b362fc0bb63c43e307e9ec81ab7fc42cd5cdc634b82dc2",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "protocol.framing.length_prefix",
-  "rootCid": "QmYDu8gdTquuENkT1Bp1wMsRkNnHmqhmhVsP3cuGi4kVvz",
-  "title": "Length-Prefixed Binary Protocol Framing"
-}

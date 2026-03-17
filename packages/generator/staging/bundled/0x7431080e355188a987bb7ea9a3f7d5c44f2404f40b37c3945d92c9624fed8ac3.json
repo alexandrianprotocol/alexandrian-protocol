@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x46d2bad43dffa23faae13c5c685b7b3806cb8f07fa345e489fb4030ac32acc4c",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning.backtracking",
-  "rootCid": "QmNQcLgmFsxXeET9S5RmnRBzSvyRB4cwjjZiXRujhs5YkM",
-  "title": "Backtracking Search for Plan Repair"
-}

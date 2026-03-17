@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5aa659a3f3782668c63266af57920b42aa649e5501a2f6fd3ffecc3cd34fc6d7",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "saas.api",
-  "rootCid": "QmRWdjpMduDtLFVoGp3rwb5aCgJKzmmqtEStZ63WHzestj",
-  "title": "Idempotent API Implementation for Safe Retries"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x510e8a343aa48fcc2891b56b3f5da4b1f128670c112169712ea81fd918de5bf1",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "mlops.data.versioning",
-  "rootCid": "Qmcfmnzk45NR3jucePQtRxGcJwqtLoJZgqWRQAv8nRWbxi",
-  "title": "Dataset Versioning for ML Reproducibility"
-}

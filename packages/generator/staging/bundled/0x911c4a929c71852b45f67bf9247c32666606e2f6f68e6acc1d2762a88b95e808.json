@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe1ae88ef1304b4c37999f9ef77d0600d46dfc65e2a41c354b1465bb2c5eb0daf",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.testing",
-  "rootCid": "QmW3KtSAnRRtJgwPi7yL6BiMDcGDM6mtVeWdoqxkPsWsU4",
-  "title": "Coverage-Guided Fuzzing for Security-Critical Parsers"
-}

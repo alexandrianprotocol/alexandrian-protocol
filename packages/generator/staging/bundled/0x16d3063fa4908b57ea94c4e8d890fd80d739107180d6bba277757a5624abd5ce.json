@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3857cc51f9cfeb7072ff7b4b0a7022af6a693ecd05aeeaac2c435b87702c8d72",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "mlops.data.ingestion",
-  "rootCid": "QmP2QjWg8E5PVEPuQ374Z8xw1NT1Lm8LMqNUvWME4eGqNh",
-  "title": "Raw Data Ingestion Pipeline Design for ML"
-}

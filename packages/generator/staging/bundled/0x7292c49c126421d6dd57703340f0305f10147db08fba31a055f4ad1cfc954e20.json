@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x262c02609cd863106ae0bd952b18714479f93999c371f90522b9b458b901d772",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "sql.optimization",
-  "rootCid": "QmaKvopXEZgveFNyFp2m2Ad3sNLitUizC5DQhsJeYzm7mT",
-  "title": "Optimize VACUUM ANALYZE Scheduling"
-}

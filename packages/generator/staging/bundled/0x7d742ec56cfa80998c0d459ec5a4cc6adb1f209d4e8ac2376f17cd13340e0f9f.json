@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x895c7a54422b03e39d87b123aa9c2506984271a07733f56930b98ce1eb076ba9",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "infra.kubernetes.rollout_strategy",
-  "rootCid": "QmeWAAaXZGxm4ReKk6ocaGiizAB7yANmhxktTix7qErbCF",
-  "title": "Kubernetes Rolling Update Strategy Evaluation"
-}

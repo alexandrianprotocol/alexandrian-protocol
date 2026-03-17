@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe1b5e7fa41bbfb02637c9027eaba58b4cd8c52008f5f17d4a11da74c575aa4ca",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.parser.pratt",
-  "rootCid": "QmXZhWaEfgyg7cgATop71254eMceL9EUMvVRxS75XH1G1h",
-  "title": "Pratt Parser for Operator Precedence"
-}

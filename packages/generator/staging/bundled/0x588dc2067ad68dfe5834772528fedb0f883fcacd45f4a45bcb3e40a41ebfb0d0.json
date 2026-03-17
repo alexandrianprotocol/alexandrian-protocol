@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0fbca653a3600d7846605337b357deda22df25d72dbc35745851ed1562099ee8",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security.auth_jwt",
-  "rootCid": "Qmajw12NjwKdb4yTafWF2npR6zgZUA3rF6gEF19MWfvWTr",
-  "title": "JWT Signature and Claims Validation"
-}

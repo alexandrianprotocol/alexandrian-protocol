@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x507979e494bdf97abdd95b27383c7233d57675564a7b52f53a7733a1f1cfe166",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmYXv1pzWSE1Sr25YXVybusDG4D93TFVPR3sFjQwAtRNQV",
-  "title": "Optimizing SQL Read Models for Event Sourcing"
-}

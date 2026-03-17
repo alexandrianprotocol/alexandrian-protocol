@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb95c59a1757f0eec320fd633710f90d29e0c4b33ea9d8a8cd596f51e24549e71",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery.retry_backoff",
-  "rootCid": "QmUNh381AMgmNt8jnEGi6uTxg3oiquwu3ijEHvcXpvyobn",
-  "title": "Backoff Retry Strategy"
-}

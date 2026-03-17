@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x4c37f7146ed2430b170dfaa89cc2d9e295e068c8b08419469709cfb5e426b368",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "search.quality.rag_eval",
-  "rootCid": "QmaTfpFyjvL2gjcYEmKh3fiHVdb4wPbuquaz43k3aX5EB6",
-  "title": "Retrieval Quality Evaluation in RAG Pipelines"
-}

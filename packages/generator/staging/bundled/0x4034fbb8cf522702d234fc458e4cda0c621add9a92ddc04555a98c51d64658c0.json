@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6ba7468bf31c7dd2417fbd5508e711aaac5039abfcd47380b5e17e16f2e3f364",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.crdt.rga",
-  "rootCid": "QmeSWe78W8WLQD8Pdd7ZEUtehVSRV2vDApd7r1DHaaoM7z",
-  "title": "Replicated Growable Array for Collaborative Text Editing"
-}

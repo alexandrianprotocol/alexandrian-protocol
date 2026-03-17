@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x77d239bfdd0df88bf0d4c11d8a665522d513442afd693428c12cc8d2b645d674",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "system.event_sourcing.projection",
-  "rootCid": "QmZtKd67XoNXn3NW1sZ6DXkwagrRDQNvwpgd9f4t8Wh28w",
-  "title": "Event Sourcing Read-Model Projection Evaluation"
-}

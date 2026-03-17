@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe57c4139187ae4e3b547d91739f25f11dcfee401a3064b9dd749b01040e41401",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.sharding.fan_out",
-  "rootCid": "QmWBqnPEWrWZXm9i29XC8SFWeXJhmcYK2uV91zrJjQTXpG",
-  "title": "Fan-Out Query Aggregation Across Shards"
-}

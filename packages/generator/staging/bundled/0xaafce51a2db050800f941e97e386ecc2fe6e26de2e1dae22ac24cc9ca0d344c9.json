@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3b7a28232e4427dedb0ce0f421b8b3bb9c9aef36218ebdf75db6c6386597f488",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmWnjpHjdh6TDABqwsoxV91RCTDbrPVRkCqn13CCqP4B17",
-  "title": "Circuit Breaker for Downstream Service Resilience"
-}

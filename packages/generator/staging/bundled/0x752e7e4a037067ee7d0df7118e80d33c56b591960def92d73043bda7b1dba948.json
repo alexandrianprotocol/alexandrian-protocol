@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x07d1a1c2042b3f97d2e8aa449dce3ca6e3cd51a9c7bac39537a115c888c87661",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning",
-  "rootCid": "QmWCDaL3nAz7PVHuYjtagdMmTqHA1wCuqyEZL1Bw9VcC5a",
-  "title": "Systematic Fallback Planning for Agent Robustness"
-}

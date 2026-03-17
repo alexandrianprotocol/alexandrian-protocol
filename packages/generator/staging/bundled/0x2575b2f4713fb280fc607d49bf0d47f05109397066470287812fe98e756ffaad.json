@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0f46161a6473756da527ab7d192765e050f7c95e072b8194f6f4145418672047",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.dependency.vulnerability_scanning",
-  "rootCid": "QmPVctWHN1inFu3BTwozYiArB4281J61hDAtV1i1a8wFmE",
-  "title": "Dependency Vulnerability Scanning in CI"
-}

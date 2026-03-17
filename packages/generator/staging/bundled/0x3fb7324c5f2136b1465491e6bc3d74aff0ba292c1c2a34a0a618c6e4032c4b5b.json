@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x32aef7bc10aab1e1a8808ff54468a0c3255e8273def84f13c60fa207b671ccab",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmTAhpSznsQkYAsGBEcftw6zwtDoBTwoCx8hoea3rUkh8d",
-  "title": "Exponential Backoff Retry Pattern"
-}

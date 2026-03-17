@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x80643d92067bb58cfca95ab41c45e31972ebc662e4cf4fb0c499a3050c600701",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "infra.serverless.cold_start",
-  "rootCid": "QmeTFAwaqKXkFF87WzzLgrVyw426uvRemjVmKDt9SaRenA",
-  "title": "Serverless Cold Start Optimization"
-}

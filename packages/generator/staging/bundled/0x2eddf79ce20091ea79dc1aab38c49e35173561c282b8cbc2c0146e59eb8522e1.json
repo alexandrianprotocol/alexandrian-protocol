@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x17552d98563387940267ddbd92a0af8818d12b6b15bdc02d05dde98dc60f3e46",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.opt.pass_ordering",
-  "rootCid": "QmdTk29G2P3NqoJbXCQ6f9fnTu4G28dSsSPAGeLj9MNFPw",
-  "title": "Compiler Pass Ordering Design"
-}

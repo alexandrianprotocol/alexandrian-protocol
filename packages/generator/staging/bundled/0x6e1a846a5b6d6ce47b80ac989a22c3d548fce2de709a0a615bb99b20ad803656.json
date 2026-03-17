@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xd86c29f2c541a17b04af808f4f5117df3f2cd5012ab212d8123cd56d0b845e98",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "system.message_broker.kafka_consumer",
-  "rootCid": "QmXJJXC6kUZP62m1XPjF2FeDjHhyYBqQEsGrwXnZaVqJwT",
-  "title": "Kafka Consumer Group Design Evaluation"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x8eccd0f5f5c703dff8b7964b04cc1833b1021a72b99753437754f5a653c0346e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.sharding.rebalance",
-  "rootCid": "QmYGhe8zsdqLgmaFuzNTtVrqMtnb9bTcB1ZHp2rB7jcUFW",
-  "title": "Shard Rebalancing Procedure in Distributed Databases"
-}

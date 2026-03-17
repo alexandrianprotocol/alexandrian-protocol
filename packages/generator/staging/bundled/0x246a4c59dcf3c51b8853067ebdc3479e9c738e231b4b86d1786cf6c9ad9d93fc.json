@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x96b4b6e89db1807071cbd56b5eac27b2758b8d0f859599f5f438ac9b956647e2",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning.task_decomposition",
-  "rootCid": "QmV7BPqUa38ZmyFLxBR81U3N7ZPEDMvHqBAx8WzBRpNmSk",
-  "title": "Hierarchical Task Decomposition for Agent Planning"
-}

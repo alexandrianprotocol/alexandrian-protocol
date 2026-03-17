@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x09834a6f36f98cd761ad1bc21acbc9cb02a360ef2dea6345f9fa7a1f8f603c55",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "finance.payment.state_machine",
-  "rootCid": "QmUPsKt1GD61jmn13cw9DWcXzZdszeXLvPFofWn5AECnsp",
-  "title": "Deterministic Payment State Machine Design"
-}

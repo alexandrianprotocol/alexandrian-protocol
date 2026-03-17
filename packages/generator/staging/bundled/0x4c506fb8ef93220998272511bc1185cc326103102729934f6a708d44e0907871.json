@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xde85f0d3f43807574fc95fb693f74b7e332a411673a6a66ac7dcb9647a644718",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "tooling.lsp.incremental_sync",
-  "rootCid": "QmWYh8vznC783FAWeQaU6SygwKfhqG8CpgGt72byCToiZf",
-  "title": "Incremental Document Sync in LSP Servers"
-}

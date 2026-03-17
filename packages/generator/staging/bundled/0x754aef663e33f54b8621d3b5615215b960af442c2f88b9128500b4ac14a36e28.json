@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x645a2929d62d511b46a032c4606f282481fc3d2b1adc357ff8f63b6498ac99b3",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "data.streaming.pipeline",
-  "rootCid": "QmQHDdyRcfUnjN9EmCD7DoaZQksDMXYKc3buqpdSKkALoU",
-  "title": "Deterministic Stream Processing Pipeline Implementation"
-}

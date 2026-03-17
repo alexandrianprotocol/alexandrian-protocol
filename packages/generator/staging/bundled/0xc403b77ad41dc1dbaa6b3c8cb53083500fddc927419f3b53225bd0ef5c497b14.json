@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x88e13a0b825b7ef6f31e5121672627c285bcb4971a93368aea725dfe52e79c3f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ml.inference.speculative_decoding",
-  "rootCid": "QmcxmeQZGcUWkpeP3VRgdb8kWAwKfyhtoz11FnDUN5qBRm",
-  "title": "Speculative Decoding for LLM Speed"
-}

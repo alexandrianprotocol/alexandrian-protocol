@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x2eb73ad8302efc4f3220eb56eb02f7c893c652f893ea4c5de8046b0fb710ca32",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "Qma3XddAwgXju9F7houuFmTR6UpLFjTauzuQjixUg1oygv",
-  "title": "SHA-256 Hashing for Data Integrity in Solidity"
-}

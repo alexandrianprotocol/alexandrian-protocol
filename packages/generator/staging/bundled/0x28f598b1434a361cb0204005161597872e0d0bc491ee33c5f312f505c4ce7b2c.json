@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7b70e524e97db213860482f34ea2a29a611847617076df8c15a7ec0652d5745b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.crosschain.idempotency",
-  "rootCid": "Qmf56WH4qfkw4tf1KF8FoCeEGo6AVs49oz35S2gsbKe1pV",
-  "title": "Idempotent Cross-Chain Message Delivery"
-}

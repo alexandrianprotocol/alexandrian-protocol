@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6dc664028de5a7bb31efc60cf22512b6397bbeb73d1d4c21f671656bbccf66a6",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.tool_selection",
-  "rootCid": "QmdSzssamLFc8mkfUoLPHMss2ZMrXMxgWZr4trwTmCScFX",
-  "title": "Weighted Voting Aggregation for Tool Selection Decisions"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xd1621bff8ada21dcc672dcd232372b827632ca0035d1838acf067326b983a378",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "platform.gitops.flux",
-  "rootCid": "QmeYZvA8MKrXPrKbeqRPRXM35HMfova3FUcTi1v38ADhMx",
-  "title": "Flux GitOps Pipeline Design for Kubernetes"
-}

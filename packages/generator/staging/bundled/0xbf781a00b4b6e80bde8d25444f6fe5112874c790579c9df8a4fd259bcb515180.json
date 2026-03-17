@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xd286b2fbed8658443a18c1768cc86fb37632f2581cb00de07e387bc4e8091e59",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "sql.optimization",
-  "rootCid": "QmbeHKYkNsQKpq2BP66unCAB3rRVy5FihxhM2qJfHFmoBn",
-  "title": "Batch Loading to Prevent N+1 Query Anti-Pattern"
-}

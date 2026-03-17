@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7cf5be3b18449374f58f331e32a13698b46b74f93e7825c8adb68b65a8bccfe9",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.design_patterns",
-  "rootCid": "QmWxr5VVd85BgpfghLxEomFfSvLCLBLHvuK4h1YjisMJY5",
-  "title": "Constructor-Based Dependency Injection for Testable Code"
-}

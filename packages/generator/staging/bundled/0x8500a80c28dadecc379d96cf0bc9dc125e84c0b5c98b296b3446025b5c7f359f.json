@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa9ec7b7849c3c204eb5daea31659e5981f24c1bb5e65f9c358feb5fb7f063951",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmQxAfxLu2SVm8q19EggLiLs8mjRX4aLdX9zfHtYnLJu9U",
-  "title": "Specialized Circuit Breaker Pattern for Agent Error Recovery"
-}

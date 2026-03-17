@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x27ac7796a8bf1a95dbc5c413e2d02715f18c8b774e72a509d8918d0cca5f895c",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmTN1zA8Uwv2jaiRg94tf28m4Dr29VGmUgJzvCo9Y9wt6Q",
-  "title": "Systematic Root Cause Analysis for Error Recovery in Distributed Systems"
-}

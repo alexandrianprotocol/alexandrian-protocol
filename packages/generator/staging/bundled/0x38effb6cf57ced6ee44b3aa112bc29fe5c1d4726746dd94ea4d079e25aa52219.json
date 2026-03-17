@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3caba5be0dd7f0b2278c8ed3e35f6ae58d200fc3ffd4b9d52de149d4aa441daf",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.codebase.complexity",
-  "rootCid": "QmdpSroxngpTexeey5ZmnEiX3z4VMKJ7Nanz5EASV2S29U",
-  "title": "Code Complexity Analysis Using Cyclomatic Complexity"
-}

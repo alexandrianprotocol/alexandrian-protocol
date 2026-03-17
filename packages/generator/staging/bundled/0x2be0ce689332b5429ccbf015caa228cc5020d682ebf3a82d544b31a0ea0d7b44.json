@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa5326ba420a597ebcad0cac39c36164c0d31380acea6f89b13bf63901f8da93f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmbJwQvdU3ykAZJjUkc5EPfMaBjcKBJarsQbgnocmkPequ",
-  "title": "Event Emission for On-Chain State Changes in Solidity"
-}

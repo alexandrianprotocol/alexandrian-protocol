@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6e1f1776351dab0be02c75b221673fcaea4cc3ac4294e92eda683f7164ba843c",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "mobile.push.silent",
-  "rootCid": "QmVLmKwAVnnBJXKiosZC8kTi9A6XQCyiLdWBRwdwY5JUsG",
-  "title": "Silent Push Notification Handling for Background Sync"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xfacaf22e4af6e8a6fa39263b2385068965ffd6e4471c5450757c95403d137485",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "tooling.repl.multiline",
-  "rootCid": "QmSCYcCDKEWuajjzLPPh1YcanhXjpeXPjXCLAZ9Mt1sbth",
-  "title": "Multi-line Input Detection in REPLs"
-}

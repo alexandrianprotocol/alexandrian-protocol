@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x2ca0f8dd9a3df1256eb1b19d05a2efe45cbef5b9dca58e0c714600f92aa7e7f8",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.debugging",
-  "rootCid": "QmS9LJqC5jBRhBidkq9GmEJAZ7pGCt2aGf8H62N1ZWYzc7",
-  "title": "Key-Based Data Partitioning for Scalable Query Pruning in Debugging Knowledge Bases"
-}

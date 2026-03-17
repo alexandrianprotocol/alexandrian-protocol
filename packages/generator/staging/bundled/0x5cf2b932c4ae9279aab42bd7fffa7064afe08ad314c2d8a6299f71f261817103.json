@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb0311f66cace1cdfeb966a31097045c934874b32f381a8ad86faa9ea05dc01de",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmVHZJs9NspdMAqayuQBfY31rY7ASknWLZ87uVFN3Xrjrx",
-  "title": "Constant-Time Secret Comparison in Solidity"
-}

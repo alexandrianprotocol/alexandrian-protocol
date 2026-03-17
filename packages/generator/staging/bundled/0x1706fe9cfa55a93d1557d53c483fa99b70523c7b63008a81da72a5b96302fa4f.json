@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xddde70e7b27bb07bde8c402394e5bd226a3b68f57952fc974c2c1b28ee217f42",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.security.reentrancy",
-  "rootCid": "Qme7eMNY2XKtbR4gsZ33nrAR3yMpjvqpTSLvNFpmSP53K6",
-  "title": "Reentrancy Attack Prevention"
-}

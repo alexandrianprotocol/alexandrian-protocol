@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe2a0b79284791cf5ccef0020444927c3e3003bae2e98f8f534e78576ec325753",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.indexing.events",
-  "rootCid": "QmZYo1NwAA5XJSfdwh9v8ToXrgXChRB16Es2JppNUyC4PG",
-  "title": "Contract Event Schema Design for Indexer Compatibility"
-}

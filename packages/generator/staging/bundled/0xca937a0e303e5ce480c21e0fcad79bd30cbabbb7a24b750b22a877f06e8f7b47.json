@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xc5e1f43852cccca9ed1ec58f506207afadb862b50c891385f09287ec6f925ea6",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "platform.mesh.ingress",
-  "rootCid": "QmUQeat3M6UctJN5afYn45B3ZV6TGH1GjuCfes4nC4gXXt",
-  "title": "Service Mesh Ingress Gateway Architecture Design"
-}

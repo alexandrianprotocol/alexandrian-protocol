@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x19449efcd89341ce0961d4ecb8b8c68ac83402ae638f5337851d59f2c8422dc3",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.multi_agent.delegation",
-  "rootCid": "QmTrfXanM86wgAnZCyqXEwGgD7cTS263KH5wL7mWniefkV",
-  "title": "Task Delegation to Sub-Agents"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe559715a4eb58e2beb86ab3cd813ca27bd6a5d0d3617cfdc2d5ac4b61eee4b2f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "mobile.perf.gpu",
-  "rootCid": "QmXz3vQNEivictAnqkKYzDfGKeHowYCE5KX3CX6eEct3mj",
-  "title": "GPU Overdraw Optimization in Mobile UIs"
-}

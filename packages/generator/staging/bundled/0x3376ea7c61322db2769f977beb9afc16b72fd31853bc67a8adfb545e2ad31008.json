@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xac4610143064e004337b7e31fcf51fb10be2a0e11d78e1cb7f1a73313ca37243",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "mlops.training.distributed",
-  "rootCid": "QmcrsxG72LM2XHctHYDtLs8Z2TwQCLCE8qL8DfcfSZ1PSc",
-  "title": "Distributed Training Pipeline Design for Large Models"
-}

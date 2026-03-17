@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x86a332b1e88254e20b6c8f2e5da253a6ac6b4aaaa94fdb25e9be3c7c75816d04",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security.input_sanitization",
-  "rootCid": "QmZ24T3umAzRVf466QgpLxxw9nfcxGLZG7PC9HrNd98f44",
-  "title": "Input Sanitization Strategy for Agent Execution"
-}

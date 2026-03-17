@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb16c46057b3cb55ed96569573fb2454b890fd5cda23c1768d09c285f44fa5d33",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.codegen.instruction_selection",
-  "rootCid": "QmZRJ2s3evjcS7YQFQGuLDfKEKeU1xBhuqE9L37k7BNJ1L",
-  "title": "Instruction Selection from IR using Tree Pattern Matching"
-}

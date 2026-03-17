@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xbcf483954a99fbc46bdbe8c960fae05927986ba667f715f693f47b1945e8bb9e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmZgtKWw6zipUBbxGbKq31JL44DBf2VWYUwu62c7o7cWdY",
-  "title": "Incremental Migration Using Strangler Fig Pattern"
-}

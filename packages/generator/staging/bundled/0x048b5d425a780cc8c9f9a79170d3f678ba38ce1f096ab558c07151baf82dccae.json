@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe10e5ecaad9580cb7e393a0c6230bcf9adf26e4d38f449c7d3719c36d96d6b79",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "platform.mesh.mtls",
-  "rootCid": "QmVhHdWTEarysPSV6SiDvgA2ihT2yXa8ebEPg2mcRGCfrt",
-  "title": "Mutual TLS Implementation in Service Mesh for Zero-Trust Networking"
-}

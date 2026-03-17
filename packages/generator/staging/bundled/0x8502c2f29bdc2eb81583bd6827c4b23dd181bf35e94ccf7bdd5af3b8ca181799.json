@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7eed705abfef74c891e54e8bdf07a2753244110c9d6dcf6dfa6bcaaf7e31b0f0",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmeBCLuvdcXTwJ2ssevcYM1xjEuyR2Fbsr7MtXWfTaU39G",
-  "title": "Constant-Time Comparison for Secret Validation in AI Prompting"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6ae81fa11f3f610421489e4eb86247b3b9199b3e41a899ff91dd10ec99d27641",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "failure_debug.performance",
-  "rootCid": "Qmb4KQhEKQuVBPdGacLoBZhNT3WbGJC87zJ4yMZZhc79GV",
-  "title": "CPU Bottleneck Analysis"
-}

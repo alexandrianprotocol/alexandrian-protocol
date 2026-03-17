@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5ee83a42e09120a7f96286608b9f801e7c76331b96983a1f21f62a677a9a1bb7",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.testing",
-  "rootCid": "QmUBTpe55CsWc6XzRNJKkwV2kugvfekXyED5Z6LsE1nDZF",
-  "title": "Structuring Fuzz Testing for Security Vulnerability Discovery"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0416a3aec17b57f3379278944b4071493c43b88bc12daca5e8a22de9def71eda",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.safety.injection.test",
-  "rootCid": "QmR4DxGpjhwFqLUkvWRJaXBmQbpyDHQeX4yUuSUgZCmTu4",
-  "title": "Prompt Injection Test Suite Design for LLM Applications"
-}

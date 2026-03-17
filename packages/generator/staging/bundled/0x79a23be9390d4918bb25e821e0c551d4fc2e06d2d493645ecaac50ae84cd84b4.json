@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x773c07453c2db4ae5b3f614561ee8bb942b2be042fb1eb3aae347e1c3d8ebec3",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "experimentation.ab.logging",
-  "rootCid": "QmeWL2oSY1P1USTm5cBB7rFQcTiKWXqCpF5J3YUqjH6xi7",
-  "title": "A/B Experiment Event Logging Pipeline Design"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7ad02b71981e73409c8aed2c49ed8f118158f2db21162256ed4498e78b6da3d8",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.codebase.circular_deps",
-  "rootCid": "QmSZJtEHh9TkVZ9E3fYW77zyw4LtvhGugh7qdnjFckBcsN",
-  "title": "Circular Dependency Detection in Codebase"
-}

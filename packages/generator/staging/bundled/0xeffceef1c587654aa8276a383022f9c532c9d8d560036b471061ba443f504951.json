@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7c1ec7ce0880b9a6e522a136fc62f47c7f3e2c295508d3315a8ca9a91cc177b8",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmVNrEjzEc3JwZeu2FX49VEyuZqYfoAkyH7dzQneNGEBER",
-  "title": "Command Query Responsibility Segregation"
-}

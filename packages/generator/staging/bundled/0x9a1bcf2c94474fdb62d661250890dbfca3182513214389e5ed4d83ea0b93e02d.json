@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x71d00689044c15486888a2cbbfa5546b08973fb778a7a670d02772d6d17d364a",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.opt.register_alloc",
-  "rootCid": "QmYCwyAugPka54VV9T6m5JvSG8zKymfcEuEbJQEwWuEZnp",
-  "title": "Graph Coloring for Register Allocation"
-}

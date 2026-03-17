@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x439ac0f4c8d763f2e63afa3a20d6cdae441f239bf11fac4565860bb2a9036b4b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning.hierarchical",
-  "rootCid": "QmS2uxpjbWbzML2i86AVmwk7rWvi1Ydxo9vCHYGcKbNp3Q",
-  "title": "Layered Task Decomposition in Hierarchical Agent Planning"
-}

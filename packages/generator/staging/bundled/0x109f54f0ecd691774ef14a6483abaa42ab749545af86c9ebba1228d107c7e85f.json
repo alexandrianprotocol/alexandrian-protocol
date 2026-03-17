@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa5573c3b6786aad8d72dfbd16e98ecb740eedea7ece14142496cc929bbde767b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "failure_debug.devops",
-  "rootCid": "Qme5qiBPDJyY4FBVbQQvNiU5zzcqfvsMEnquyxjBFnvvN4",
-  "title": "Structured Debugging of Deployment Failures"
-}

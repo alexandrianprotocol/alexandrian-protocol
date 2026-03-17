@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x96cb9ad3377adc24919b0e0c735e85f9dd64ac6030876d2eb76b5dc708fe53d0",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.indexing.offchain",
-  "rootCid": "QmdKZbZ6tPkVcTMTNdHwszqafVLkFnaSBFaAvDJnuHKLU4",
-  "title": "Off-Chain Indexing Pipeline for Onchain Events"
-}

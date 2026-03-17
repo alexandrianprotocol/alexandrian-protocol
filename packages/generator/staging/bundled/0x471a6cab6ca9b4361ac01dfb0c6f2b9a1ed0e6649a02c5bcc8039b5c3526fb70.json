@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0d03cd4cb4861759be932e3eab6184696b14003526e4e8e37d4b9f71fb867e6d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.analysis.shape",
-  "rootCid": "Qmax17KdcfsCquuy7CgV4E7jimtzzJU2rvs67tu9uQVJXj",
-  "title": "Heap Structure Shape Analysis Implementation"
-}

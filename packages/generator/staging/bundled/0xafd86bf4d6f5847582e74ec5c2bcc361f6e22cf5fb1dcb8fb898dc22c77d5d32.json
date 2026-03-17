@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x4f61921f0d6a20ee9aa5eadefead18e9a1715bdc4211e7ffd7feaab043a54519",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmZc3ZKHc44f9LvBaCmYDWRPKof2cuyTYipRU8rEiqZSGE",
-  "title": "Hash-Based Integrity Verification for Data Tampering Detection"
-}

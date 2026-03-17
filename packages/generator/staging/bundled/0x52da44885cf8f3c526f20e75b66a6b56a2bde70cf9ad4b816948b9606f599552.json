@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x19951f120fa1b24aa0682bc633edb683606fe64a90fc53fc04940c8b6c9e406f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.schema_design",
-  "rootCid": "QmbJRM7jknQYWwzveiW4tidSs69KWfWnDSXXhSZyeRT8Qg",
-  "title": "Schema-Based Data Validation at Ingestion Boundaries"
-}

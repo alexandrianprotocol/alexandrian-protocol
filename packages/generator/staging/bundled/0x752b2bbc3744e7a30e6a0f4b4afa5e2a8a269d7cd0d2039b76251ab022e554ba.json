@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xc6501c8b3d1e307e1b49df006b467bcb5b3db0d5df25dcbc1b6ffdd81816e39a",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.transaction.idempotency",
-  "rootCid": "QmQiscCY3ovTfNqWwgepUC5LGPkGZaKZg5ApDRppvjrfLx",
-  "title": "Idempotent Write Operations"
-}

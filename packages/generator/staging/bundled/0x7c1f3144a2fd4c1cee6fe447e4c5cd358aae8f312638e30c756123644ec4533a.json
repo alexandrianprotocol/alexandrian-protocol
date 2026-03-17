@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xdb27641fb2638513b75f5e767c2d80225d43d39bcedc684192fa00b9b14bf974",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "protocol.framing.compression",
-  "rootCid": "QmeribF8LGp4C7twsuZUocB3SPoqqtRQYhD7WqTEH8V2b1",
-  "title": "Per-Frame Compression in Binary Protocols"
-}

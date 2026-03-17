@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3f2c1904a775aa12befee94182f608e33246d560793485d22719841d9e4d5b3f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.observability.logging",
-  "rootCid": "QmQspGqcjfqoPRha4zKuN7UWdR7XuEk93WVqi1oQJg9jrM",
-  "title": "Structured Logging for Agent Execution"
-}

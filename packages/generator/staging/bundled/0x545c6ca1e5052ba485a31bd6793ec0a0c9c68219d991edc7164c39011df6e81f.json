@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0cba021e7558540472b99980a1c4a0eb43abfea326898f03246d0fd46132068a",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "failure_debug.distributed",
-  "rootCid": "QmXsTRTp9buieXCAn3pioMAAPMvsPjwBdrdjPfydttyFqr",
-  "title": "Diagnosing Service Discovery Failures"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3211e2fdfb75ac0130f4b8c21f3bc4b8583e8d85e30b05675bba915892177aff",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.schema_design",
-  "rootCid": "Qmd8FpcopBi6QNKoEE6TrAxshfRoJ8jBEH36vRGzZZNw71",
-  "title": "Key-Based Data Partitioning for Scalable Query Pruning"
-}

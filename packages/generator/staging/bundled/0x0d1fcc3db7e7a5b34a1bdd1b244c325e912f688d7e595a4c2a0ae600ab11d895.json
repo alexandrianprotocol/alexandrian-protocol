@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x54609eb435caabd61efd81882275bc167163b01925af54a8900825fe6f5ac128",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "distributed.systems.replication",
-  "rootCid": "QmSMgENAPbkmHAp1v8STzmqWLJj7ns4dCFxj5cJT2CQL6Z",
-  "title": "Primary-Replica Data Replication Strategy"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xd4a50b0c91ac9535e94b9219aa565a82581831a916adb6794a4c99e7569f5cd1",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "finance.payment.retry",
-  "rootCid": "QmYCHTLgqjmW3qZoMaYc3qSUn3AuzexyAHyH9hdE7e4CnC",
-  "title": "Exponential Backoff Payment Retry Strategy"
-}

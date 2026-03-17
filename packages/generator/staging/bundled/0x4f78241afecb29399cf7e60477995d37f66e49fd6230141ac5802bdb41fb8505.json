@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0df296c530bf84121953e9a986f3af3911129077c6d4b0509531639a1c4b3c09",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.transaction.isolation",
-  "rootCid": "QmYpzfreyx318EMowjz2e4hYAg49YxPjT4QQVGUZEBki2W",
-  "title": "Transaction Isolation Level Selection for Workloads"
-}

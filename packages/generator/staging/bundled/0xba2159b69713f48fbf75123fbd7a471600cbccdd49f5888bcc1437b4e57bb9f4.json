@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5ba2471d666773aad6939441dfad875b74234cb2cba21c8c29dd4ecdb40150fb",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.tool_selection",
-  "rootCid": "QmZD1bnPDGiTm3JWhvSWqnKimU7LnAiXKmimiLn1sHqd9z",
-  "title": "Sequential Tool Chaining for Workflow Automation"
-}

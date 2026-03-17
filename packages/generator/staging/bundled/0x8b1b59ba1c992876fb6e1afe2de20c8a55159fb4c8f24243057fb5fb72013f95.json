@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x9d3e86c8c73cb2207efaf716fa42b478e22de64f768af100a9febd9eec30d185",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ml.inference.quantization",
-  "rootCid": "QmUrJwp3RNgVsEC8CgxW1Cqgcr51DVqUNG9WXf5Y2Z4AnZ",
-  "title": "Model Quantization for Inference"
-}

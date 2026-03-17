@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x15a8020404c48be0c9f31f6a7a52e04220306bb3128cfc97768beb1faf5bfabc",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmYa5nm92v7TE3r9gBqshkAEDerUmPkVHKvgUbzpNTt3v7",
-  "title": "Context-Aware Input Sanitization for AI Prompting"
-}

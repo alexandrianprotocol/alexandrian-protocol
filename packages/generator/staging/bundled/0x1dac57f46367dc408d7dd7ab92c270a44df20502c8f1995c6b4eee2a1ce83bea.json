@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x348da6dfba1db78e4dc572c6eacb40721be94d7ee3287bfaa68a05f8a2043834",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.incremental.parallel",
-  "rootCid": "QmWp4P2x2iuzFzU77iF3ikRqDiAV2WUonAcLpfJAb2X7dp",
-  "title": "Parallel Incremental Compilation Across Translation Units"
-}

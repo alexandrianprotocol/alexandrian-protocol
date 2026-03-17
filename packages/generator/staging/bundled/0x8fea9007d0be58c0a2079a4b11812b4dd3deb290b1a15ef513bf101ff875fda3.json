@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xdbacf4a877089251e0c2496bedb4f994958bdd625f52f9e644d7164a4e83c28a",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.crdt.op_based",
-  "rootCid": "QmbGZ2yWDmqVSDoGu9VTSPHxALLXzqFHTnMZFeB7zb4drn",
-  "title": "Operation-Based CRDT Delivery Guarantees"
-}

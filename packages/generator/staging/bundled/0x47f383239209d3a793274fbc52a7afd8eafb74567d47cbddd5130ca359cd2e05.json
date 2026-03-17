@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0dbe0590a6c3db53c019ef7bab3ef8a20656ad7cbe5a829cd8524f584096e45d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.incremental.red_green",
-  "rootCid": "QmZmMVLLnLg5EjNhGjzc5jZJAjDUcqtqZci5yaVJtuh878",
-  "title": "Red-Green Tree Incremental Parsing"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x8cefb4838a2a61da8969c3cb120a93324b5d2c7efd8fa6b7e7a50092f80ec278",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "search.fulltext.indexing",
-  "rootCid": "QmYZwitQNtcPqxbCtfsfzi8jXkFwvK1xdD3s91c2aNc1fB",
-  "title": "Full-Text Search Index Pipeline Design"
-}

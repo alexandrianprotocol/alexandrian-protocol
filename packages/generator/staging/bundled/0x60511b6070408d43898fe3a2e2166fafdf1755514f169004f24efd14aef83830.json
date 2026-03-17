@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3a92505dbacc97587dcb03e85378b365b12c2f357070a6bbacd374384bd6d065",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.analysis.reachability",
-  "rootCid": "QmeWPTiHdPc8XGUzyJm5SnPijYzEvZKe3aLt6C1Dr6NY2f",
-  "title": "Reachability Analysis for Dead Code Detection"
-}

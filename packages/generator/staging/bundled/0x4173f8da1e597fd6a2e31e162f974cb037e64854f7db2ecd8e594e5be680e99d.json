@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x45109a06d7e35e6aaed7e8e74304f90a044fc1c316dbf27ece22a9d1b4f284ae",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmR4mJWkhM8VEiKdHdfvJWPm338xYnAuC2N5juXTZ34fJF",
-  "title": "Graceful Degradation via Fallback Path Activation in AI-Prompted Knowledge Bases"
-}

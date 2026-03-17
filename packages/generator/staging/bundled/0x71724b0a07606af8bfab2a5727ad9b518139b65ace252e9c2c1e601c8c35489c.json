@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb1c0b8a42d1f91fb6772cf7193c10e11131a6b78db54cce29258c74bbd475724",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmPJq6dnJwTsxg4bGVaoeuAc6fXdLeZCdhZpfit6ksXYoE",
-  "title": "Event-Driven Pipeline Evaluation for Decoupled Agent Execution"
-}

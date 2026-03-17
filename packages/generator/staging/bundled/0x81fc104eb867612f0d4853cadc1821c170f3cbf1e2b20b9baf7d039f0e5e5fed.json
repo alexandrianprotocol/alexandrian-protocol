@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x83d616cace058d79c9c17d8ce4b3c767ff12c1466598ab1982313f04a92f3c75",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.optimization",
-  "rootCid": "QmUKob15ufHWY2Qo5qvhSBSivJSsG3cYKgQ4misZk2KX2y",
-  "title": "Write-Through Caching"
-}

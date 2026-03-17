@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x378a4c0b77a8f1823fae02e3f2c960b41360848e0e68fe673ecd1a8141e5f06d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmS92DoRt3RnCyZcYHaGQTHBTumFVEkvkgdND9EyPM7zqy",
-  "title": "Early Error Detection in Agent Workloads"
-}

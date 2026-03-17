@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xf4b12bcd7635725985de258c76744378a30703cba8bbc349cc507a85b8f43bf9",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmXZ29RRSEbU6vPHZGkQpDEPzJKCT1gfjr9JkoL5sSfUZ6",
-  "title": "Circuit Breaker Pattern"
-}

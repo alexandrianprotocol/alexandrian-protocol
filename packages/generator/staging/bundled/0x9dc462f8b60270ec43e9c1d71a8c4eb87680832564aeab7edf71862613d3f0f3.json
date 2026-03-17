@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3a8c902ed13f251c08b07c8a07ef12ca0bc33972131f5ecc9862a44b7731c444",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.testing",
-  "rootCid": "QmVCWvf92WnJZVCsZRbKuigoYpLfDiLT9uvf3rzDkdysDh",
-  "title": "Property-Based Testing for Event-Sourced Aggregates in Solidity"
-}

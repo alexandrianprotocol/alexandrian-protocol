@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa3568c8759deddaa60ae87ff98d8eb6bdac758f0d49cb3dc3999cdb269a9d321",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.websocket.protocol",
-  "rootCid": "QmbjpR9fGyErcc8ebHQz1sGtR2GuaxcSvm4st78AJZrSLm",
-  "title": "Binary Protocol Framing for WebSocket Messages"
-}

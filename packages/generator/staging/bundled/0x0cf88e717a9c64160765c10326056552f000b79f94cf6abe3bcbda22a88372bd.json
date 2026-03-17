@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x82cc9058fd835132843597b893ab2dd1d6d48a3852576d1c11cbd92f6b0b808e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "tooling.codegen.migration",
-  "rootCid": "QmNwwwa4uwQL1sCeaYA3bbXuvqXUbk5bNGWbrQmcP5HcLR",
-  "title": "Schema Diff-Based SQL Migration Script Generation"
-}

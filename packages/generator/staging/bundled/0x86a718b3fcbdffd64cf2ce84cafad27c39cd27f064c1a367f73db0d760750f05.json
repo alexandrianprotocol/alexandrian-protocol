@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa4583c99260b80a07e496e7c79a6b5e88c80989cedb20adbc8551f783d4440f2",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ml.finetune.catastrophic",
-  "rootCid": "QmXn9u6msJbbCM5c4mxGse7WNKBfHQC67XpKSxwKyp7Bzr",
-  "title": "Mitigating Catastrophic Forgetting in Fine-Tuning"
-}

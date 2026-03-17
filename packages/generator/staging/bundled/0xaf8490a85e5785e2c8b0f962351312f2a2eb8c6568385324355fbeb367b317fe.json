@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5726b366741d2301e90e6a09b590dfb98a510d3ea83a341dca814a7c1defd469",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmdTLu9gD3STcWBab7TKgEwmx98em9CiGcH5GRf8kADHYu",
-  "title": "Graceful Degradation with Labelled Fallback Responses"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x97c07c1030aa3ab84b98cf6d2d552018f9444a35436106a59154bada6f516f25",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmTpsmF64K5F51LQGNRjXikydyDbRMZ3zM3igH4bYMeoy3",
-  "title": "Optimizing SQL Read Models for Event-Sourced Systems"
-}

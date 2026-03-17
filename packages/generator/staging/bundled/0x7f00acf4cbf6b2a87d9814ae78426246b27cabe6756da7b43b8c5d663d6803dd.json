@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xbefa31015a4197180f6c1102e22529e8b94f27a9fb8e7df2190f1c02661af3ea",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.prompting",
-  "rootCid": "QmPq8PRi6nGVabgZqkkbacCxojPemLn9j1XwtxSZcK7wdT",
-  "title": "Evaluating Stepwise Chain-of-Thought Prompting in LLMs"
-}

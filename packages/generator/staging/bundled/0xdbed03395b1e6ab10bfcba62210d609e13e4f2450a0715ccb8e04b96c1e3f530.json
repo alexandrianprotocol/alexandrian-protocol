@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x97362f1352a90b7253f32f32e1022ba050a02e3cbeab85777507f74272b7de16",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmNz89ztS2Bix5Jcgt6dTwiXLK8pzGMcsnEyFP7feDibgN",
-  "title": "Graceful Degradation"
-}

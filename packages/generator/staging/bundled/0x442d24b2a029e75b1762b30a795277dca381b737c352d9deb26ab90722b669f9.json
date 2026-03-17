@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x817564c6ca4c2288d8f11dab21f9b5340ae7d14f1a4f43711918fe62c9d8af7c",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning.hierarchical",
-  "rootCid": "QmZzUwVFCqv8h8qePVCBggFmLGFu6vzoZZ9A5LkteRwnVk",
-  "title": "Layered Decomposition for Multi-Step Agent Planning"
-}

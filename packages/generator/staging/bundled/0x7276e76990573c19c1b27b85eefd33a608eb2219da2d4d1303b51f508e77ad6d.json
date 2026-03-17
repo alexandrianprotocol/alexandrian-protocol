@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x040f4a6663b3c18b7d9664fa58b9620e9fc3d98dbbf010591c38ad3636747bfc",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web.observability",
-  "rootCid": "QmXwqJ8CrbfvWhs4yi7g97RkXLxrcMhTPx2gVXoDS3Rs2Z",
-  "title": "Distributed Request Tracing Implementation"
-}

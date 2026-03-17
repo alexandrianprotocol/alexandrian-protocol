@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe9fd2fbe1045732424eada6fc1a7dde8b07cce22566531574afd622e91de5d49",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ml.finetune.lora",
-  "rootCid": "QmeM833osVaDnFajoZX5Kmyt1pwiWfcWX3DEcnSuYUfyPp",
-  "title": "LoRA Adapter Implementation for Parameter-Efficient Fine-Tuning"
-}

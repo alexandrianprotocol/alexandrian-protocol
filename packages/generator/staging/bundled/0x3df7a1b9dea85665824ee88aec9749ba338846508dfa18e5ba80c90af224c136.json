@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x918799318d25733a0808fb3c94fbf9d27afc4700527625d50c302e2f854442f1",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "search.index.warm",
-  "rootCid": "QmR1YADJnLspeVNY91U9LD3M7uE6nvvJCRS2mc3bMGorNQ",
-  "title": "Index Warm-Up for Low-Latency Search"
-}

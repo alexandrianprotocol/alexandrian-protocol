@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x380aff45a24bfbba5701b31790fb0b8d20e39b34acbcd5d23f64c2872f6f319e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.reasoning.multi_step",
-  "rootCid": "QmTpLvX3yNbYLagnaVbv7LapPDBVEUBgrHxi6yzdrjMr5a",
-  "title": "Traceable Multi-Step Reasoning Chains"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xcc80439de3bb401430070a12b4be3ecb97f1c6b43bb9f294096f9cc8bab34622",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.schema.normalization",
-  "rootCid": "QmTMAAbMKhuBPvytVKv3BpYLdPkJ72rcASYHLHg5XxTYKN",
-  "title": "BCNF Schema Design for Transactional Systems"
-}

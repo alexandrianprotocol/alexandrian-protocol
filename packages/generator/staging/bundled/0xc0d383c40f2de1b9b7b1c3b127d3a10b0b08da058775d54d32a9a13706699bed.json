@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x05bc729fbfdd84b417997d5f191f3c20e969fe14fc0d30d65dbfbed4874bc901",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity.access_control",
-  "rootCid": "QmQ5vKXES526KEJ2obNaa1CLshJy5K4Pp6V4T3yHEpW98r",
-  "title": "Role-Based Access Control for Contracts"
-}

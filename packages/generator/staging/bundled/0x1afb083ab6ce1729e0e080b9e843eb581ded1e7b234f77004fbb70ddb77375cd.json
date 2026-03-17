@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7315e2706136b39aed614d9c99d3e6c34649bd9e939214271c1d6504a3fb9208",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "sql.optimization",
-  "rootCid": "QmRqGi5Nvffg9ctghqHPA3Z2Ypza3yWR7Hc482LCLTfqkG",
-  "title": "Index Hint Application in SQL Query Optimization"
-}

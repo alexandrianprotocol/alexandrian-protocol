@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xdd2acb897aa1cfcdba10589627cb103ed62f790c7959a85fdd44374fc73ffdab",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery.retry_backoff",
-  "rootCid": "QmUUkfLrYfzTqiK2kEeXJHMdfdXm88Ro35yBSbrWRFwfxA",
-  "title": "Retry Logic"
-}

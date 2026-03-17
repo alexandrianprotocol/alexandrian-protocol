@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x28da9eb4dc844b4dc00c6816c882de170cfcf70dccca5a97c5b785f6685c75fb",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmXhqzUHRmf7YGojfHHmh8BgaCkf8tugFimKtqzkmyGPq9",
-  "title": "Fallback Strategy Composition in Distributed Systems"
-}

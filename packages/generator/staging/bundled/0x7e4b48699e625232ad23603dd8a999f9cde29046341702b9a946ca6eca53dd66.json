@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x83827f49c50a6819de09c4163a586fdb0994bcdc3c1e702de7a6f8ecc875ce40",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ml.inference.batching",
-  "rootCid": "QmemS2b2VFEqbnS8eRo1BAVooXsuYms7Wef8Z4GbtH3ugJ",
-  "title": "Inference Request Batching for GPU Utilization"
-}

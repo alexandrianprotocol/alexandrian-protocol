@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x9271d90ceed2aa15ce0a045df6b20ca80dddff61d50df6f2ce556697c3d6bb6f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.olap.cost",
-  "rootCid": "QmYCp4dzjZ265SpzLsB5zCjDe8VsP1pph2XmG1J3hnov4N",
-  "title": "Query Cost Optimization in Distributed Analytics Engines"
-}

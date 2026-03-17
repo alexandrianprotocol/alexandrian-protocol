@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x53610b487e083c97c6c6444f244373da454e3af7a2e95d02271d44a11f92a5a5",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmNq5swK4sUvnCmbgNvx7cDwHBHgwXaRHvexvorBiWmZMi",
-  "title": "Denormalized SQL Projections for Event-Sourced Read Models"
-}

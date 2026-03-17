@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3ef7642929f116b3f27be6b4b8a1a90ab71c0507ea918566842070eb279887b6",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ml.rlhf.preference",
-  "rootCid": "QmXU8SeKFrSXEUACtubUQ1ZMWjka7FfB4LkihVmdimRRNn",
-  "title": "Preference Data Collection Pipeline for RLHF"
-}

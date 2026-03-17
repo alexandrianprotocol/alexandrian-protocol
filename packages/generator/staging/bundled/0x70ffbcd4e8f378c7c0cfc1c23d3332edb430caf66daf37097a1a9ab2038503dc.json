@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x82c3b8ab5289876e3e6fa94a07bab025b3ec53104da03dfc512fe9188c5a0c51",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.index.btree",
-  "rootCid": "QmdNFhnTQa1p9r3mmD1bmusVagdYpE9kSyZv1u9Wc4TLoB",
-  "title": "B-tree Index Strategy for Range Queries"
-}

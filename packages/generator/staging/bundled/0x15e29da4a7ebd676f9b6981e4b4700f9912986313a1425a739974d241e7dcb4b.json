@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x077d655a10460fb5b5c9de2fde081bab4c18ea55403550fd55cd81992c4c9e12",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "crypto.commitment.pedersen",
-  "rootCid": "QmeHci3LJg5diP8shAz71JXhEor6mbbgXu3QNAd5qd3d5v",
-  "title": "Pedersen Commitment Scheme"
-}

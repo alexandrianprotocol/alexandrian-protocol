@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xfb7404c0be171075341a703b31ec04dea66b52df3f0540a8aa3603d7fb2095a6",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmRxX3DRu74MncCkqzerqwYEfbqygZeGxTAeVAt19bCspH",
-  "title": "Event Sourcing: Immutable Event Log as Source of Truth"
-}

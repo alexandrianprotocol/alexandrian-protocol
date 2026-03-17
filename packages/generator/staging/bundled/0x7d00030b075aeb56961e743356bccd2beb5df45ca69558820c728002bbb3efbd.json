@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x4952bfdf8d5136cd3f1bf0a84b2388470769f29866a9f263722355c07d904918",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.architecture",
-  "rootCid": "QmbtRcQpFQJfEqrr4BnSYy9FJeXyEVPsMD3HJHo7oCGh6i",
-  "title": "Apply Circuit Breaker Pattern to Service Calls"
-}

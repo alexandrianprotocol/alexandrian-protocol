@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x29a64ccca178905ac555a376d21471b01315b817e55d3376053383c499f51d69",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.optimistic.partial",
-  "rootCid": "QmT87CKRKjeJeMjxdo8PF2KLyb4KgQwjEa8kSCyuhqwQs6",
-  "title": "Partial Failure Management in Batched Optimistic Updates"
-}

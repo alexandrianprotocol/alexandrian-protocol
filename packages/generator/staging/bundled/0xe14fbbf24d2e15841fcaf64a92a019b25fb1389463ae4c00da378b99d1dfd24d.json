@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xbb49f98d7bdd8f20a2f3e2cb38d5b7c689a4cd72416ee17a96568be1db8822d3",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmXYFeDUy6e2DeTt8yBgv9Cdt2ErU1Y8wcJtecx5Hwidjf",
-  "title": "Circuit Breaker Pattern for AI Prompting Error Recovery"
-}

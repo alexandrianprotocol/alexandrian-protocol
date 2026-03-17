@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb928e5a66e392ce995868ffb32ed084caa14c158753bc83e19f0d2b732e96351",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.olap.partitioning",
-  "rootCid": "QmcmHsWM3hXrP5oXuCoMB2akRafr9FtHdJNXcweiiAVkVe",
-  "title": "Table Partitioning for Analytics Query Optimization"
-}

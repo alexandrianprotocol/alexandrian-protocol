@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6d8a57d35f8149fd08e24c2b10c7a59599144da91ea52205506f5fae2c7f5c02",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.safety.injection.context_isolation",
-  "rootCid": "QmcjgCRLJqkvZrh8qAprJNvvFEyJgie22ZhsMeexNMaJY2",
-  "title": "Isolating Conversation Contexts in Multi-Tenant LLM Systems"
-}

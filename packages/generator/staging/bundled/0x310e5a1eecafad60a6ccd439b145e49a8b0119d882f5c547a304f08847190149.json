@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x68ba31df00b687e22be22e2014ef86b6655a42ff523315f049777faf5c45d1e4",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.optimization",
-  "rootCid": "QmWdwsHK6SNLW1mUkNNmNaq7EhyaeDuUJfMi2SukK2HK63",
-  "title": "Scheduled Batch Aggregation for Query Load Reduction"
-}

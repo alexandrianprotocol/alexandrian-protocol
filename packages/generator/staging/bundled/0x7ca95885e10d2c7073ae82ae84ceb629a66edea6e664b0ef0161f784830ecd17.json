@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa3ba7db0e5579fc46efeed11709a0cdc54cdeea61f39ced725ebb2d00b458b69",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.ir.cfg",
-  "rootCid": "QmNxHm8W5TC1gYdGPcjjvNELVGYDjLiGpXTX1nbH3HYNir",
-  "title": "Control Flow Graph Construction"
-}

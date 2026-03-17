@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb3ab743822c0b18cc7f7103bf609e3e0924ddb17600aac05a4af544d15813fdc",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.query.optimization",
-  "rootCid": "QmWifvPf3uU9qCYhkB7a4gHk81stiSwkMNMW9WTYKDYSZh",
-  "title": "Rewriting Correlated Subqueries as Joins or CTEs"
-}

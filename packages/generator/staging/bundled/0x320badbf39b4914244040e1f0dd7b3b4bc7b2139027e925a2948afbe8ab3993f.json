@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xc24a93fc49be9336015fea49eccd0cde6c2e0c0c40357fc893a0a92858edd340",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.sharding.cross_shard",
-  "rootCid": "Qmf4GykxQQ53Vg3pXBmJMqFE2JCBXaLjZE325eYZyn4CLX",
-  "title": "Cross-Shard Query Strategy Design"
-}

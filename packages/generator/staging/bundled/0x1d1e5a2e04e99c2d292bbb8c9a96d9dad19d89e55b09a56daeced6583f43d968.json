@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x66d3f3b2a5107d669a18c29f44e0636e0ac54f168dac607573c35c7ea6aafc72",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmdadfFsBoFHrQES8ME3QgTznuod4cEDZnTPMoQgSdnYNi",
-  "title": "Concurrent Task Execution for Independent Workloads"
-}

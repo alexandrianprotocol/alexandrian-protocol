@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x2f43756a9e9fee3c732de7497e7ba1a508e78a0ce00b817ae697b8d30e4b3cdf",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmXvwG5ALnq6zsK2DHDAJtxtV7e56op3yq2YGUsw9GiNqH",
-  "title": "Secure Key-Based Data Partitioning for Scalable Query Pruning"
-}

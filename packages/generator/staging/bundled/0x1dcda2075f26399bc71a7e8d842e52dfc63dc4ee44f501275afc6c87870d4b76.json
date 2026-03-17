@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x1289c648b20bc618fb9351e7af427e8608092380ed7b08191b3ed04adb0450f5",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.locking.reentrant",
-  "rootCid": "QmdmR4kHkVaCQ9DTUGaNiCmB4yUpSSG7GtjEk9EFyoZmuS",
-  "title": "Reentrant Lock Pattern for Recursive Operations"
-}

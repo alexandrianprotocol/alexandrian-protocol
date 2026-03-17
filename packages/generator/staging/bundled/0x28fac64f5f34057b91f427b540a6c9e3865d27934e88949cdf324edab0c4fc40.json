@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x2b533cefbc2b5c4d3c9db5272f42905c2e26c26db4fbb1c86fcee5ba28b17cb0",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmcqQFPsjA1iFPEdiUDzCn9Uo2trPahXP9x9KveqT2UHDV",
-  "title": "Vault-Based Runtime Secret Injection"
-}

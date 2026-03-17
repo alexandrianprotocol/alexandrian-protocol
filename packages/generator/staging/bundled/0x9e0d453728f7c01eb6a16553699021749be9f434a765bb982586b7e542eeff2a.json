@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xc4cf11febd0d2db1e3b4c451f5c8c0c8068bcb251189a7c45e0b792b982c578a",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "failure_debug.distributed",
-  "rootCid": "QmQumqog2oWHTz7cZrrJGrTi5n1REfpkZR3w8xzZs4qpAM",
-  "title": "Debugging Distributed Transaction Failures"
-}

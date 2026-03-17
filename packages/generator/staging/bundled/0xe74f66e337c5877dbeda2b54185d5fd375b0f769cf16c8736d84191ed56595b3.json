@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x1e040b7bdef36d138f5f36907f6896bfcc039333ef8539fe1cdfa24c433c2f0a",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security.csrf",
-  "rootCid": "QmXH3hs8dPHgpDw56YuVLUdmUN5JZcfkfqhZ6YSkeFtFF4",
-  "title": "CSRF Token Validation"
-}

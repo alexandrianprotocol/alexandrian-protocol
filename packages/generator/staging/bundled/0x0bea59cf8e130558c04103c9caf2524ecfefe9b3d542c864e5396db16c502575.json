@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb4d1ddb48f004fe6b6fec67b557bef72460552eeea2fc1dca4f388e95579d343",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmT1ygFWmBNB3d526Weq3ZqNbB3nDdaVGw6XebxNqEnQE4",
-  "title": "Specialized Exponential Backoff Retry for AI Prompting"
-}

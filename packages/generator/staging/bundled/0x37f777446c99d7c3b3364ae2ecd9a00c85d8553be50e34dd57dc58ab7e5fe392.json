@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x661e64138ab7c3ad661cb2a8e9d369b5cd6733a1c30517b33e1a7959e2763df4",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.websocket.reconnect",
-  "rootCid": "QmWuu78jsfhs5FeRyCSiX2WujEZmFcfuU8pxn56LQb9Vxc",
-  "title": "Client-Side WebSocket Reconnection Strategy"
-}

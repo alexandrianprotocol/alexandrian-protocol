@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x159613229e8ec570265d312c4116c6755066d022e2b70497cbc2b61ab0be0832",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.testing",
-  "rootCid": "Qmf3FopT5f7sHQbee6LcvDxuT4uMR1umJGDyaSfsp7Gjnd",
-  "title": "Verify Invariants Using Property-Based Testing Frameworks"
-}

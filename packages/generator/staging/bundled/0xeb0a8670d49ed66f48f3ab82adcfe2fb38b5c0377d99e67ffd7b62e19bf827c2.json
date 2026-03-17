@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xb35e7e8727b5db16e0e1e8a59694d38370c8cc41e600bf0df4895c0f69e253ad",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmSJbxPALZViHRnipJQ7QFCGNRMWsYGPYH7uo4odA2yXDA",
-  "title": "Isolated Tool Execution Using Resource-Limited Sandboxing"
-}

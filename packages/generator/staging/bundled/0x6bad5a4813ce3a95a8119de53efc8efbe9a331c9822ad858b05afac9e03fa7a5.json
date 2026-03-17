@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xcd01ff3348c6a724cd2297f85be99eec73b37b10516de82dc542b50c9eb887e2",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmW8R9rxefYAosaez2ZGnoyTdBg21kupeN8s53dBbmVzd9",
-  "title": "Compensating Transactions for Error Recovery"
-}

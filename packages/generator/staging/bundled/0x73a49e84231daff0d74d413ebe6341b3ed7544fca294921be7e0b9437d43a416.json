@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x415bba99ad82afc1af240929ae4b4e643628194629088b6e9baf46393a23bab8",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "distributed.systems",
-  "rootCid": "QmQFTv5EeSPWuEC7CctKrKwkekRUe6GpQXtNu6C9CXgeFN",
-  "title": "Implementing Consistent Data Replication in Distributed Systems"
-}

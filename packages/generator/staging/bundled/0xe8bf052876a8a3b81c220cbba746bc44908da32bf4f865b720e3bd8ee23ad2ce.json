@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6bef32c121c03961ad4eab8407fd6a714309b40350ebf0a7d4451dea0fe95c30",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmV3tz182fsP3ZN4zRb6rJpJ6dVfzNrVCYRtMVeHnUYAWC",
-  "title": "Constant-Time Comparison for Cryptographic Secrets"
-}

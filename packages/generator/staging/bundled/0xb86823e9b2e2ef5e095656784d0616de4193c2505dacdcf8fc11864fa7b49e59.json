@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x93c90912d85994f62b6a24a4e071a1df33508d31815b7c536bf2b388097e0a1d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "meta.protocol",
-  "rootCid": "QmbXeZXuDxYgw1LChUdt3wN2ummJXmsfZ8KGTyVp5Th2cG",
-  "title": "Applying Event Sourcing to Deterministic Knowledge DAGs"
-}

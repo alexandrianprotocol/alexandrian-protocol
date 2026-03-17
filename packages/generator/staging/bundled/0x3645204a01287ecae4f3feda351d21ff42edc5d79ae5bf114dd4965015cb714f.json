@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x83f5cb31a9ea3127b6c806b6d8cda62a4747cd90ea0701ef02fd333dd329c585",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "saas.reliability",
-  "rootCid": "QmXP9tiQdzssbv5gFJmoqzvSm1oGLN8W4bdmiiXxs2x6iw",
-  "title": "Capture Failed Async Jobs in Dead Letter Queues"
-}

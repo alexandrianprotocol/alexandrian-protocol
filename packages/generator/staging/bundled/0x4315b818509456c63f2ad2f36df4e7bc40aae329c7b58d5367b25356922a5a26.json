@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x9da03cf9ca3510198a4f75996a83f49af1aae7ce734e56b3986a498464f488ea",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "security.supply_chain.dependency_poisoning",
-  "rootCid": "QmT3yFuRWgXL24WEnYrveLMwEvTqQxufu6b6bCsmavu5k5",
-  "title": "Dependency Confusion Attack Defense Evaluation"
-}

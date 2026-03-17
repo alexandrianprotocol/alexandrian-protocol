@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x015c0aa18c7859e4bb3e8e5a6510d648c812736d5cd245dad4101b9e427d0722",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.ot.server_authority",
-  "rootCid": "Qmci1mVLArCC17bWxVy7CsE4ecEW6djWxTNUHKL1LPiwXe",
-  "title": "Server-Authoritative OT Conflict Resolution"
-}

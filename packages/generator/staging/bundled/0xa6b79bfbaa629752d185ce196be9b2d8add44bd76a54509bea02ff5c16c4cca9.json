@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x67902d4e70fd03e7c2e3bd2ecd119e667d7dfaa480a23747b7b9735875075e2b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmNmSZYnuLrXAzzKEnWwr8bL4SA5ja84aTuFsJfmBA54fc",
-  "title": "Optimize Solidity Storage"
-}

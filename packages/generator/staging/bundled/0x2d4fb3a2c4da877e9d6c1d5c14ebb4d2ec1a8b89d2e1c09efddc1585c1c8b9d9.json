@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xf85a11f49a6caaef7fee755afe7e8e8b1307aa93ad84fe07f681d5d7014a2d60",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.migration.zero_downtime",
-  "rootCid": "QmXeLKEo6GqD5kC2VTBJU299U4WJWwALF4vvhUW5ZjL8EA",
-  "title": "Zero-Downtime Schema Migration"
-}

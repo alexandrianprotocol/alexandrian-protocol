@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7048060c466797568387a2a995131857940d668b76a9d48a1b60c5fd6f7ea560",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.tool_selection",
-  "rootCid": "QmfJeWSQ3JACo6tGTAC66tCkqa8cur69KPyPg6BDAvYomU",
-  "title": "Constraint-Driven Tool Selection for Agent Tasks"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x694f3422a102739b1b7f00dc8d72823b2c7b036f4981e53480af6048e655724f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "mlops.serving.fallback",
-  "rootCid": "QmNTF992RM6Rr22HQAxK2CJLe48fordQSkPj29qSJJYxTi",
-  "title": "Fallback Strategy for Model Serving Failures"
-}

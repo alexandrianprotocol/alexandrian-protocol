@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x30de0dfc483ea64d1bc019181172ceb4b08dcc6207d6a13d037b81395786120e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.timeseries.schema",
-  "rootCid": "QmesJ6etK9WQpkxjg441aeDZeDrctL9knuQar4Y1wZVDgp",
-  "title": "Time-Series Table Schema for High Ingestion"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x81469fd340841164d567b8352082aa8e69408bd79b506d5cc61d580f4b985f9e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "experimentation.ab.mutual_exclusion",
-  "rootCid": "QmawUYKMmAZYowJJHRtADgiDWZLi4nJMX3aVejG5oEaYkg",
-  "title": "Mutual Exclusion Group for Experiment Isolation"
-}

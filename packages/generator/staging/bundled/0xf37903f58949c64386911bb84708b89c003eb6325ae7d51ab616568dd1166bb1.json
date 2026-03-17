@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x51461d3f6be0f690a3dead9d85467a18a3ad552c583ba74c3e9b7f822cabc00c",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.prompting",
-  "rootCid": "QmZwNpEyz3UV8SCZsSRcPxsAzZ6aG6Rx4xotstXznbS4W1",
-  "title": "Property-Based Testing for LLM Output Validation"
-}

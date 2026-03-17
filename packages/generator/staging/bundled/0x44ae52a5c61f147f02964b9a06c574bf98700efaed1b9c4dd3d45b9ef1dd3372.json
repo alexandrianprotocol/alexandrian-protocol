@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5730b59bc818c941a1b511d9fe4c68bcbd6bd449cf4c08e0d3fea224ccd38e73",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.testing",
-  "rootCid": "QmUMJqdDfktyVUr8RdCRgPjm96UGjGvnnwdmGHhbsWJvdh",
-  "title": "Automated Regression Test Suite Execution After Code Changes"
-}

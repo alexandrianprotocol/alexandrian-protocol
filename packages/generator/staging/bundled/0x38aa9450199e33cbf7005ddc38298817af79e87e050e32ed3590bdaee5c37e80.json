@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x83f5b4d5b8adc39e9a235f3526d22b3c7b5d0911725886458a08690a7a730838",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.design_patterns",
-  "rootCid": "QmYkdeATG6EShRE2qta9AC9DLvLtW4JVwdn4MxaJ5SRKPq",
-  "title": "Constructor-Based Dependency Injection"
-}

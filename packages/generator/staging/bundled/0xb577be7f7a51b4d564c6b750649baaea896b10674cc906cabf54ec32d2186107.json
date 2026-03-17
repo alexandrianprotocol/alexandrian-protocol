@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xdd365672c439ffd857769b4598bd8259835586fe22b5b2b3f285f31c2640accc",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.testing",
-  "rootCid": "QmRD7VrqCp8ojikZeJYAgDghMUmPTLBwg5LGhn4TCkXbXB",
-  "title": "Coverage-Guided Fuzzing"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x2d5b61f5c675d727bf2a7c4603f7f0f29dd8bf1f9af8c66b43e090dc959e081d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.olap.columnar",
-  "rootCid": "QmdmYrVgsQrWNbVwGpvm6YTQYhAyayAg66Xw6eSxGTcByB",
-  "title": "Columnar Storage Selection for Aggregation Workloads"
-}

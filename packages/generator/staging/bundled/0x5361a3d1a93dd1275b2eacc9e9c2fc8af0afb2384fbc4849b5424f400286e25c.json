@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x88244cc34f0286eacedb71319a7a344a722c54d7ad9d2611b2b6a2dfb6e8a063",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmUrhNRvJ9SPfkLe9yh8HGoSynd8nDqs1mKByYjtc1obtV",
-  "title": "Explicit Bounds Checks in Unchecked Arithmetic Blocks"
-}

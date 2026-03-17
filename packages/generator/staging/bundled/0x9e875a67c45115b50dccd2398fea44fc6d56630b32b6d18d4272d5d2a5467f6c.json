@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xded1fc666dbd87d790b2107d74863ca2868c2236135b2e21ad292abf8779185d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "lakehouse.medallion.incremental",
-  "rootCid": "QmdpQSe4Lh7DeU8VhGnBGhUHbih5HSvHprCgmgergzB52k",
-  "title": "Incremental Processing in Medallion Pipeline Layers"
-}

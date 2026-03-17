@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x83a7895d11321210f58647626c3fc30f8652b200a1a6abd1de2c04938e27ec85",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmdM4ZG1fpBt6S8SKnr3VFKdzcLeP4Tn3ATHifv67HecQw",
-  "title": "Enforce Allowlist Schema Validation on AI Prompt Inputs"
-}

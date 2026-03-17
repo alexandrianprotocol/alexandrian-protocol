@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x430f353259d8078a83a5198a807f84733ef55ce810ac003332d04da903f3b027",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.safety.injection.privilege_separation",
-  "rootCid": "QmXaPiBsNeukyTDFqc2DpHkoZKJziCjJFkRrN3nhQPoDRc",
-  "title": "Privilege-Separated LLM Agent Architecture Design"
-}

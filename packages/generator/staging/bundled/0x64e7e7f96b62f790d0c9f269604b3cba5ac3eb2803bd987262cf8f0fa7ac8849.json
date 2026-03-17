@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x405d03a6d52625276fabf69fae052e9eb218e6a7c66b359f995d5a6e2be7cf61",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.opt.loop",
-  "rootCid": "QmNSCipEf1NJmkAMQdfAVS3yUaWgnqYrSfCrxP6oX7cXyB",
-  "title": "Loop Optimization Pass Implementation"
-}

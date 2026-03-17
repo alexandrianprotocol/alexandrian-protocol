@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x8d6b518654b3c7bfdedfc6ed70c45a5cd61d045bdacc88e8d066ff9d89a17baa",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.query.optimization",
-  "rootCid": "QmZ5ZcYvcdVGaYo138EUFzd8y2TBKYy7FrpKWyKarLjxWU",
-  "title": "Efficient Keyset Pagination for Large Result Sets"
-}

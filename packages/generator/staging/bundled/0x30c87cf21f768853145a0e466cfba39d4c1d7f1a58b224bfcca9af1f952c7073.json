@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x8eebc6b5e047440cf5d8690c50147a12496590709d2a9e8588832ec6f60c7938",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.oracle.randomness",
-  "rootCid": "QmbMb5KxtteUQtjbHbdQt5UDuB1NQ5Lhafxy6MJZtZPtnM",
-  "title": "Integrating Chainlink VRF for Verifiable Randomness"
-}

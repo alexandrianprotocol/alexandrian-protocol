@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x785eea2a0a81ed340891dbd65beb7496f78af100ac1825ca66379f002b03f5f6",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmQXDkAVyV4Nwb3ibs6qJmVACykXafBMwPrVREbxFEdMrw",
-  "title": "EVM Event-Sourced State Management"
-}

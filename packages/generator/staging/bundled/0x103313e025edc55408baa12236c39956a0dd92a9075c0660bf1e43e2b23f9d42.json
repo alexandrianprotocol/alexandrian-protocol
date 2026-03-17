@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5be3a423067bdbacdfababced02f95e8c2fb77cf933827c1abbedefbca6d9db9",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "security.supply_chain.sbom",
-  "rootCid": "Qma8mDqrdLVEnxPq1eDvmxgmSPu3aGu4YsLE5sL2pK9LAd",
-  "title": "Software Bill of Materials (SBOM) Generation"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x1da4eaff8ff6704d85c21ee1e9bd715937937d1e0e560d66e42d50187ec19cb0",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "sql.optimization",
-  "rootCid": "Qmd7sBkdMA5SNhBj85k4U7akEZfjpje49wrmPgFaQq4ZPN",
-  "title": "Optimized VACUUM ANALYZE Scheduling for High-Churn Tables"
-}

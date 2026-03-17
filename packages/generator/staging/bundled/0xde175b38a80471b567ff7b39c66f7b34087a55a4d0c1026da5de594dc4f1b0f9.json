@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x524c4e44adb910ec2e76fa65836df994a098c9ead955dcfc022e6887645fd700",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.solidity",
-  "rootCid": "QmSe4xPUd46eK7sJeS3ixnG9zSXgjYPyzooATavieiwK45",
-  "title": "CQRS-Based Role Access Control in Solidity"
-}

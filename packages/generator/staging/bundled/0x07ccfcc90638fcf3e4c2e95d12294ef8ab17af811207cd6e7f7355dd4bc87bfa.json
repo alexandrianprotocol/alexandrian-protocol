@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x0f5060cb4cd14f80db433932aede6bbe463b774f14769868bac857cb64c440f4",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "distributed.systems.idempotency",
-  "rootCid": "QmbzArsZgcPZu3uutnQ1dYszFv8bArJSE4d88e6TGNWjyz",
-  "title": "Idempotency in Distributed Operations"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x9a2ee55935b87a8bded2edef728782ee389853506946f020c60e6ab86aa3ece9",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "software.security",
-  "rootCid": "QmUU6xuP1jSfzo6J8262c5JkTyL51cCnyUwj73U2QRXtT9",
-  "title": "Constant-Time Comparison for Secret Validation"
-}

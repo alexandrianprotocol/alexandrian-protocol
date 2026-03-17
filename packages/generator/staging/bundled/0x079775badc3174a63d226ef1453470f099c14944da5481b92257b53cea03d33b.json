@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6441aa1e1b0b7b4a85b75b9675affa0819d49814140daf3a08766b5eb4879e65",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.sharding.key_design",
-  "rootCid": "QmcP9k5WMnYEE8RqcyrJTCwRjFdmq3CPNGpvuiv6ZpVbFY",
-  "title": "Shard Key Design to Prevent Sequential Bottlenecks"
-}

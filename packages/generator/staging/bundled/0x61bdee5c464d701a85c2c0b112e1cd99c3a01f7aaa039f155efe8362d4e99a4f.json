@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x07fc05cc6a0276a9b8ba4c0bb8a4de9b324102af9c36e951e67c333f9db0b3c0",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning",
-  "rootCid": "QmXNqVLMKmV8UEMrkyVobVEnyFw6SvnhviwuFK7b6gj54E",
-  "title": "Directed Acyclic Graph Construction for Task Dependencies"
-}

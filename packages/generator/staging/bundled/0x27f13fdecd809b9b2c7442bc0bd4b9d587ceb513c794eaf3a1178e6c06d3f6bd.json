@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xf91f45715efe5c99d7f7086cb1b9f5088e591ffe9e16a185427dee44d9b05466",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.crdt.orset",
-  "rootCid": "QmYoTwnCkPmSKGprC6phGK2iECxmh5Cb3NVHjn2zHhMMgL",
-  "title": "Observed-Remove Set CRDT Implementation"
-}

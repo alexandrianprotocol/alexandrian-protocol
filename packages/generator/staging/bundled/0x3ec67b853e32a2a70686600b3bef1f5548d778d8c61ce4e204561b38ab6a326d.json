@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5b0e42894f84e212b3cc3377d90c14510b9d24750b0e4b83bf5c32364439d069",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.replication.lag",
-  "rootCid": "QmPSHJtoiy2ofEV8BVorEsiMRQGrAtsRSEh5mNgwHsQi8h",
-  "title": "Replication Lag Monitoring in Read Replicas"
-}

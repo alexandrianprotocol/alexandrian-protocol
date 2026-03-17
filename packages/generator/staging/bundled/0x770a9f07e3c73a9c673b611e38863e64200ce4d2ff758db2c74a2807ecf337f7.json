@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x3c2ea40c6e92bfc8e35d5f3748971467018c78ac0b0a62d6ce48a58da1d6573d",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.schema.normalization",
-  "rootCid": "QmXPDqhagJAvqQ4fSGcfuv4s8L6cuBfCCBQED9icq1KcHG",
-  "title": "Denormalization Strategy Selection for Read Performance"
-}

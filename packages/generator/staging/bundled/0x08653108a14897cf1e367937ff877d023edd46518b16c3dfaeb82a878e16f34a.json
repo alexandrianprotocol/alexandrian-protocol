@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x4dc1b7dafd3c1dadb503a7270389c6d5f352999efb91cbf5e4769934a78c198e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "platform.k8s.operator",
-  "rootCid": "QmNgACZ9ZDUoqPSEETRsS9BuBFQe6VgH9pCW52qmz7a1Py",
-  "title": "Kubernetes Operator Architecture Design"
-}

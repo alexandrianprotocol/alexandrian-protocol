@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x24eb01903ca1347fddb9b2cde75b79d8ca15c350d787d73b72bff3c4802838da",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "evm.deployment.create2_factory",
-  "rootCid": "QmZSzB6TbACBTwHNzxvuxry4MGNqWHqDNVCQz1zGB6QTcX",
-  "title": "CREATE2 Deterministic Deployment"
-}

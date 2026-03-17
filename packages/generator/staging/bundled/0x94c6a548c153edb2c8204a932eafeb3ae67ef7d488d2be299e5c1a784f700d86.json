@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xec8b185f877bf4c8514801b612eba718083034db86ce0dd536623e63e9836827",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.incremental.interface",
-  "rootCid": "QmcY3CRpKFNhpDD79MsNoHQ23DCRAoz7z6W5fkdxmgw6bu",
-  "title": "Interface File Generation for Downstream Isolation"
-}

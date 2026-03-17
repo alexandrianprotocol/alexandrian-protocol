@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xaceff136aedac09f0aa7c4ce9aaee2cd386c5369701b83f98759a457b4f8748b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery.circuit_breaker",
-  "rootCid": "QmTWhwaBT3f5XVGhQ5G1REbeFTarGKw7P2Ma44rb9wp1Fx",
-  "title": "Circuit Breaker Pattern Success Measurement"
-}

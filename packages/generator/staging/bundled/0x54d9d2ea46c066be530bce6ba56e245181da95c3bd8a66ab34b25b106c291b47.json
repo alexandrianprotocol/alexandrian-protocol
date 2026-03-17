@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xfcff6642d9778c1aad5811f00fc04f48c74af2743e28e9169f2a14e044ba5071",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.incremental.salsa",
-  "rootCid": "QmRRUFezGm8Kf3M14aZcbHH7JEh7ua2vK7qrJx6B4zoNHD",
-  "title": "Salsa-style Incremental Computation Framework Design"
-}

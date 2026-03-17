@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x8d05555a1aa74e593a03eea8dfc0e8d76625e9c20ebf473e6c57b460d2f0b28a",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.index.partial",
-  "rootCid": "QmdqhV937DgZJ4ZLcWtAgRiYCwhCXbne39Baygq1iA3XQP",
-  "title": "Partial Index Implementation for Sparse Predicates"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6ffb0aa5cb1e0aef3cef4c848ff225c735b7dc1e62fa998ed70216ddca736295",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "antipattern.architecture",
-  "rootCid": "Qmc3io62254g3TZzpbu3qyEt4Lk3GsmbgBwozkFQ4RQ9GV",
-  "title": "Prevent Leaky Abstractions"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xeb097a279d3bc4d01438aa8d8340af93429ce1b0fbc21518a3c634072f080937",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "blockchain.wallet.eip712_signing",
-  "rootCid": "QmXkttavQjvemeK6tLJGxsozNM1SmdsztLVncKQmTTBA4X",
-  "title": "EIP-712 Typed Data Signing"
-}

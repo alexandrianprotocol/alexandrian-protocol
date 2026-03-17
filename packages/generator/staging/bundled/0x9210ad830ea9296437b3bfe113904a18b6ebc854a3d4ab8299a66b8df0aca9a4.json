@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x66ab4f442e00c3468e2e30ac972a8bc94e3fbf6954d8e8aef14e1ffadfe034b7",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmWT4qyoNsRr8BPv5x1F9aaFckKu51vPMH7ketiyTjNhBA",
-  "title": "Idempotent Execution"
-}

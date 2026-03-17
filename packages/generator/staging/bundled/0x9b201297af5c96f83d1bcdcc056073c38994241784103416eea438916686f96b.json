@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x7ff16f8de5d43056c250b3e7196fcfb957bc54f18d66aebfdc7b306671623f3b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.pooling.multitenancy",
-  "rootCid": "QmWmiMuZkUxGbawHAsheyCcm4TXyhMs5tTZKx3baNb5C9V",
-  "title": "Per-Tenant Database Connection Pool Isolation"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xedacf92ba4f90a03f1660e33f8c596184294145ddd0adc6590a2b0e6c94cba7f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "antipattern.concurrency",
-  "rootCid": "QmNmHzCaD2cUAn9wC4PENUHBJqQ2CZHjtE2aiAVJDproYM",
-  "title": "Deadlock Prevention in Locking Design"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x791fd2c5f97960060e159f9dcaa2763870bbbaea3058e03c2ce68bde45e76e2f",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.parser.packrat",
-  "rootCid": "QmfNNNnmE33fh4Ej1rWQqdRG1e94BPH4xUHB1mZu1467PL",
-  "title": "Packrat Memoization in PEG Parsers"
-}

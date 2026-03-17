@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x4fa11dddbc14d60802c13bb2d1239d8ddf6a54dec2d46819c9b5033596002b54",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.error_recovery",
-  "rootCid": "QmYVLeyvTXn5qKkeJKsjRBQJ12TusygwzCc6wfbSHhTtRQ",
-  "title": "Graceful Degradation in Software Architecture"
-}

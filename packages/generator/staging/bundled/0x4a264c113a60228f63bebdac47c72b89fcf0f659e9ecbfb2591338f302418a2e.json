@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xcad17f62fa9ce3526af4816eee2b321aaed491bc7110f5de28709b59a53b6bc2",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "security.devsecops.sast_integration",
-  "rootCid": "QmVaH6aodw3oatYzZxCQ3xihN7HhuWvUJdYPHCAFDeTbnz",
-  "title": "SAST Integration in CI Pipeline"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe1f5a5239dfe136117410f671b700ad8d4d638e809285b3e49081f6e2c93cfba",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.schema_design",
-  "rootCid": "QmeLS7Qvqqv955JQgEryfjxtFncYYsCEaUKGG2Gwz6JCzD",
-  "title": "Idempotent ETL Pipeline Pattern for Reliable Data Migration"
-}

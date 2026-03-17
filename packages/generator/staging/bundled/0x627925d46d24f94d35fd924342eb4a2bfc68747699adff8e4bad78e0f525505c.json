@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x6afb214496bb4289d440fb5f6860406400b52a0e36ff0c01287bf6582d0b2e62",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.security.dos",
-  "rootCid": "QmNh6pd7oQnKKxbDAB3U5XCGDxMxwo4oBLbjvFBF3yMwQE",
-  "title": "Denial-of-Service Mitigation in Smart Contracts"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xa4e1a2122407ab454eab867fe63d686a5806bda77477aa1192ebc98c1db2496b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmdWkqERoDGVw1eUJNcJQS7QVQZMSvjMj6FsqnVRavVnRG",
-  "title": "Incremental Stream Processing for Unbounded Data Sets"
-}

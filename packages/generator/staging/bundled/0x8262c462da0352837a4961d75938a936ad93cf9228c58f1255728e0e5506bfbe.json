@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x5321092b96df3ef043bcd10a45da31fae6b0a585e74bd3371dcdde65a0b3691c",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.planning",
-  "rootCid": "QmRPDiNJ8Zz2oPsZaxYyjTWZMHckMV4aug39zsiqTVX1A1",
-  "title": "Topological Sorting for Task Dependency Resolution"
-}

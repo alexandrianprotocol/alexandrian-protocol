@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x674d2fab8faae2d48beca5267911db61304db4de17340fab002b3fc0a03f8e58",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "ai.safety.injection.indirect",
-  "rootCid": "QmeaPV8byw3p7T2EJTo7qsz19UnV2qbzdPLEs4bMjbvgYx",
-  "title": "Sanitization Against Indirect Prompt Injection via Web Content"
-}

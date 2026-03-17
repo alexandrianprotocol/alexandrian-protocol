@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x67afcf13031bf67c63efba168f8faabacb6201145dd081bf6725fb35c2b54b89",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "web3.gas.sstore",
-  "rootCid": "QmTQL98qn1MuaCNbsfsSZiZXwKoh3Z84o3E1BLN7b9nXWz",
-  "title": "Minimizing SSTORE Costs by Avoiding Cold Writes"
-}

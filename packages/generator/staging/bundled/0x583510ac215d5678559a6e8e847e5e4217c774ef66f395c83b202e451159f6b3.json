@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x352303accf627ecf14a392d19d7ece2e46108c1d2f45abe2fe10b0a3782a19ac",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmV7UM9HnkuaBk5t5madULdu5gLYU46tQjfqAiFDmQm4sp",
-  "title": "Composing Retry Strategy"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x4a63aa2cda13eebb0dd341e3589d0319a49f187be290b63bcbdd08d7f36422b4",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.types.narrowing",
-  "rootCid": "QmdemoUkNKGkZ5hueZX2obmQWeGG27uH3qY4j3FXaSSibj",
-  "title": "Type Narrowing via Control Flow Analysis"
-}

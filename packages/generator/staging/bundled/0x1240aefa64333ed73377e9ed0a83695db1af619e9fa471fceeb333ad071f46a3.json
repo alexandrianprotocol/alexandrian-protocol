@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x2fa43ad731b9f32bb3d27b4bc179ea3b7c74eb21ae4616c386e99ff4b1499035",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "realtime.crdt.persistence",
-  "rootCid": "QmNnT5rdtMochne8C9VByhK9DWHffivhdHzAN9tduzAbSJ",
-  "title": "CRDT State Persistence"
-}

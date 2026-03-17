@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xe8e4ca6e5fff5f876c30ad896f76da4f7c8ac9974ca855d1275e2eba1a091d68",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "database.optimization",
-  "rootCid": "QmejvB1cf94z646P2whCTHqrZa1gq1Hd5cbUBLrACu2d8o",
-  "title": "Scheduled Batch Aggregation for Query Load Optimization"
-}

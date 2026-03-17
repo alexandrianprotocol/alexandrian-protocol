@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x10debc18231b7d4ff649a7b1e16f5441d0aceaa8ef86c6e8c5b4ed4c8690a4b6",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "system.caching.eviction_policy",
-  "rootCid": "QmdsbGbDuJaF4P9j9JKnsgK5W7iE6NkpDBJf3TduwtQkKc",
-  "title": "Cache Eviction Policy Selection"
-}

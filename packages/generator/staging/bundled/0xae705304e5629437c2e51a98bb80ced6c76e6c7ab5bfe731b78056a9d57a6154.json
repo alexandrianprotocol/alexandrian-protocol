@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xd3c6ab5d73da3eb08dba5e409bed97c607e4fceb3274b525eb4fe3ec5cf83fe5",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.execution",
-  "rootCid": "QmPtZeB2tFhW2XquNyMyhao6D2GxyHq4rYZyMUDPwGx65a",
-  "title": "Specialized Exponential Backoff Retry for Secure Agent Execution"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xad751848f4c40211ec3394a056ee9b9f5a7efdcc07a646241c99f8456ff7628b",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "tooling.build.dependency_graph",
-  "rootCid": "QmZWEeP9Fezj3JD4cNKYhNejyNSygTBr3yJqSRGXYuqDvh",
-  "title": "Build Dependency Graph Computation"
-}

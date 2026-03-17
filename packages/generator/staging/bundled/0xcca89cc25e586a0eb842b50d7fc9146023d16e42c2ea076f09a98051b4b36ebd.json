@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xdc1dc232c79c85774f7832992b02378ebe8f6a71bdeb0284e334a93828f76404",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "lakehouse.medallion.pipeline",
-  "rootCid": "QmNawHwabpeBtC4xZyCL9mtc51j7Rxy7cK5igxkSRbkqsF",
-  "title": "Deterministic ETL Pipeline Orchestration in Medallion Architecture"
-}

@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x27e62743066c7baaf2faf0a200b53824565ef723941c40857df832facfcd3cd8",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "compiler.codegen.debug_info",
-  "rootCid": "QmUeXVwTnw4hcHKqD6tnXYFEGvxjBLHtrMHGCwzM1L3BH2",
-  "title": "DWARF Debug Information Emission in Compiler"
-}

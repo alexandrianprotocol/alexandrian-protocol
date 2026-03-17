@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0x025fa31d4b623f63edd4bfe4a8b3721c589a69bed396b6e2163666f46e7a363e",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "sql.optimization",
-  "rootCid": "QmUdkkeMQfSrrS89zLzPD7BPiGirusdppt79qKpmw7o8MB",
-  "title": "Combining ORM Parameterization"
-}

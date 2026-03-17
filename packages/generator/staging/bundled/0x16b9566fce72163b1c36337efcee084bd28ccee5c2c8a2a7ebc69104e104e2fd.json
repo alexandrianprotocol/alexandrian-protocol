@@ -1,7 +1,0 @@
-{
-  "artifactHash": "0xeb7aa609a7238e8fc64edd95854548955d8cd0a2a2ba33ae4ad014e1aef9eeca",
-  "bundledAt": "2026-03-11T23:16:37.545Z",
-  "domain": "agent.evaluation.pipeline",
-  "rootCid": "QmW8RJnDhUHpYEgYuPd2WP7qvnH8BoNwN5KbprBmvPLbrh",
-  "title": "Deterministic LLM Evaluation Pipeline Design"
-}
