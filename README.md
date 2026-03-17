@@ -29,7 +29,7 @@ A canonical identity and settlement layer for attributable, compoundable knowled
 
 ---
 
-## 🧠 [7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) Live on Base Mainnet
+## 🧠 [7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) live on Base Mainnet
 
 **The largest on-chain AI knowledge graph.** Every KB has a canonical `kbHash`, immutable lineage DAG, and royalty-routing settlement — queryable today via [The Graph](https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest).
 
