@@ -659,10 +659,75 @@
       }
     }
 
+    /* ── Protocol Introduction ───────────────────── */
+    .intro-section {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 40px;
+    }
+    .intro-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .intro-headline { max-width: 740px; }
+    .intro-badge {
+      display: inline-flex; align-items: center;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+      color: var(--indigo); background: var(--indigo-pale); border: 1px solid var(--indigo-mid);
+      border-radius: 20px; padding: 4px 12px; margin-bottom: 16px;
+    }
+    .intro-title {
+      font-size: 28px; font-weight: 900; letter-spacing: -0.8px;
+      color: var(--text-1); line-height: 1.2; margin-bottom: 16px;
+    }
+    .intro-title em {
+      font-style: normal; color: var(--indigo);
+    }
+    .intro-lead {
+      font-size: 15px; color: var(--text-2); line-height: 1.75;
+    }
+
+    .intro-pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .pillar-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 22px 24px;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .pillar-card:hover {
+      box-shadow: var(--shadow-md); transform: translateY(-2px);
+      border-color: var(--indigo-mid);
+    }
+    .pillar-icon { font-size: 22px; margin-bottom: 12px; line-height: 1; }
+    .pillar-title { font-size: 13px; font-weight: 700; color: var(--text-1); margin-bottom: 7px; }
+    .pillar-desc { font-size: 12px; color: var(--text-3); line-height: 1.65; }
+
+    .intro-flow {
+      display: flex; align-items: center; justify-content: center;
+      padding: 22px 32px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); flex-wrap: wrap; gap: 0;
+    }
+    .flow-step {
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+      padding: 0 20px;
+    }
+    .flow-icon { font-size: 24px; line-height: 1; }
+    .flow-label {
+      font-size: 10px; font-weight: 700; color: var(--text-2);
+      text-transform: uppercase; letter-spacing: 0.7px; text-align: center; white-space: nowrap;
+    }
+    .flow-arrow {
+      color: var(--indigo-mid); font-size: 20px; padding: 0 6px;
+      margin-bottom: 20px; flex-shrink: 0;
+    }
+
     /* ── Responsive ─────────────────────────────── */
     @media (max-width: 1080px) {
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
       .response-grid { grid-template-columns: 1fr; }
+      .intro-pillars { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       .header { padding: 0 20px; }
@@ -672,6 +737,11 @@
       .query-card { padding: 20px; }
       .footer { padding: 20px; }
       .step-flow { display: none; }
+      .intro-section { padding: 36px 20px; }
+      .intro-pillars { grid-template-columns: 1fr; }
+      .intro-title { font-size: 22px; }
+      .flow-arrow { display: none; }
+      .intro-flow { gap: 16px; }
     }
     @media (max-width: 540px) {
       .cards-grid { grid-template-columns: 1fr; }
@@ -716,6 +786,90 @@
     <div class="stat-label">Indexed By</div>
   </div>
 </div>
+
+<!-- ── Protocol Introduction ── -->
+<section class="intro-section" aria-labelledby="intro-heading">
+  <div class="intro-inner">
+
+    <div class="intro-headline">
+      <div class="intro-badge">Protocol Overview</div>
+      <h1 class="intro-title" id="intro-heading">Formalizing knowledge<br>for the <em>AI economy</em></h1>
+      <p class="intro-lead">
+        Today's AI systems consume knowledge at massive scale — but the knowledge is unattributed, unverifiable,
+        and locked inside model weights. Creators are never compensated. Quality is unauditable. There's no
+        economic incentive to produce better, more structured knowledge for AI.<br><br>
+        Alexandrian Protocol changes this by turning raw knowledge into <strong>on-chain, typed, composable artifacts</strong>
+        — with cryptographic integrity, programmable royalties, and decentralized trust signals baked in at the infrastructure layer.
+      </p>
+    </div>
+
+    <div class="intro-pillars">
+      <div class="pillar-card">
+        <div class="pillar-icon">⛓️</div>
+        <div class="pillar-title">On-Chain Identity &amp; Integrity</div>
+        <div class="pillar-desc">Every KB carries a unique on-chain ID, a JCS+keccak256 content hash, and an IPFS CID. Tamper-proof and permanently verifiable — any agent can confirm exactly what knowledge it's reasoning over.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🔀</div>
+        <div class="pillar-title">Attribution DAG</div>
+        <div class="pillar-desc">KBs cite parent KBs explicitly on-chain, forming a composable lineage graph. When a KB is queried, royalties flow automatically up the entire attribution chain — every ancestor earns proportionally.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🏷️</div>
+        <div class="pillar-title">Typed Knowledge Primitives</div>
+        <div class="pillar-desc">Six KB types — Practice, Feature, StateMachine, PromptEngineering, ComplianceChecklist, Rubric — so consuming agents know not just what the knowledge says, but how to use it.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">💸</div>
+        <div class="pillar-title">Programmable Royalties</div>
+        <div class="pillar-desc">Publishers stake ETH — creating skin-in-the-game for quality. Per-query settlements route earnings up the attribution DAG automatically, with a 2% protocol fee and the remainder split by royalty bps.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🛡️</div>
+        <div class="pillar-title">Trust Tiers</div>
+        <div class="pillar-desc">HumanStaked, AgentDerived, and AgentDiscovered tiers give AI pipelines a native signal to filter and weight knowledge. No external oracle required — trust is encoded in the artifact itself.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🌐</div>
+        <div class="pillar-title">Permissionless Knowledge Market</div>
+        <div class="pillar-desc">Anyone can publish a KB, build on existing KBs, and earn from settlements. No central curator. The graph grows organically through open contribution, with reputation scored on-chain by query volume and endorsements.</div>
+      </div>
+    </div>
+
+    <div class="intro-flow" role="list" aria-label="How the protocol works">
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon">📝</div>
+        <div class="flow-label">Knowledge Created</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon">⛓️</div>
+        <div class="flow-label">Published On-Chain</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon">🔗</div>
+        <div class="flow-label">DAG Lineage Formed</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon">🤖</div>
+        <div class="flow-label">Agent Queries KB</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon">💸</div>
+        <div class="flow-label">Royalties Settled</div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon">📈</div>
+        <div class="flow-label">Graph Grows</div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ── DAG ── -->
 <div class="page-body">
