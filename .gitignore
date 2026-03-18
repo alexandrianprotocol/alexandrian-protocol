@@ -33,6 +33,7 @@ packages/generator/staging/failed/*.json
 packages/generator/staging/published/*.json
 packages/generator/staging/bundled/*.json
 packages/generator/staging/*.jsonl
+packages/generator/staging/*.json
 packages/generator/staging/preview/
 packages/generator/staging/bundles-local/
 packages/generator/staging/bundled-local/
