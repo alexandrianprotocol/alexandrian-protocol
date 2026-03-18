@@ -201,6 +201,38 @@ async function pinToIPFS(contentHash, artifact, jwt, maxRetries = 3) {
   throw new Error(`Pinata: exhausted ${maxRetries} retries for ${contentHash.slice(0, 10)}…`);
 }
 
+// ── Secondary IPFS pinning (IPFS Pinning Service API spec) ────────────────────
+// Accepts any PSA-compatible endpoint (Filebase, Pinata v2, etc.).
+// This is always best-effort: a failure logs a warning but does NOT fail the publish.
+// The secondary pin is submitted AFTER the CID is known from the primary pinner.
+//
+// PSA spec: POST /pins  body: { cid, name }
+//           Auth: Bearer <token>
+// Filebase: endpoint = https://api.filebase.io/v1/ipfs
+// Pinata v2: endpoint = https://api.pinata.cloud/psa
+//
+// Returns the remote pin object on success; throws on failure.
+
+async function pinToSecondaryIPFS(cid, name, endpoint, token) {
+  const url  = endpoint.replace(/\/$/, "") + "/pins";
+  const resp = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization:  `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ cid, name }),
+    signal: AbortSignal.timeout(20_000),
+  });
+
+  if (!resp.ok) {
+    const body = await resp.text().catch(() => "");
+    throw new Error(`Secondary pinner ${resp.status}: ${body.slice(0, 200)}`);
+  }
+
+  return resp.json();
+}
+
 // ── artifactHash computation ───────────────────────────────────────────────────
 // When bundled metadata is absent, compute keccak256 of the canonical artifact JSON
 // rather than falling back to ZERO_HASH (which breaks on-chain integrity checks).
@@ -235,7 +267,7 @@ function classifyError(err) {
 
 // ── Single file publish ────────────────────────────────────────────────────────
 
-async function publishOne({ filePath, bundledDir, contract, signerAddress, publishedDir, jwt, nonce, dryRun }) {
+async function publishOne({ filePath, bundledDir, contract, signerAddress, publishedDir, jwt, secondaryIPFS, nonce, dryRun }) {
   const raw   = readFileSync(filePath, "utf8");
   const entry = JSON.parse(raw);
 
@@ -265,6 +297,18 @@ async function publishOne({ filePath, bundledDir, contract, signerAddress, publi
     const { _quality, ...cleanArtifact } = entry;
     cid          = await pinToIPFS(contentHash, cleanArtifact, jwt);
     artifactHash = computeArtifactHash(entry);
+  }
+
+  // ── Secondary IPFS pin (best-effort) ─────────────────────────────────────────
+  // Fire-and-forget after CID is known. Never blocks or fails the publish.
+  if (secondaryIPFS?.endpoint && secondaryIPFS?.token && !cid.startsWith("placeholder-")) {
+    pinToSecondaryIPFS(cid, contentHash, secondaryIPFS.endpoint, secondaryIPFS.token)
+      .then(() => {
+        console.log(`  [secondary-ipfs] pinned ${cid.slice(0, 16)}… to ${secondaryIPFS.endpoint}`);
+      })
+      .catch((err) => {
+        console.warn(`  [secondary-ipfs] warning: ${err.message} (non-fatal)`);
+      });
   }
 
   const kbType    = artifactToKbType(artifact, domain);
@@ -322,6 +366,11 @@ async function main() {
   const concurrency = Math.min(parseInt(process.env.CONCURRENCY ?? "3", 10), 10);
   const dryRun      = process.env.DRY_RUN === "true";
 
+  // Secondary IPFS provider (IPFS Pinning Service API spec — optional)
+  const secondaryIPFS = (process.env.SECONDARY_IPFS_ENDPOINT && process.env.SECONDARY_IPFS_TOKEN)
+    ? { endpoint: process.env.SECONDARY_IPFS_ENDPOINT, token: process.env.SECONDARY_IPFS_TOKEN }
+    : null;
+
   if (!privateKey && !dryRun) {
     console.error("Error: OWNER_PRIVATE_KEY env var is required");
     console.error("  export OWNER_PRIVATE_KEY=0x...");
@@ -374,6 +423,7 @@ async function main() {
   console.log(`  Bundled:     ${bundledCount} pre-computed IPFS bundles`);
   console.log(`  Concurrency: ${concurrency} parallel slots`);
   console.log(`  IPFS:        ${jwt ? "Pinata (with retry)" : "placeholder CIDs for unbundled KBs"}`);
+  console.log(`  Secondary:   ${secondaryIPFS ? `${secondaryIPFS.endpoint} (PSA, best-effort)` : "not configured"}`);
   console.log(`  Dry run:     ${dryRun}\n`);
 
   if (files.length === 0) {
@@ -401,6 +451,7 @@ async function main() {
         signerAddress,
         publishedDir,
         jwt,
+        secondaryIPFS,
         nonce: nonce + j,
         dryRun,
       })

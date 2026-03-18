@@ -1,5 +1,5 @@
 # Alexandrian Protocol — Master Implementation Checklist
-*Living reference document. Updated: 2026-03-17. Last audit: 2026-03-17 (post-context-2)*
+*Living reference document. Updated: 2026-03-17. Last audit: 2026-03-17 (post-context-3)*
 
 ---
 
@@ -194,11 +194,13 @@ CIDs to verify:
 
 ---
 
-### [ ] 2.2 — Add secondary IPFS pin provider
+### [x] 2.2 — Add secondary IPFS pin provider
 
-**Why:** Single-provider pinning is a single point of failure. If Pinata is down, KB artifacts are unreachable and the query pipeline breaks. Add Web3.Storage or Filebase as a backup pinner.
+**Why:** Single-provider pinning is a single point of failure. If Pinata is down, KB artifacts are unreachable and the query pipeline breaks.
 
-**Implementation:** After every successful Pinata pin, pin the same CID to the backup provider. The `fetchArtifact.ts` function should try providers in order, with fallback.
+**Implementation:** `publish.mjs` now fires a best-effort secondary pin via the IPFS Pinning Service API (PSA spec) after every successful Pinata pin. Any PSA-compatible provider works (Filebase recommended). Set `SECONDARY_IPFS_ENDPOINT` and `SECONDARY_IPFS_TOKEN` in `.env` before the 10k run. Failures are logged as warnings and never block the primary publish.
+
+**IPFS gateway fallback** (`verify-kb.mjs` / `fetchArtifact.ts`): already tries ipfs.io → cloudflare-ipfs → gateway.pinata.cloud in order.
 
 ---
 
@@ -366,15 +368,20 @@ For authenticated KB publishers:
 
 ---
 
-### [ ] 4.6 — KB Publish Form
+### [x] 4.6 — KB Publish Form
 
-For authenticated users to publish new KBs:
-- Form fields mapping to `publishKB` parameters
-- Draft save (SaaS layer, off-chain) before committing to chain
-- Parent KB selection with autocomplete from subgraph
-- Royalty BPS calculator showing how attribution flows
-- Preview: how this KB will appear in the browser
-- Submit: signs and sends `publishKB` transaction via connected wallet
+**Status:** Complete. `demo/kb-publish.html` at `/publish`.
+
+**What's built:**
+- Wallet connect (MetaMask/EIP-1193) with auto-switch to Base Mainnet
+- 6-section form: KB Identity, Content (claim + dynamic steps), IPFS CID, Parents & Attribution, Economics, Review & Submit
+- Auto-computed `contentHash` = keccak256("alexandrian.kb.v2.5" + canonical(domain+claim+steps))
+- Dynamic parent KB rows with royaltyShareBps and relationship type; royalty breakdown shows how each query fee distributes
+- Transaction preview table before submission (contentHash, curator, kbType, trustTier, cid, parents, queryFee, msg.value)
+- Draft save/load via localStorage
+- On-chain submit via `publishKB()` with ethers.js v6 BrowserProvider
+- Success card with Basescan tx link + "View KB →" detail link
+- Inline field validation with error messages
 
 ---
 

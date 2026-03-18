@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publish KB — Alexandrian Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #4f46e5; --primary-50: #eef2ff; --primary-100: #e0e7ff;
+      --primary-600: #4338ca; --primary-700: #3730a3;
+      --success: #059669; --success-50: #ecfdf5;
+      --warning: #d97706; --warning-50: #fffbeb;
+      --danger: #dc2626; --danger-50: #fef2f2;
+      --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+      --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-500: #6b7280;
+      --gray-600: #4b5563; --gray-700: #374151; --gray-800: #1f2937; --gray-900: #111827;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-md: 8px; --radius-lg: 12px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.06); --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07);
+    }
+    html { font-size: 16px; }
+    body { font-family: var(--font-sans); background: var(--gray-50); color: var(--gray-900); line-height: 1.5; min-height: 100vh; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header */
+    .site-header { background: #fff; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 50; }
+    .header-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 24px; }
+    .wordmark { font-weight: 700; font-size: 1.0625rem; letter-spacing: -.02em; }
+    .wordmark span { color: var(--primary); }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: var(--gray-600); }
+    .nav-links a:hover { color: var(--gray-900); text-decoration: none; }
+    .nav-links a.active { color: var(--primary); }
+    .header-spacer { flex: 1; }
+
+    /* Wallet button */
+    .wallet-btn { padding: 7px 16px; border-radius: var(--radius-md); font-size: .8125rem; font-weight: 600; border: 1.5px solid var(--gray-300); background: #fff; color: var(--gray-700); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all .15s; }
+    .wallet-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .wallet-btn.connected { border-color: #a7f3d0; background: var(--success-50); color: var(--success); }
+    .wallet-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); }
+    .wallet-btn.connected .wallet-dot { background: var(--success); }
+
+    /* Page */
+    .page-body { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+    .page-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
+    .page-sub { font-size: .9375rem; color: var(--gray-500); margin-bottom: 36px; }
+
+    /* Chain warning */
+    .chain-warn { display: none; background: var(--warning-50); border: 1px solid #fcd34d; color: #92400e; border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 20px; font-size: .875rem; display: flex; align-items: center; gap: 10px; }
+    .chain-warn.hidden { display: none; }
+    .chain-warn button { margin-left: auto; padding: 4px 12px; background: var(--warning); color: #fff; border: none; border-radius: 6px; font-size: .8125rem; font-weight: 600; cursor: pointer; }
+
+    /* Form card */
+    .form-card { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+    .section-title { font-size: 1rem; font-weight: 700; letter-spacing: -.01em; color: var(--gray-900); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 8px; }
+    .section-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--primary-50); color: var(--primary); border-radius: 50%; font-size: .75rem; font-weight: 700; }
+
+    /* Form grid */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: .8125rem; font-weight: 600; color: var(--gray-700); }
+    label .req { color: var(--danger); margin-left: 2px; }
+    label .hint { font-weight: 400; color: var(--gray-400); margin-left: 6px; font-size: .75rem; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-size: .875rem; font-family: var(--font-sans); color: var(--gray-900); background: #fff; outline: none; transition: border-color .15s, box-shadow .15s; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,.1); }
+    .form-input.mono { font-family: var(--font-mono); font-size: .8125rem; }
+    .form-input.error, .form-select.error { border-color: var(--danger); }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .field-error { font-size: .75rem; color: var(--danger); margin-top: 2px; }
+    .field-note { font-size: .75rem; color: var(--gray-400); margin-top: 2px; }
+
+    /* Hash preview */
+    .hash-preview { display: flex; align-items: center; gap: 10px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 9px 12px; font-family: var(--font-mono); font-size: .75rem; color: var(--gray-600); overflow: hidden; }
+    .hash-preview-label { font-family: var(--font-sans); font-size: .75rem; font-weight: 600; color: var(--gray-400); white-space: nowrap; }
+
+    /* Steps */
+    .steps-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px; }
+    .step-row { display: grid; grid-template-columns: 28px 1fr 1fr auto; gap: 10px; align-items: start; }
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; min-width: 28px; background: var(--primary-50); color: var(--primary); border-radius: 50%; font-size: .8125rem; font-weight: 700; margin-top: 1px; }
+    .step-remove { padding: 6px; border: none; background: none; cursor: pointer; color: var(--gray-400); font-size: 1rem; border-radius: 6px; transition: color .15s, background .15s; margin-top: 1px; }
+    .step-remove:hover { color: var(--danger); background: var(--danger-50); }
+    .add-btn { padding: 7px 14px; background: var(--gray-50); border: 1.5px dashed var(--gray-300); border-radius: var(--radius-md); font-size: .8125rem; font-weight: 600; color: var(--gray-500); cursor: pointer; transition: all .15s; }
+    .add-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-50); }
+
+    /* Parents */
+    .parents-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .parent-row { display: grid; grid-template-columns: 1fr 90px 100px auto; gap: 10px; align-items: center; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 10px 12px; }
+    .parent-remove { padding: 4px 8px; border: none; background: none; cursor: pointer; color: var(--gray-400); font-size: .9rem; border-radius: 4px; transition: color .15s; }
+    .parent-remove:hover { color: var(--danger); }
+
+    /* Royalty breakdown */
+    .royalty-breakdown { background: var(--primary-50); border: 1px solid var(--primary-100); border-radius: var(--radius-md); padding: 14px 16px; margin-top: 14px; }
+    .royalty-title { font-size: .8125rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+    .royalty-row { display: flex; justify-content: space-between; align-items: center; font-size: .8125rem; padding: 3px 0; }
+    .royalty-row .addr { font-family: var(--font-mono); color: var(--gray-700); }
+    .royalty-row .bps { font-weight: 600; color: var(--primary); }
+    .royalty-divider { border: none; border-top: 1px solid var(--primary-100); margin: 6px 0; }
+
+    /* CID section */
+    .ipfs-note { background: #fffbeb; border: 1px solid #fcd34d; border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 16px; font-size: .8125rem; color: #92400e; line-height: 1.6; }
+    .ipfs-note strong { display: block; margin-bottom: 4px; }
+    .ipfs-code { background: #1e1e2e; color: #cdd6f4; border-radius: 6px; padding: 10px 14px; font-family: var(--font-mono); font-size: .75rem; line-height: 1.7; margin-top: 8px; white-space: pre; }
+
+    /* TX Preview */
+    .tx-preview { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-top: 4px; }
+    .tx-preview-title { font-size: .8125rem; font-weight: 700; color: var(--gray-600); margin-bottom: 10px; }
+    .tx-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--gray-100); font-size: .8125rem; }
+    .tx-row:last-child { border-bottom: none; }
+    .tx-row .k { color: var(--gray-500); }
+    .tx-row .v { font-family: var(--font-mono); color: var(--gray-900); font-size: .75rem; max-width: 440px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tx-row .v.badge { font-family: var(--font-sans); font-size: .75rem; background: var(--primary-50); color: var(--primary); padding: 2px 8px; border-radius: 99px; font-weight: 600; }
+
+    /* Action row */
+    .action-row { display: flex; gap: 12px; align-items: center; margin-top: 24px; }
+    .submit-btn { padding: 11px 28px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius-md); font-size: .9375rem; font-weight: 700; cursor: pointer; transition: background .15s; }
+    .submit-btn:hover { background: var(--primary-600); }
+    .submit-btn:disabled { opacity: .45; cursor: not-allowed; }
+    .draft-btn { padding: 10px 20px; background: #fff; border: 1.5px solid var(--gray-300); color: var(--gray-700); border-radius: var(--radius-md); font-size: .875rem; font-weight: 600; cursor: pointer; transition: all .15s; }
+    .draft-btn:hover { border-color: var(--gray-500); }
+    .status-msg { font-size: .875rem; color: var(--gray-500); }
+
+    /* Result card */
+    .result-card { display: none; background: var(--success-50); border: 1px solid #a7f3d0; border-radius: var(--radius-lg); padding: 24px 28px; margin-top: 24px; }
+    .result-card.visible { display: block; }
+    .result-title { font-size: 1.125rem; font-weight: 700; color: var(--success); margin-bottom: 12px; }
+    .result-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+    .result-link { padding: 8px 16px; background: var(--success); color: #fff; border-radius: var(--radius-md); font-size: .875rem; font-weight: 600; text-decoration: none; }
+    .result-link.secondary { background: #fff; color: var(--success); border: 1.5px solid #a7f3d0; }
+
+    /* Error card */
+    .error-card { display: none; background: var(--danger-50); border: 1px solid #fecaca; border-radius: var(--radius-md); padding: 16px 20px; margin-top: 16px; font-size: .875rem; color: var(--danger); }
+    .error-card.visible { display: block; }
+
+    /* Wallet-required overlay */
+    .wallet-required { text-align: center; padding: 40px 20px; color: var(--gray-500); }
+    .wallet-required .icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .wallet-required h3 { font-size: 1.125rem; font-weight: 700; color: var(--gray-700); margin-bottom: 8px; }
+
+    @media (max-width: 640px) {
+      .form-grid, .form-grid.three { grid-template-columns: 1fr; }
+      .step-row { grid-template-columns: 28px 1fr auto; }
+      .step-row .form-input:nth-child(3) { grid-column: 2; }
+      .parent-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="wordmark">Alex<span>andrian</span></div>
+    <nav class="nav-links">
+      <a href="/">Query</a>
+      <a href="/registry">Registry</a>
+      <a href="/publish" class="active">Publish</a>
+      <a href="/earnings">Earnings</a>
+    </nav>
+    <div class="header-spacer"></div>
+    <button class="wallet-btn" id="walletBtn" onclick="connectWallet()">
+      <span class="wallet-dot"></span>
+      <span id="walletLabel">Connect Wallet</span>
+    </button>
+  </div>
+</header>
+
+<!-- ── Page body ──────────────────────────────────────────────────────────── -->
+<main class="page-body">
+  <h1 class="page-title">Publish a Knowledge Base</h1>
+  <p class="page-sub">Register a KB artifact on Base mainnet with on-chain attribution and royalty routing.</p>
+
+  <!-- Chain warning -->
+  <div class="chain-warn hidden" id="chainWarn">
+    ⚠️ Connected to wrong network. Alexandrian runs on Base Mainnet.
+    <button onclick="switchToBase()">Switch to Base</button>
+  </div>
+
+  <!-- Wallet required state -->
+  <div id="walletRequired" class="form-card">
+    <div class="wallet-required">
+      <div class="icon">🔐</div>
+      <h3>Connect your wallet to publish</h3>
+      <p>Publishing requires a Web3 wallet (MetaMask or compatible) on Base Mainnet.</p>
+      <br/>
+      <button class="submit-btn" onclick="connectWallet()">Connect Wallet</button>
+    </div>
+  </div>
+
+  <!-- The form — hidden until wallet connected -->
+  <div id="publishForm" style="display:none">
+
+    <!-- §1 KB Identity -->
+    <div class="form-card">
+      <div class="section-title"><span class="section-num">1</span> KB Identity</div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="domain">Domain <span class="req">*</span><span class="hint">e.g. engineering.api.security</span></label>
+          <input type="text" id="domain" class="form-input" placeholder="engineering.api.security" oninput="onFormChange()" />
+          <div class="field-error" id="domain-err"></div>
+        </div>
+        <div class="form-group">
+          <label for="kbType">KB Type <span class="req">*</span></label>
+          <select id="kbType" class="form-select" onchange="onFormChange()">
+            <option value="0">Practice</option>
+            <option value="1">Feature</option>
+            <option value="2">StateMachine</option>
+            <option value="3">PromptEngineering</option>
+            <option value="4">ComplianceChecklist</option>
+            <option value="5">Rubric</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="trustTier">Trust Tier <span class="req">*</span></label>
+          <select id="trustTier" class="form-select" onchange="onFormChange()">
+            <option value="0">HumanStaked</option>
+            <option value="1">AgentDerived</option>
+            <option value="2">AgentDiscovered</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="version">Version <span class="hint">semver</span></label>
+          <input type="text" id="version" class="form-input" value="1.0.0" oninput="onFormChange()" />
+        </div>
+        <div class="form-group">
+          <label for="licenseType">License</label>
+          <input type="text" id="licenseType" class="form-input" value="attribution" oninput="onFormChange()" />
+        </div>
+      </div>
+    </div>
+
+    <!-- §2 Content -->
+    <div class="form-card">
+      <div class="section-title"><span class="section-num">2</span> Content</div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="claim">Claim / Summary <span class="req">*</span><span class="hint">One sentence stating what this KB teaches</span></label>
+          <textarea id="claim" class="form-textarea" rows="3" placeholder="Explain what this KB establishes as knowledge…" oninput="onFormChange()"></textarea>
+          <div class="field-error" id="claim-err"></div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div style="margin-top: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <label style="margin:0">Steps <span class="hint">Actions that carry out this KB</span></label>
+          <button class="add-btn" onclick="addStep()">+ Add Step</button>
+        </div>
+        <div class="steps-list" id="stepsList"></div>
+        <div class="field-error" id="steps-err"></div>
+      </div>
+    </div>
+
+    <!-- §3 IPFS Artifact -->
+    <div class="form-card">
+      <div class="section-title"><span class="section-num">3</span> IPFS Artifact</div>
+      <div class="ipfs-note">
+        <strong>⚠️ IPFS pinning must be done before publishing on-chain.</strong>
+        The CID below should point to a pinned JSON artifact at Pinata or another IPFS provider.
+        To pin the artifact generated from this form, run:
+        <div class="ipfs-code">cd packages/generator
+node scripts/pin-artifact.mjs --file &lt;your-artifact.json&gt;</div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="cid">IPFS CID <span class="req">*</span><span class="hint">Qm… or bafy…</span></label>
+          <input type="text" id="cid" class="form-input mono" placeholder="Qmxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" oninput="onFormChange()" />
+          <div class="field-error" id="cid-err"></div>
+        </div>
+        <div class="form-group full">
+          <label for="embeddingCid">Embedding CID <span class="hint">optional — vector embedding artifact</span></label>
+          <input type="text" id="embeddingCid" class="form-input mono" placeholder="" oninput="onFormChange()" />
+        </div>
+      </div>
+      <div style="margin-top: 16px;">
+        <label>Content Hash <span class="hint">auto-computed keccak256</span></label>
+        <div class="hash-preview" id="hashPreview">
+          <span class="hash-preview-label">keccak256</span>
+          <span id="hashValue" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- §4 Parents & Attribution -->
+    <div class="form-card">
+      <div class="section-title"><span class="section-num">4</span> Parents &amp; Attribution <span class="hint" style="font-size:.8125rem;font-weight:400">(max 8)</span></div>
+      <p style="font-size:.875rem;color:var(--gray-500);margin-bottom:16px">Parent KBs whose knowledge this KB builds on. Royalties flow to parents proportionally on each settlement.</p>
+      <div class="parents-list" id="parentsList"></div>
+      <button class="add-btn" onclick="addParent()" id="addParentBtn">+ Add Parent KB</button>
+      <div id="royaltyBreakdown" style="display:none"></div>
+    </div>
+
+    <!-- §5 Economics -->
+    <div class="form-card">
+      <div class="section-title"><span class="section-num">5</span> Economics</div>
+      <div class="form-grid three">
+        <div class="form-group">
+          <label for="queryFee">Query Fee <span class="hint">ETH per query</span></label>
+          <input type="number" id="queryFee" class="form-input" value="0" min="0" step="0.0001" oninput="onFormChange()" />
+          <div class="field-note" id="queryFeeHint">0 ETH during bootstrap phase</div>
+        </div>
+        <div class="form-group">
+          <label>Stake Required</label>
+          <div class="hash-preview" id="stakeDisplay" style="font-family:var(--font-sans);font-size:.875rem;color:var(--gray-600)">
+            Checking…
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Curator</label>
+          <div class="hash-preview" id="curatorDisplay" style="font-family:var(--font-mono);font-size:.75rem;color:var(--gray-600)">
+            —
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §6 Review & Submit -->
+    <div class="form-card">
+      <div class="section-title"><span class="section-num">6</span> Review &amp; Submit</div>
+      <div class="tx-preview" id="txPreview">
+        <div class="tx-preview-title">Transaction Preview</div>
+        <div id="txRows"><div style="color:var(--gray-400);font-size:.8125rem">Fill in required fields to preview the transaction.</div></div>
+      </div>
+      <div class="action-row">
+        <button class="submit-btn" id="submitBtn" onclick="submitKB()" disabled>Publish to Base</button>
+        <button class="draft-btn" onclick="saveDraft()">Save Draft</button>
+        <span class="status-msg" id="statusMsg"></span>
+      </div>
+      <div class="result-card" id="resultCard">
+        <div class="result-title">✅ KB Published!</div>
+        <div id="resultBody"></div>
+        <div class="result-links" id="resultLinks"></div>
+      </div>
+      <div class="error-card" id="errorCard"></div>
+    </div>
+
+  </div><!-- /publishForm -->
+</main>
+
+<!-- ── Ethers v6 CDN ──────────────────────────────────────────────────────── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.9.0/ethers.umd.min.js"
+  integrity="sha512-7gM8hpgk8+EXs3m3tXSN8t/aBOLmHDHHm0T5FXAH7hcHo1n6pkBxXmBqD3yNSZqQKvUHm6mz3zzJxFl7KiUA=="
+  crossorigin="anonymous"></script>
+<script>
+"use strict";
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const REGISTRY_ADDRESS = "0xD1F216E872a9ed4b90E364825869c2F377155B29";
+const BASE_CHAIN_ID    = 8453n;
+const BASE_CHAIN_HEX   = "0x2105";
+
+const KB_TYPE_LABELS  = ["Practice","Feature","StateMachine","PromptEngineering","ComplianceChecklist","Rubric"];
+const TIER_LABELS     = ["HumanStaked","AgentDerived","AgentDiscovered"];
+
+const ROLE_BYTES4 = {
+  parent:    "0x70617265",
+  reference: "0x72656665",
+  evidence:  "0x65766964",
+};
+
+const ABI = [
+  "function minStakeAmount() external view returns (uint256)",
+  `function publishKB(
+    bytes32 contentHash, address curator,
+    uint8 kbType, uint8 trustTier,
+    string cid, string embeddingCid, string domain, string licenseType,
+    uint256 queryFee, string version,
+    tuple(bytes32 parentHash, uint16 royaltyShareBps, bytes4 relationship)[] parents
+  ) external payable`,
+];
+
+// ── State ─────────────────────────────────────────────────────────────────────
+
+let walletAddress  = null;
+let provider       = null;
+let signer         = null;
+let minStake       = 0n;
+let stepCount      = 0;
+let parentCount    = 0;
+let submitting     = false;
+
+// ── Wallet ───────────────────────────────────────────────────────────────────
+
+async function connectWallet() {
+  if (!window.ethereum) {
+    alert("No Web3 wallet detected. Please install MetaMask (https://metamask.io) and refresh.");
+    return;
+  }
+  try {
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    provider = new ethers.BrowserProvider(window.ethereum);
+    signer   = await provider.getSigner();
+    walletAddress = await signer.getAddress();
+
+    const net = await provider.getNetwork();
+    if (net.chainId !== BASE_CHAIN_ID) {
+      document.getElementById("chainWarn").classList.remove("hidden");
+    }
+
+    // Fetch minStake
+    const contract = new ethers.Contract(REGISTRY_ADDRESS, ABI, provider);
+    minStake = await contract.minStakeAmount().catch(() => 0n);
+
+    onWalletConnected();
+
+    // Listen for account/chain changes
+    window.ethereum.on("accountsChanged", (accs) => {
+      if (accs.length === 0) onWalletDisconnected();
+      else { walletAddress = ethers.getAddress(accs[0]); updateWalletUI(); onFormChange(); }
+    });
+    window.ethereum.on("chainChanged", () => window.location.reload());
+  } catch(e) {
+    console.error("Wallet connect failed:", e);
+  }
+}
+
+function onWalletConnected() {
+  document.getElementById("walletRequired").style.display = "none";
+  document.getElementById("publishForm").style.display    = "block";
+  updateWalletUI();
+  loadDraft();
+  onFormChange();
+
+  const stakeEl = document.getElementById("stakeDisplay");
+  stakeEl.textContent = minStake === 0n ? "0 ETH (bootstrap mode)" : ethers.formatEther(minStake) + " ETH";
+
+  document.getElementById("curatorDisplay").textContent = walletAddress
+    ? (walletAddress.slice(0,8) + "…" + walletAddress.slice(-6))
+    : "—";
+}
+
+function onWalletDisconnected() {
+  walletAddress = null;
+  signer        = null;
+  document.getElementById("walletRequired").style.display = "block";
+  document.getElementById("publishForm").style.display    = "none";
+  updateWalletUI();
+}
+
+function updateWalletUI() {
+  const btn   = document.getElementById("walletBtn");
+  const label = document.getElementById("walletLabel");
+  if (walletAddress) {
+    btn.classList.add("connected");
+    label.textContent = walletAddress.slice(0,6) + "…" + walletAddress.slice(-4);
+  } else {
+    btn.classList.remove("connected");
+    label.textContent = "Connect Wallet";
+  }
+}
+
+async function switchToBase() {
+  try {
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: BASE_CHAIN_HEX }]
+    });
+  } catch(e) {
+    if (e.code === 4902) {
+      await window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: BASE_CHAIN_HEX,
+          chainName: "Base",
+          rpcUrls: ["https://mainnet.base.org"],
+          nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+          blockExplorerUrls: ["https://basescan.org"]
+        }]
+      });
+    }
+  }
+}
+
+// ── Steps ─────────────────────────────────────────────────────────────────────
+
+function addStep() {
+  stepCount++;
+  const idx  = stepCount;
+  const list = document.getElementById("stepsList");
+  const row  = document.createElement("div");
+  row.className = "step-row";
+  row.dataset.idx = idx;
+
+  const num     = document.createElement("div");
+  num.className = "step-num";
+  num.textContent = idx;
+
+  const action = document.createElement("input");
+  action.type  = "text";
+  action.className = "form-input";
+  action.placeholder = "Action (imperative)";
+  action.dataset.field = "action";
+  action.oninput = onFormChange;
+
+  const rationale = document.createElement("input");
+  rationale.type  = "text";
+  rationale.className = "form-input";
+  rationale.placeholder = "Rationale (why)";
+  rationale.dataset.field = "rationale";
+  rationale.oninput = onFormChange;
+
+  const rm  = document.createElement("button");
+  rm.type  = "button";
+  rm.className = "step-remove";
+  rm.textContent = "×";
+  rm.title = "Remove step";
+  rm.onclick = () => { row.remove(); renumberSteps(); onFormChange(); };
+
+  row.appendChild(num);
+  row.appendChild(action);
+  row.appendChild(rationale);
+  row.appendChild(rm);
+  list.appendChild(row);
+  action.focus();
+  onFormChange();
+}
+
+function renumberSteps() {
+  const rows = document.querySelectorAll("#stepsList .step-row");
+  rows.forEach((r, i) => r.querySelector(".step-num").textContent = i + 1);
+}
+
+function getSteps() {
+  return Array.from(document.querySelectorAll("#stepsList .step-row")).map(r => ({
+    action:    r.querySelector('[data-field="action"]').value.trim(),
+    rationale: r.querySelector('[data-field="rationale"]').value.trim(),
+  })).filter(s => s.action);
+}
+
+// ── Parents ───────────────────────────────────────────────────────────────────
+
+function addParent() {
+  const existing = document.querySelectorAll("#parentsList .parent-row").length;
+  if (existing >= 8) return;
+  parentCount++;
+  const list = document.getElementById("parentsList");
+  const row  = document.createElement("div");
+  row.className = "parent-row";
+
+  const hashIn = document.createElement("input");
+  hashIn.type  = "text";
+  hashIn.className = "form-input mono";
+  hashIn.style.fontSize = ".75rem";
+  hashIn.placeholder = "0x… parent contentHash";
+  hashIn.dataset.field = "parentHash";
+  hashIn.oninput = () => { validateParentHash(hashIn); onFormChange(); };
+
+  const bpsIn = document.createElement("input");
+  bpsIn.type  = "number";
+  bpsIn.className = "form-input";
+  bpsIn.value = "100";
+  bpsIn.min   = "0";
+  bpsIn.max   = "10000";
+  bpsIn.placeholder = "bps";
+  bpsIn.dataset.field = "bps";
+  bpsIn.oninput = onFormChange;
+
+  const roleIn = document.createElement("select");
+  roleIn.className = "form-select";
+  roleIn.dataset.field = "role";
+  roleIn.onchange = onFormChange;
+  [["parent","Parent"],["reference","Reference"],["evidence","Evidence"]].forEach(([v,l]) => {
+    const opt = document.createElement("option");
+    opt.value = v; opt.textContent = l;
+    roleIn.appendChild(opt);
+  });
+
+  const rm = document.createElement("button");
+  rm.type = "button";
+  rm.className = "parent-remove";
+  rm.textContent = "×";
+  rm.title = "Remove parent";
+  rm.onclick = () => { row.remove(); onFormChange(); updateAddParentBtn(); };
+
+  row.appendChild(hashIn);
+  row.appendChild(bpsIn);
+  row.appendChild(roleIn);
+  row.appendChild(rm);
+  list.appendChild(row);
+  updateAddParentBtn();
+  onFormChange();
+}
+
+function validateParentHash(input) {
+  const v = input.value.trim();
+  if (v && !/^0x[0-9a-fA-F]{64}$/.test(v)) {
+    input.classList.add("error");
+  } else {
+    input.classList.remove("error");
+  }
+}
+
+function updateAddParentBtn() {
+  const n = document.querySelectorAll("#parentsList .parent-row").length;
+  document.getElementById("addParentBtn").disabled = n >= 8;
+}
+
+function getParents() {
+  return Array.from(document.querySelectorAll("#parentsList .parent-row")).map(r => ({
+    parentHash:      r.querySelector('[data-field="parentHash"]').value.trim(),
+    royaltyShareBps: parseInt(r.querySelector('[data-field="bps"]').value) || 0,
+    relationship:    ROLE_BYTES4[r.querySelector('[data-field="role"]').value] || ROLE_BYTES4.parent,
+  })).filter(p => /^0x[0-9a-fA-F]{64}$/.test(p.parentHash));
+}
+
+function updateRoyaltyBreakdown(parents, queryFee) {
+  const bd = document.getElementById("royaltyBreakdown");
+  if (parents.length === 0) { bd.style.display = "none"; return; }
+  bd.style.display = "block";
+
+  const feeEth  = parseFloat(queryFee) || 0;
+  const protoBps = 200; // 2% current
+  const totalBps  = parents.reduce((s, p) => s + p.royaltyShareBps, 0);
+  const protoEth  = (feeEth * protoBps / 10000).toFixed(6);
+  const curatorEth = (feeEth * Math.max(0, 10000 - protoBps - totalBps) / 10000).toFixed(6);
+
+  while (bd.firstChild) bd.removeChild(bd.firstChild);
+
+  const wrapDiv = document.createElement("div");
+  wrapDiv.className = "royalty-breakdown";
+  const title = document.createElement("div");
+  title.className = "royalty-title";
+  title.textContent = "Royalty Breakdown (per query at " + (feeEth || 0) + " ETH)";
+  wrapDiv.appendChild(title);
+
+  const addRow = (label, val) => {
+    const r = document.createElement("div"); r.className = "royalty-row";
+    const k = document.createElement("span"); k.className = "addr"; k.textContent = label;
+    const v = document.createElement("span"); v.className = "bps"; v.textContent = val;
+    r.appendChild(k); r.appendChild(v);
+    wrapDiv.appendChild(r);
+  };
+
+  addRow("Protocol fee (2%)", protoEth + " ETH");
+  const hr = document.createElement("hr"); hr.className = "royalty-divider";
+  wrapDiv.appendChild(hr);
+  parents.forEach(p => {
+    const pct = (p.royaltyShareBps / 100).toFixed(2) + "%";
+    const eth = (feeEth * p.royaltyShareBps / 10000).toFixed(6);
+    addRow(p.parentHash.slice(0, 10) + "… (" + pct + ")", eth + " ETH");
+  });
+  const hr2 = document.createElement("hr"); hr2.className = "royalty-divider";
+  wrapDiv.appendChild(hr2);
+  addRow("Curator (remainder)", curatorEth + " ETH");
+  bd.appendChild(wrapDiv);
+}
+
+// ── Content hash ──────────────────────────────────────────────────────────────
+
+function computeContentHash(domain, claim, steps) {
+  if (!domain || !claim) return null;
+  // Canonical: sort keys, concatenate domain + claim + steps
+  const canonical = JSON.stringify({
+    claim, domain,
+    steps: steps.map((s, i) => ({ action: s.action, rationale: s.rationale, step: i + 1 }))
+  }, Object.keys({ claim: 1, domain: 1, steps: 1 }).sort());
+  return ethers.keccak256(ethers.toUtf8Bytes("alexandrian.kb.v2.5" + canonical));
+}
+
+// ── Form change handler ───────────────────────────────────────────────────────
+
+function onFormChange() {
+  const domain     = document.getElementById("domain").value.trim();
+  const claim      = document.getElementById("claim").value.trim();
+  const cid        = document.getElementById("cid").value.trim();
+  const steps      = getSteps();
+  const parents    = getParents();
+  const queryFee   = document.getElementById("queryFee").value;
+  const kbType     = parseInt(document.getElementById("kbType").value);
+  const trustTier  = parseInt(document.getElementById("trustTier").value);
+  const version    = document.getElementById("version").value.trim() || "1.0.0";
+  const license    = document.getElementById("licenseType").value.trim() || "attribution";
+
+  // Compute hash
+  const hash = computeContentHash(domain, claim, steps);
+  document.getElementById("hashValue").textContent = hash || "—";
+
+  // Royalty breakdown
+  updateRoyaltyBreakdown(parents, queryFee);
+
+  // TX Preview
+  const txRows = document.getElementById("txRows");
+  while (txRows.firstChild) txRows.removeChild(txRows.firstChild);
+
+  const ready = domain && claim && cid && hash && !submitting;
+
+  if (ready) {
+    const feeWei = ethers.parseEther(queryFee || "0");
+    const rows = [
+      ["contentHash", hash],
+      ["curator",     walletAddress || "—"],
+      ["kbType",      `${kbType} — ${KB_TYPE_LABELS[kbType]}`],
+      ["trustTier",   `${trustTier} — ${TIER_LABELS[trustTier]}`],
+      ["cid",         cid],
+      ["domain",      domain],
+      ["version",     version],
+      ["licenseType", license],
+      ["queryFee",    feeWei.toString() + " wei"],
+      ["parents",     parents.length + " parent" + (parents.length !== 1 ? "s" : "")],
+      ["msg.value",   (minStake || 0n).toString() + " wei (stake)"],
+    ];
+    rows.forEach(([k, v]) => {
+      const r = document.createElement("div"); r.className = "tx-row";
+      const kEl = document.createElement("span"); kEl.className = "k"; kEl.textContent = k;
+      const vEl = document.createElement("span"); vEl.className = "v"; vEl.textContent = v;
+      r.appendChild(kEl); r.appendChild(vEl);
+      txRows.appendChild(r);
+    });
+    document.getElementById("submitBtn").disabled = !walletAddress;
+  } else {
+    const hint = document.createElement("div");
+    hint.style.cssText = "color:var(--gray-400);font-size:.8125rem";
+    hint.textContent = "Fill in all required fields to preview the transaction.";
+    txRows.appendChild(hint);
+    document.getElementById("submitBtn").disabled = true;
+  }
+}
+
+// ── Validation ────────────────────────────────────────────────────────────────
+
+function validateForm() {
+  let ok = true;
+  const setErr = (id, msg) => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = msg; if (msg) ok = false; }
+    const inp = document.getElementById(id.replace("-err", ""));
+    if (inp) msg ? inp.classList.add("error") : inp.classList.remove("error");
+  };
+
+  const domain = document.getElementById("domain").value.trim();
+  if (!domain) setErr("domain-err", "Domain is required");
+  else if (!/^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)*$/.test(domain)) setErr("domain-err", "Use lowercase dot-separated format (e.g. engineering.api.security)");
+  else setErr("domain-err", "");
+
+  const claim = document.getElementById("claim").value.trim();
+  if (!claim) setErr("claim-err", "Claim is required");
+  else if (claim.length < 20) setErr("claim-err", "Claim is too short (minimum 20 characters)");
+  else setErr("claim-err", "");
+
+  const cid = document.getElementById("cid").value.trim();
+  if (!cid) setErr("cid-err", "IPFS CID is required");
+  else if (!/^(Qm[1-9A-HJ-NP-Za-km-z]{44}|bafy[a-zA-Z0-9]{52,})/.test(cid)) setErr("cid-err", "Invalid CID format (must start with Qm… or bafy…)");
+  else setErr("cid-err", "");
+
+  const steps = getSteps();
+  const stepsEl = document.getElementById("steps-err");
+  if (steps.length === 0) { stepsEl.textContent = "Add at least one step"; ok = false; }
+  else stepsEl.textContent = "";
+
+  return ok;
+}
+
+// ── Submit ────────────────────────────────────────────────────────────────────
+
+async function submitKB() {
+  if (submitting) return;
+  if (!validateForm()) return;
+
+  hideResult(); hideError();
+
+  const domain     = document.getElementById("domain").value.trim();
+  const claim      = document.getElementById("claim").value.trim();
+  const cid        = document.getElementById("cid").value.trim();
+  const embCid     = document.getElementById("embeddingCid").value.trim();
+  const steps      = getSteps();
+  const parents    = getParents();
+  const kbType     = parseInt(document.getElementById("kbType").value);
+  const trustTier  = parseInt(document.getElementById("trustTier").value);
+  const version    = document.getElementById("version").value.trim() || "1.0.0";
+  const license    = document.getElementById("licenseType").value.trim() || "attribution";
+  const queryFee   = ethers.parseEther(document.getElementById("queryFee").value || "0");
+  const contentHash = computeContentHash(domain, claim, steps);
+
+  if (!contentHash) { showError("Cannot compute content hash — fill domain and claim."); return; }
+  if (!signer)      { showError("Wallet not connected."); return; }
+
+  submitting = true;
+  document.getElementById("submitBtn").disabled = true;
+  setStatus("Requesting signature…");
+
+  try {
+    provider = new ethers.BrowserProvider(window.ethereum);
+    signer   = await provider.getSigner();
+    const contract = new ethers.Contract(REGISTRY_ADDRESS, ABI, signer);
+
+    const tx = await contract.publishKB(
+      contentHash,
+      walletAddress,
+      kbType,
+      trustTier,
+      cid,
+      embCid,
+      domain,
+      license,
+      queryFee,
+      version,
+      parents,
+      { value: minStake }
+    );
+
+    setStatus("Waiting for confirmation…");
+    const receipt = await tx.wait(1);
+
+    setStatus("");
+    showResult(receipt, contentHash, cid, domain);
+  } catch(e) {
+    const msg = e?.reason ?? e?.shortMessage ?? e?.message ?? "Unknown error";
+    showError(msg);
+    setStatus("");
+  } finally {
+    submitting = false;
+    document.getElementById("submitBtn").disabled = false;
+  }
+}
+
+// ── Draft save/load ───────────────────────────────────────────────────────────
+
+function saveDraft() {
+  const draft = {
+    domain:      document.getElementById("domain").value,
+    claim:       document.getElementById("claim").value,
+    cid:         document.getElementById("cid").value,
+    embeddingCid:document.getElementById("embeddingCid").value,
+    kbType:      document.getElementById("kbType").value,
+    trustTier:   document.getElementById("trustTier").value,
+    version:     document.getElementById("version").value,
+    licenseType: document.getElementById("licenseType").value,
+    queryFee:    document.getElementById("queryFee").value,
+    steps:       getSteps(),
+  };
+  localStorage.setItem("alexKBDraft", JSON.stringify(draft));
+  setStatus("Draft saved ✓");
+  setTimeout(() => setStatus(""), 2000);
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem("alexKBDraft");
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d.domain)       document.getElementById("domain").value       = d.domain;
+    if (d.claim)        document.getElementById("claim").value        = d.claim;
+    if (d.cid)          document.getElementById("cid").value          = d.cid;
+    if (d.embeddingCid) document.getElementById("embeddingCid").value = d.embeddingCid;
+    if (d.kbType)       document.getElementById("kbType").value       = d.kbType;
+    if (d.trustTier)    document.getElementById("trustTier").value    = d.trustTier;
+    if (d.version)      document.getElementById("version").value      = d.version;
+    if (d.licenseType)  document.getElementById("licenseType").value  = d.licenseType;
+    if (d.queryFee)     document.getElementById("queryFee").value     = d.queryFee;
+    if (d.steps?.length) {
+      d.steps.forEach(s => {
+        addStep();
+        const rows = document.querySelectorAll("#stepsList .step-row");
+        const last = rows[rows.length - 1];
+        last.querySelector('[data-field="action"]').value    = s.action || "";
+        last.querySelector('[data-field="rationale"]').value = s.rationale || "";
+      });
+    }
+  } catch(e) { /* ignore corrupted draft */ }
+}
+
+// ── UI helpers ────────────────────────────────────────────────────────────────
+
+function setStatus(msg) { document.getElementById("statusMsg").textContent = msg; }
+function hideResult()   { document.getElementById("resultCard").classList.remove("visible"); }
+function hideError()    { document.getElementById("errorCard").classList.remove("visible"); }
+
+function showError(msg) {
+  const el = document.getElementById("errorCard");
+  el.textContent = "⚠ " + msg;
+  el.classList.add("visible");
+  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function showResult(receipt, contentHash, cid, domain) {
+  const card  = document.getElementById("resultCard");
+  const body  = document.getElementById("resultBody");
+  const links = document.getElementById("resultLinks");
+
+  while (body.firstChild)  body.removeChild(body.firstChild);
+  while (links.firstChild) links.removeChild(links.firstChild);
+
+  const rows = [
+    ["Content Hash",  contentHash],
+    ["IPFS CID",      cid],
+    ["Block",         receipt.blockNumber.toString()],
+    ["Transaction",   receipt.hash],
+  ];
+  rows.forEach(([k, v]) => {
+    const r = document.createElement("div");
+    r.style.cssText = "display:flex;gap:12px;font-size:.875rem;padding:4px 0;border-bottom:1px solid #a7f3d0";
+    const kEl = document.createElement("span"); kEl.style.cssText = "color:#065f46;min-width:120px;font-weight:600"; kEl.textContent = k;
+    const vEl = document.createElement("span"); vEl.style.cssText = "font-family:var(--font-mono);font-size:.75rem;color:#047857;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"; vEl.textContent = v;
+    r.appendChild(kEl); r.appendChild(vEl);
+    body.appendChild(r);
+  });
+
+  const txLink = document.createElement("a");
+  txLink.href = "https://basescan.org/tx/" + receipt.hash;
+  txLink.target = "_blank";
+  txLink.textContent = "View on Basescan ↗";
+  txLink.className = "result-link";
+
+  const detailLink = document.createElement("a");
+  detailLink.href = "/kb-detail?hash=" + encodeURIComponent(contentHash);
+  detailLink.textContent = "View KB →";
+  detailLink.className = "result-link secondary";
+
+  links.appendChild(txLink);
+  links.appendChild(detailLink);
+  card.classList.add("visible");
+  card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// ── Auto-connect if already authorized ───────────────────────────────────────
+
+(async () => {
+  if (!window.ethereum) return;
+  try {
+    const accs = await window.ethereum.request({ method: "eth_accounts" });
+    if (accs.length > 0) connectWallet();
+  } catch(e) { /* ignore */ }
+})();
+</script>
+</body>
+</html>

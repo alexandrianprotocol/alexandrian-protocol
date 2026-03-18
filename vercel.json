@@ -6,7 +6,8 @@
     { "source": "/", "destination": "/demo/kb-eng.html" },
     { "source": "/registry", "destination": "/demo/kb-browser.html" },
     { "source": "/kb-detail", "destination": "/demo/kb-detail.html" },
-    { "source": "/earnings",  "destination": "/demo/earnings.html" }
+    { "source": "/earnings",  "destination": "/demo/earnings.html" },
+    { "source": "/publish",   "destination": "/demo/kb-publish.html" }
   ],
   "headers": [
     {
