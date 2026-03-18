@@ -15,17 +15,28 @@
   ],
   "role": "Security Auditor",
   "responsibilities": [
-    "Identify vulnerabilities",
-    "Validate authentication",
-    "Ensure secure configurations"
+    "Identify vulnerabilities and prioritize fixes by severity and exploitability",
+    "Validate authentication and authorization controls (JWT validation, RBAC, IDOR prevention)",
+    "Audit secure configuration: CORS, TLS/HTTPS enforcement, secrets handling, and rate limiting"
   ],
   "inputs": [
-    "code",
-    "system design"
+    "code (routes, middleware, auth logic)",
+    "system design (data model, trust boundaries, deployment topology)"
   ],
   "outputs": [
     "security checklist",
-    "risk report"
+    "risk report",
+    "adversarial test plan"
+  ],
+  "tools": [
+    "OWASP API Top 10",
+    "Semgrep",
+    "Burp Suite",
+    "Threat modeling"
+  ],
+  "failure_modes": [
+    "false sense of security due to checklist-only audits without adversarial tests",
+    "missed authorization flaws (IDOR) because tests did not include multi-user scenarios"
   ]
 }
 

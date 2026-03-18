@@ -128,12 +128,30 @@ function gradeKB(a) {
   specificity = clamp(specificity, 0, 5);
   if (specificity < 2) hardRejects.push("too_generic");
 
-  // coverage (0–5)
+  // coverage (0–5) — type-aware
+  // Knowledge/Evaluation KBs should include verification/failure modes.
+  // Control-plane primitives (AgentRole/TaskDecomposition) should include failure_modes and/or ordering clarity.
   let coverage = 2;
-  if (arr(a?.preconditions).length > 0 || arr(a?.execution?.preconditions).length > 0) coverage += 1;
-  if (a?.verification && (arr(a.verification.successConditions).length > 0 || arr(a.verification.success_conditions).length > 0)) coverage += 1;
-  if (a?.verification && (arr(a.verification.failureConditions).length > 0 || arr(a.verification.failure_conditions).length > 0)) coverage += 1;
+  const preconds = arr(a?.preconditions).length > 0 || arr(a?.execution?.preconditions).length > 0;
+  const hasSuccess =
+    a?.verification && (arr(a.verification.successConditions).length > 0 || arr(a.verification.success_conditions).length > 0);
+  const hasFailure =
+    a?.verification && (arr(a.verification.failureConditions).length > 0 || arr(a.verification.failure_conditions).length > 0);
+  const failureModes = arr(a?.failure_modes).length > 0;
+
+  if (preconds) coverage += 1;
+  if (hasSuccess) coverage += 1;
+  if (hasFailure) coverage += 1;
   if (/\bfailure\b|\bedge case\b|\brollback\b|\bthreat\b|\battack\b/.test(text)) coverage += 1;
+
+  // Control-plane uplift: roles/plans often won't have full verification blocks; reward failure_modes instead.
+  if (type === "AgentRole" && failureModes) coverage += 2;
+  if (type === "TaskDecomposition") {
+    // Reward ordering clarity and bounded task list.
+    const tasksN = arr(a?.tasks).length;
+    if (tasksN >= 4 && tasksN <= 8) coverage += 1;
+  }
+
   coverage = clamp(coverage, 0, 5);
 
   // composability (0–5)

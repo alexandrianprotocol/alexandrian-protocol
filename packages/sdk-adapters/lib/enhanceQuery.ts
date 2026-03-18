@@ -151,6 +151,14 @@ export interface EnhanceQueryOptions {
   semanticTypes?: SemanticKBType[];
   /** Maximum number of KBs to inject. Default: 4. */
   limit?: number;
+  /**
+   * Optional quality gate (0–1). When set, KBs with computed qualityScore below
+   * this threshold are dropped after artifact fetch. Use this to prevent low-signal
+   * KBs from degrading outputs (recommended for production agents).
+   *
+   * Example: 0.70
+   */
+  minQualityScore?: number;
   /** IPFS gateway URLs to try in order. Falls back to next on timeout/error. */
   ipfsGateways?: string[];
   /** Per-gateway fetch timeout in ms. Default: 5000. */
@@ -216,6 +224,11 @@ export interface SelectedKB {
   trustSignal?: "staked" | "unstaked";
   /** Parent KB IDs from the lineage DAG (contentHash hex strings). */
   parents?: string[];
+  /**
+   * Off-chain computed quality score (0–1) derived from the artifact content.
+   * This is not an on-chain value; it is intended for filtering and UI surfacing.
+   */
+  qualityScore?: number;
 }
 
 export interface SettlementPreview {
@@ -891,6 +904,63 @@ function buildRetrievalReason(
   return signals.join(" + ");
 }
 
+// ── Quality scoring (offline heuristic) ──────────────────────────────────────
+
+function clamp01(x: number): number {
+  return Math.max(0, Math.min(1, x));
+}
+
+function computeQualityScore(kbType: string, artifact: KBArtifact | null): number | null {
+  if (!artifact) return null;
+  const title = (artifact.title ?? "").toString();
+  const summary = (artifact.summary ?? "").toString();
+  const domain = (artifact.domain ?? "").toString();
+  const tags = Array.isArray(artifact.tags) ? artifact.tags : [];
+
+  const text = `${title}\n${summary}\n${domain}\n${tags.join(" ")}\n${JSON.stringify(artifact).slice(0, 2000)}`.toLowerCase();
+  const toolingHits = ["redis", "jwt", "oauth", "postgres", "docker", "kubernetes", "openapi", "owasp"].filter((t) => text.includes(t)).length;
+  const vagueHits = ["improve", "enhance", "consider", "ensure", "appropriate", "best practice"].filter((t) => text.includes(t)).length;
+
+  // Structure: minimum shape per type
+  let structure = 1;
+  const stepsN = Array.isArray((artifact as any).steps) ? (artifact as any).steps.length : 0;
+  const checklistN = Array.isArray((artifact as any).checklist) ? (artifact as any).checklist.length : 0;
+  const tasksN = Array.isArray((artifact as any).tasks) ? (artifact as any).tasks.length : 0;
+  if (title && domain) structure += 1;
+  if (kbType === "Practice" && stepsN >= 5) structure += 1;
+  if ((kbType === "ComplianceChecklist" || kbType === "AuditChecklist") && checklistN >= 5) structure += 1;
+  if (kbType === "TaskDecomposition" && tasksN >= 4 && tasksN <= 8) structure += 1;
+  if (kbType === "AgentRole" && (artifact as any).role && Array.isArray((artifact as any).outputs) && (artifact as any).outputs.length >= 1) structure += 1;
+  structure = Math.max(0, Math.min(5, structure));
+
+  // Actionability: executable fields exist
+  let actionability = (stepsN || checklistN || tasksN) ? 3 : 1;
+  if (stepsN >= 5 || checklistN >= 5) actionability += 1;
+  if (toolingHits >= 2) actionability += 1;
+  actionability = Math.max(0, Math.min(5, actionability));
+
+  // Specificity: tooling up, vagueness down
+  let specificity = 3 + Math.min(2, toolingHits) - Math.min(3, vagueHits);
+  specificity = Math.max(0, Math.min(5, specificity));
+
+  // Coverage: type-aware — roles/plans rewarded for failure_modes
+  let coverage = 2;
+  const failureModesN = Array.isArray((artifact as any).failure_modes) ? (artifact as any).failure_modes.length : 0;
+  if (text.includes("failure") || text.includes("edge case") || text.includes("rollback")) coverage += 1;
+  if (kbType === "AgentRole" && failureModesN > 0) coverage += 2;
+  if (kbType === "TaskDecomposition" && tasksN >= 4) coverage += 1;
+  coverage = Math.max(0, Math.min(5, coverage));
+
+  // Composability: tags + scoped domain
+  let composability = 3;
+  if (tags.length >= 3) composability += 1;
+  if (domain.split(".").length >= 2) composability += 1;
+  composability = Math.max(0, Math.min(5, composability));
+
+  const total = structure + actionability + specificity + coverage + composability;
+  return clamp01(total / 25);
+}
+
 /**
  * Compute KB coverage quality from retrieval result statistics.
  * "high": 5+ KBs found, avg reputation ≥150, 2+ distinct types.
@@ -1039,6 +1109,7 @@ export async function enhanceQuery(
     layer,
     semanticTypes,
     limit = DEFAULT_LIMIT,
+    minQualityScore,
     ipfsGateways = DEFAULT_GATEWAYS,
     timeoutMs = DEFAULT_TIMEOUT_MS,
     cache,
@@ -1184,6 +1255,32 @@ export async function enhanceQuery(
       // Artifact type doesn't match requested semantic types — drop.
     }
 
+    if (keepIdx.length !== kbsUsed.length) {
+      const keptKBs = keepIdx.map((i) => kbsUsed[i]!);
+      const keptArts = keepIdx.map((i) => artifacts[i]!);
+      kbsUsed.length = 0;
+      kbsUsed.push(...keptKBs);
+      artifacts.length = 0;
+      artifacts.push(...keptArts);
+    }
+  }
+
+  // ── 6c. Quality scoring + optional filter ─────────────────────────────────
+  for (let i = 0; i < kbsUsed.length; i++) {
+    const artType = (artifacts[i]?.kbType ?? kbsUsed[i]!.kbType) as string;
+    const q = computeQualityScore(artType, artifacts[i]);
+    if (q !== null) kbsUsed[i]!.qualityScore = q;
+  }
+
+  if (typeof minQualityScore === "number") {
+    const keepIdx: number[] = [];
+    for (let i = 0; i < kbsUsed.length; i++) {
+      const q = kbsUsed[i]!.qualityScore;
+      // If we couldn't compute quality (missing artifact), keep (don't block retrieval on IO failures).
+      if (q === undefined) { keepIdx.push(i); continue; }
+      if (q >= minQualityScore) { keepIdx.push(i); continue; }
+      warnings.push(`Dropped KB ${kbsUsed[i]!.title} (qualityScore=${q.toFixed(2)} < ${minQualityScore.toFixed(2)})`);
+    }
     if (keepIdx.length !== kbsUsed.length) {
       const keptKBs = keepIdx.map((i) => kbsUsed[i]!);
       const keptArts = keepIdx.map((i) => artifacts[i]!);

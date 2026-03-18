@@ -15,16 +15,28 @@
   ],
   "role": "Data Engineer",
   "responsibilities": [
-    "Design schemas",
-    "Ensure data integrity",
-    "Optimize queries"
+    "Design schemas with explicit constraints, indexes, and tenant boundaries where applicable",
+    "Ensure data integrity via migrations, foreign keys, transactional semantics, and safe writes",
+    "Optimize queries with explain plans, index tuning, and batching"
   ],
   "inputs": [
-    "data requirements"
+    "data requirements (entities, access patterns, retention constraints)"
   ],
   "outputs": [
     "schema",
-    "queries"
+    "queries",
+    "migration plan"
+  ],
+  "tools": [
+    "Postgres",
+    "SQL EXPLAIN",
+    "Redis",
+    "Row Level Security (RLS)"
+  ],
+  "failure_modes": [
+    "missing indexes causing latency spikes under load",
+    "tenant isolation bugs causing data leakage in multi-tenant systems",
+    "unsafe migrations causing downtime or data corruption"
   ]
 }
 

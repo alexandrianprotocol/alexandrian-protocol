@@ -584,11 +584,15 @@ function extractByType(type, artifact) {
     case "AgentRole":
       if (artifact.role) {
         const resp = Array.isArray(artifact.responsibilities) ? artifact.responsibilities : [];
+        const tools = Array.isArray(artifact.tools) ? artifact.tools : [];
+        const failureModes = Array.isArray(artifact.failure_modes) ? artifact.failure_modes : [];
         return [
           `Role: ${artifact.role}`,
           resp.length ? "Responsibilities:\n" + resp.map((r) => `  • ${r}`).join("\n") : "",
           Array.isArray(artifact.inputs) && artifact.inputs.length ? `Inputs: ${artifact.inputs.join(", ")}` : "",
           Array.isArray(artifact.outputs) && artifact.outputs.length ? `Outputs: ${artifact.outputs.join(", ")}` : "",
+          tools.length ? "Tools:\n" + tools.map((t) => `  • ${t}`).join("\n") : "",
+          failureModes.length ? "Failure modes:\n" + failureModes.map((m) => `  • ${m}`).join("\n") : "",
         ].filter(Boolean).join("\n") || null;
       }
       break;

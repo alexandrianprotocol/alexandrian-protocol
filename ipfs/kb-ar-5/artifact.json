@@ -15,15 +15,27 @@
   ],
   "role": "System Architect",
   "responsibilities": [
-    "Design system structure",
-    "Select technologies",
-    "Define service boundaries"
+    "Design system structure with explicit service boundaries and data ownership",
+    "Select technologies based on constraints (latency, reliability, security, cost) and operational maturity",
+    "Define contracts and non-functional requirements (SLOs, threat model, observability plan)"
   ],
   "inputs": [
-    "requirements"
+    "requirements (functional + non-functional constraints)"
   ],
   "outputs": [
-    "architecture plan"
+    "architecture plan",
+    "interface contracts",
+    "risk register"
+  ],
+  "tools": [
+    "Architecture decision records (ADRs)",
+    "Threat modeling",
+    "SLO/SLI design",
+    "Distributed tracing"
+  ],
+  "failure_modes": [
+    "over-abstract design that blocks delivery without reducing risk",
+    "undefined ownership boundaries causing coupling and coordination failures"
   ]
 }
 

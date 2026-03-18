@@ -15,17 +15,29 @@
   ],
   "role": "Backend Engineer",
   "responsibilities": [
-    "Implement API logic",
-    "Integrate database",
-    "Handle validation and errors"
+    "Implement API logic and business rules with stable error handling",
+    "Integrate a database layer with migrations, indexes, and safe query patterns",
+    "Enforce input validation, idempotency where needed, and consistent response contracts"
   ],
   "inputs": [
-    "API design",
-    "data schema"
+    "API design (endpoints, contracts, error model)",
+    "data schema (tables/collections, relationships, constraints)"
   ],
   "outputs": [
     "working endpoints",
-    "validated responses"
+    "validated responses",
+    "integration tests"
+  ],
+  "tools": [
+    "OpenAPI",
+    "Postgres",
+    "Redis",
+    "JWT"
+  ],
+  "failure_modes": [
+    "inconsistent error responses causing client breakage",
+    "missing authorization checks (IDOR) on resource endpoints",
+    "unvalidated input leading to injection or undefined behavior"
   ]
 }
 

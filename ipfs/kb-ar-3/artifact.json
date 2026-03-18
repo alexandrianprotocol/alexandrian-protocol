@@ -15,17 +15,28 @@
   ],
   "role": "DevOps Engineer",
   "responsibilities": [
-    "Setup CI/CD pipelines",
-    "Manage deployments",
-    "Monitor system health"
+    "Design and maintain CI/CD pipelines using GitHub Actions or similar",
+    "Manage deployments using containerization (Docker/Kubernetes)",
+    "Monitor system health using metrics and alerting"
   ],
   "inputs": [
-    "application build",
-    "infrastructure config"
+    "application build artifacts",
+    "infrastructure configuration"
   ],
   "outputs": [
     "deployment pipeline",
-    "monitoring setup"
+    "monitoring dashboards",
+    "alerts"
+  ],
+  "tools": [
+    "GitHub Actions",
+    "Docker",
+    "Kubernetes",
+    "Prometheus"
+  ],
+  "failure_modes": [
+    "misconfigured pipeline causing failed deploys",
+    "lack of monitoring leading to silent failures"
   ]
 }
 
