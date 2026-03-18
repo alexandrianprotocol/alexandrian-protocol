@@ -28,7 +28,9 @@
     "publish": "node scripts/publish.mjs",
     "publish:dry": "cross-env DRY_RUN=true node scripts/publish.mjs",
     "verify": "node scripts/verify-kb.mjs",
-    "verify:all": "node scripts/verify-kb.mjs --all"
+    "verify:all": "node scripts/verify-kb.mjs --all",
+    "pin:remediate": "node scripts/pin-all-published.mjs",
+    "pin:remediate:verify": "cross-env VERIFY=true node scripts/pin-all-published.mjs"
   },
   "dependencies": {
     "@alexandrian/protocol": "workspace:*",
