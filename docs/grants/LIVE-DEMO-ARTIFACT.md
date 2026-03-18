@@ -1,11 +1,16 @@
-#  🏛 Alexandrian Protocol   
+#  🏛 Alexandrian Protocol
+
+> *Turning collective expert knowledge into programmable context for AI agents.*
+
 [![M1 Verification](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml/badge.svg)](https://github.com/jlo-code/alexandria-protocol-v3/actions/workflows/ci.yml)
 [![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 [![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 [![Indexed by The Graph](https://img.shields.io/badge/TheGraph-Indexed-6747ED)](https://thegraph.com/studio/subgraph/alexandrian-protocol/)
 [![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 
-A canonical identity and settlement layer for attributable, compoundable knowledge — built for autonomous agents.
+**Decentralized knowledge infrastructure for AI agents — expert context on demand, attributed on-chain, with automatic royalty settlement.**
+
+Alexandrian formalizes expert knowledge into on-chain, composable artifacts that AI agents use to define intent before every call — with cryptographic attribution and automatic royalty settlement flowing through the entire knowledge lineage.
 
 ---
 

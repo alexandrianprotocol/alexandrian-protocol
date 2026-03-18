@@ -1,5 +1,7 @@
 # 🏛 Alexandrian Protocol
 
+> *Turning collective expert knowledge into programmable context for AI agents.*
+
 ## Base — Grant Application
 
 [![M1 Verification](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml)

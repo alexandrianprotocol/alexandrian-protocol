@@ -1,5 +1,7 @@
 #  🏛 Alexandrian Protocol
 
+> *Turning collective expert knowledge into programmable context for AI agents.*
+
 [![M1 Verification](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml)
 [![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29)
 [![Deployed on Base](https://img.shields.io/badge/Base-Mainnet-0052FF)](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29)
@@ -7,7 +9,9 @@
 [![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 [![Knowledge Blocks](https://img.shields.io/badge/KBs-7000%2B-brightgreen)](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29)
 
-A canonical identity and settlement layer for attributable, compoundable knowledge — built for autonomous agents.
+**Decentralized knowledge infrastructure for AI agents — expert context on demand, attributed on-chain, with automatic royalty settlement.**
+
+Alexandrian formalizes expert knowledge into on-chain, composable artifacts that AI agents use to define intent before every call — with cryptographic attribution and automatic royalty settlement flowing through the entire knowledge lineage.
 
 **LIVE DEMO: https://alexandrian-protocol.vercel.app/**
 
@@ -86,6 +90,35 @@ This is not a capability problem. What's missing is a canonical identity and set
 > For the full roadmap of where this leads: [`EPISTEMIC-ECONOMY-MILESTONES.md`](docs/EPISTEMIC-ECONOMY-MILESTONES.md) · [`AI-RELIABILITY-SUBSTRATE.md`](docs/AI-RELIABILITY-SUBSTRATE.md)
 
 **Alexandrian is that layer.**
+
+---
+
+## 🎯 Purpose: Query Enhancement & Solution Templates
+
+Both are real; they relate like this:
+
+| Mode | What it is |
+|------|------------|
+| **Solution templates** | What the current demo does: KBs as prebuilt, senior-engineer-grade procedures. You query the KB and it returns a complete methodology — **the KB is the answer**. Valuable, but the competitive frame is closer to *Notion + Stripe* than a new infrastructure primitive. |
+| **Query enhancement** | The deeper core: **the KB crystallizes what the question actually means at an expert level** — then the LLM answers a precisely scoped prompt, and the matched KB earns settlement because its context shaped the answer. |
+
+**Mechanism (example).** User asks: *“How do I secure my login endpoint?”*
+
+- **Without Alexandrian** — the LLM gets that vague sentence → a generic answer (HTTPS, hashing).
+- **With Alexandrian** — the system matches the query to **KB-ENG-4** (*Security ComplianceChecklist*) and **injects** expert scope: JWT RS256/ES256 validation, IDOR checks, Redis-backed rate limiting (5 req/min/IP on auth endpoints), OWASP API Top 10 audit. The model answers a much sharper question; **KB-ENG-4 earns settlement** because its context shaped the answer.
+
+The user who says “secure my API” may not know to ask about JWT algorithm pinning, IDOR, or OWASP API4. **The KB does.** That’s the value transfer.
+
+**Why query enhancement is the stronger product direction**
+
+- **Infrastructure, not content** — Every agent pipeline already calls an LLM. Alexandrian is middleware that makes *every query smarter*. You’re not competing with documentation sites; you sit **in front of** LLM calls.
+- **Attribution fits naturally** — If a KB was injected and the answer was good, settlement traces causation.
+- **Scales with the graph** — More KBs → better matching → better intent definition → better answers; the protocol gets more valuable as it grows.
+- **Adoption as capability** — The pitch isn’t “replace ChatGPT.” It’s *run queries through Alexandrian’s KB router first so your existing LLM gets context that would have taken years to encode.*
+
+**Synthesis.** Solution templates are the **content** Alexandrian needs to be useful. Query enhancement is the **mechanism** that makes that content economically valuable. They aren’t competing — templates are what’s *in* the library; enhancement is how the library gets *used*. **The narrative should lead with enhancement**, because that’s what’s new: every senior engineer has a template library; nobody yet has a decentralized, attributed, agent-native **context injection** layer.
+
+> *Turning collective expert knowledge into programmable context for AI agents* — not a library you read, but **infrastructure your agents use before every call.**
 
 ---
 
