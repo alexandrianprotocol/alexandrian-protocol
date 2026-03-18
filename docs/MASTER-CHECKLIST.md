@@ -240,6 +240,50 @@ node packages/generator/scripts/verify-kb.mjs --all
 
 Build the pipeline from output end backwards: Publisher → Validator → Generator.
 
+### [ ] 3.0 — Capability Stack Coverage (M2)
+
+**Why:** Task decomposition is necessary but not sufficient for “system-level intelligence”. M2 must explicitly cover the full capability stack so the protocol ships as **structured execution**, not “better answers”.
+
+**Target primitives to cover:**
+- **Decomposition**: `TaskDecomposition`
+- **Planning / orchestration**: `ExecutionPlan`, `OrchestrationPlan` (ordering, dependencies, strategy)
+- **Decision making**: `DecisionFramework`
+- **Evaluation**: `TestCase`, `AuditChecklist`, `Rubric`
+- **Risk awareness**: `RiskModel`, `AntiPattern`, `SecurityRule`
+- **Iteration / repair**: repair loop primitives (detect failure → fix → retry)
+- **Memory / learning**: outcome/case-based recall + signal-driven reuse
+- **Role specialization**: `AgentRole`
+
+**Deliverable:** A single-page architecture doc + a reference pipeline implementation that demonstrates the staged loop (control-plane → content → verification).
+
+---
+
+### [ ] 3.0a — Separate “Control Plane” primitives from “Knowledge” primitives
+
+**Why:** As M2 adds task decomposition + roles + orchestration, these are not “just KBs” — they are **control-plane primitives**. Without a clean split, retrieval logic becomes messy and the system becomes harder to evolve.
+
+**Recommended split:**
+- **Knowledge layer** (existing): Practice / CodeTemplate / Checklist / DecisionFramework / etc.
+- **Reasoning / control-plane layer** (new): TaskDecomposition / AgentRole / OrchestrationPlan / ExecutionPlan
+- **Evaluation layer** (emerging): TestCase / AuditChecklist / RiskModel / Rubric
+
+**Deliverable:** Update SDK types + retrieval presets so stages can be requested explicitly (control-plane first, then content, then verification).
+
+---
+
+### [ ] 3.0b — Cost controls for multi-stage execution
+
+**Why:** Multi-stage reasoning increases retrieval calls and tokens; adoption depends on predictable cost.
+
+**Controls to implement:**
+- Stage the pipeline (cheap → targeted → compose → verify)
+- Hard caps: `maxTasks`, `maxKBsPerTask`, `maxPromptBytes`
+- Cache: decomposition results + per-task retrieval results
+- Early exit: skip decomposition for simple queries
+- Model tiering: small model for planning, larger model for final output
+
+**Deliverable:** A benchmark script that reports cost per stage and total latency.
+
 ### [x] 3.1 — Publisher Agent
 
 **Status:** Complete. `packages/generator/scripts/publish.mjs` (fully implemented).

@@ -41,7 +41,14 @@
  * ```
  */
 
-import { enhanceQuery, type EnhanceQueryOptions, type EnhancedQuery, type OutputMode } from "./enhanceQuery.js";
+import {
+  enhanceQuery,
+  type EnhanceQueryOptions,
+  type EnhancedQuery,
+  type OutputMode,
+  type KBLayers,
+  type SemanticKBType,
+} from "./enhanceQuery.js";
 import { inferDomains } from "./inferDomains.js";
 import { UpstashCacheAdapter } from "./adapters/upstash.js";
 import {
@@ -65,6 +72,11 @@ export type AlexandrianEnhanceOptions = Omit<EnhanceQueryOptions, "domains"> & {
    */
   domains?: string[];
 };
+
+/** Convenience helper: set `layer` + `semanticTypes` together. */
+function layerPreset(layer: KBLayers, semanticTypes: SemanticKBType[]) {
+  return { layer, semanticTypes };
+}
 
 // ── AlexandrianClient ─────────────────────────────────────────────────────────
 
@@ -346,7 +358,9 @@ export const PRESETS = {
    * const result = await alexandrian.presets.debug.enhance("Why is my Promise chain swallowing errors?");
    */
   debug: preset({
-    types: ["Practice", "CodePattern", "AntiPattern", "BestPractice"],
+    ...layerPreset("Evaluation", ["CodePattern", "AntiPattern", "BestPractice"]),
+    // Keep at least one execution KB for step-by-step fixes
+    semanticTypes: ["Practice", "CodePattern", "AntiPattern", "BestPractice"],
     outputMode: "steps" as OutputMode,
   }),
 
@@ -359,7 +373,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.refactor.enhance("How do I remove this God object?");
    */
   refactor: preset({
-    types: ["Practice", "BestPractice", "AntiPattern", "CodePattern"],
+    semanticTypes: ["Practice", "BestPractice", "AntiPattern", "CodePattern"],
     outputMode: "steps" as OutputMode,
   }),
 
@@ -372,7 +386,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.performance.enhance("How do I reduce latency in my API?");
    */
   performance: preset({
-    types: ["Practice", "BestPractice", "Feature", "Rubric"],
+    semanticTypes: ["Practice", "BestPractice", "DecisionFramework", "TestCase"],
     outputMode: "steps" as OutputMode,
   }),
 
@@ -385,7 +399,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.architecture.enhance("How do I design a multi-tenant SaaS backend?");
    */
   architecture: preset({
-    types: ["Practice", "Feature", "BestPractice", "Rubric"],
+    semanticTypes: ["Practice", "DecisionFramework", "BestPractice"],
     outputMode: "framework" as OutputMode,
   }),
 
@@ -399,7 +413,7 @@ export const PRESETS = {
    * const findings   = alexandrian.parseFindings(llmOutput);
    */
   security: preset({
-    types: ["SecurityRule", "AuditChecklist", "AntiPattern", "ViolationExample", "ComplianceChecklist"],
+    semanticTypes: ["SecurityRule", "AuditChecklist", "AntiPattern", "ViolationExample", "ComplianceChecklist"],
     domains: [
       "cybersecurity.threat_detection",
       "cybersecurity.vulnerability_analysis",
@@ -420,7 +434,7 @@ export const PRESETS = {
    * const evaluation = await alexandrian.presets.compliance.audit(apiSpec);
    */
   compliance: preset({
-    types: ["AuditChecklist", "ComplianceChecklist", "Rubric", "BestPractice"],
+    semanticTypes: ["AuditChecklist", "ComplianceChecklist", "TestCase", "BestPractice"],
     domains: [
       "regulatory.soc2",
       "regulatory.gdpr",
@@ -441,7 +455,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.reliability.enhance("How do I make my service handle network failures?");
    */
   reliability: preset({
-    types: ["Practice", "ComplianceChecklist", "BestPractice", "Feature"],
+    semanticTypes: ["Practice", "ComplianceChecklist", "BestPractice"],
     outputMode: "steps" as OutputMode,
   }),
 
@@ -454,7 +468,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.rag.enhance("How do I build a hybrid BM25 + vector retrieval pipeline?");
    */
   rag: preset({
-    types: ["Practice", "Feature", "StateMachine", "PromptEngineering"],
+    semanticTypes: ["Practice", "Strategy", "TaskDecomposition"],
     domains: [
       "rag.systems",
       "agent.memory",
@@ -472,7 +486,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.agentDesign.enhance("How do I build a ReAct agent with memory?");
    */
   agentDesign: preset({
-    types: ["Practice", "StateMachine", "PromptEngineering", "Feature"],
+    semanticTypes: ["TaskDecomposition", "AgentRole", "Strategy", "Practice"],
     domains: [
       "agent.planning",
       "agent.memory",
@@ -492,7 +506,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.evaluation.enhance("How do I evaluate my RAG pipeline output quality?");
    */
   evaluation: preset({
-    types: ["Rubric", "AuditChecklist", "ComplianceChecklist", "BestPractice"],
+    semanticTypes: ["TestCase", "AuditChecklist", "ComplianceChecklist", "BestPractice"],
     outputMode: "checklist" as OutputMode,
   }),
 
@@ -505,7 +519,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.fullstack.enhance("How do I implement real-time notifications?");
    */
   fullstack: preset({
-    types: ["Practice", "Feature", "BestPractice", "CodePattern"],
+    semanticTypes: ["TaskDecomposition", "AgentRole", "Practice", "CodeTemplate", "AuditChecklist"],
     // No domain filter — auto-inferred from query, covers all engineering domains
     outputMode: "steps" as OutputMode,
   }),
@@ -519,7 +533,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.quickFix.enhance("How do I parse a URL in Node.js?");
    */
   quickFix: preset({
-    types: ["Practice", "CodePattern", "AntiPattern"],
+    semanticTypes: ["Practice", "CodePattern", "AntiPattern"],
     limit: 2,
     outputMode: "steps" as OutputMode,
   }),
@@ -533,7 +547,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.deepDive.enhance("How do I design a distributed cache?");
    */
   deepDive: preset({
-    types: ["Practice", "Feature", "BestPractice", "Rubric", "CodePattern"],
+    semanticTypes: ["TaskDecomposition", "Strategy", "Practice", "CodeTemplate", "TestCase", "CodePattern"],
     limit: 6,
     outputMode: "framework" as OutputMode,
   }),
@@ -547,7 +561,7 @@ export const PRESETS = {
    * const result = await alexandrian.presets.productionReady.review(serviceSpec);
    */
   productionReady: preset({
-    types: ["ComplianceChecklist", "Practice", "BestPractice", "Rubric"],
+    semanticTypes: ["ComplianceChecklist", "AuditChecklist", "Practice", "BestPractice", "RiskModel"],
     outputMode: "checklist" as OutputMode,
   }),
 
@@ -562,7 +576,7 @@ export const PRESETS = {
    * const review = await alexandrian.presets.coding.review(myCode);
    */
   coding: preset({
-    types: ["Practice", "CodePattern", "BestPractice", "Feature", "AntiPattern"],
+    semanticTypes: ["TaskDecomposition", "Practice", "CodeTemplate", "CodePattern", "BestPractice", "AntiPattern"],
     // No domain filter — auto-inferred from query
   }),
 
@@ -571,7 +585,7 @@ export const PRESETS = {
    * @deprecated Use `agentDesign` instead. Kept for backwards compatibility.
    */
   agentMemory: preset({
-    types: ["Practice", "StateMachine", "PromptEngineering", "Feature"],
+    semanticTypes: ["TaskDecomposition", "AgentRole", "Strategy", "Practice"],
     domains: [
       "agent.planning",
       "agent.memory",

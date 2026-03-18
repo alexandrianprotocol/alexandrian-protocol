@@ -71,12 +71,20 @@ export * as OpenAdapters from "./lib/adapters/open/index.js";
 // ── Query Enhancement ─────────────────────────────────────────────────────────
 export { enhanceQuery } from "./lib/enhanceQuery.js";
 export type {
+  CacheAdapter,
   EnhanceQueryOptions,
   EnhancedQuery,
   EnhanceDebugInfo,
   SelectedKB,
   SettlementPreview,
   KBType,
+  ContractKBType,
+  KBLayers,
+  KnowledgeType,
+  ReasoningType,
+  EvaluationType,
+  SemanticKBType,
+  SemanticKBType as OffchainKBType,
   ConflictHint,
 } from "./lib/enhanceQuery.js";
 export {

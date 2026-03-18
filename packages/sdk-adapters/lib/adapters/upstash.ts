@@ -15,7 +15,7 @@
  * const enhanced = await enhanceQuery(question, { cache, domains: [...] });
  */
 
-import type { CacheAdapter } from "@alexandrian/sdk-core";
+import type { CacheAdapter } from "../enhanceQuery.js";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 

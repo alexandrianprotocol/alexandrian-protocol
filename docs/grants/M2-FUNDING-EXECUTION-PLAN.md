@@ -35,6 +35,52 @@ Alexandrian is a deterministic, content-addressed knowledge registry and settlem
 
 M2 priority is production hardening, not abstract scope expansion.
 
+## Capability Stack (M2 Framing)
+
+Task decomposition is **necessary** but not sufficient for agent capability. A complete system needs multiple, composable primitives:
+
+1. **Decomposition** — break goal → tasks (TaskDecomposition)
+2. **Planning** — order, dependencies, strategy (ExecutionPlan / OrchestrationPlan)
+3. **Decision making** — tradeoffs and selection (DecisionFramework)
+4. **Evaluation** — correctness checks (TestCase / Checklist / Rubric)
+5. **Risk awareness** — detect hazards and failure modes (RiskModel / AntiPattern / SecurityRule)
+6. **Iteration / repair** — detect failure → fix → retry (RepairLoop / DebugProcedure)
+7. **Memory / learning** — reuse what worked before (Outcome / CaseStudy + retrieval signals)
+8. **Role specialization** — responsibilities and handoffs (AgentRole)
+9. **Orchestration** — coordinating all of the above into an execution loop (OrchestrationPlan)
+
+M2 should explicitly position Alexandrian as moving from “better answers” to **structured execution** by composing these layers.
+
+## Layered Architecture (Control Plane vs Knowledge)
+
+As M2 expands into planning/orchestration, it is important to keep a clean split:
+
+- **Knowledge layer (content KBs)**: the “what to do” primitives that get injected as executable context  
+  - Examples: Practice, CodeTemplate, Checklist, DecisionFramework, AntiPattern, RiskModel
+- **Reasoning / control-plane layer (routing + execution primitives)**: the “how the system runs” primitives  
+  - Examples: TaskDecomposition, AgentRole, OrchestrationPlan, ExecutionPlan
+- **Evaluation layer (verification primitives)**: the “is it correct/safe?” primitives  
+  - Examples: TestCase, AuditChecklist, Rubric
+
+Why this matters:
+- Prevents everything from collapsing into “just KBs”
+- Enables retrieval logic that is stage-aware (control plane first, then content, then verification)
+- Keeps the protocol evolvable as the stack expands
+
+## Cost & Performance: Stage the Pipeline
+
+Multi-stage intelligence can get expensive if done naively; the cost is controllable with a strict staged pipeline:
+
+- **Stage 1 (cheap):** intent detection + decomposition
+- **Stage 2 (targeted):** per-task retrieval with caps (e.g. maxTasks = 5, maxKBsPerTask = 2–3)
+- **Stage 3 (compose):** assemble a structured output with role handoffs
+- **Stage 4 (verify):** evaluation KBs (checklists/rubrics/tests) only when needed
+
+Critical controls:
+- Aggressive caching of decomposition + retrieval results
+- Early-exit: skip decomposition for simple queries
+- Use smaller models for planning stages; reserve expensive models for final composition
+
 ## Premier M2 Implementations (Funding-Maximizing)
 
 ### 1. Deterministic Subgraph With Derived Economic Signals
@@ -348,6 +394,70 @@ If only three participation features make M2:
 3. **Bootstrap rewards early** — bounties, query-mining, and subsidy pools.
 
 These deliver the largest lift to real, on-chain participation for the least surface area.
+
+## Codebase Audit Prompt (Reusable)
+
+Use this prompt for internal reviews, external audits, and grant reviewer Q&A rehearsal.
+
+```text
+You are a senior systems architect and AI infrastructure expert.
+
+I have built a system called Alexandrian, which:
+- Uses structured knowledge blocks (KBs) with strict schemas
+- Retrieves KBs to enhance LLM outputs
+- Includes task decomposition and agent role primitives
+- Uses modular, composable architecture (similar to DAG-based systems)
+- Emphasizes separation of concerns, interfaces, and invariants
+
+Your task is to audit my codebase rigorously.
+
+Evaluate across the following dimensions:
+
+Architecture
+- Is separation of concerns correctly implemented?
+- Are modules aligned with “reasons to change”?
+- Are there any hidden couplings or leaky abstractions?
+
+Modularity
+- Are modules cohesive and independently testable?
+- Are interfaces explicit and stable?
+- Is there any shared mutable state or implicit dependency?
+
+System Design Quality
+- Does the system enforce invariants (schemas, contracts)?
+- Are boundaries clearly defined (KB layer vs reasoning layer vs execution)?
+- Is the DAG/composition model correctly implemented?
+
+Scalability
+- Will this system scale in number of KBs, number of queries, number of agents?
+- Where are bottlenecks?
+
+Performance & Cost
+- Where are unnecessary LLM calls?
+- Where can caching or batching be introduced?
+- Is the pipeline over-engineered or under-optimized?
+
+Developer Experience
+- Is the API intuitive?
+- Is integration truly “1-line”?
+- Are there confusing abstractions?
+
+Risks
+- What are the top 5 architectural risks?
+- What would break at scale?
+- What would prevent adoption?
+
+Strategic Gaps
+- What is missing to make this a default layer in all AI workflows?
+- What features are unnecessary or premature?
+
+Output format:
+- Strengths
+- Critical flaws
+- Hidden risks
+- High-leverage improvements
+- What would make this system “inevitable”
+```
 
 ## Funding Readiness Gate (M2)
 

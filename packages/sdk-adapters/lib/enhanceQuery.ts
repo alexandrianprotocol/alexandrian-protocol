@@ -15,27 +15,107 @@
  * enhanceQuery() is purely about KB selection and context injection.
  */
 
-import type { CacheAdapter } from "@alexandrian/sdk-core";
+/**
+ * CacheAdapter — minimal async cache interface.
+ * Kept local to sdk-adapters so query enhancement doesn't depend on build state
+ * of other workspace packages.
+ */
+export interface CacheAdapter {
+  get<T>(key: string): Promise<T | null>;
+  set<T>(key: string, value: T, ttlSeconds?: number): Promise<void>;
+  del(key: string): Promise<void>;
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export type KBType =
+/**
+ * Contract-compatible KBType (on-chain enum) — coarse buckets only.
+ * These are the only types guaranteed to exist in the subgraph.
+ */
+export type ContractKBType =
   | "Practice"
   | "Feature"
   | "StateMachine"
   | "PromptEngineering"
   | "ComplianceChecklist"
-  | "Rubric"
-  // ── Evaluation types (M2 off-chain semantic — stored in IPFS artifact kbType) ──
-  | "BestPractice"
-  | "AntiPattern"
-  | "SecurityRule"
-  | "AuditChecklist"
-  | "CodePattern"
-  | "ViolationExample"
-  // ── Planning & orchestration (M2) ───────────────────────────────────────────
+  | "Rubric";
+
+/**
+ * Semantic layers (off-chain) — orthogonal concerns.
+ * Invariant: semantic types should not mix concerns across layers.
+ */
+export type KBLayers = "Knowledge" | "Reasoning" | "Evaluation";
+
+// ── Knowledge layer (do / execute) ────────────────────────────────────────────
+export type KnowledgeType = "Practice" | "CodeTemplate" | "Reference" | "Heuristic";
+
+// ── Reasoning layer (think / plan) ────────────────────────────────────────────
+export type ReasoningType =
   | "TaskDecomposition"
-  | "AgentRole";
+  | "AgentRole"
+  | "OrchestrationPlan"
+  | "ExecutionPlan"
+  | "Strategy"
+  | "DecisionFramework";
+
+// ── Evaluation layer (verify / judge) ─────────────────────────────────────────
+export type EvaluationType =
+  | "ComplianceChecklist"
+  | "TestCase"
+  | "AntiPattern"
+  | "RiskModel"
+  | "AuditChecklist"
+  // ── Legacy / extended evaluators (kept for compatibility) ──────────────────
+  | "BestPractice"
+  | "SecurityRule"
+  | "CodePattern"
+  | "ViolationExample";
+
+/** Off-chain semantic KB type (layered). */
+export type SemanticKBType = KnowledgeType | ReasoningType | EvaluationType;
+
+/**
+ * Backwards-compatible `KBType` name exported previously.
+ * Historically this was overloaded to mean "whatever kbType string shows up";
+ * we now make it explicit that callers should prefer `layer` + `semanticTypes`,
+ * while keeping `types` for contract-only filtering.
+ */
+export type KBType = ContractKBType | SemanticKBType;
+
+// ── Off-chain → on-chain mapping (critical) ───────────────────────────────────
+
+export const SEMANTIC_TO_CONTRACT: Record<SemanticKBType, ContractKBType> = {
+  // Knowledge → contract
+  Practice: "Practice",
+  CodeTemplate: "Feature",
+  Reference: "Feature",
+  Heuristic: "Feature",
+
+  // Reasoning → contract
+  TaskDecomposition: "StateMachine",
+  AgentRole: "StateMachine",
+  OrchestrationPlan: "StateMachine",
+  ExecutionPlan: "StateMachine",
+  Strategy: "Feature",
+  DecisionFramework: "Rubric",
+
+  // Evaluation → contract
+  ComplianceChecklist: "ComplianceChecklist",
+  TestCase: "Rubric",
+  AntiPattern: "Rubric",
+  RiskModel: "Rubric",
+  AuditChecklist: "ComplianceChecklist",
+  BestPractice: "Rubric",
+  SecurityRule: "Rubric",
+  CodePattern: "Rubric",
+  ViolationExample: "Rubric",
+};
+
+export const LAYER_DEFAULT_TYPES: Record<KBLayers, SemanticKBType[]> = {
+  Knowledge: ["Practice", "CodeTemplate"],
+  Reasoning: ["TaskDecomposition", "AgentRole"],
+  Evaluation: ["ComplianceChecklist", "AuditChecklist", "AntiPattern", "RiskModel", "TestCase"],
+};
 
 /**
  * Controls how the enriched prompt is structured.
@@ -53,8 +133,22 @@ export interface EnhanceQueryOptions {
   subgraphUrl?: string;
   /** Domain filter — e.g. ["engineering.api.security"]. Queries all domains if omitted. */
   domains?: string[];
-  /** KB type filter — applied client-side after subgraph fetch. */
-  types?: KBType[];
+  /**
+   * Contract KB type filter — applied client-side after subgraph fetch.
+   * Prefer `layer` + `semanticTypes` for new integrations.
+   */
+  types?: ContractKBType[];
+  /**
+   * Semantic layer selection — the highest-leverage control.
+   * When provided, drives default type selection and ranking behavior.
+   */
+  layer?: KBLayers;
+  /**
+   * Off-chain semantic type filter (layered).
+   * These map to coarse on-chain types for discovery, then are refined against
+   * fetched artifacts when possible.
+   */
+  semanticTypes?: SemanticKBType[];
   /** Maximum number of KBs to inject. Default: 4. */
   limit?: number;
   /** IPFS gateway URLs to try in order. Falls back to next on timeout/error. */
@@ -866,12 +960,16 @@ function buildSuggestions(
 function buildEnhancedQuery(
   query: string,
   domains: string[] | undefined,
-  types: KBType[] | undefined,
+  types: ContractKBType[] | undefined,
+  layer: KBLayers | undefined,
+  semanticTypes: SemanticKBType[] | undefined,
   commandIntent: boolean,
 ): string {
   const parts: string[] = [query];
   if (domains?.length) parts.push(`[domains: ${domains.join(", ")}]`);
   if (types?.length) parts.push(`[types: ${types.join(", ")}]`);
+  if (layer) parts.push(`[layer: ${layer}]`);
+  if (semanticTypes?.length) parts.push(`[semanticTypes: ${semanticTypes.join(", ")}]`);
   if (commandIntent) parts.push("[intent: implementation]");
   return parts.join(" ");
 }
@@ -938,6 +1036,8 @@ export async function enhanceQuery(
     subgraphUrl = DEFAULT_SUBGRAPH,
     domains,
     types,
+    layer,
+    semanticTypes,
     limit = DEFAULT_LIMIT,
     ipfsGateways = DEFAULT_GATEWAYS,
     timeoutMs = DEFAULT_TIMEOUT_MS,
@@ -954,10 +1054,23 @@ export async function enhanceQuery(
 
   const warnings: string[] = [];
 
+  // ── Layer + semantic type resolution ───────────────────────────────────────
+  const resolvedSemanticTypes: SemanticKBType[] | undefined =
+    semanticTypes && semanticTypes.length > 0
+      ? semanticTypes
+      : (layer ? LAYER_DEFAULT_TYPES[layer] : undefined);
+
+  const resolvedContractTypes: ContractKBType[] | undefined = (() => {
+    if (types && types.length > 0) return types;
+    if (!resolvedSemanticTypes || resolvedSemanticTypes.length === 0) return undefined;
+    const mapped = resolvedSemanticTypes.map((t) => SEMANTIC_TO_CONTRACT[t]);
+    return [...new Set(mapped)];
+  })();
+
   // ── 1. Cache key ────────────────────────────────────────────────────────────
   // The selection of KBs is determined by domains + types + limit, not by the
   // question itself — KB content doesn't change per-question.
-  const cacheKey = `enhance:${(domains ?? []).sort().join(",")}:${(types ?? []).sort().join(",")}:${limit}`;
+  const cacheKey = `enhance:${(domains ?? []).sort().join(",")}:${(resolvedContractTypes ?? []).sort().join(",")}:${layer ?? ""}:${(resolvedSemanticTypes ?? []).sort().join(",")}:${limit}`;
 
   // ── 2. Discover KBs (cache → subgraph) ─────────────────────────────────────
   let rawKBs: SubgraphKB[] | null = null;
@@ -984,8 +1097,8 @@ export async function enhanceQuery(
 
   // ── 3. Type filter ──────────────────────────────────────────────────────────
   let filtered = rawKBs;
-  if (types && types.length > 0) {
-    filtered = rawKBs.filter((kb) => types.includes(kb.kbType as KBType));
+  if (resolvedContractTypes && resolvedContractTypes.length > 0) {
+    filtered = rawKBs.filter((kb) => resolvedContractTypes.includes(kb.kbType as ContractKBType));
   }
   const afterTypeFilter = filtered.length;
 
@@ -1051,6 +1164,36 @@ export async function enhanceQuery(
 
   const artifacts = await Promise.all(artifactPromises);
 
+  // ── 6b. Semantic refinement (best-effort) ──────────────────────────────────
+  // If semanticTypes were requested, keep only KBs whose fetched artifact claims
+  // a matching semantic kbType. If artifact is missing, we keep the KB (cannot
+  // disprove semantic type from subgraph alone).
+  if (resolvedSemanticTypes && resolvedSemanticTypes.length > 0) {
+    const keepIdx: number[] = [];
+    for (let i = 0; i < kbsUsed.length; i++) {
+      const artType = (artifacts[i]?.kbType ?? null) as string | null;
+      if (!artType) {
+        // Can't refine — keep.
+        keepIdx.push(i);
+        continue;
+      }
+      if (resolvedSemanticTypes.includes(artType as SemanticKBType)) {
+        keepIdx.push(i);
+        continue;
+      }
+      // Artifact type doesn't match requested semantic types — drop.
+    }
+
+    if (keepIdx.length !== kbsUsed.length) {
+      const keptKBs = keepIdx.map((i) => kbsUsed[i]!);
+      const keptArts = keepIdx.map((i) => artifacts[i]!);
+      kbsUsed.length = 0;
+      kbsUsed.push(...keptKBs);
+      artifacts.length = 0;
+      artifacts.push(...keptArts);
+    }
+  }
+
   // Backfill retrievalReason for KBs whose artifact fetch failed
   kbsUsed.forEach((kb, i) => {
     if (!kb.retrievalReason) {
@@ -1095,7 +1238,7 @@ export async function enhanceQuery(
         subgraphHits,
         afterTypeFilter,
         domainsQueried: domains ?? null,
-        typesRequested: types ?? null,
+        typesRequested: resolvedContractTypes ?? null,
         scores: selected.map((kb) => {
           const boost = TYPE_SELECTION_BOOST[kb.kbType] ?? 0;
           return {
@@ -1112,7 +1255,7 @@ export async function enhanceQuery(
   // ── 11. Compute new intelligence fields ──────────────────────────────────────
   const coverage = computeCoverage(subgraphHits, avgReputationScore, kbsUsed);
   const suggestions = buildSuggestions(kbsUsed, outputMode);
-  const enhancedQuery = buildEnhancedQuery(question, domains, types, commandIntent);
+  const enhancedQuery = buildEnhancedQuery(question, domains, resolvedContractTypes, layer, resolvedSemanticTypes, commandIntent);
   const conflicts = detectConflicts(kbsUsed);
 
   return {
