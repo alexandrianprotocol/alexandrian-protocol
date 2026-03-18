@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earnings — Alexandrian Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #4f46e5; --primary-50: #eef2ff; --primary-100: #e0e7ff;
+      --primary-600: #4338ca; --primary-700: #3730a3;
+      --success: #059669; --success-50: #ecfdf5;
+      --warning: #d97706; --warning-50: #fffbeb;
+      --danger: #dc2626;
+      --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+      --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-500: #6b7280;
+      --gray-600: #4b5563; --gray-700: #374151; --gray-800: #1f2937; --gray-900: #111827;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-md: 8px; --radius-lg: 12px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.06); --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07);
+    }
+    html { font-size: 16px; }
+    body { font-family: var(--font-sans); background: var(--gray-50); color: var(--gray-900); line-height: 1.5; min-height: 100vh; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header */
+    .site-header { background: #fff; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 50; }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 24px; }
+    .wordmark { font-weight: 700; font-size: 1.0625rem; letter-spacing: -.02em; }
+    .wordmark span { color: var(--primary); }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: var(--gray-600); }
+    .nav-links a:hover { color: var(--gray-900); text-decoration: none; }
+    .nav-links a.active { color: var(--primary); }
+    .header-spacer { flex: 1; }
+    .header-badge { font-size: .75rem; font-weight: 600; background: var(--success-50); color: var(--success); border: 1px solid #a7f3d0; padding: 3px 10px; border-radius: 99px; }
+
+    /* Page body */
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+    .page-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; margin-bottom: 6px; }
+    .page-sub { font-size: .9375rem; color: var(--gray-500); margin-bottom: 32px; }
+
+    /* Lookup card */
+    .lookup-card { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 32px; box-shadow: var(--shadow-sm); }
+    .lookup-label { font-size: .9375rem; font-weight: 600; color: var(--gray-800); margin-bottom: 12px; display: block; }
+    .lookup-row { display: flex; gap: 12px; }
+    .lookup-input { flex: 1; padding: 10px 14px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-size: .875rem; font-family: var(--font-mono); color: var(--gray-900); background: #fff; outline: none; transition: border-color .15s, box-shadow .15s; }
+    .lookup-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,.12); }
+    .lookup-input::placeholder { color: var(--gray-400); font-family: var(--font-sans); }
+    .lookup-btn { padding: 10px 20px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius-md); font-size: .875rem; font-weight: 600; cursor: pointer; transition: background .15s; white-space: nowrap; }
+    .lookup-btn:hover { background: var(--primary-600); }
+    .lookup-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* Summary row */
+    .summary-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .summary-box { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px 24px; box-shadow: var(--shadow-sm); }
+    .summary-value { font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; color: var(--gray-900); }
+    .summary-value.eth { color: var(--primary); }
+    .summary-desc { font-size: .8125rem; color: var(--gray-500); margin-top: 4px; }
+
+    /* KB table */
+    .section-card { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 20px; }
+    .section-header { display: flex; align-items: center; gap: 10px; padding: 16px 24px; border-bottom: 1px solid var(--gray-200); background: var(--gray-50); }
+    .section-title { font-size: .9375rem; font-weight: 600; color: var(--gray-800); }
+    .section-count { font-size: .8125rem; font-weight: 600; background: var(--primary-50); color: var(--primary); padding: 1px 8px; border-radius: 99px; }
+    table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+    thead { background: var(--gray-50); border-bottom: 1px solid var(--gray-200); }
+    th { text-align: left; padding: 10px 16px; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--gray-500); white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid var(--gray-100); transition: background .1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--gray-50); }
+    td { padding: 12px 16px; vertical-align: middle; }
+    .mono-cell { font-family: var(--font-mono); font-size: .75rem; color: var(--gray-500); }
+    .domain-cell { font-family: var(--font-mono); font-size: .75rem; color: var(--gray-700); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .eth-cell { font-family: var(--font-mono); font-size: .8125rem; font-weight: 600; color: var(--primary); }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; font-size: .6875rem; font-weight: 600; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+    .badge-practice   { background: var(--primary-50); color: var(--primary-700); }
+    .badge-feature    { background: #dbeafe; color: #1d4ed8; }
+    .badge-compliance { background: #fef2f2; color: #b91c1c; }
+    .badge-rubric     { background: #f5f3ff; color: #6d28d9; }
+    .badge-state      { background: #fce7f3; color: #9d174d; }
+    .badge-prompt     { background: var(--success-50); color: #065f46; }
+    .badge-unknown    { background: var(--gray-100); color: var(--gray-600); }
+
+    /* Icon links */
+    .icon-link { display: inline-flex; align-items: center; font-size: .75rem; font-weight: 500; color: var(--gray-500); border: 1px solid var(--gray-200); padding: 3px 8px; border-radius: 4px; transition: all .12s; text-decoration: none; }
+    .icon-link:hover { color: var(--primary); border-color: var(--primary-100); background: var(--primary-50); text-decoration: none; }
+
+    /* Withdraw box */
+    .withdraw-box { background: linear-gradient(135deg, var(--primary-50) 0%, #f0fdf4 100%); border: 1px solid var(--primary-100); border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 24px; }
+    .withdraw-heading { font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+    .withdraw-sub { font-size: .875rem; color: var(--gray-600); margin-bottom: 16px; }
+    .withdraw-steps { display: flex; flex-direction: column; gap: 8px; }
+    .withdraw-step { font-size: .8125rem; color: var(--gray-700); display: flex; gap: 10px; }
+    .ws-num { width: 20px; height: 20px; border-radius: 50%; background: var(--primary); color: #fff; font-size: .75rem; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .ws-text a { color: var(--primary); }
+
+    /* State */
+    .state-card { text-align: center; padding: 48px 24px; }
+    .state-icon  { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+    .state-title { font-size: 1.0625rem; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
+    .state-sub   { font-size: .875rem; color: var(--gray-500); max-width: 400px; margin: 0 auto; }
+    .spinner { display: inline-block; width: 28px; height: 28px; border: 3px solid var(--gray-200); border-top-color: var(--primary); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #results { display: none; }
+    .footer { background: #fff; border-top: 1px solid var(--gray-200); padding: 20px 24px; text-align: center; font-size: .8125rem; color: var(--gray-400); }
+    .footer a { color: var(--gray-500); }
+
+    @media (max-width: 640px) { .lookup-row { flex-direction: column; } .summary-row { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="wordmark">Alexandrian<span>.</span></span>
+      <nav class="nav-links">
+        <a href="/demo/kb-eng.html">Query</a>
+        <a href="/registry">Registry</a>
+        <a href="/earnings" class="active">Earnings</a>
+      </nav>
+      <div class="header-spacer"></div>
+      <span class="header-badge">Base Mainnet</span>
+    </div>
+  </header>
+
+  <div class="page-body">
+    <h1 class="page-title">Knowledge Base Earnings</h1>
+    <p class="page-sub">Look up on-chain earnings for any KB publisher address — query volume, settlement history, and royalty attribution.</p>
+
+    <!-- Address lookup -->
+    <div class="lookup-card">
+      <label class="lookup-label" for="addr-input">Publisher Address</label>
+      <div class="lookup-row">
+        <input type="text" id="addr-input" class="lookup-input" placeholder="0x… (Base Mainnet address)" autocomplete="off" maxlength="42" spellcheck="false" />
+        <button id="lookup-btn" class="lookup-btn">Look up</button>
+      </div>
+      <p id="addr-error" style="font-size:.8125rem;color:var(--danger);margin-top:8px;display:none;"></p>
+    </div>
+
+    <!-- Results (hidden until lookup) -->
+    <div id="results">
+      <div id="results-inner"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Alexandrian Protocol &mdash;
+      <a href="https://github.com/alexandrianprotocol/alexandrian-protocol" target="_blank" rel="noopener">GitHub</a> &middot;
+      <a href="https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29" target="_blank" rel="noopener">Contract</a>
+    </p>
+  </footer>
+
+  <script>
+    'use strict';
+
+    const SUBGRAPH = 'https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest';
+    const BASESCAN = 'https://basescan.org';
+
+    // ── DOM helpers ──────────────────────────────────────────────────────────
+    function el(tag, opts) {
+      const n = document.createElement(tag);
+      if (opts) for (const [k, v] of Object.entries(opts)) {
+        if (k === 'className') n.className = v;
+        else if (k === 'textContent') n.textContent = v;
+        else if (k === 'style') n.style.cssText = v;
+        else if (k === 'title') n.title = v;
+        else n.setAttribute(k, v);
+      }
+      return n;
+    }
+    function append(parent, ...kids) {
+      for (const k of kids) { if (k) parent.appendChild(k instanceof Node ? k : document.createTextNode(String(k))); }
+      return parent;
+    }
+    function clearEl(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+
+    const TYPE_CSS  = {0:'badge-practice',1:'badge-feature',2:'badge-state',3:'badge-prompt',4:'badge-compliance',5:'badge-rubric'};
+    const TYPE_TEXT = {0:'Practice',1:'Feature',2:'State Machine',3:'Prompt Eng.',4:'Compliance',5:'Rubric'};
+
+    function weiToEth(wei) {
+      if (!wei || wei === '0') return '0';
+      return (Number(BigInt(wei)) / 1e18).toFixed(6).replace(/\.?0+$/, '');
+    }
+    function trunc(h, pre=6, suf=4) { return h ? h.slice(0,pre)+'…'+h.slice(-suf) : '—'; }
+
+    // ── Subgraph ──────────────────────────────────────────────────────────────
+    async function fetchByAddress(address) {
+      const lower = address.toLowerCase();
+      const q = `{
+        knowledgeBases(
+          where: { curator: "${lower}" },
+          first: 100,
+          orderBy: totalSettledValue,
+          orderDirection: desc
+        ) {
+          contentHash cid domain kbType
+          queryVolume settlementCount totalSettledValue
+          reputationScore uniquePayerCount childCount
+          blockNumber transactionHash
+        }
+      }`;
+      const res  = await fetch(SUBGRAPH, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({query:q}) });
+      if (!res.ok) throw new Error(`Subgraph ${res.status}`);
+      const json = await res.json();
+      if (json.errors) throw new Error(json.errors[0]?.message);
+      return json.data?.knowledgeBases ?? [];
+    }
+
+    // ── Render results ────────────────────────────────────────────────────────
+    function renderResults(address, kbs) {
+      const inner = document.getElementById('results-inner');
+      clearEl(inner);
+      document.getElementById('results').style.display = 'block';
+
+      if (kbs.length === 0) {
+        append(inner,
+          append(el('div', { className:'state-card' }),
+            el('span', { className:'state-icon', textContent:'📭' }),
+            el('p',    { className:'state-title', textContent:'No KBs found for this address' }),
+            el('p',    { className:'state-sub',   textContent:'This address has not published any knowledge bases on Base Mainnet.' }),
+          ),
+        );
+        return;
+      }
+
+      // Aggregate totals
+      let totalEarned = BigInt(0);
+      let totalQueries = BigInt(0);
+      let totalSettlements = BigInt(0);
+      let maxRep = 0;
+      for (const kb of kbs) {
+        totalEarned      += BigInt(kb.totalSettledValue ?? 0);
+        totalQueries     += BigInt(kb.queryVolume ?? 0);
+        totalSettlements += BigInt(kb.settlementCount ?? 0);
+        maxRep = Math.max(maxRep, kb.reputationScore ?? 0);
+      }
+
+      // Summary row
+      const sumRow = el('div', { className:'summary-row' });
+
+      function sumBox(value, desc, ethClass) {
+        return append(el('div', { className:'summary-box' }),
+          el('div', { className:`summary-value${ethClass?' eth':''}`, textContent: value }),
+          el('div', { className:'summary-desc', textContent: desc }),
+        );
+      }
+
+      append(sumRow,
+        sumBox(`${weiToEth(String(totalEarned))} ETH`, 'Total Earned', true),
+        sumBox(kbs.length.toString(), 'Knowledge Bases'),
+        sumBox(String(totalQueries), 'Total Queries'),
+        sumBox(String(totalSettlements), 'Settlements'),
+        sumBox(`${maxRep}/1000`, 'Best Reputation'),
+      );
+      inner.appendChild(sumRow);
+
+      // Withdraw instructions
+      const wBox = el('div', { className:'withdraw-box' });
+      append(wBox,
+        el('p', { className:'withdraw-heading', textContent:'Withdrawing Earnings' }),
+        el('p', { className:'withdraw-sub',     textContent:'Royalty earnings accumulate in the contract. To withdraw to your wallet:' }),
+      );
+      const steps = el('div', { className:'withdraw-steps' });
+      function wStep(num, ...parts) {
+        const s = el('div', { className:'withdraw-step' });
+        append(s, el('span', { className:'ws-num', textContent: String(num) }));
+        const t = el('span', { className:'ws-text' });
+        for (const p of parts) { if (p) t.appendChild(p instanceof Node ? p : document.createTextNode(p)); }
+        s.appendChild(t);
+        return s;
+      }
+      const bsLink = el('a', { href:`${BASESCAN}/address/0xD1F216E872a9ed4b90E364825869c2F377155B29#writeContract`, target:'_blank', rel:'noopener', textContent:'Basescan Write Contract ↗' });
+      append(steps,
+        wStep(1, 'Go to '),
+        wStep(2, 'Connect your wallet (owner of the KB must be the caller)'),
+        wStep(3, 'Call ', el('code', null), ' with no arguments — sends your pending balance'),
+      );
+      // Fix step 1 and 3 content
+      steps.children[0].querySelector('.ws-text').appendChild(bsLink);
+      const code3 = steps.children[2].querySelector('code');
+      code3.textContent = 'withdraw()';
+      wBox.appendChild(steps);
+      inner.appendChild(wBox);
+
+      // KB table
+      const tableCard = el('div', { className:'section-card' });
+      append(tableCard,
+        append(el('div', { className:'section-header' }),
+          el('span', { className:'section-title', textContent:'Knowledge Bases' }),
+          el('span', { className:'section-count',  textContent: String(kbs.length) }),
+        ),
+      );
+
+      const tbl = document.createElement('table');
+      const thead = document.createElement('thead');
+      append(thead.insertRow(), ...[
+        el('th', { textContent:'Domain' }),
+        el('th', { textContent:'Type' }),
+        el('th', { textContent:'Queries' }),
+        el('th', { textContent:'Settlements' }),
+        el('th', { textContent:'Earned' }),
+        el('th', { textContent:'Reputation' }),
+        el('th', { textContent:'Links' }),
+      ]);
+      tbl.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      for (const kb of kbs) {
+        const tr = document.createElement('tr');
+        // Domain
+        const domainTd = el('td', { className:'domain-cell', title: kb.domain || '' });
+        domainTd.textContent = kb.domain || '—';
+        tr.appendChild(domainTd);
+        // Type
+        tr.appendChild(append(el('td'),
+          el('span', { className:`badge ${TYPE_CSS[kb.kbType] || 'badge-unknown'}`, textContent: TYPE_TEXT[kb.kbType] || String(kb.kbType ?? '—') }),
+        ));
+        // Queries
+        const qTd = el('td', { style:'font-size:.8125rem;' });
+        qTd.textContent = String(kb.queryVolume ?? 0);
+        tr.appendChild(qTd);
+        // Settlements
+        const sTd = el('td', { style:'font-size:.8125rem;' });
+        sTd.textContent = String(kb.settlementCount ?? 0);
+        tr.appendChild(sTd);
+        // Earned
+        const eTd = el('td', { className:'eth-cell' });
+        eTd.textContent = `${weiToEth(kb.totalSettledValue)} ETH`;
+        tr.appendChild(eTd);
+        // Reputation
+        const rTd = el('td', { style:'font-size:.8125rem;color:var(--primary);font-weight:600;' });
+        rTd.textContent = `${kb.reputationScore ?? 0}`;
+        tr.appendChild(rTd);
+        // Links
+        const linksTd = el('td');
+        const linksDiv = el('div', { style:'display:flex;gap:6px;' });
+        if (kb.transactionHash) {
+          linksDiv.appendChild(el('a', { className:'icon-link', href:`${BASESCAN}/tx/${kb.transactionHash}`, target:'_blank', rel:'noopener', textContent:'Tx ↗' }));
+        }
+        if (kb.contentHash) {
+          linksDiv.appendChild(el('a', { className:'icon-link', href:`/kb-detail?hash=${encodeURIComponent(kb.contentHash)}`, textContent:'Detail →' }));
+        }
+        linksTd.appendChild(linksDiv);
+        tr.appendChild(linksTd);
+        tbody.appendChild(tr);
+      }
+      tbl.appendChild(tbody);
+      tableCard.appendChild(tbl);
+      inner.appendChild(tableCard);
+    }
+
+    // ── Lookup flow ───────────────────────────────────────────────────────────
+    const addrInput = document.getElementById('addr-input');
+    const lookupBtn = document.getElementById('lookup-btn');
+    const addrError = document.getElementById('addr-error');
+
+    async function doLookup() {
+      const raw   = addrInput.value.trim();
+      const isHex = /^0x[0-9a-fA-F]{40}$/.test(raw);
+
+      addrError.style.display = 'none';
+
+      if (!raw) { addrError.textContent = 'Please enter an address.'; addrError.style.display = 'block'; return; }
+      if (!isHex) { addrError.textContent = 'Invalid address format. Expected 0x followed by 40 hex characters.'; addrError.style.display = 'block'; return; }
+
+      lookupBtn.disabled  = true;
+      lookupBtn.textContent = 'Loading…';
+      document.getElementById('results').style.display = 'none';
+
+      try {
+        const kbs = await fetchByAddress(raw);
+        renderResults(raw, kbs);
+      } catch (e) {
+        addrError.textContent = `Error: ${e.message}`;
+        addrError.style.display = 'block';
+      } finally {
+        lookupBtn.disabled  = false;
+        lookupBtn.textContent = 'Look up';
+      }
+    }
+
+    lookupBtn.addEventListener('click', doLookup);
+    addrInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doLookup(); });
+
+    // Auto-load if address in URL query param
+    const urlAddr = new URLSearchParams(window.location.search).get('address');
+    if (urlAddr) {
+      addrInput.value = urlAddr;
+      doLookup();
+    }
+  </script>
+</body>
+</html>
