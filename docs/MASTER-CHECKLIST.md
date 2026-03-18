@@ -685,13 +685,307 @@ WEEK 3        ── Validator agent
 WEEK 4        ── MVP SaaS: auth, KB browser, earnings dashboard
               ── Duplicate detection vector index
 
-M2            ── Full SaaS (publish form, versioning, collections)
+M2            ── Deterministic subgraph (replay/reorg harness + derived signals)
+              ── IPFS artifact binding + verify-kb-artifact CLI
+              ── Gas benchmark report + optimization pass
+              ── Economic Signal Explorer (lineage + settlement UI)
+              ── Agent reference integrations (2×)
+              ── Participation layer (unstaked → staked upgrade path; demand signals; bounties)
+              ── Full SaaS (versioning, collections, contributor profiles)
               ── Subscription access tier (contract upgrade)
               ── Endorser bonds (contract upgrade)
-              ── Subgraph hardening (replay/reorg tests)
               ── npm publish SDK packages
               ── Restore setMinStake(1e15) when graph density target reached
 ```
+
+---
+
+## 11 · M2 Deliverables — Funding-Optimized Execution
+
+**Purpose:** Convert M2 from conceptual expansion to infrastructure-hardening deliverables that maximize grant confidence and funding probability. Every item maps to a specific reviewer concern (see funding readiness gate in 11.7).
+
+**Minimum non-negotiable M2 package (max funding leverage):**
+1. Deterministic replay-tested subgraph (11.1)
+2. CID verification CLI + pinning policy (11.2)
+3. Gas benchmark + optimization report (11.3)
+
+---
+
+### [ ] 11.1 — Deterministic Subgraph With Derived Economic Signals
+
+**Why:** Turns The Graph from indexing plumbing into protocol-critical discovery. Demonstrates operational determinism beyond happy-path indexing. Reviewer test: "Subgraph is just analytics?" — must show it as the discovery and query plane, not a dashboard substitute.
+
+**Deliverables:**
+
+#### [ ] 11.1a — Materialized derived fields in schema
+Confirm all of the following are live and populated in the deployed subgraph:
+- `totalSettledValue` — cumulative ETH received by this KB
+- `settlementCount` — number of times this KB was settled against
+- `uniquePayerCount` — distinct payer addresses
+- `childCount` — number of KBs that cite this KB as a parent
+- `lineageDepth` — depth from root seed in the DAG
+- `lastSettledAt` — timestamp of most recent settlement
+- `royaltyEarned` — ETH flowing to this KB via parent royalty routes
+
+Run a query against the live subgraph endpoint and confirm each field returns non-null values for at least 3 KBs.
+
+#### [ ] 11.1b — Replay + reorg determinism harness
+**Files to create:** `packages/subgraph/tests/replay/`
+
+Build and run:
+- **Full block replay test:** re-index from genesis block to current tip, diff entity snapshots before and after — must be byte-identical.
+- **Fork/reorg simulation:** replay a synthetic reorg (5 blocks), confirm entity state rolls back and re-applies correctly.
+- **Deterministic entity hash verification:** for each `KnowledgeBlock`, compute a hash of all indexed fields and confirm it matches across two independent re-index runs.
+- **`reindex-and-diff` script:** `scripts/reindex-and-diff.sh` — re-indexes locally, compares to last snapshot, exits 0 if identical.
+
+**Output:** publish the reindex-and-diff result as a reproducible artifact (JSON snapshot + diff report) in `docs/subgraph-determinism-report.json`.
+
+#### [ ] 11.1c — Public agent-grade query library
+**File to create:** `packages/subgraph/queries/discovery.graphql`
+
+Five named queries that reviewers and integrators can copy-paste:
+1. `MostReusedKBsByDomain` — top 10 by `childCount` per domain
+2. `MostEconomicallyActiveKBs` — top 10 by `totalSettledValue`
+3. `HighestDerivationDensity` — top 10 by `lineageDepth` with `childCount > 0`
+4. `CrossDomainReuse` — KBs with `childCount > 2` across distinct domains
+5. `HighestUniquePayers` — top 10 by `uniquePayerCount` (breadth of adoption)
+
+Host these in the public subgraph playground URL and link from README.
+
+---
+
+### [ ] 11.2 — IPFS Artifact Binding + Verification CLI
+
+**Why:** Converts IPFS from "storage mention" to enforceable integrity layer. Reviewer test: "What if IPFS availability fails?" — identity is independent of location; CID/hash is authoritative.
+
+**Deliverables:**
+
+#### [ ] 11.2a — `verify-kb-artifact` CLI
+**File:** `packages/generator/scripts/verify-kb-artifact.mjs`
+
+Four-step verification pipeline for every KB:
+1. **Fetch** — retrieve artifact bytes from CID via IPFS gateway (try all 3 gateways in fallback order)
+2. **Hash** — compute `keccak256("alexandrian.kb.v2.5" + canonicalize(artifact))`
+3. **Compare** — diff computed hash against the `contentHash` stored on-chain (via `contract.getArtifactHash(contentHash)`)
+4. **Verdict** — print `✓ verified` or `✗ invalid: hash mismatch` with diff details
+
+```bash
+# Verify a single KB by contentHash
+node scripts/verify-kb-artifact.mjs 0xabc123...
+
+# Verify all 4 KB-ENG demo artifacts
+node scripts/verify-kb-artifact.mjs --demo
+
+# Verify all KBs indexed by subgraph
+node scripts/verify-kb-artifact.mjs --all
+```
+
+**Output format:** JSONL report written to `staging/verification-report.jsonl` (one line per KB: `{ contentHash, cid, status, hashMatch, gateway, ms }`).
+
+#### [ ] 11.2b — Multi-pin redundancy policy (operational runbook)
+**File to create:** `docs/ipfs-pinning-policy.md`
+
+Document and enforce:
+- **Primary provider:** Pinata (current) — JWT-authenticated, retry with backoff
+- **Secondary provider:** Filebase or Pinata v2 PSA (already implemented in publish.mjs) — best-effort, non-blocking
+- **Local fallback:** `ipfs pin add` on a local IPFS node (for disaster recovery)
+- **Size/fetch limits:** max 2 MB per artifact, 5s fetch timeout per gateway, 3 gateways tried
+- **Verification policy:** after every publish run, run `verify-kb-artifact --all` and fail the pipeline if > 1% of CIDs are unreachable
+
+#### [ ] 11.2c — Mandatory CID binding enforcement in publish pipeline
+**File:** `packages/generator/scripts/publish.mjs`
+
+Add preflight assertion before `contract.publishKB()`:
+```javascript
+if (!cid || cid.startsWith("placeholder-")) {
+  throw new Error(`CID binding required: KB ${contentHash.slice(0, 10)} has no real CID. Pin to IPFS first.`);
+}
+```
+
+Zero-tolerance policy: no KB may reach the chain without a verified, pinned CIDv1.
+
+---
+
+### [ ] 11.3 — Base Gas-Optimized Settlement Path
+
+**Why:** Base reviewers heavily weight economic efficiency and practical transaction viability. Must have measurable before/after deltas to satisfy "show concrete numbers" reviewer expectation.
+
+**Deliverables:**
+
+#### [ ] 11.3a — Gas benchmark report
+**File to create:** `docs/gas-benchmark-report.md`
+
+Measure and document gas costs for each contract function under realistic conditions:
+- `publishKB` — with 0 parents, 2 parents, 8 parents (max); with and without embeddingCid
+- `settleQuery` — with 1 KB settled, with 4 KBs (royalty DAG traversal)
+- `withdraw` — single withdrawal
+
+**Method:** Use Hardhat `hardhat-gas-reporter` or `forge snapshot`. Run 10 measurements per scenario, report mean ± σ. Compare to current Base gas prices to show USD cost per operation.
+
+**Reproducibility:** publish the benchmark script (`scripts/gas-benchmark.ts`) and the raw output so reviewers can re-run it.
+
+#### [ ] 11.3b — Optimization pass
+After benchmarking, identify the top 2–3 gas reduction opportunities and implement them. Candidate areas:
+- `settleQuery` royalty DAG traversal (currently linear in parent count)
+- `publishKB` string storage (domain/version/licenseType as calldata vs storage)
+- Event emission size reduction
+
+Document before/after delta in the benchmark report.
+
+#### [ ] 11.3c — Batch settlement feasibility report
+Evaluate whether a `settleQueryBatch(bytes32[] calldata contentHashes, address payer)` function is viable:
+- estimated gas saving per KB settled
+- atomicity tradeoffs
+- front-running surface
+
+Write up as an appendix in `docs/gas-benchmark-report.md`. Prototype if the saving is > 30%.
+
+---
+
+### [ ] 11.4 — Minimal Economic Signal Explorer (Dev-Facing)
+
+**Why:** Demonstrates topology and economics as operational surfaces, not theoretical claims. Satisfies "Where is real usage?" reviewer test with a concrete, linkable artifact.
+
+**Deliverables:**
+
+#### [ ] 11.4a — Lineage topology view
+Extend `demo/kb-detail.html` (already exists) with a visual DAG panel showing:
+- direct parents (with their domains and reputationScore)
+- direct children (KBs that cite this one)
+- lineage depth indicator
+- "KB is a root seed" vs "KB is derived" label
+
+Use a simple force-directed or tree layout (D3 or plain SVG — no heavy dependency).
+
+#### [ ] 11.4b — Settlement activity feed
+Add a "Settlement Activity" section to `demo/kb-detail.html`:
+- last 10 settlements for this KB from the subgraph `QuerySettlement` entities
+- columns: block, payer (truncated), ETH received, royalty routes triggered
+- total ETH earned displayed prominently
+
+#### [ ] 11.4c — Payout routing visualization
+For each settlement, show how the ETH was routed through the DAG:
+- protocol fee (5%)
+- royalty to each parent (proportional to `royaltyShareBps`)
+- remainder to curator
+
+This makes the economic model legible at a glance and satisfies grant reviewers asking "show me how money moves."
+
+---
+
+### [ ] 11.5 — Agent Reference Integrations
+
+**Why:** Closes the adoption loop with concrete consumer behavior. Satisfies "Where is real usage?" and "Why blockchain at all?" — trustless settlement is only credible when an agent actually settles.
+
+**Deliverables:**
+
+#### [ ] 11.5a — Reference Agent 1: Query-Enhancement Agent
+**File:** `packages/sdk-adapters/examples/query-enhancement-agent.ts`
+
+A fully runnable TypeScript agent that:
+1. Accepts a user question
+2. Calls `sdk.enhanceQuery(question, { domains: [...], limit: 4 })`
+3. Fetches the enriched system prompt (KB artifact content injected)
+4. Sends to OpenAI with the enriched prompt
+5. Calls `sdk.settleQuery(kbsUsed, payerAddress)` after receiving the answer
+6. Prints: answer, KB attribution, settlement tx hash, gas used
+
+This agent must run end-to-end on Base mainnet (not fork) with a real KB and real settlement.
+
+#### [ ] 11.5b — Reference Agent 2: KB Discovery Agent
+**File:** `packages/sdk-adapters/examples/kb-discovery-agent.ts`
+
+An agent that:
+1. Takes a domain string (`engineering.api.security`)
+2. Queries the subgraph for the top 5 KBs by `totalSettledValue` in that domain
+3. Fetches each artifact from IPFS
+4. Verifies each artifact hash against on-chain `contentHash`
+5. Outputs a ranked list with: KB ID, title, ETH earned, verification status
+
+Demonstrates the full query → fetch → verify loop without any settlement, suitable for read-only integrations.
+
+**Documentation:** Write a `README.md` in `packages/sdk-adapters/examples/` explaining how to run both agents, with expected output samples.
+
+---
+
+### [ ] 11.6 — Participation & Incentive Design
+
+**Why:** Reduces the cold-start problem. Grant reviewers assess whether the protocol can attract real contributors — not just technical capability but adoption mechanics.
+
+**Principle:** Don't change the core protocol. Reduce friction, increase perceived upside, make contribution legible and rewarding early.
+
+#### [ ] 11.6a — Progressive commitment model (unstaked → staked upgrade)
+**UI change:** `demo/kb-publish.html`
+
+- Add a "Quick Publish (Unstaked)" mode that publishes with `msg.value = 0` (works once `setMinStake(0)` is called)
+- Label unstaked KBs visually in the registry: `Unstaked · Unverified` badge
+- In the publish form, show a "Upgrade to Staked" CTA that re-publishes with a version bump + stake attached
+- In the browser, allow filtering by staked status
+
+**Goal:** Staking becomes a visible upgrade, not an entry barrier.
+
+#### [ ] 11.6b — Demand signal surface ("Hot Topics")
+**File:** new endpoint or subgraph query
+
+Surface which domains/topics have the most recent settlements but the fewest KBs (supply gap = opportunity). Display in `demo/kb-browser.html` as a "Demand Signals" panel:
+- "3 settlements in `engineering.api.security` this week — only 1 KB in this domain"
+- "Missing: no KB covering `agent.planning.reflection` — 7 queries unmatched"
+
+#### [ ] 11.6c — Expected value visibility per KB
+In `demo/kb-detail.html` and `demo/kb-browser.html`, show for each KB:
+- estimated earnings per 100 queries (based on `queryFee` and `settlementCount / timespan`)
+- citation impact score (child KBs × avg reputation of children)
+- "trending" badge if `settlementCount` grew > 20% in the last 7 days
+
+#### [ ] 11.6d — Contributor profiles
+**New page:** `demo/profile.html` at `/profile?address=0x…`
+
+Expose per-curator:
+- total ETH earned (from `pendingWithdrawals` + historical settlements)
+- KB count, avg reputation, top-earning KB
+- citation impact: how many downstream KBs cite their work
+- "trusted in X domain" badge: top 3 domains by settlement volume
+- stake history and slash history
+
+#### [ ] 11.6e — Bounty / bootstrap reward framework (docs + contract stub)
+**File:** `docs/bootstrap-rewards.md`
+
+Document the three early-contributor incentive mechanisms:
+1. **Query mining bonus:** first KB in a domain earns 2× `queryFee` for the first 50 settlements (protocol-subsidized from treasury)
+2. **Bootstrap pool:** 0.5 ETH protocol treasury allocated to seed active domains — distributed to KBs proportional to settlement count in first 30 days
+3. **Bounties:** operator-posted requests for specific KBs (`domain: X, type: ComplianceChecklist`) with a fixed ETH reward on first verified publish
+
+Note which parts require a contract upgrade (query mining multiplier, bounty escrow) vs which can be off-chain for now (bootstrap pool manual distribution).
+
+#### [ ] 11.6f — Refined positioning copy for participation
+Update landing page and grant docs with a participation-oriented framing layer:
+
+> **Alexandrian enables anyone to contribute knowledge that is immediately usable by AI systems, transparently attributed, and economically rewarded as it is reused.**
+
+Add role-specific value statements (Authors, Curators, Validators, Consumers) to `demo/kb-eng.html` and the README.
+
+---
+
+### [ ] 11.7 — Funding Readiness Gate
+
+All five items below must be complete and publicly verifiable before M2 grant submission. Each maps to a specific reviewer concern.
+
+| Item | Reviewer Test Addressed | Done? |
+|------|------------------------|-------|
+| Replay/reorg determinism proof published (`docs/subgraph-determinism-report.json`) | "Subgraph is just analytics?" | [ ] |
+| Artifact verification CLI released + documented (`verify-kb-artifact --demo` passes) | "What if IPFS fails?" | [ ] |
+| Gas benchmark report published with reproducible method (`docs/gas-benchmark-report.md`) | "Why blockchain? Cost?" | [ ] |
+| Public GraphQL endpoint with reference query pack (5 named queries in playground) | "Show me real discovery" | [ ] |
+| Two reference agent integrations demonstrated (end-to-end on mainnet) | "Where is real usage?" | [ ] |
+
+**Final pre-submission checklist:**
+- [ ] All five items above checked off
+- [ ] Contract on Base mainnet — no placeholder or testnet
+- [ ] Subgraph live and indexing current block height (< 100 blocks lag)
+- [ ] At least 1,000 KBs indexed (density prerequisite for meaningful discovery queries)
+- [ ] At least 10 real settlements on-chain (demonstrates live economy)
+- [ ] README links to all deliverables with reproducible instructions
+- [ ] Grant application references specific contentHashes, tx hashes, and subgraph query URLs — no abstract claims
 
 ---
 
