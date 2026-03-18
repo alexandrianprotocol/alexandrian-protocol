@@ -26,7 +26,9 @@
     "bundle:local": "node scripts/bundle-local.mjs --clean",
     "bundle:check-stale": "node scripts/check-bundle-freshness.mjs",
     "publish": "node scripts/publish.mjs",
-    "publish:dry": "cross-env DRY_RUN=true node scripts/publish.mjs"
+    "publish:dry": "cross-env DRY_RUN=true node scripts/publish.mjs",
+    "verify": "node scripts/verify-kb.mjs",
+    "verify:all": "node scripts/verify-kb.mjs --all"
   },
   "dependencies": {
     "@alexandrian/protocol": "workspace:*",

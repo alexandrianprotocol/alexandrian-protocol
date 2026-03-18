@@ -23,6 +23,7 @@ pnpm-debug.log*
 # Environment / secrets — NEVER commit
 .env
 .env.*
+!.env.example
 
 # Generator staging queue — KB JSON files (not committed; .gitkeep preserves dirs)
 packages/generator/staging/pending/*.json

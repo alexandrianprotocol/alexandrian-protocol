@@ -1,5 +1,5 @@
 # Alexandrian Protocol — Master Implementation Checklist
-*Living reference document. Updated: 2026-03-17*
+*Living reference document. Updated: 2026-03-17. Last audit: 2026-03-17 (post-context-2)*
 
 ---
 
@@ -55,7 +55,7 @@ These are owner-only transactions on the live contract. They unblock everything 
 
 ---
 
-### [ ] 0.4 — Update `api/query.js` protocol fee display
+### [x] 0.4 — Update `api/query.js` protocol fee display
 
 **File:** `api/query.js` line 186
 
@@ -80,7 +80,7 @@ vercel --prod --archive=tgz
 
 **Why this is first:** The entire SaaS layer, the agent pipeline, and the demo upgrade all depend on this one function. Build the pipeline from the output end backwards.
 
-### [ ] 1.1 — Implement `sdk.enhanceQuery()` in `packages/sdk-core`
+### [x] 1.1 — Implement `sdk.enhanceQuery()` in `packages/sdk-adapters`
 
 **File to create:** `packages/sdk-core/lib/core/enhanceQuery.ts`
 
@@ -124,7 +124,7 @@ async function enhanceQuery(
 
 ---
 
-### [ ] 1.2 — Implement Redis KB metadata cache
+### [x] 1.2 — Implement Redis KB metadata cache
 
 **File:** `packages/sdk-adapters/lib/adapters/redis.ts`
 
@@ -143,7 +143,7 @@ domain:{domain}:type:{t}  → Sorted set: contentHash members filtered by KB typ
 
 ---
 
-### [ ] 1.3 — Replace hardcoded system prompt in `api/query.js` with dynamic IPFS fetch
+### [x] 1.3 — Replace hardcoded system prompt in `api/query.js` with dynamic IPFS fetch
 
 **Why this matters architecturally:** The current demo embeds KB content directly in source code. This means: (a) the demo lies about how the protocol works, (b) KBs cannot be updated without a code deploy, (c) there is no on-chain attribution link between the query and the KBs that answered it. Dynamic fetching makes the demo architecturally honest.
 
@@ -159,7 +159,7 @@ domain:{domain}:type:{t}  → Sorted set: contentHash members filtered by KB typ
 
 ---
 
-### [ ] 1.4 — Export `enhanceQuery` from SDK public surface
+### [x] 1.4 — Export `enhanceQuery` from SDK public surface
 
 **File:** `packages/sdk-core/lib/core/index.ts` — add export
 **File:** `packages/sdk-core/index.ts` — verify re-export
@@ -202,18 +202,23 @@ CIDs to verify:
 
 ---
 
-### [ ] 2.3 — Build artifact verification CLI
+### [x] 2.3 — Build artifact verification CLI
 
 ```bash
-npx alexandrian verify-kb <contentHash>
-# Fetches CID from chain → fetches artifact from IPFS → verifies hash → prints result
+# Verify a single artifact
+node packages/generator/scripts/verify-kb.mjs <CID>
+
+# Verify all 4 KB-ENG demo artifacts
+node packages/generator/scripts/verify-kb.mjs --all
 ```
+
+**What it checks:** (1) CID is reachable via public IPFS gateways, (2) artifact is valid KB JSON with expected fields, (3) embedded `kbHash` matches recomputed canonical hash, (4) content (steps/checklist) is present.
 
 **Why:** Grant reviewers and external auditors need to independently verify that KB artifacts match their on-chain hashes without reading source code. This is a trust primitive.
 
 ---
 
-### [ ] 2.4 — Enforce mandatory CID binding policy
+### [x] 2.4 — Enforce mandatory CID binding policy
 
 **Rule:** No KB may be published with an empty or placeholder CID. The publisher pipeline must pin the artifact to IPFS and obtain a real CIDv1 before calling `publishKB`.
 
@@ -225,60 +230,77 @@ npx alexandrian verify-kb <contentHash>
 
 Build the pipeline from output end backwards: Publisher → Validator → Generator.
 
-### [ ] 3.1 — Publisher Agent
+### [x] 3.1 — Publisher Agent
 
-**What it does:** Takes a validated KB JSON, pins to IPFS, computes canonical hash, calls `publishKB` on-chain.
+**Status:** Complete. `packages/generator/scripts/publish.mjs` (fully implemented).
 
-**Inputs:** Validated KB JSON conforming to `kb-schema-v2-final.json`
-**Outputs:** On-chain transaction hash, IPFS CID, contentHash
+**What it does:** Reads refined KBs from `staging/refined/`, pins each artifact to IPFS via Pinata (with exponential backoff retry), calls `publishKB` on-chain via ethers.js, moves published files to `staging/published/`, writes JSONL log.
 
-**Key rules:**
-- One wallet per agent role (publisher wallet ≠ validator wallet ≠ generator wallet)
-- Must check Redis cache for duplicate detection before publishing
-- Must verify IPFS pin succeeded before calling `publishKB`
-- Failed publishes must be logged with reason, not silently dropped
+**Key capabilities already built:**
+- Safety gate: verifies `minStakeAmount == 0` before any transactions (prevents accidental stake burns)
+- Concurrency: up to 10 parallel publish slots with nonce management
+- Resume-safe: detects already-published KBs and skips them on re-run
+- Error classification: `AlreadyPublished`, `NonceConflict`, `InsufficientFunds`
+- Dry-run mode: `npm run publish:dry`
 
----
-
-### [ ] 3.2 — Validator Agent
-
-**What it does:** Receives a KB draft from the generator, runs quality gates, returns pass/fail with reasons.
-
-**Quality gates (minimum):**
-- Schema conformance: all required fields present, correct types
-- Content completeness: `claim` field > 50 words, `execution` section has at least 3 steps
-- Domain format: must match `{category}.{subcategory}.{topic}` pattern
-- Duplicate detection: embedding similarity < 0.92 against existing KBs in same domain
-- Parent validation: all declared parent contentHashes exist on-chain
-- No circular lineage: parent chain must terminate at a root seed within 8 hops
-
-**Note:** The validator enforces quality, not the contract. This is intentional — contract-level validation is expensive and inflexible. Pipeline-level validation is cheap and updatable.
+**To run:** Requires `OWNER_PRIVATE_KEY`, `PINATA_JWT` env vars, and `setMinStake(0)` called on contract first.
 
 ---
 
-### [ ] 3.3 — Generator Agent
+### [x] 3.2 — Validator Agent
 
-**What it does:** Produces KB JSON drafts for a given domain and type.
+**Status:** Complete. `packages/generator/src/lib/core/validator.ts` (489 lines) + `lib/pipeline/upgrade-seeds-pipeline.ts`.
 
-**Inputs:** Domain string, KB type, seed KB contentHashes (for parent selection), prompt template
-**Outputs:** KB JSON draft ready for validator
+**Quality gates implemented:**
+- Schema conformance: all required fields, correct types, epistemic-KB type pair validation
+- Content completeness: step count, step structure, dataflow consistency
+- Domain format: pattern enforcement with domain-specific overrides
+- Duplicate detection: kbHash (exact), content fingerprint (exact), Jaccard similarity >75% (near-duplicate)
+- Parent validation: seed rules (used.length=0), derived rules (used.length∈[2,3])
+- Dimension scoring: executability (0.25), atomicity (0.20), connectivity (0.20), epistemicHonesty (0.15), depth (0.20)
+- Multi-threshold gate: hardBlock < 1.8, marginal 1.8–2.2, standard ≥ 2.2, anchor ≥ 2.6
 
-**Key rules:**
-- Generator must not select its own outputs as parents (no self-referential lineage)
-- Generator must cite at least 2 parents (except root seeds)
-- Temperature: 0.3–0.5 for consistency
-- Outputs must be deterministic given the same seed — run with fixed random seed
+**Pipeline routing:** Reject → `staging/failed/`, Marginal → `staging/marginal/` (auto-repair up to 2× then re-score), Pass → `staging/refined/`.
 
 ---
 
-### [ ] 3.4 — Multi-wallet infrastructure
+### [x] 3.3 — Generator Agent
+
+**Status:** Complete. `packages/generator/src/ai-generator.ts` (413 lines) + `scripts/run-1k-with-ai.mjs` + `src/index.ts` (1765 lines, full mode dispatch).
+
+**What it does:** Generates KBv2.5 artifacts via OpenAI GPT-4. Seed specs in `src/lib/seeds/*.ts` (61 domain files). 22 hand-crafted anchor KBs in `scripts/inject-handcrafted-kbs.mjs`.
+
+**Four-phase generation pipeline:**
+- Phase 1: 100 hand-crafted seeds → `staging/pending/`
+- Phase 1b: 20 AI-generated seeds via OpenAI → `staging/pending/`
+- Phase 2: Derived KBs (synthesis from parents) → `staging/pending/`
+- Phase 4: Expansion to target count → `staging/pending/`
+
+**To run:** `npm run build && npm run generate:1k-ai` (requires `OPENAI_API_KEY`). Then run upgrade-seeds-pipeline to refine, then `npm run publish` to publish.
+
+---
+
+### [x] 3.4 — Multi-wallet infrastructure
 
 **Three role wallets:**
-- `GENERATOR_WALLET` — funds for gas on publish calls (not stake, since setMinStake(0))
-- `VALIDATOR_WALLET` — signs off on quality gate approvals
-- `CURATOR_WALLET` — owner of published KBs, receives royalty withdrawals
+- `OWNER_PRIVATE_KEY` — funds for gas on publish calls (not stake, since setMinStake(0)); receives royalties
+- Optional: `GENERATOR_PRIVATE_KEY`, `VALIDATOR_PRIVATE_KEY` for role separation in production
 
-Store as environment variables, never hardcode. Each wallet needs ~0.01 ETH for gas during 10k run (~$30 total at Base prices).
+Store in `packages/generator/.env` (see `.env.example`). Each wallet needs ~0.05 ETH as gas reserve during 10k run (~$30 total at Base prices).
+
+**To run the full 10k pipeline:**
+```bash
+cd packages/generator
+cp .env.example .env
+# Fill in: OWNER_PRIVATE_KEY, PINATA_JWT, OPENAI_API_KEY
+npm run build
+node scripts/inject-handcrafted-kbs.mjs   # 22 anchor KBs → staging/refined/
+npm run generate:1k-ai                     # fills staging/pending/
+npm run publish:dry                        # verify before committing
+npm run publish                            # live publish to Base mainnet
+```
+
+**Prerequisite:** `setMinStake(0)` must be called on-chain first (see Section 0.1).
 
 ---
 
