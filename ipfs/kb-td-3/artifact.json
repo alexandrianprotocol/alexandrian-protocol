@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.task.multitenant.system.1",
+  "kbType": "TaskDecomposition",
+  "epistemicType": "procedural",
+  "domain": "engineering.data",
+  "title": "Multi-Tenant System — Task Decomposition",
+  "summary": "Decomposition for designing a multi-tenant system: tenancy model → schema → isolation → access control → separation tests.",
+  "tags": [
+    "multi_tenant",
+    "tenancy_model",
+    "data_isolation",
+    "rbac",
+    "testing"
+  ],
+  "goal": "Design multi-tenant system",
+  "tasks": [
+    { "id": "t1", "description": "Choose tenancy model" },
+    { "id": "t2", "description": "Design database schema" },
+    { "id": "t3", "description": "Implement tenant isolation" },
+    { "id": "t4", "description": "Add access control" },
+    { "id": "t5", "description": "Test data separation" }
+  ]
+}
+

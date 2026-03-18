@@ -18,6 +18,8 @@
  */
 
 import { createHash } from "crypto";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
 export const config = { maxDuration: 30 };
 
@@ -203,6 +205,9 @@ const TYPE_AGENT_BEHAVIOR = {
   // Learning
   ExampleSet:          "Extract the pattern from the examples. Generalise — do not just copy.",
   PracticeSet:         "Solve the problem then compare against the provided solution.",
+  // Planning & orchestration (M2)
+  TaskDecomposition:   "Use as the authoritative plan: goal → ordered tasks. Do not skip tasks; refine each with supporting KBs.",
+  AgentRole:           "Use to assign responsibilities and outputs per task. Use role outputs as section headers and handoff boundaries.",
 };
 
 // Domain inference — keyword patterns → subgraph domain prefixes.
@@ -351,6 +356,117 @@ const KB_ENG_FALLBACK = [
   },
 ];
 
+// ── Local M2 planning KBs (CID-ready, served from repo) ───────────────────────
+// These are "ready to publish" KBs used by the upgraded pipeline before they
+// are pinned + registered on-chain. They behave like IPFS artifacts, but are
+// loaded from the deployed bundle via `local:` pointers.
+
+const KB_TD_LOCAL = [
+  {
+    title: "Secure Web App — Task Decomposition",
+    kbType: "TaskDecomposition",
+    domain: "engineering.api.security",
+    cid: "local:ipfs/kb-td-1/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "CI/CD Pipeline — Task Decomposition",
+    kbType: "TaskDecomposition",
+    domain: "engineering.ops.cicd",
+    cid: "local:ipfs/kb-td-2/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "Multi-Tenant System — Task Decomposition",
+    kbType: "TaskDecomposition",
+    domain: "engineering.data",
+    cid: "local:ipfs/kb-td-3/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "API Development — Task Decomposition",
+    kbType: "TaskDecomposition",
+    domain: "engineering.api",
+    cid: "local:ipfs/kb-td-4/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "Performance Optimization — Task Decomposition",
+    kbType: "TaskDecomposition",
+    domain: "engineering.performance",
+    cid: "local:ipfs/kb-td-5/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+];
+
+const KB_AR_LOCAL = [
+  {
+    title: "Backend Engineer — Agent Role",
+    kbType: "AgentRole",
+    domain: "engineering.api",
+    cid: "local:ipfs/kb-ar-1/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "Security Auditor — Agent Role",
+    kbType: "AgentRole",
+    domain: "cybersecurity",
+    cid: "local:ipfs/kb-ar-2/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "DevOps Engineer — Agent Role",
+    kbType: "AgentRole",
+    domain: "engineering.ops",
+    cid: "local:ipfs/kb-ar-3/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "Data Engineer — Agent Role",
+    kbType: "AgentRole",
+    domain: "engineering.data",
+    cid: "local:ipfs/kb-ar-4/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+  {
+    title: "System Architect — Agent Role",
+    kbType: "AgentRole",
+    domain: "engineering.systems",
+    cid: "local:ipfs/kb-ar-5/artifact.json",
+    queryFeeWei: "0",
+    royaltyBps: 0,
+    reputationScore: 0,
+    fallback: true,
+  },
+];
+
 // ── IPFS artifact fetching ────────────────────────────────────────────────────
 
 const IPFS_GATEWAYS  = [
@@ -408,6 +524,22 @@ function verifyArtifact(artifact, expectedContentHash, cid) {
 }
 
 async function fetchArtifact(cid, expectedContentHash = null) {
+  // Local artifacts (bundled with the deployment) — used for pre-pin KBs.
+  if (typeof cid === "string" && cid.startsWith("local:")) {
+    try {
+      const rel = cid.slice("local:".length);
+      const abs = join(process.cwd(), rel);
+      const raw = await readFile(abs, "utf-8");
+      const artifact = JSON.parse(raw);
+      if (expectedContentHash) {
+        const { ok, reason } = verifyArtifact(artifact, expectedContentHash, cid);
+        if (!ok) console.warn(`[artifact-verify] WARN ${cid.slice(0, 24)}… — ${reason}`);
+      }
+      return artifact;
+    } catch {
+      return null;
+    }
+  }
   for (const gateway of IPFS_GATEWAYS) {
     try {
       const controller = new AbortController();
@@ -438,6 +570,29 @@ function extractByType(type, artifact) {
   if (!artifact) return null;
 
   switch (type) {
+    // ── Planning & orchestration ─────────────────────────────────────────────
+    case "TaskDecomposition":
+      if (artifact.goal && Array.isArray(artifact.tasks) && artifact.tasks.length) {
+        return [
+          `Goal: ${artifact.goal}`,
+          "Tasks:",
+          ...artifact.tasks.map((t, i) => `  ${i + 1}. ${t.description ?? t.action ?? t}`),
+        ].join("\n");
+      }
+      break;
+
+    case "AgentRole":
+      if (artifact.role) {
+        const resp = Array.isArray(artifact.responsibilities) ? artifact.responsibilities : [];
+        return [
+          `Role: ${artifact.role}`,
+          resp.length ? "Responsibilities:\n" + resp.map((r) => `  • ${r}`).join("\n") : "",
+          Array.isArray(artifact.inputs) && artifact.inputs.length ? `Inputs: ${artifact.inputs.join(", ")}` : "",
+          Array.isArray(artifact.outputs) && artifact.outputs.length ? `Outputs: ${artifact.outputs.join(", ")}` : "",
+        ].filter(Boolean).join("\n") || null;
+      }
+      break;
+
     // ── Core types ──────────────────────────────────────────────────────────
     case "Practice":
     case "procedure":
@@ -676,6 +831,138 @@ function extractByType(type, artifact) {
   return null; // caller falls through to summary/generic
 }
 
+// ── Execution pipeline (M2) ───────────────────────────────────────────────────
+
+function detectIntent(question, inferredDomains) {
+  const q = question.toLowerCase();
+  const domain = inferredDomains?.[0] ?? "engineering.api";
+  const type =
+    /build|design|implement|create|set up|setup|secure|deploy|migrate|refactor|optimi[sz]e/.test(q)
+      ? "build"
+      : "ask";
+  return { type, domain };
+}
+
+function pickTaskDecomposition(intent, question) {
+  const q = question.toLowerCase();
+  if (intent.domain.includes("engineering.ops.cicd") || /ci\/cd|pipeline|deploy/.test(q)) return KB_TD_LOCAL[1];
+  if (intent.domain.includes("engineering.performance") || /perf|latency|throughput|optimi[sz]e/.test(q)) return KB_TD_LOCAL[4];
+  if (intent.domain.includes("engineering.data") || /tenant|schema|database|postgres|sql/.test(q)) return KB_TD_LOCAL[2];
+  if (intent.domain.includes("engineering.api.security") || /secure|auth|jwt|oauth|login/.test(q)) return KB_TD_LOCAL[0];
+  if (intent.domain.startsWith("engineering.api")) return KB_TD_LOCAL[3];
+  return KB_TD_LOCAL[3];
+}
+
+function pickAgentRoles(intent) {
+  const roles = [];
+  // Architect is usually helpful for build-class queries
+  roles.push(KB_AR_LOCAL[4]);
+  if (intent.domain.startsWith("engineering.api")) roles.push(KB_AR_LOCAL[0]);
+  if (intent.domain.includes("engineering.api.security") || intent.domain.includes("cybersecurity")) roles.push(KB_AR_LOCAL[1]);
+  if (intent.domain.startsWith("engineering.ops")) roles.push(KB_AR_LOCAL[2]);
+  if (intent.domain.startsWith("engineering.data")) roles.push(KB_AR_LOCAL[3]);
+  // de-dupe by cid
+  const seen = new Set();
+  return roles.filter((r) => (seen.has(r.cid) ? false : (seen.add(r.cid), true)));
+}
+
+async function buildPipelineSystemPrompt(question, domains, warnings) {
+  const intent = detectIntent(question, domains);
+  if (intent.type !== "build") return null;
+
+  const planMeta = pickTaskDecomposition(intent, question);
+  const roleMetas = pickAgentRoles(intent);
+
+  const planArtifact = await fetchArtifact(planMeta.cid, null);
+  const roleArtifacts = await Promise.all(roleMetas.map((m) => fetchArtifact(m.cid, null)));
+
+  if (!planArtifact) {
+    warnings.push("Pipeline: task decomposition KB unavailable; falling back to standard query enhancement.");
+    return null;
+  }
+
+  const planTasks = Array.isArray(planArtifact.tasks) ? planArtifact.tasks : [];
+  const tasksForRetrieval = planTasks.slice(0, 3); // cap for latency
+
+  // Per-task retrieval: pull 1 KB per task to refine execution.
+  const perTask = await Promise.all(
+    tasksForRetrieval.map(async (t) => {
+      const taskText = (t?.description ?? String(t)).trim();
+      const tDomains = inferDomains(taskText);
+      let kbs = [];
+      try {
+        kbs = await querySubgraph(tDomains, 1);
+      } catch {
+        kbs = [];
+      }
+      kbs = (kbs ?? []).filter((kb) => kb.cid).map((kb) => ({
+        contentHash:     kb.contentHash,
+        title:           kb.title ?? kb.domain,
+        summary:         kb.summary ?? "",
+        kbType:          kb.kbType,
+        domain:          kb.domain,
+        cid:             kb.cid,
+        queryFeeWei:     kb.queryFeeWei ?? kb.queryFee ?? "0",
+        royaltyBps:      kb.royaltyBps  ?? 0,
+        reputationScore: kb.reputationScore ?? 0,
+      }));
+
+      if (!kbs.length) return { task: taskText, kbs: [], artifactSnippets: "" };
+
+      const { prompt, artifactsLoaded } = await buildSystemPrompt(kbs);
+      // Extract just the KB sections (skip the global header) by taking last divider block.
+      return { task: taskText, kbs, artifactsLoaded, artifactSnippets: prompt };
+    }),
+  );
+
+  const roleLines = roleArtifacts
+    .filter(Boolean)
+    .map((a, i) => {
+      const meta = roleMetas[i];
+      const content = extractByType("AgentRole", a) ?? a?.summary ?? "";
+      return `- ${meta.title}\n${content}`;
+    })
+    .join("\n\n");
+
+  const taskLines = perTask
+    .map((pt, i) => {
+      const kbSummary = pt.kbs?.length
+        ? pt.kbs.map((k) => `  - ${k.title} (${k.kbType}, ${k.domain})`).join("\n")
+        : "  - (no live KBs found)";
+      return [
+        `Task ${i + 1}: ${pt.task}`,
+        "Retrieved KBs:",
+        kbSummary,
+      ].join("\n");
+    })
+    .join("\n\n");
+
+  const pipelinePrompt = [
+    "You are an execution-oriented AI agent using Alexandrian as a query enhancer.",
+    "Follow this pipeline strictly:",
+    "Query → Intent Detection → TaskDecomposition → AgentRole Mapping → Per-Task KB Retrieval → Composition → Output",
+    "",
+    `Intent: ${intent.type} (${intent.domain})`,
+    "",
+    "Task Decomposition (authoritative plan):",
+    extractByType("TaskDecomposition", planArtifact) ?? JSON.stringify(planArtifact).slice(0, 800),
+    "",
+    "Agent Roles (responsibility and handoff boundaries):",
+    roleLines || "(none)",
+    "",
+    "Per-Task Retrieval (live KB signals):",
+    taskLines,
+    "",
+    "Output format requirements:",
+    "- Start with: Goal",
+    "- Then: Plan (tasks, with owner role per task)",
+    "- Then for each task: Steps (from Practices), Code (if provided), Validation (from Checklists/Rubrics)",
+    "- End with: Risks & open questions",
+  ].join("\n");
+
+  return pipelinePrompt;
+}
+
 function formatArtifactSection(kb, artifact, index) {
   const id      = `KB-${index + 1}`;
   const title   = artifact?.title   ?? kb.title  ?? kb.domain;
@@ -874,7 +1161,12 @@ export default async function handler(req, res) {
     }));
 
     // ── 2. Build enriched system prompt from IPFS artifacts ────────────────────
-    const { prompt: systemPrompt, artifactsLoaded } = await buildSystemPrompt(kbs);
+    // M2 pipeline upgrade: if this is a build/implement class query, we first
+    // load TaskDecomposition + AgentRole KBs and do limited per-task retrieval.
+    const pipelinePrompt = await buildPipelineSystemPrompt(question, domains, warnings);
+
+    const { prompt: basePrompt, artifactsLoaded } = await buildSystemPrompt(kbs);
+    const systemPrompt = pipelinePrompt ? `${pipelinePrompt}\n\n${DIVIDER}\n\n${basePrompt}` : basePrompt;
 
     // ── 3. Call LLM ────────────────────────────────────────────────────────────
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.agent.devops.1",
+  "kbType": "AgentRole",
+  "epistemicType": "procedural",
+  "domain": "engineering.ops",
+  "title": "DevOps Engineer — Agent Role",
+  "summary": "Role definition for a DevOps engineer agent: CI/CD, deployments, and monitoring/health signals for production reliability.",
+  "tags": [
+    "devops",
+    "cicd",
+    "deployment",
+    "monitoring",
+    "sre"
+  ],
+  "role": "DevOps Engineer",
+  "responsibilities": [
+    "Setup CI/CD pipelines",
+    "Manage deployments",
+    "Monitor system health"
+  ],
+  "inputs": [
+    "application build",
+    "infrastructure config"
+  ],
+  "outputs": [
+    "deployment pipeline",
+    "monitoring setup"
+  ]
+}
+

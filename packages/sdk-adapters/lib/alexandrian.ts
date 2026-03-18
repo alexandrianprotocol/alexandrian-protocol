@@ -41,7 +41,7 @@
  * ```
  */
 
-import { enhanceQuery, type EnhanceQueryOptions, type EnhancedQuery } from "./enhanceQuery.js";
+import { enhanceQuery, type EnhanceQueryOptions, type EnhancedQuery, type OutputMode } from "./enhanceQuery.js";
 import { inferDomains } from "./inferDomains.js";
 import { UpstashCacheAdapter } from "./adapters/upstash.js";
 import {
@@ -78,7 +78,7 @@ export type AlexandrianEnhanceOptions = Omit<EnhanceQueryOptions, "domains"> & {
  * the ethers-based `AlexandrianClient` blockchain adapter also exported from this package.
  */
 export class AlexandrianQueryClient {
-  private readonly defaults: AlexandrianEnhanceOptions;
+  readonly defaults: AlexandrianEnhanceOptions;
 
   /**
    * When no cache is provided in defaults, automatically uses UpstashCacheAdapter
@@ -322,97 +322,301 @@ export const alexandrian = new AlexandrianQueryClient();
 // compare(), and parseFindings() available.
 //
 // Domain coverage:
-//   Both `engineering.*` (future M2 format) and `cybersecurity.*` / `antipattern.*` /
+//   Both `engineering.*` (M2 format) and `cybersecurity.*` / `antipattern.*` /
 //   `regulatory.*` (live subgraph format) are included so presets work against existing
 //   indexed KBs as well as newly published M2 KBs.
+//
+// Each preset has:
+//   - types:      ordered preference list (drives selection + ranking boost)
+//   - domains:    optional domain filter (omit to auto-infer from query)
+//   - outputMode: controls prompt structure ("steps" | "checklist" | "framework")
+//   - limit:      optional override (quickFix=2, deepDive=6, else default=4)
 
-/**
- * Pre-configured security review and audit client.
- *
- * @example
- * const evaluation = await alexandrian.presets.security.review(expressMiddleware);
- * const findings   = alexandrian.parseFindings(llmOutput);
- */
-const securityPreset = new AlexandrianQueryClient({
-  types: ["SecurityRule", "AuditChecklist", "AntiPattern", "ViolationExample", "ComplianceChecklist"],
-  domains: [
-    // Generator domain format (live subgraph)
-    "cybersecurity.threat_detection",
-    "cybersecurity.vulnerability_analysis",
-    "antipattern.security",
-    "auth.access_control",
-    // M2 format
-    "engineering.api.security",
-    "engineering.compliance",
-  ],
-});
+function preset(opts: AlexandrianEnhanceOptions): AlexandrianQueryClient {
+  return new AlexandrianQueryClient(opts);
+}
 
-/**
- * Pre-configured compliance audit client (OWASP, SOC2, GDPR, PCI, HIPAA).
- *
- * @example
- * const evaluation = await alexandrian.presets.compliance.audit(apiSpec);
- */
-const compliancePreset = new AlexandrianQueryClient({
-  types: ["AuditChecklist", "ComplianceChecklist", "Rubric", "BestPractice"],
-  domains: [
-    // Generator domain format (live subgraph)
-    "regulatory.soc2",
-    "regulatory.gdpr",
-    "regulatory.pci",
-    "regulatory.hipaa",
-    "regulatory.iso27001",
-    // M2 format
-    "engineering.compliance",
-  ],
-});
-
-/**
- * Pre-configured software engineering client (practices, patterns, architecture).
- *
- * @example
- * const result = await alexandrian.presets.coding.enhance("How do I implement rate limiting?");
- * const review = await alexandrian.presets.coding.review(myCode);
- */
-const codingPreset = new AlexandrianQueryClient({
-  types: ["Practice", "CodePattern", "BestPractice", "Feature", "AntiPattern"],
-  // No domain filter — auto-inferred from query so it works across all engineering domains
-});
-
-/**
- * Pre-configured AI agent and LLM engineering client.
- *
- * @example
- * const result = await alexandrian.presets.agentMemory.enhance("How do I build a ReAct agent?");
- */
-const agentMemoryPreset = new AlexandrianQueryClient({
-  types: ["Practice", "StateMachine", "PromptEngineering", "Feature"],
-  domains: [
-    // Generator domain format (live subgraph)
-    "agent.planning",
-    "agent.memory",
-    "agent.reasoning",
-    "rag.systems",
-    // M2 format
-    "engineering.agent",
-  ],
-});
-
-/**
- * Named preset instances — access via `alexandrian.presets.*` or import directly.
- *
- * | Preset       | Best for                                          |
- * |-------------|---------------------------------------------------|
- * | security    | Code review, security audits, vulnerability check |
- * | compliance  | OWASP, SOC2, GDPR, PCI, HIPAA checklists         |
- * | coding      | General engineering Q&A, code review, patterns   |
- * | agentMemory | AI agent design, LLM prompting, RAG pipelines    |
- */
 export const PRESETS = {
-  security:    securityPreset,
-  compliance:  compliancePreset,
-  coding:      codingPreset,
-  agentMemory: agentMemoryPreset,
+  // ── Debugging ─────────────────────────────────────────────────────────────
+  /**
+   * Debug-oriented preset. Surfaces step-by-step diagnostic practices and
+   * code-pattern KBs. Ideal for "why is X broken" and "fix this error" queries.
+   *
+   * @example
+   * const result = await alexandrian.presets.debug.enhance("Why is my Promise chain swallowing errors?");
+   */
+  debug: preset({
+    types: ["Practice", "CodePattern", "AntiPattern", "BestPractice"],
+    outputMode: "steps" as OutputMode,
+  }),
+
+  // ── Refactoring ───────────────────────────────────────────────────────────
+  /**
+   * Refactoring preset. Retrieves best-practice and anti-pattern KBs to guide
+   * safe structural improvement without changing observable behaviour.
+   *
+   * @example
+   * const result = await alexandrian.presets.refactor.enhance("How do I remove this God object?");
+   */
+  refactor: preset({
+    types: ["Practice", "BestPractice", "AntiPattern", "CodePattern"],
+    outputMode: "steps" as OutputMode,
+  }),
+
+  // ── Performance ───────────────────────────────────────────────────────────
+  /**
+   * Performance optimisation preset. Surfaces implementation practices and
+   * rubric KBs for measuring before/after improvements.
+   *
+   * @example
+   * const result = await alexandrian.presets.performance.enhance("How do I reduce latency in my API?");
+   */
+  performance: preset({
+    types: ["Practice", "BestPractice", "Feature", "Rubric"],
+    outputMode: "steps" as OutputMode,
+  }),
+
+  // ── Architecture ──────────────────────────────────────────────────────────
+  /**
+   * Architecture and design preset. Returns feature specs, decision frameworks,
+   * and best-practice KBs structured as a decision framework.
+   *
+   * @example
+   * const result = await alexandrian.presets.architecture.enhance("How do I design a multi-tenant SaaS backend?");
+   */
+  architecture: preset({
+    types: ["Practice", "Feature", "BestPractice", "Rubric"],
+    outputMode: "framework" as OutputMode,
+  }),
+
+  // ── Security ──────────────────────────────────────────────────────────────
+  /**
+   * Security review and audit preset. Retrieves security rules, audit checklists,
+   * anti-patterns, and violation examples — outputs a severity-ranked checklist.
+   *
+   * @example
+   * const evaluation = await alexandrian.presets.security.review(expressMiddleware);
+   * const findings   = alexandrian.parseFindings(llmOutput);
+   */
+  security: preset({
+    types: ["SecurityRule", "AuditChecklist", "AntiPattern", "ViolationExample", "ComplianceChecklist"],
+    domains: [
+      "cybersecurity.threat_detection",
+      "cybersecurity.vulnerability_analysis",
+      "antipattern.security",
+      "auth.access_control",
+      "engineering.api.security",
+      "engineering.compliance",
+    ],
+    outputMode: "checklist" as OutputMode,
+  }),
+
+  // ── Compliance ────────────────────────────────────────────────────────────
+  /**
+   * Compliance audit preset (OWASP, SOC2, GDPR, PCI, HIPAA, ISO27001).
+   * Returns compliance checklists and rubrics for structured pass/fail assessment.
+   *
+   * @example
+   * const evaluation = await alexandrian.presets.compliance.audit(apiSpec);
+   */
+  compliance: preset({
+    types: ["AuditChecklist", "ComplianceChecklist", "Rubric", "BestPractice"],
+    domains: [
+      "regulatory.soc2",
+      "regulatory.gdpr",
+      "regulatory.pci",
+      "regulatory.hipaa",
+      "regulatory.iso27001",
+      "engineering.compliance",
+    ],
+    outputMode: "checklist" as OutputMode,
+  }),
+
+  // ── Reliability ───────────────────────────────────────────────────────────
+  /**
+   * Reliability and resilience preset. Surfaces practices for fault tolerance,
+   * retry strategies, circuit breakers, and SLO design.
+   *
+   * @example
+   * const result = await alexandrian.presets.reliability.enhance("How do I make my service handle network failures?");
+   */
+  reliability: preset({
+    types: ["Practice", "ComplianceChecklist", "BestPractice", "Feature"],
+    outputMode: "steps" as OutputMode,
+  }),
+
+  // ── RAG ───────────────────────────────────────────────────────────────────
+  /**
+   * RAG pipeline and retrieval engineering preset. Retrieves practices and
+   * state-machine KBs for building knowledge retrieval systems.
+   *
+   * @example
+   * const result = await alexandrian.presets.rag.enhance("How do I build a hybrid BM25 + vector retrieval pipeline?");
+   */
+  rag: preset({
+    types: ["Practice", "Feature", "StateMachine", "PromptEngineering"],
+    domains: [
+      "rag.systems",
+      "agent.memory",
+      "engineering.agent",
+    ],
+    outputMode: "steps" as OutputMode,
+  }),
+
+  // ── Agent design ──────────────────────────────────────────────────────────
+  /**
+   * AI agent design preset. Surfaces state machines, prompting practices,
+   * and feature specs for building reliable LLM-based agents.
+   *
+   * @example
+   * const result = await alexandrian.presets.agentDesign.enhance("How do I build a ReAct agent with memory?");
+   */
+  agentDesign: preset({
+    types: ["Practice", "StateMachine", "PromptEngineering", "Feature"],
+    domains: [
+      "agent.planning",
+      "agent.memory",
+      "agent.reasoning",
+      "rag.systems",
+      "engineering.agent",
+    ],
+    outputMode: "framework" as OutputMode,
+  }),
+
+  // ── Evaluation ────────────────────────────────────────────────────────────
+  /**
+   * Evaluation and scoring preset. Retrieves rubrics, audit checklists, and
+   * best-practice KBs for structured LLM-as-judge evaluation.
+   *
+   * @example
+   * const result = await alexandrian.presets.evaluation.enhance("How do I evaluate my RAG pipeline output quality?");
+   */
+  evaluation: preset({
+    types: ["Rubric", "AuditChecklist", "ComplianceChecklist", "BestPractice"],
+    outputMode: "checklist" as OutputMode,
+  }),
+
+  // ── Fullstack ─────────────────────────────────────────────────────────────
+  /**
+   * Full-stack engineering preset. Cross-domain query across API, frontend,
+   * database, and infrastructure patterns. Good for end-to-end feature questions.
+   *
+   * @example
+   * const result = await alexandrian.presets.fullstack.enhance("How do I implement real-time notifications?");
+   */
+  fullstack: preset({
+    types: ["Practice", "Feature", "BestPractice", "CodePattern"],
+    // No domain filter — auto-inferred from query, covers all engineering domains
+    outputMode: "steps" as OutputMode,
+  }),
+
+  // ── Quick fix ─────────────────────────────────────────────────────────────
+  /**
+   * Quick-fix preset. Returns only the top 2 KBs — minimum viable context for
+   * fast answers. Best for simple one-liner fixes and quick how-tos.
+   *
+   * @example
+   * const result = await alexandrian.presets.quickFix.enhance("How do I parse a URL in Node.js?");
+   */
+  quickFix: preset({
+    types: ["Practice", "CodePattern", "AntiPattern"],
+    limit: 2,
+    outputMode: "steps" as OutputMode,
+  }),
+
+  // ── Deep dive ─────────────────────────────────────────────────────────────
+  /**
+   * Deep-dive preset. Injects up to 6 KBs across types for thorough, multi-angle
+   * analysis. Best for architecture decisions and complex implementation questions.
+   *
+   * @example
+   * const result = await alexandrian.presets.deepDive.enhance("How do I design a distributed cache?");
+   */
+  deepDive: preset({
+    types: ["Practice", "Feature", "BestPractice", "Rubric", "CodePattern"],
+    limit: 6,
+    outputMode: "framework" as OutputMode,
+  }),
+
+  // ── Production-ready ──────────────────────────────────────────────────────
+  /**
+   * Production-readiness preset. Surfaces compliance checklists, practices, and
+   * rubrics for validating that a system is ready for production traffic.
+   *
+   * @example
+   * const result = await alexandrian.presets.productionReady.review(serviceSpec);
+   */
+  productionReady: preset({
+    types: ["ComplianceChecklist", "Practice", "BestPractice", "Rubric"],
+    outputMode: "checklist" as OutputMode,
+  }),
+
+  // ── Coding (general) ──────────────────────────────────────────────────────
+  /**
+   * General-purpose software engineering preset.
+   * Covers practices, patterns, and anti-patterns across all engineering domains.
+   * Domain is auto-inferred from query text.
+   *
+   * @example
+   * const result = await alexandrian.presets.coding.enhance("How do I implement rate limiting?");
+   * const review = await alexandrian.presets.coding.review(myCode);
+   */
+  coding: preset({
+    types: ["Practice", "CodePattern", "BestPractice", "Feature", "AntiPattern"],
+    // No domain filter — auto-inferred from query
+  }),
+
+  // ── Agent memory (legacy alias) ───────────────────────────────────────────
+  /**
+   * @deprecated Use `agentDesign` instead. Kept for backwards compatibility.
+   */
+  agentMemory: preset({
+    types: ["Practice", "StateMachine", "PromptEngineering", "Feature"],
+    domains: [
+      "agent.planning",
+      "agent.memory",
+      "agent.reasoning",
+      "rag.systems",
+      "engineering.agent",
+    ],
+    outputMode: "framework" as OutputMode,
+  }),
 } as const;
 
 export type PresetName = keyof typeof PRESETS;
+
+// ── Composable presets ─────────────────────────────────────────────────────────
+
+/**
+ * Compose two or more preset clients into a single client.
+ *
+ * Merges `types` and `domains` (deduplicated). Later presets win on scalar
+ * fields (`outputMode`, `limit`, `cache`). Use when a task spans multiple concerns.
+ *
+ * @example
+ * // Zero-config multi-concern query: security + performance
+ * const client = mergePresets(alexandrian.presets.security, alexandrian.presets.performance);
+ * const result = await client.enhance("Is my Redis caching strategy safe and fast?");
+ *
+ * @example
+ * // Composable audit: compliance + security
+ * const client = mergePresets(alexandrian.presets.compliance, alexandrian.presets.security);
+ * const evaluation = await client.audit(apiSpec);
+ */
+export function mergePresets(...clients: AlexandrianQueryClient[]): AlexandrianQueryClient {
+  const merged = clients.reduce<AlexandrianEnhanceOptions>((acc, client) => {
+    const d = client.defaults;
+    return {
+      ...acc,
+      ...d,
+      // Deduplicate arrays — later presets append, not replace
+      types: d.types
+        ? ([...new Set([...(acc.types ?? []), ...d.types])] as typeof d.types)
+        : acc.types,
+      domains: d.domains
+        ? [...new Set([...(acc.domains ?? []), ...d.domains])]
+        : acc.domains,
+    };
+  }, {});
+  return new AlexandrianQueryClient(merged);
+}

@@ -1,8 +1,8 @@
 /**
- * AI-powered KB generator — OpenAI → KBv2.5 artifact
+ * AI-powered KB generator — OpenAI → KBv2.6 artifact
  *
  * Uses GPT-4 to generate one super-seed artifact from a short spec.
- * Emits v2.5 with structured steps and cost_estimate for machine executability.
+ * Emits v2.6 with structured steps and cost_estimate for machine executability.
  * API key: OPENAI_API_KEY from environment (.env).
  * No publishing; output is passed to builder for staging only.
  */
@@ -53,7 +53,7 @@ export function sampleEpistemicType(): EpistemicType {
   return "procedural";
 }
 
-const SYSTEM_PROMPT = `You are a knowledge engineer for the Alexandrian Protocol. You produce exactly one KB artifact in JSON format that follows the KBv2.5 schema (structured steps + cost_estimate).
+const SYSTEM_PROMPT = `You are a knowledge engineer for the Alexandrian Protocol. You produce exactly one KB artifact in JSON format that follows the KBv2.6 schema (structured steps + cost_estimate).
 
 Before generating, reason briefly (do not output this): (1) What single concept does this artifact encode? (2) What would an agent need (inputs, tools, prior steps) to execute it? (3) What makes it distinct from any parent or related artifacts? Then fill the schema so the artifact is specific and non-generic.
 
@@ -61,7 +61,7 @@ Rules for super-seeds:
 1. One fundamental concept per artifact (concept atomicity). Reusable across domains.
 2. identity.is_seed must be true. knowledge_inputs.used must be [].
 3. identity.kb_id must be "". provenance.author.address must be "".
-4. identity.schema must be "alexandrian.kb.v2.5".
+4. identity.schema must be "alexandrian.kb.v2.6".
 4a. identity.epistemic_type must be one of: "declarative", "procedural", "evaluative". For super-seeds default to "procedural" or "evaluative" (not "declarative").
 4b. identity.kb_type must be one of: "procedure", "pattern", "invariant", "constraint", "evaluation", "transformation", "protocol", "artifact_spec", "context", "anti_pattern", "heuristic".
 4c. Invalid pairs (epistemic_type, kb_type) are forbidden: ("declarative","transformation"), ("declarative","procedure"), ("evaluative","transformation"), ("evaluative","protocol"), ("evaluative","context").
@@ -125,7 +125,7 @@ function defaults(parsed: Record<string, unknown>): KBv24Artifact {
       version: String(identity.version ?? "1.0.0"),
       status: (identity.status as KBv24Artifact["identity"]["status"]) ?? "active",
       is_seed: true,
-      schema: (identity.schema as KBv24Artifact["identity"]["schema"]) === "alexandrian.kb.v2.5" ? "alexandrian.kb.v2.5" : "alexandrian.kb.v2.5",
+      schema: "alexandrian.kb.v2.6",
     },
     claim: {
       statement: String(claim.statement ?? ""),

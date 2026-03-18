@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.task.cicd.pipeline.1",
+  "kbType": "TaskDecomposition",
+  "epistemicType": "procedural",
+  "domain": "engineering.ops.cicd",
+  "title": "CI/CD Pipeline — Task Decomposition",
+  "summary": "Decomposition for setting up CI/CD: repo/workflows → build/test → containerize → deploy → monitor health.",
+  "tags": [
+    "cicd",
+    "github_actions",
+    "docker",
+    "deployment",
+    "monitoring"
+  ],
+  "goal": "Setup CI/CD pipeline",
+  "tasks": [
+    { "id": "t1", "description": "Configure repository and workflows" },
+    { "id": "t2", "description": "Setup build and test steps" },
+    { "id": "t3", "description": "Build Docker image" },
+    { "id": "t4", "description": "Deploy to environment" },
+    { "id": "t5", "description": "Monitor deployment health" }
+  ]
+}
+

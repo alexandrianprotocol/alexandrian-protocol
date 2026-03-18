@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.task.performance.optimize.1",
+  "kbType": "TaskDecomposition",
+  "epistemicType": "procedural",
+  "domain": "engineering.performance",
+  "title": "Performance Optimization — Task Decomposition",
+  "summary": "Decomposition for optimizing performance: bottlenecks → caching → query tuning → async processing → monitoring.",
+  "tags": [
+    "performance",
+    "profiling",
+    "caching",
+    "database_optimization",
+    "observability"
+  ],
+  "goal": "Optimize application performance",
+  "tasks": [
+    { "id": "t1", "description": "Identify bottlenecks" },
+    { "id": "t2", "description": "Add caching layer" },
+    { "id": "t3", "description": "Optimize database queries" },
+    { "id": "t4", "description": "Implement async processing" },
+    { "id": "t5", "description": "Monitor performance metrics" }
+  ]
+}
+

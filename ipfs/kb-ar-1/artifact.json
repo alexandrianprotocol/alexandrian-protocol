@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.agent.backend.1",
+  "kbType": "AgentRole",
+  "epistemicType": "procedural",
+  "domain": "engineering.api",
+  "title": "Backend Engineer — Agent Role",
+  "summary": "Role definition for a backend engineer agent: API implementation, database integration, validation/error handling, and stable endpoint outputs.",
+  "tags": [
+    "backend",
+    "api",
+    "database",
+    "validation",
+    "error_handling"
+  ],
+  "role": "Backend Engineer",
+  "responsibilities": [
+    "Implement API logic",
+    "Integrate database",
+    "Handle validation and errors"
+  ],
+  "inputs": [
+    "API design",
+    "data schema"
+  ],
+  "outputs": [
+    "working endpoints",
+    "validated responses"
+  ]
+}
+

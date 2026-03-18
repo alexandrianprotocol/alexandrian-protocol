@@ -1,5 +1,5 @@
 /**
- * Alexandrian KB Generator — CLI Entry Point (KBv2.4 / v2.5)
+ * Alexandrian KB Generator — CLI Entry Point (KBv2.4 / v2.6)
  *
  * Usage:
  *   node dist/index.js [--mode seeds|derived|expansion|ai-seeds|all] [--count <n>] [--target <n>]
@@ -677,7 +677,7 @@ const ROUTING_DEBUG_SAMPLE_TASK =
 async function main(): Promise<void> {
   const { mode, maxCount, targetTotal, dryRun, allowSimilarTitle, task, highImpactSeeds, seedsCombined, universalSeeds, deepSeeds, allLayers, webSeeds, frontendDeepSeeds, failureDebugSeeds, verificationSeeds, invariantSeeds, antipatternSeeds, blueprintSeeds, upgradeConcurrency, aiConcurrency, upgradeModel, topK, topArtifacts, ontologySplit } = parseArgs();
 
-  console.log(`\nAlexandrian KB Generator (KBv2.5)`);
+  console.log(`\nAlexandrian KB Generator (KBv2.6)`);
   console.log(`  mode   : ${mode}`);
   console.log(`  limit  : ${maxCount} KBs per run`);
   console.log(`  target : ${targetTotal} (expansion)`);

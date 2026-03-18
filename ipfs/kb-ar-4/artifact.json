@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.agent.data.1",
+  "kbType": "AgentRole",
+  "epistemicType": "procedural",
+  "domain": "engineering.data",
+  "title": "Data Engineer — Agent Role",
+  "summary": "Role definition for a data engineer agent: schema design, integrity constraints, and query performance improvements for data-heavy systems.",
+  "tags": [
+    "data_engineering",
+    "schema",
+    "data_integrity",
+    "sql",
+    "performance"
+  ],
+  "role": "Data Engineer",
+  "responsibilities": [
+    "Design schemas",
+    "Ensure data integrity",
+    "Optimize queries"
+  ],
+  "inputs": [
+    "data requirements"
+  ],
+  "outputs": [
+    "schema",
+    "queries"
+  ]
+}
+

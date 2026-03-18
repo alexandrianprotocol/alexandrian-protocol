@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.agent.architect.1",
+  "kbType": "AgentRole",
+  "epistemicType": "procedural",
+  "domain": "engineering.systems",
+  "title": "System Architect — Agent Role",
+  "summary": "Role definition for a system architect agent: architecture decisions, technology selection, and explicit service boundaries for scalable systems.",
+  "tags": [
+    "architecture",
+    "system_design",
+    "service_boundaries",
+    "tradeoffs",
+    "scalability"
+  ],
+  "role": "System Architect",
+  "responsibilities": [
+    "Design system structure",
+    "Select technologies",
+    "Define service boundaries"
+  ],
+  "inputs": [
+    "requirements"
+  ],
+  "outputs": [
+    "architecture plan"
+  ]
+}
+

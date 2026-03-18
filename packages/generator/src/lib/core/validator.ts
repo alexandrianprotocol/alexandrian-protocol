@@ -98,8 +98,12 @@ export function validateArtifact(artifact: unknown): ValidationResult {
     }
     if (typeof identity.is_seed !== "boolean") errors.push("identity.is_seed must be boolean");
     const schema = identity.schema as string;
-    if (schema !== "alexandrian.kb.v2.4" && schema !== "alexandrian.kb.v2.5") {
-      errors.push("identity.schema must be 'alexandrian.kb.v2.4' or 'alexandrian.kb.v2.5'");
+    if (
+      schema !== "alexandrian.kb.v2.4" &&
+      schema !== "alexandrian.kb.v2.5" &&
+      schema !== "alexandrian.kb.v2.6"
+    ) {
+      errors.push("identity.schema must be 'alexandrian.kb.v2.4', 'alexandrian.kb.v2.5', or 'alexandrian.kb.v2.6'");
     }
   }
 
@@ -382,7 +386,7 @@ export function validateArtifact(artifact: unknown): ValidationResult {
         errors.push("payload.inline_artifact.steps must have 3–9 steps (got " + stepCount + ")");
       }
       const schema = (a.identity as Record<string, unknown>)?.schema as string | undefined;
-      if (schema === "alexandrian.kb.v2.5" && steps.length > 0) {
+      if ((schema === "alexandrian.kb.v2.5" || schema === "alexandrian.kb.v2.6") && steps.length > 0) {
         const seenIds = new Set<string>();
         const iface = payload.interface as { inputs?: { name: string }[]; outputs?: { name: string }[] } | undefined;
         const inputNames = new Set((iface?.inputs ?? []).map((i) => (i as { name?: string }).name).filter(Boolean) as string[]);

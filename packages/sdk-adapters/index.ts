@@ -77,6 +77,7 @@ export type {
   SelectedKB,
   SettlementPreview,
   KBType,
+  ConflictHint,
 } from "./lib/enhanceQuery.js";
 export {
   UpstashCacheAdapter,
@@ -93,8 +94,9 @@ export type { DomainRule } from "./lib/inferDomains.js";
 // ── 1-Line Client ─────────────────────────────────────────────────────────────
 // `AlexandrianQueryClient` is the query-enhancement facade.
 // `AlexandrianClient` (from lib/client.js, also exported above) is the ethers blockchain adapter.
-export { alexandrian, AlexandrianQueryClient, PRESETS } from "./lib/alexandrian.js";
+export { alexandrian, AlexandrianQueryClient, PRESETS, mergePresets } from "./lib/alexandrian.js";
 export type { AlexandrianEnhanceOptions, PresetName } from "./lib/alexandrian.js";
+export type { OutputMode } from "./lib/enhanceQuery.js";
 
 // ── Evaluation Mode ───────────────────────────────────────────────────────────
 // Low-level entry point: `evaluateArtifact(artifact, mode, options?)` + `parseFindings(llmOutput)`

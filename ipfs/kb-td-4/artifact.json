@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "2.6",
+  "kb_id": "kb.task.api.build.1",
+  "kbType": "TaskDecomposition",
+  "epistemicType": "procedural",
+  "domain": "engineering.api",
+  "title": "API Development — Task Decomposition",
+  "summary": "Decomposition for building a REST API: contracts → logic → validation/errors → security → testing.",
+  "tags": [
+    "api",
+    "rest",
+    "contracts",
+    "validation",
+    "security"
+  ],
+  "goal": "Build REST API",
+  "tasks": [
+    { "id": "t1", "description": "Define endpoints and contracts" },
+    { "id": "t2", "description": "Implement business logic" },
+    { "id": "t3", "description": "Add validation and error handling" },
+    { "id": "t4", "description": "Secure endpoints" },
+    { "id": "t5", "description": "Test API functionality" }
+  ]
+}
+

@@ -76,8 +76,11 @@ export type ArtifactLocation = "inline" | "ipfs" | "url" | "hybrid";
 
 // ── Section interfaces ─────────────────────────────────────────────────────
 
-/** Supported schema versions; v2.5 adds structured steps and cost_estimate. */
-export type ArtifactSchemaVersion = "alexandrian.kb.v2.4" | "alexandrian.kb.v2.5";
+/** Supported schema versions; v2.5 adds structured steps and cost_estimate; v2.6 is a backwards-compatible bump. */
+export type ArtifactSchemaVersion =
+  | "alexandrian.kb.v2.4"
+  | "alexandrian.kb.v2.5"
+  | "alexandrian.kb.v2.6";
 
 export interface KBIdentity {
   /** Filled by builder after hashing — excluded from hash computation. */

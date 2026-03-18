@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Query Playground — Alexandrian Protocol</title>
+  <meta name="description" content="See how Alexandrian enriches any query with structured knowledge blocks — before/after comparison, preset selector, and full KB transparency." />
+  <!-- DOMPurify: sanitize all untrusted HTML before DOM injection -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg:            #f6f7fb;
+      --surface:       #ffffff;
+      --surface-2:     #f0f2f9;
+      --surface-3:     #e8eaf4;
+      --border:        #e2e5f0;
+      --border-md:     #c8cce0;
+      --text-1:        #0f1220;
+      --text-2:        #3d4360;
+      --text-3:        #7c839e;
+      --text-4:        #a8aec5;
+      --indigo:        #4f46e5;
+      --indigo-lt:     #6366f1;
+      --indigo-pale:   #eef0ff;
+      --indigo-mid:    #c7d0fd;
+      --green:         #059669;
+      --green-pale:    #ecfdf5;
+      --amber:         #d97706;
+      --amber-pale:    #fffbeb;
+      --red:           #dc2626;
+      --red-pale:      #fef2f2;
+      --purple:        #7c3aed;
+      --purple-pale:   #f5f3ff;
+      --pink:          #db2777;
+      --pink-pale:     #fdf2f8;
+      --blue:          #2563eb;
+      --blue-pale:     #eff6ff;
+      --shadow-sm:     0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
+      --shadow-md:     0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.05);
+      --shadow-lg:     0 8px 28px rgba(0,0,0,.10), 0 4px 8px rgba(0,0,0,.06);
+      --radius-sm:     6px;
+      --radius-md:     10px;
+      --radius-lg:     14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ─────────────────────────────────────── */
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 64px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-left { display: flex; align-items: center; gap: 16px; }
+    .logo {
+      font-size: 17px; font-weight: 900; letter-spacing: -0.7px;
+      color: var(--text-1); text-decoration: none; display: flex; align-items: center;
+    }
+    .logo span { color: var(--indigo); }
+    .logo-dot {
+      width: 6px; height: 6px; background: var(--green);
+      border-radius: 50%; margin-left: 4px; margin-bottom: 8px;
+      animation: blink 2.5s ease-in-out infinite;
+      box-shadow: 0 0 6px rgba(5,150,105,.5);
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+    nav { display: flex; gap: 4px; margin-left: 8px; }
+    nav a {
+      font-size: .875rem; font-weight: 500;
+      color: var(--text-3); text-decoration: none;
+      padding: 6px 12px; border-radius: var(--radius-sm);
+      transition: color .15s, background .15s;
+    }
+    nav a:hover { color: var(--text-1); background: var(--surface-2); }
+    nav a.active { color: var(--indigo); background: var(--indigo-pale); }
+    .badges { display: flex; gap: 8px; }
+    .badge {
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .badge-base { background: var(--indigo-pale); border: 1px solid var(--indigo-mid); color: var(--indigo); }
+    .badge-live {
+      background: var(--green-pale); border: 1px solid rgba(5,150,105,.3); color: var(--green);
+    }
+    .badge-live::before {
+      content:''; width:5px; height:5px; border-radius:50%;
+      background: var(--green); animation: blink 2s ease-in-out infinite;
+    }
+
+    /* ── Query input zone ─────────────────────────────── */
+    .query-zone {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 40px 24px;
+    }
+    .zone-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--text-3); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .zone-title::before {
+      content:''; width:12px; height:3px; background: var(--indigo);
+      border-radius:2px; display:inline-block;
+    }
+
+    .presets { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .preset-pill {
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 12px; font-weight: 600;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .preset-pill:hover { border-color: var(--border-md); background: var(--surface-2); }
+    .pill-label { line-height: 1.2; }
+    .pill-desc  { font-size: 10px; font-weight: 400; color: var(--text-3); }
+    .preset-pill.p-coding      { --pc: var(--indigo); }
+    .preset-pill.p-security    { --pc: var(--red); }
+    .preset-pill.p-debug       { --pc: var(--amber); }
+    .preset-pill.p-architecture{ --pc: var(--purple); }
+    .preset-pill.p-performance { --pc: var(--green); }
+    .preset-pill.p-reliability { --pc: var(--blue); }
+    .preset-pill.active {
+      color: var(--pc);
+      background: color-mix(in srgb, var(--pc) 8%, white);
+      border-color: color-mix(in srgb, var(--pc) 35%, transparent);
+      font-weight: 700;
+    }
+    .preset-pill.active .pill-desc { color: color-mix(in srgb, var(--pc) 55%, var(--text-3)); }
+
+    .input-row { display: flex; gap: 12px; align-items: stretch; }
+    .query-input-wrap { flex: 1; position: relative; }
+    .query-input {
+      width: 100%;
+      padding: 14px 48px 14px 18px;
+      border: 1.5px solid var(--border-md);
+      border-radius: var(--radius-md);
+      font-size: 15px; font-family: inherit;
+      color: var(--text-1); background: var(--surface);
+      outline: none;
+      transition: border-color .18s, box-shadow .18s;
+    }
+    .query-input:focus {
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+    }
+    .query-input::placeholder { color: var(--text-4); }
+    .input-clear {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--surface-3); border: none; cursor: pointer;
+      color: var(--text-3); font-size: 12px; display: none;
+      align-items: center; justify-content: center;
+    }
+    .input-clear:hover { background: var(--border-md); }
+    .input-clear.visible { display: flex; }
+    .enhance-btn {
+      padding: 14px 28px;
+      background: var(--indigo); color: #fff;
+      border: none; border-radius: var(--radius-md);
+      font-size: 14px; font-weight: 700; font-family: inherit;
+      cursor: pointer; white-space: nowrap;
+      transition: background .18s, transform .1s;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 2px 6px rgba(79,70,229,.3);
+    }
+    .enhance-btn:hover { background: var(--indigo-lt); }
+    .enhance-btn:active { transform: scale(.98); }
+    .enhance-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+    .mode-tabs { display: flex; gap: 4px; margin-top: 16px; }
+    .mode-tab {
+      padding: 7px 16px; border-radius: var(--radius-sm);
+      font-size: 12px; font-weight: 600;
+      border: 1.5px solid var(--border);
+      background: var(--surface); color: var(--text-3);
+      cursor: pointer; transition: all .15s;
+    }
+    .mode-tab:hover { color: var(--text-2); border-color: var(--border-md); }
+    .mode-tab.active { background: var(--indigo-pale); color: var(--indigo); border-color: var(--indigo-mid); }
+
+    /* ── Split view ─────────────────────────────────── */
+    .split-view {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+      min-height: 400px;
+    }
+    .split-panel { padding: 28px 36px; position: relative; }
+    .split-panel.panel-before {
+      border-right: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .split-panel.panel-after { background: var(--surface); }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .panel-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel-label-before { color: var(--text-3); }
+    .panel-label-before::before {
+      content:''; display:inline-block; width:8px; height:8px;
+      border-radius:50%; background: var(--text-4);
+    }
+    .panel-label-after { color: var(--indigo); }
+    .panel-label-after::before {
+      content:''; display:inline-block; width:8px; height:8px;
+      border-radius:50%; background: var(--indigo); box-shadow: 0 0 8px rgba(79,70,229,.4);
+    }
+    .panel-badge {
+      font-size: 10px; padding: 3px 10px; border-radius: 999px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    }
+    .badge-standard { background: var(--surface-3); color: var(--text-3); }
+    .badge-enhanced { background: var(--indigo-pale); color: var(--indigo); border: 1px solid var(--indigo-mid); }
+
+    /* Before content */
+    .before-content { display: flex; flex-direction: column; gap: 16px; }
+    .before-query-box {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius-md); padding: 18px;
+      font-size: 15px; color: var(--text-2); line-height: 1.6; min-height: 64px;
+    }
+    .before-query-box.empty { color: var(--text-4); font-style: italic; }
+    .before-note {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 14px 16px;
+    }
+    .before-note-icon { font-size: 18px; flex-shrink: 0; }
+    .before-note-text { font-size: 12px; color: var(--text-3); line-height: 1.6; }
+    .before-note-title { font-weight: 600; color: var(--text-2); display: block; margin-bottom: 4px; }
+    .before-gaps { display: flex; flex-direction: column; gap: 6px; }
+    .gap-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-3); }
+    .gap-x { color: var(--red); font-weight: 700; font-size: 11px; }
+
+    /* After content */
+    .after-content { display: flex; flex-direction: column; gap: 14px; }
+    .improvement-banner {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--green-pale); border: 1px solid rgba(5,150,105,.25);
+      border-radius: var(--radius-md); padding: 10px 14px;
+      font-size: 12px; color: var(--green); font-weight: 600;
+      opacity: 0; transform: translateY(-6px);
+      transition: opacity .3s .2s, transform .3s .2s;
+    }
+    .improvement-banner.visible { opacity: 1; transform: none; }
+
+    .prompt-preview {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px; line-height: 1.75; color: var(--text-2);
+      padding: 16px; overflow: hidden;
+      position: relative; max-height: 210px;
+    }
+    .prompt-preview .kw-agent  { color: var(--indigo); font-weight: 600; }
+    .prompt-preview .kw-kb     { color: var(--green); font-weight: 700; }
+    .prompt-preview .kw-domain { color: var(--amber); }
+    .prompt-preview .kw-type   { color: var(--purple); }
+    .prompt-preview .kw-rule   { color: var(--red); font-weight: 600; }
+    .prompt-fade {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 48px;
+      background: linear-gradient(to bottom, transparent, var(--surface-2));
+      pointer-events: none;
+    }
+    .why-better { display: flex; gap: 8px; flex-wrap: wrap; }
+    .why-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-2); font-weight: 500; }
+    .why-item::before { content: '✔'; color: var(--green); font-size: 10px; }
+
+    /* Loading overlay */
+    .loading-overlay {
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,.92);
+      display: none; align-items: center; justify-content: center;
+      flex-direction: column; gap: 14px; z-index: 10;
+    }
+    .loading-overlay.active { display: flex; }
+    .spinner {
+      width: 28px; height: 28px; border: 3px solid var(--indigo-mid);
+      border-top-color: var(--indigo); border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 13px; font-weight: 600; color: var(--indigo); }
+    .loading-sub  { font-size: 11px; color: var(--text-3); margin-top: -8px; }
+
+    /* Confidence bar */
+    .confidence-bar { display: flex; align-items: center; gap: 10px; }
+    .conf-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px; color: var(--text-3); white-space: nowrap; }
+    .conf-track { flex: 1; height: 4px; background: var(--surface-3); border-radius: 2px; overflow: hidden; }
+    .conf-fill { height: 100%; border-radius: 2px; transition: width .5s ease; }
+    .conf-high { background: var(--green); }
+    .conf-med  { background: var(--amber); }
+    .conf-low  { background: var(--red); }
+    .conf-score { font-size: 11px; font-weight: 700; min-width: 28px; }
+
+    /* Warning banner */
+    .warn-banner {
+      display: flex; gap: 10px;
+      background: var(--amber-pale); border: 1px solid rgba(217,119,6,.25);
+      border-radius: var(--radius-md); padding: 12px 16px;
+      font-size: 12px; color: var(--amber);
+    }
+
+    /* Copy btn */
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: var(--radius-sm);
+      font-size: 10px; font-weight: 600; font-family: inherit;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text-3); cursor: pointer; transition: all .15s;
+    }
+    .copy-btn:hover { color: var(--indigo); border-color: var(--indigo-mid); }
+    .copy-btn.copied { color: var(--green); border-color: rgba(5,150,105,.3); }
+
+    /* ── KB Used panel ───────────────────────────────── */
+    .kb-panel { padding: 28px 36px; border-bottom: 1px solid var(--border); }
+    .kb-panel-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+    }
+    .kb-panel-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--text-3); display: flex; align-items: center; gap: 8px;
+    }
+    .kb-panel-title::before { content:''; width:12px; height:3px; background: var(--indigo); border-radius:2px; display:inline-block; }
+    .kb-count {
+      background: var(--indigo-pale); color: var(--indigo);
+      padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;
+    }
+    .debug-toggle {
+      font-size: 11px; color: var(--text-3); cursor: pointer;
+      display: flex; align-items: center; gap: 5px; font-weight: 500;
+      padding: 5px 10px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--surface); transition: all .15s;
+    }
+    .debug-toggle:hover { color: var(--text-2); border-color: var(--border-md); }
+    .debug-toggle.on { color: var(--purple); border-color: rgba(124,58,237,.3); background: var(--purple-pale); }
+
+    .kb-cards-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;
+    }
+    .kb-used-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 16px;
+      transition: box-shadow .2s, border-color .2s; cursor: pointer;
+    }
+    .kb-used-card:hover { box-shadow: var(--shadow-md); border-color: var(--border-md); }
+    .kb-used-card.expanded { box-shadow: var(--shadow-md); border-color: var(--border-md); }
+
+    .kb-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+    .kb-type-badge {
+      font-size: 9px; padding: 3px 8px; border-radius: var(--radius-sm);
+      font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    }
+    .t-Practice            { background: var(--green-pale);  color: var(--green);  border: 1px solid rgba(5,150,105,.2); }
+    .t-Feature             { background: var(--indigo-pale); color: var(--indigo); border: 1px solid var(--indigo-mid); }
+    .t-ComplianceChecklist,
+    .t-AuditChecklist      { background: var(--amber-pale);  color: var(--amber);  border: 1px solid rgba(217,119,6,.2); }
+    .t-SecurityRule        { background: var(--red-pale);    color: var(--red);    border: 1px solid rgba(220,38,38,.2); }
+    .t-BestPractice        { background: var(--blue-pale);   color: var(--blue);   border: 1px solid rgba(37,99,235,.2); }
+    .t-AntiPattern         { background: var(--pink-pale);   color: var(--pink);   border: 1px solid rgba(219,39,119,.2); }
+    .t-CodePattern         { background: var(--purple-pale); color: var(--purple); border: 1px solid rgba(124,58,237,.2); }
+    .t-Rubric              { background: var(--surface-3);   color: var(--text-2); border: 1px solid var(--border-md); }
+    .t-StateMachine        { background: var(--amber-pale);  color: var(--amber);  border: 1px solid rgba(217,119,6,.2); }
+    .t-PromptEngineering   { background: var(--purple-pale); color: var(--purple); border: 1px solid rgba(124,58,237,.2); }
+
+    .kb-card-title  { font-size: 12.5px; font-weight: 700; color: var(--text-1); line-height: 1.4; margin-bottom: 8px; }
+    .kb-card-domain { font-size: 10px; color: var(--text-3); font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
+    .kb-card-meta   { display: flex; gap: 12px; flex-wrap: wrap; }
+    .kb-meta-item   { font-size: 10px; color: var(--text-3); }
+    .kb-meta-val    { color: var(--text-2); font-weight: 600; }
+    .kb-expand-btn  { font-size: 10px; color: var(--indigo); font-weight: 600; margin-top: 10px; }
+    .kb-content-expanded {
+      display: none; margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .kb-used-card.expanded .kb-content-expanded { display: block; }
+    .kb-content-pre {
+      font-size: 11px; line-height: 1.7; color: var(--text-2);
+      white-space: pre-wrap; font-family: 'JetBrains Mono', monospace;
+      word-break: break-word;
+    }
+
+    /* Debug panel */
+    .debug-panel {
+      display: none; padding: 16px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius-md); margin-top: 16px;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      color: var(--text-2); line-height: 1.9;
+    }
+    .debug-panel.visible { display: block; }
+    .debug-key { color: var(--purple); font-weight: 600; }
+
+    /* Empty state */
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 20px; text-align: center; gap: 14px;
+    }
+    .empty-icon  { font-size: 36px; opacity: .4; }
+    .empty-title { font-size: 14px; font-weight: 600; color: var(--text-2); }
+    .empty-sub   { font-size: 12px; color: var(--text-3); max-width: 320px; line-height: 1.6; }
+
+    footer {
+      text-align: center; padding: 32px 40px;
+      font-size: 11px; color: var(--text-4);
+      display: flex; gap: 20px; justify-content: center; align-items: center;
+    }
+    footer a { color: var(--text-3); text-decoration: none; }
+    footer a:hover { color: var(--indigo); }
+
+    @media (max-width: 900px) {
+      .split-view { grid-template-columns: 1fr; }
+      .panel-before { border-right: none; border-bottom: 1px solid var(--border); }
+      .header { padding: 0 20px; }
+      .query-zone, .split-panel, .kb-panel { padding: 20px; }
+    }
+
+    /* ── Coverage badge ───────────────────────────────────────── */
+    .coverage-badge {
+      font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 12px;
+      text-transform: uppercase; letter-spacing: .6px; white-space: nowrap;
+    }
+    .cov-high   { background: var(--green-pale); color: var(--green); border: 1px solid rgba(5,150,105,.2); }
+    .cov-medium { background: var(--amber-pale); color: var(--amber); border: 1px solid rgba(217,119,6,.2); }
+    .cov-low    { background: var(--red-pale);   color: var(--red);   border: 1px solid rgba(220,38,38,.2); }
+
+    /* ── Trust signal in KB card ──────────────────────────────── */
+    .trust-badge {
+      font-size: 9px; padding: 2px 7px; border-radius: 4px; font-weight: 700;
+      letter-spacing: .3px; text-transform: uppercase; display: inline-block;
+    }
+    .trust-staked   { background: var(--green-pale);  color: var(--green);  border: 1px solid rgba(5,150,105,.2); }
+    .trust-unstaked { background: var(--surface-3);   color: var(--text-3); border: 1px solid var(--border-md); }
+
+    /* ── Retrieval reason in KB card ─────────────────────────── */
+    .kb-retrieval-reason {
+      font-size: 10px; color: var(--text-3); margin-top: 7px;
+      font-style: italic; line-height: 1.5;
+    }
+    .kb-retrieval-reason::before { content: 'Retrieved: '; font-style: normal; font-weight: 600; color: var(--indigo); }
+
+    /* ── KB parent count ─────────────────────────────────────── */
+    .kb-parents-note {
+      font-size: 10px; color: var(--text-4); margin-top: 4px;
+    }
+
+    /* ── Enhanced query row (below improvement banner) ───────── */
+    .enhanced-query-row {
+      padding: 7px 16px; background: var(--indigo-pale);
+      border-bottom: 1px solid var(--indigo-mid);
+      font-size: 11px; color: var(--text-3);
+      display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap;
+    }
+    .eq-label { font-weight: 700; color: var(--indigo); white-space: nowrap; }
+    .eq-text  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-2); word-break: break-all; }
+
+    /* ── Conflict banner ─────────────────────────────────────── */
+    .conflict-banner {
+      background: var(--amber-pale); border: 1px solid rgba(217,119,6,.3);
+      border-radius: var(--radius-sm); padding: 10px 14px; margin: 8px 16px;
+      font-size: 12px; color: var(--amber);
+      display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+    }
+    .conflict-icon { flex-shrink: 0; }
+
+    /* ── Suggestions panel ───────────────────────────────────── */
+    .suggestions-panel {
+      padding: 20px 36px; border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .sug-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .sug-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--text-3);
+    }
+    .sug-label::before { content:''; width:12px; height:3px; background: var(--indigo); border-radius:2px; display:inline-block; margin-right:8px; }
+    .sug-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sug-chip {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 7px 16px; font-size: 12px; color: var(--text-2);
+      cursor: pointer; transition: all .15s; font-weight: 500;
+    }
+    .sug-chip:hover {
+      background: var(--indigo-pale); border-color: var(--indigo-mid);
+      color: var(--indigo); transform: translateY(-1px); box-shadow: var(--shadow-sm);
+    }
+    .sug-chip::before { content: '→ '; color: var(--text-4); }
+    @media (max-width: 900px) { .suggestions-panel { padding: 16px 20px; } }
+
+    /* ── Retrieval profile selector ──────────────────────────── */
+    .profile-row {
+      display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap;
+    }
+    .profile-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--text-3); white-space: nowrap;
+    }
+    .profile-btns { display: flex; gap: 6px; }
+    .profile-btn {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 6px 16px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); background: var(--surface);
+      font-size: 12px; font-weight: 600; color: var(--text-2);
+      cursor: pointer; transition: all .15s; gap: 1px; line-height: 1.2;
+    }
+    .profile-btn span { font-size: 9px; font-weight: 400; color: var(--text-4); }
+    .profile-btn:hover { border-color: var(--border-md); background: var(--surface-2); }
+    .profile-btn.active {
+      background: var(--indigo-pale); border-color: var(--indigo-mid); color: var(--indigo);
+    }
+    .profile-btn.active span { color: var(--indigo); opacity: .7; }
+
+    /* ── Freshness note in KB card ───────────────────────────── */
+    .kb-freshness {
+      font-size: 10px; color: var(--text-4); margin-top: 4px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .kb-freshness::before { content: '🕐'; font-size: 9px; }
+    .freshness-recent { color: var(--green); font-weight: 600; }
+    .freshness-stale  { color: var(--amber); }
+
+    /* ── Memory badge in KB card ─────────────────────────────── */
+    .memory-badge {
+      font-size: 9px; padding: 2px 7px; border-radius: 4px; font-weight: 700;
+      background: var(--purple-pale); color: var(--purple);
+      border: 1px solid rgba(124,58,237,.2); letter-spacing: .3px;
+    }
+
+    /* ── "What's missing" panel ──────────────────────────────── */
+    .missing-panel {
+      padding: 20px 36px; border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .missing-header {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--amber); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .missing-header::before { content:''; width:12px; height:3px; background: var(--amber); border-radius:2px; }
+    .missing-items { display: flex; flex-direction: column; gap: 6px; }
+    .missing-item {
+      font-size: 12px; color: var(--text-2); background: var(--amber-pale);
+      border: 1px solid rgba(217,119,6,.2); border-radius: var(--radius-sm);
+      padding: 8px 12px; display: flex; align-items: flex-start; gap: 8px;
+    }
+    .missing-item::before { content: '⚠'; color: var(--amber); flex-shrink: 0; }
+    @media (max-width: 900px) { .missing-panel, .profile-row { padding: 16px 20px; } }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">Alexandrian<span>Protocol</span><div class="logo-dot"></div></div>
+    <nav>
+      <a href="query.html" class="active">Query</a>
+      <a href="https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29" target="_blank" rel="noopener noreferrer">Registry ↗</a>
+      <a href="kb-publish.html">Publish</a>
+      <a href="earnings.html">Earnings</a>
+    </nav>
+  </div>
+  <div class="badges">
+    <span class="badge badge-base">Base Mainnet</span>
+    <span class="badge badge-live">Live</span>
+  </div>
+</header>
+
+<!-- ── Query zone ── -->
+<div class="query-zone">
+  <div class="zone-title">Query Playground</div>
+
+  <!-- Preset pills -->
+  <div class="presets" id="presets">
+    <div class="preset-pill p-coding active"       data-preset="coding"        tabindex="0" role="button" onclick="selectPreset('coding')">
+      <span class="pill-label">Coding</span>
+      <span class="pill-desc">Practices, patterns &amp; implementations</span>
+    </div>
+    <div class="preset-pill p-security"            data-preset="security"      tabindex="0" role="button" onclick="selectPreset('security')">
+      <span class="pill-label">Security</span>
+      <span class="pill-desc">Find vulnerabilities and risks</span>
+    </div>
+    <div class="preset-pill p-debug"               data-preset="debug"         tabindex="0" role="button" onclick="selectPreset('debug')">
+      <span class="pill-label">Debug</span>
+      <span class="pill-desc">Identify issues and fixes</span>
+    </div>
+    <div class="preset-pill p-architecture"        data-preset="architecture"  tabindex="0" role="button" onclick="selectPreset('architecture')">
+      <span class="pill-label">Architecture</span>
+      <span class="pill-desc">Design decisions and trade-offs</span>
+    </div>
+    <div class="preset-pill p-performance"         data-preset="performance"   tabindex="0" role="button" onclick="selectPreset('performance')">
+      <span class="pill-label">Performance</span>
+      <span class="pill-desc">Optimization and efficiency</span>
+    </div>
+    <div class="preset-pill p-reliability"         data-preset="reliability"   tabindex="0" role="button" onclick="selectPreset('reliability')">
+      <span class="pill-label">Reliability</span>
+      <span class="pill-desc">Fault tolerance and resilience</span>
+    </div>
+  </div>
+
+  <!-- Input row -->
+  <div class="input-row">
+    <div class="query-input-wrap">
+      <input
+        type="text" id="queryInput" class="query-input"
+        placeholder="Try: implement rate limiting with Redis and Express"
+        autocomplete="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')enhance()"
+        oninput="onInputChange()"
+      />
+      <button class="input-clear" id="clearBtn" onclick="clearInput()" aria-label="Clear">✕</button>
+    </div>
+    <button class="enhance-btn" id="enhanceBtn" onclick="enhance()">
+      ⚡ Enhance
+    </button>
+  </div>
+
+  <!-- Mode tabs + profile row -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="setMode('enhance',this)">Enhance</button>
+      <button class="mode-tab" onclick="setMode('review',this)">Review</button>
+      <button class="mode-tab" onclick="setMode('audit',this)">Audit</button>
+    </div>
+    <div class="profile-row">
+      <span class="profile-label">Depth</span>
+      <div class="profile-btns" id="profileBtns">
+        <button class="profile-btn" data-profile="fast"     onclick="selectProfile('fast',this)">⚡ Fast<span>2 KBs</span></button>
+        <button class="profile-btn active" data-profile="balanced" onclick="selectProfile('balanced',this)">⚖ Balanced<span>4 KBs</span></button>
+        <button class="profile-btn" data-profile="deep"     onclick="selectProfile('deep',this)">🔍 Deep<span>7 KBs</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Split view ── -->
+<div class="split-view">
+
+  <!-- LEFT: Without Alexandrian -->
+  <div class="split-panel panel-before">
+    <div class="panel-header">
+      <div class="panel-label panel-label-before">Without Alexandrian</div>
+      <span class="panel-badge badge-standard">Standard</span>
+    </div>
+    <div class="before-content">
+      <div class="before-query-box empty" id="beforeQuery">Your query will appear here…</div>
+      <div class="before-note">
+        <span class="before-note-icon">💬</span>
+        <div class="before-note-text">
+          <span class="before-note-title">Standard LLM approach</span>
+          Your question goes directly to the model — no verified practices, no structured context, no source attribution.
+        </div>
+      </div>
+      <div class="before-gaps">
+        <div class="gap-item"><span class="gap-x">✗</span> No verified practices or procedures</div>
+        <div class="gap-item"><span class="gap-x">✗</span> No code patterns or implementation templates</div>
+        <div class="gap-item"><span class="gap-x">✗</span> No source attribution or provenance</div>
+        <div class="gap-item"><span class="gap-x">✗</span> No type-specific reasoning mode</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: With Alexandrian -->
+  <div class="split-panel panel-after">
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+      <div class="loading-text">Enhancing with structured knowledge…</div>
+      <div class="loading-sub" id="loadingSub">Querying subgraph · Selecting KBs · Composing prompt</div>
+    </div>
+
+    <div class="panel-header">
+      <div class="panel-label panel-label-after">With Alexandrian</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="panel-badge badge-enhanced" id="modeLabel">Enhance</span>
+        <button class="copy-btn" id="copyPromptBtn" onclick="copyPrompt()" style="display:none">📋 Copy prompt</button>
+      </div>
+    </div>
+
+    <div class="after-content">
+      <div class="improvement-banner" id="improvementBanner">
+        ✓ <span id="improvementText">Improved using structured knowledge blocks</span>
+      </div>
+
+      <!-- Enhanced query row: shows what retrieval actually used -->
+      <div class="enhanced-query-row" id="enhancedQueryRow" style="display:none">
+        <span class="eq-label">Retrieved:</span>
+        <span class="eq-text" id="enhancedQueryText"></span>
+      </div>
+
+      <div class="prompt-preview" id="promptPreview">
+        <span id="promptText" style="color:var(--text-4);font-style:italic">Enhanced system prompt will appear here…</span>
+        <div class="prompt-fade" id="promptFade" style="display:none"></div>
+      </div>
+
+      <div class="why-better" id="whyBetter" style="display:none">
+        <div class="why-item">Structured steps</div>
+        <div class="why-item">Verified practices</div>
+        <div class="why-item">Type-aware reasoning</div>
+        <div class="why-item">Source attribution</div>
+      </div>
+
+      <div class="confidence-bar" id="confidenceBar" style="display:none">
+        <span class="conf-label">Confidence</span>
+        <div class="conf-track"><div class="conf-fill" id="confFill" style="width:0%"></div></div>
+        <span class="conf-score" id="confScore"></span>
+      </div>
+
+      <div class="warn-banner" id="warnBanner" style="display:none">
+        ⚠️ <span id="warnText"></span>
+      </div>
+
+      <!-- Conflict banner: shown when directive KBs from different domains are selected -->
+      <div class="conflict-banner" id="conflictBanner" style="display:none">
+        <span class="conflict-icon">⚠️</span>
+        <span id="conflictText"></span>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">⚡</div>
+        <div class="empty-title">Ready to enhance</div>
+        <div class="empty-sub">Type a query above and click Enhance to see the difference structured knowledge makes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── KB Used panel ── -->
+<div class="kb-panel" id="kbPanel" style="display:none">
+  <div class="kb-panel-header">
+    <div class="kb-panel-title">
+      Knowledge Used
+      <span class="kb-count" id="kbCount">0</span>
+      <span class="coverage-badge" id="coverageBadge" style="display:none"></span>
+    </div>
+    <button class="debug-toggle" id="debugToggle" onclick="toggleDebug()">Show debug info</button>
+  </div>
+  <div class="kb-cards-grid" id="kbCardsGrid"></div>
+  <div class="debug-panel" id="debugPanel"></div>
+</div>
+
+<!-- Suggestions panel: what to explore next -->
+<div class="suggestions-panel" id="suggestionsPanel" style="display:none">
+  <div class="sug-header">
+    <span class="sug-label">What to explore next</span>
+  </div>
+  <div class="sug-chips" id="sugChips"></div>
+</div>
+
+<!-- Missing coverage panel -->
+<div class="missing-panel" id="missingPanel" style="display:none">
+  <div class="missing-header">Knowledge gaps detected</div>
+  <div class="missing-items" id="missingItems"></div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <span>Alexandrian Protocol · Base Mainnet</span>
+  <a href="https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29" target="_blank" rel="noopener noreferrer">Contract ↗</a>
+  <a href="https://thegraph.com/studio/subgraph/alexandrian-protocol/" target="_blank" rel="noopener noreferrer">Subgraph ↗</a>
+  <a href="kb-eng.html">KB Collection</a>
+</footer>
+
+<script>
+'use strict';
+
+// ── Sanitization helpers ──────────────────────────────────────────────────────
+// All untrusted content (IPFS artifacts, subgraph responses) is sanitized via
+// DOMPurify before being inserted into the DOM. Text-only paths use textContent.
+
+function sanitize(html) {
+  return DOMPurify.sanitize(html, { ALLOWED_TAGS: ['span'], ALLOWED_ATTR: ['class'] });
+}
+
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = String(str || '');
+  return d.innerHTML;
+}
+
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const SUBGRAPH = 'https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest';
+const IPFS_GATEWAYS = ['https://ipfs.io/ipfs', 'https://cloudflare-ipfs.com/ipfs'];
+const IPFS_TIMEOUT = 6000;
+
+// ── Profile limits ─────────────────────────────────────────────────────────────
+const PROFILE_LIMITS = { fast: 2, balanced: 4, deep: 7 };
+const KB_MEMORY_KEY  = 'alex_kb_memory';
+
+// ── Preset definitions ────────────────────────────────────────────────────────
+
+const PRESETS = {
+  coding: {
+    label: 'Coding', outputMode: 'steps', limit: 4,
+    types: ['Practice','CodePattern','BestPractice','Feature','AntiPattern'],
+    domains: null,
+    examples: ['implement rate limiting with Redis and Express','build a retry mechanism with exponential backoff','how do I design a connection pool','implement JWT refresh token rotation'],
+  },
+  security: {
+    label: 'Security', outputMode: 'checklist', limit: 4,
+    types: ['SecurityRule','AuditChecklist','AntiPattern','ViolationExample','ComplianceChecklist'],
+    domains: ['cybersecurity.threat_detection','cybersecurity.vulnerability_analysis','antipattern.security','auth.access_control','engineering.api.security','engineering.compliance'],
+    examples: ['how do I secure my login endpoint','review express middleware for vulnerabilities','what are common API authentication mistakes'],
+  },
+  debug: {
+    label: 'Debug', outputMode: 'steps', limit: 4,
+    types: ['Practice','CodePattern','AntiPattern','BestPractice'],
+    domains: null,
+    examples: ['why is my Promise chain swallowing errors','debug memory leak in a Node.js service','fix race condition in async JavaScript'],
+  },
+  architecture: {
+    label: 'Architecture', outputMode: 'framework', limit: 4,
+    types: ['Practice','Feature','BestPractice','Rubric'],
+    domains: null,
+    examples: ['design a multi-tenant SaaS backend','how do I structure a microservices system','architect a real-time notification system'],
+  },
+  performance: {
+    label: 'Performance', outputMode: 'steps', limit: 4,
+    types: ['Practice','BestPractice','Feature','Rubric'],
+    domains: null,
+    examples: ['reduce API latency under high load','optimize database queries for a read-heavy workload','improve cold start time in Lambda functions'],
+  },
+  reliability: {
+    label: 'Reliability', outputMode: 'steps', limit: 4,
+    types: ['Practice','ComplianceChecklist','BestPractice','Feature'],
+    domains: null,
+    examples: ['make my service handle network failures gracefully','implement circuit breaker pattern','design for 99.9% uptime SLA'],
+  },
+};
+
+// ── Output mode contracts ─────────────────────────────────────────────────────
+
+const OUTPUT_CONTRACTS = {
+  steps: [
+    'Lead with a numbered step list derived directly from the Practice or CodePattern KBs above.',
+    'Every step MUST cite its source KB and step ID (e.g. KB-1, step s3).',
+    'Include a working code snippet for any step that involves code.',
+    "End with a one-line 'What to do next' — the single most important follow-up action.",
+    'DO NOT provide generic advice not grounded in the KBs above.',
+  ],
+  checklist: [
+    'Output a markdown checklist — each item maps to a checklist item from the KBs above.',
+    'Format: `- [ ] [SEVERITY] Item description (KB-N, item_X)`',
+    'Group by severity: CRITICAL → HIGH → MEDIUM → LOW.',
+    'For every CRITICAL or HIGH item: add a one-line remediation.',
+    'DO NOT add items not present in the KBs above.',
+  ],
+  framework: [
+    'Structure your response as: Context → Options → Recommendation → Trade-offs.',
+    'Every claim MUST be grounded in a specific KB (cite KB-N inline).',
+    'If the KBs contain a decision framework or state machine: apply it explicitly.',
+    "End with a concrete 'Start here' — one action the reader can take immediately.",
+    'DO NOT answer from general knowledge when the KBs cover the topic.',
+  ],
+};
+
+// ── Intent detection ──────────────────────────────────────────────────────────
+
+const COMMAND_PREFIXES = ['how do i','how to','how can i','implement','write','build','create','add','fix','debug','solve','resolve','refactor','optimize','improve','migrate','set up','setup','configure','deploy','make','generate','design'];
+
+function detectCommandIntent(q) {
+  const lq = q.toLowerCase().trimStart();
+  return COMMAND_PREFIXES.some(p => lq.startsWith(p));
+}
+
+// ── Retrieval intelligence helpers ────────────────────────────────────────────
+
+function deriveTrustSignal(stakeAmount) {
+  if (stakeAmount === undefined || stakeAmount === null) return null;
+  try { return BigInt(stakeAmount) > 0n ? 'staked' : 'unstaked'; } catch { return null; }
+}
+
+function buildRetrievalReason(query, kb, artifact) {
+  const tokens = query.toLowerCase().split(/[\s,;.?!]+/).filter(t => t.length > 3);
+  const domainParts = kb.domain.toLowerCase().split('.');
+  const titleTokens = (artifact && artifact.title ? artifact.title : '').toLowerCase().split(/\s+/);
+  const tagTokens = (artifact && artifact.tags ? artifact.tags : []).map(t => String(t).toLowerCase());
+
+  const matchedTokens = tokens.filter(t =>
+    domainParts.some(p => p.includes(t) || t.includes(p)) ||
+    titleTokens.some(p => p.includes(t) || t.includes(p)) ||
+    tagTokens.some(p => p.includes(t))
+  );
+
+  const signals = [];
+  if (matchedTokens.length > 0) {
+    signals.push(`matched '${matchedTokens.slice(0, 2).join("' + '")}'`);
+  } else {
+    signals.push(`domain ${kb.domain}`);
+  }
+  const boost = TYPE_BOOST[kb.kbType] || 0;
+  if (boost >= 18) signals.push(`priority type (${kb.kbType})`);
+  if ((kb.reputationScore || 0) >= 200) {
+    signals.push('high reputation');
+  } else if (Number(kb.uniquePayerCount || 0) > 3) {
+    signals.push(`${kb.uniquePayerCount} unique consumers`);
+  } else if (Number(kb.settlementCount || 0) > 5) {
+    signals.push(`${kb.settlementCount} settlements`);
+  }
+  return signals.join(' + ');
+}
+
+function computeCoverage(kbsFound, avgRep, selected) {
+  const typeCount = new Set(selected.map(kb => kb.kbType)).size;
+  if (kbsFound >= 5 && avgRep >= 150 && typeCount >= 2) return 'high';
+  if (kbsFound >= 2 && avgRep >= 30) return 'medium';
+  return 'low';
+}
+
+function buildSuggestions(selected, outputMode) {
+  const types = new Set(selected.map(kb => kb.kbType));
+  const sug = [];
+  if (types.has('SecurityRule') || types.has('AuditChecklist') || types.has('AntiPattern') || types.has('ViolationExample')) {
+    sug.push('audit for compliance requirements');
+    sug.push('test authentication edge cases');
+  } else if (types.has('Practice') || types.has('CodePattern') || types.has('BestPractice')) {
+    sug.push('optimize this for production load');
+    sug.push('write unit tests for this pattern');
+  } else if (types.has('Feature') || types.has('StateMachine')) {
+    sug.push('validate acceptance criteria');
+    sug.push('design error handling strategies');
+  } else if (types.has('Rubric') || types.has('ComplianceChecklist')) {
+    sug.push('apply checklist to your implementation');
+    sug.push('document gaps and remediation plan');
+  }
+  if (sug.length === 0) {
+    sug.push('explore related best practices');
+    sug.push('review for edge cases');
+  }
+  if (sug.length < 3) {
+    if (outputMode === 'steps') sug.push('generate tests for each step');
+    else if (outputMode === 'checklist') sug.push('schedule remediation items');
+    else sug.push('prototype the recommended approach');
+  }
+  return sug.slice(0, 3);
+}
+
+function buildEnhancedQuery(query, domains, types, cmdIntent) {
+  const parts = [query];
+  if (domains && domains.length) parts.push(`[domains: ${domains.join(', ')}]`);
+  if (types && types.length) parts.push(`[types: ${types.slice(0, 3).join(', ')}${types.length > 3 ? '…' : ''}]`);
+  if (cmdIntent) parts.push('[intent: implementation]');
+  return parts.join(' ');
+}
+
+// ── KB freshness ──────────────────────────────────────────────────────────────
+
+function computeFreshness(timestamp) {
+  if (!timestamp) return null;
+  const ageMs = Date.now() - (Number(timestamp) * 1000);
+  if (ageMs < 0) return { label: 'just published', cls: 'freshness-recent' };
+  const days = Math.floor(ageMs / 86400000);
+  if (days === 0) return { label: 'today',        cls: 'freshness-recent' };
+  if (days === 1) return { label: 'yesterday',    cls: 'freshness-recent' };
+  if (days < 7)   return { label: `${days}d ago`, cls: 'freshness-recent' };
+  if (days < 30)  return { label: `${Math.floor(days / 7)}w ago`,  cls: '' };
+  if (days < 365) return { label: `${Math.floor(days / 30)}mo ago`, cls: 'freshness-stale' };
+  return { label: `${Math.floor(days / 365)}y ago`, cls: 'freshness-stale' };
+}
+
+// ── KB memory (localStorage) ──────────────────────────────────────────────────
+
+function loadMemory() {
+  try { return JSON.parse(localStorage.getItem(KB_MEMORY_KEY) || '{}'); } catch { return {}; }
+}
+
+function saveMemory(selected) {
+  const mem = loadMemory();
+  selected.forEach(kb => { const h = kb.contentHash; mem[h] = (mem[h] || 0) + 1; });
+  // Trim to top 200 entries to avoid unbounded growth
+  const trimmed = Object.fromEntries(Object.entries(mem).sort((a, b) => b[1] - a[1]).slice(0, 200));
+  try { localStorage.setItem(KB_MEMORY_KEY, JSON.stringify(trimmed)); } catch { /* storage full */ }
+}
+
+function getMemoryBoost(kb, memory) {
+  return Math.min(25, (memory[kb.contentHash] || 0) * 5);
+}
+
+// ── Composable preset merging ─────────────────────────────────────────────────
+
+function getMergedConfig() {
+  const active = [...activePresets].map(k => PRESETS[k]).filter(Boolean);
+  if (active.length === 0) return PRESETS.coding;
+  if (active.length === 1) return active[0];
+  // Merge types (union, deduplicated)
+  const types   = [...new Set(active.flatMap(c => c.types || []))];
+  // Merge domains: if any preset is cross-domain (null), use null for max coverage
+  const domains = active.some(c => !c.domains) ? null
+    : [...new Set(active.flatMap(c => c.domains))];
+  // outputMode from first active preset; examples merged
+  const outputMode = active[0].outputMode;
+  const examples   = [...new Set(active.flatMap(c => c.examples || []))];
+  return { label: [...activePresets].join(' + '), outputMode, types, domains, examples };
+}
+
+// ── "What's Missing" gap detection ───────────────────────────────────────────
+
+const SEMANTIC_GAPS = [
+  { tokens: ['test','spec','jest','mocha','vitest','coverage'],  missing: 'test coverage strategy' },
+  { tokens: ['monitor','observ','metric','alert','grafana','datadog'], missing: 'monitoring strategy' },
+  { tokens: ['auth','login','token','oauth','jwt','session'],    missing: 'authentication security rule' },
+  { tokens: ['error','fail','except','retry','fallback'],        missing: 'error-handling procedure' },
+  { tokens: ['cache','redis','memcach','ttl'],                   missing: 'caching strategy' },
+  { tokens: ['deploy','ci','cd','pipeline','docker','k8s'],      missing: 'deployment practice' },
+];
+
+function detectMissingCoverage(selected, cfg, query) {
+  const gaps = [];
+  const foundTypes = new Set(selected.map(kb => kb.kbType));
+
+  // Type gaps: types requested by preset but not found
+  const expectedOnchain = (cfg.types || []).filter(t => ONCHAIN_TYPES.has(t));
+  const missingTypes = expectedOnchain.filter(t => !foundTypes.has(t));
+  if (missingTypes.length > 0) {
+    gaps.push(`No ${missingTypes[0]} KB retrieved — ${missingTypes[0].toLowerCase()} coverage absent`);
+  }
+
+  // Semantic gaps from query tokens
+  const lq = query.toLowerCase();
+  for (const g of SEMANTIC_GAPS) {
+    if (gaps.length >= 3) break;
+    if (g.tokens.some(t => lq.includes(t))) {
+      // Only flag if the gap type isn't already represented
+      const covered = selected.some(kb =>
+        g.tokens.some(t => kb.domain.toLowerCase().includes(t))
+      );
+      if (!covered && !gaps.some(x => x.includes(g.missing))) {
+        gaps.push(`Missing: ${g.missing}`);
+      }
+    }
+  }
+  return gaps.slice(0, 3);
+}
+
+// ── Profile UI ────────────────────────────────────────────────────────────────
+
+function selectProfile(p, btn) {
+  currentProfile = p;
+  document.querySelectorAll('.profile-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+const DIRECTIVE_TYPES = new Set(['Practice', 'BestPractice', 'SecurityRule', 'Feature']);
+
+function detectConflicts(selected) {
+  const byType = {};
+  selected.forEach((kb, i) => {
+    if (!DIRECTIVE_TYPES.has(kb.kbType)) return;
+    if (!byType[kb.kbType]) byType[kb.kbType] = [];
+    byType[kb.kbType].push({ kb, idx: i });
+  });
+  const conflicts = [];
+  Object.entries(byType).forEach(([type, kbs]) => {
+    if (kbs.length < 2) return;
+    const domains = new Set(kbs.map(({ kb }) => kb.domain.split('.')[0]));
+    if (domains.size > 1) {
+      conflicts.push({
+        kbIds: kbs.map(({ idx }) => `KB-${idx + 1}`),
+        kbType: type,
+        note: `${kbs.map(({ idx }) => `KB-${idx + 1}`).join(' and ')} are both ${type} KBs from different domains (${[...domains].join(', ')}) — recommendations may differ.`,
+      });
+    }
+  });
+  return conflicts;
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
+
+let activePresets      = new Set(['coding']); // multi-select
+let currentProfile     = 'balanced';
+let currentMode        = 'enhance';
+let debugMode          = false;
+let enrichedPromptText = '';
+
+// ── UI ────────────────────────────────────────────────────────────────────────
+
+function selectPreset(name) {
+  // Toggle: add if absent, remove if present (keep ≥1 always active)
+  if (activePresets.has(name) && activePresets.size > 1) {
+    activePresets.delete(name);
+  } else {
+    activePresets.add(name);
+  }
+  // Sync pill states
+  document.querySelectorAll('.preset-pill').forEach(p => {
+    p.classList.toggle('active', activePresets.has(p.dataset.preset));
+  });
+  // Update placeholder from merged examples
+  const cfg = getMergedConfig();
+  const ex = cfg.examples || PRESETS.coding.examples;
+  document.getElementById('queryInput').placeholder = 'Try: ' + ex[Math.floor(Math.random() * ex.length)];
+}
+
+function setMode(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('modeLabel').textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+  document.getElementById('enhanceBtn').textContent = '⚡ ' + (mode === 'enhance' ? 'Enhance' : mode === 'review' ? 'Review' : 'Audit');
+}
+
+function onInputChange() {
+  document.getElementById('clearBtn').classList.toggle('visible', document.getElementById('queryInput').value.length > 0);
+}
+
+function clearInput() {
+  document.getElementById('queryInput').value = '';
+  document.getElementById('clearBtn').classList.remove('visible');
+  document.getElementById('queryInput').focus();
+}
+
+function toggleDebug() {
+  debugMode = !debugMode;
+  const btn = document.getElementById('debugToggle');
+  btn.textContent = debugMode ? 'Hide debug info' : 'Show debug info';
+  btn.classList.toggle('on', debugMode);
+  document.getElementById('debugPanel').classList.toggle('visible', debugMode);
+}
+
+function copyPrompt() {
+  if (!enrichedPromptText) return;
+  navigator.clipboard.writeText(enrichedPromptText).then(() => {
+    const btn = document.getElementById('copyPromptBtn');
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy prompt'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ── Subgraph ──────────────────────────────────────────────────────────────────
+
+async function querySubgraph(domains, limit) {
+  const hasDomains = domains && domains.length > 0;
+  // Build GQL string from safe known values only — no user input interpolated
+  const domainJson = hasDomains ? JSON.stringify(domains) : null;
+  const gql = hasDomains
+    ? `query{knowledgeBlocks(first:${limit},where:{domain_in:${domainJson},isSlashed:false},orderBy:reputationScore,orderDirection:desc){contentHash domain kbType cid queryFee reputationScore settlementCount timestamp stakeAmount uniquePayerCount parents{parent{id}}}}`
+    : `query{knowledgeBlocks(first:${limit},where:{isSlashed:false},orderBy:reputationScore,orderDirection:desc){contentHash domain kbType cid queryFee reputationScore settlementCount timestamp stakeAmount uniquePayerCount parents{parent{id}}}}`;
+
+  const res = await fetch(SUBGRAPH, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: gql }),
+  });
+  if (!res.ok) throw new Error(`Subgraph ${res.status}`);
+  const json = await res.json();
+  if (json.errors) throw new Error(json.errors[0].message);
+  // Normalise kbType: subgraph returns numeric (0-5), all internal logic needs string names
+  return (json.data.knowledgeBlocks || []).map(kb => ({ ...kb, kbType: resolveKbType(kb.kbType) }));
+}
+
+// ── kbType normalisation ──────────────────────────────────────────────────────
+// The subgraph returns kbType as a JavaScript number (0–5), not a string.
+// resolveKbType maps 0→"Practice", 1→"Feature", … so that every downstream
+// consumer (TYPE_BOOST, ONCHAIN_TYPES filter, renderKBCard, missing detection)
+// sees consistent string names.
+
+const KB_TYPE_NAMES = ['Practice','Feature','StateMachine','PromptEngineering','ComplianceChecklist','Rubric'];
+
+function resolveKbType(raw) {
+  if (typeof raw === 'number') return KB_TYPE_NAMES[raw] ?? String(raw);
+  const n = parseInt(raw, 10);
+  if (!isNaN(n) && String(n) === String(raw)) return KB_TYPE_NAMES[n] ?? String(raw);
+  return raw; // already a string like "Practice"
+}
+
+// ── Selection ─────────────────────────────────────────────────────────────────
+
+const TYPE_BOOST = { Practice:20, ComplianceChecklist:18, SecurityRule:18, AuditChecklist:16, Rubric:14, Feature:10, BestPractice:10, AntiPattern:8, CodePattern:8 };
+const CMD_BOOST  = { Practice:30, CodePattern:25, Feature:15 };
+
+// On-chain kbType enum (only these 6 exist in the subgraph).
+// Extended types (CodePattern, BestPractice, AntiPattern) live in IPFS artifacts only.
+const ONCHAIN_TYPES = new Set(['Practice','Feature','StateMachine','PromptEngineering','ComplianceChecklist','Rubric']);
+
+function selectKBs(rawKBs, types, limit, cmdIntent, memory = {}) {
+  // Filter to on-chain types only that appear in the requested list
+  const onchainRequested = types ? types.filter(t => ONCHAIN_TYPES.has(t)) : [];
+  let filtered = onchainRequested.length > 0
+    ? rawKBs.filter(kb => onchainRequested.includes(kb.kbType))
+    : rawKBs;
+  // Fallback: if filter yields nothing, use all available KBs (graceful degradation)
+  if (filtered.length === 0) filtered = rawKBs;
+  const scored = filtered.map(kb => {
+    const b = (TYPE_BOOST[kb.kbType] || 0)
+      + (cmdIntent ? (CMD_BOOST[kb.kbType] || 0) : 0)
+      + getMemoryBoost(kb, memory); // #8 — boost previously-used KBs
+    return { kb, score: (kb.reputationScore || 0) + b };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  let sel = scored.slice(0, limit).map(s => s.kb);
+  // Guarantee Practice if available
+  if (!sel.some(k => k.kbType === 'Practice') && sel.length >= limit) {
+    const idx = scored.findIndex((s, i) => i >= limit && s.kb.kbType === 'Practice');
+    if (idx !== -1) sel = [...sel.slice(0, limit - 1), scored[idx].kb];
+  }
+  return { selected: sel, totalFound: rawKBs.length, afterFilter: filtered.length };
+}
+
+// ── IPFS ──────────────────────────────────────────────────────────────────────
+
+async function fetchArtifact(cid) {
+  if (!cid) return null;
+  for (const gw of IPFS_GATEWAYS) {
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), IPFS_TIMEOUT);
+      const res = await fetch(`${gw}/${cid}`, { signal: ctrl.signal });
+      clearTimeout(t);
+      if (!res.ok) continue;
+      return await res.json();
+    } catch { /* next */ }
+  }
+  return null;
+}
+
+// ── Prompt composition ────────────────────────────────────────────────────────
+
+const AGENT_BEHAVIOR = {
+  Practice: 'Execute the steps procedurally. Follow each step in order.',
+  Feature: 'Treat as a deployable specification. Map acceptance criteria to implementation.',
+  ComplianceChecklist: 'Verify each requirement. Flag CRITICAL/HIGH severity items first.',
+  SecurityRule: 'Scan for violations. Classify each finding by severity: CRITICAL/HIGH/MEDIUM/LOW.',
+  AuditChecklist: 'Verify each checklist item. Mark PASS/FAIL/WARNING with evidence.',
+  BestPractice: 'Compare the artifact against this standard. Identify deviations explicitly.',
+  AntiPattern: 'Check whether this anti-pattern appears. Flag every instance found.',
+  CodePattern: 'Check whether the artifact follows this pattern. Explain any gaps.',
+  Rubric: 'Score each dimension against its criteria. Report pass/fail with evidence.',
+  StateMachine: 'Model transitions. Validate guards before executing side effects.',
+  PromptEngineering: 'Apply the template. Substitute variables. Respect model compatibility.',
+};
+const DIV = '═══════════════════════════════════════════════';
+
+function extractContent(art, type) {
+  if (!art) return null;
+  const preferChecklist = ['ComplianceChecklist','Rubric','SecurityRule','AuditChecklist','AntiPattern','ViolationExample'].includes(type);
+  if (preferChecklist && art.checklist && art.checklist.length > 0) {
+    return art.checklist.slice(0, 6).map((item, i) => {
+      const sev = item.severity ? `[${String(item.severity).toUpperCase()}] ` : '';
+      return `${sev}item_${i+1}: ${String(item.item || '').slice(0, 200)}`;
+    }).join('\n');
+  }
+  if (art.steps && art.steps.length > 0) {
+    return art.steps.slice(0, 6).map(s => `${String(s.id || '')}: ${String(s.action || '').slice(0, 200)}`).join('\n');
+  }
+  if (art.checklist && art.checklist.length > 0) {
+    return art.checklist.slice(0, 4).map((item, i) => `item_${i+1}: ${String(item.item || '').slice(0, 200)}`).join('\n');
+  }
+  return String(art.summary || '').slice(0, 400) || null;
+}
+
+function composePrompt(kbs, artifacts, outputMode) {
+  const sections = kbs.map((kb, i) => {
+    const art  = artifacts[i];
+    const type = String(art?.kbType || kb.kbType || '');
+    const title = String(art?.title || kb.domain || '').slice(0, 100);
+    const domain = String(art?.domain || kb.domain || '').slice(0, 80);
+    const behavior = AGENT_BEHAVIOR[type] || 'Use the content to ground your response.';
+    const content = extractContent(art, type) || String(art?.summary || '(artifact content unavailable)').slice(0, 400);
+    return [DIV, `KB-${i+1} · ${title} (${type})`, `Domain: ${domain}`, `Hash: ${kb.contentHash.slice(0,18)}...`, `Agent: ${behavior}`, DIV, content].join('\n');
+  });
+  const contract = OUTPUT_CONTRACTS[outputMode] || OUTPUT_CONTRACTS.framework;
+  return [
+    'You are an expert system. Your responses are grounded exclusively in the following',
+    `Knowledge Block${kbs.length > 1 ? 's' : ''} from the Alexandrian Protocol.`,
+    "Each KB section includes an 'Agent:' instruction — follow it exactly.",
+    '', ...sections, '', DIV,
+    'RESPONSE CONTRACT', '─────────────────',
+    ...contract, DIV,
+  ].join('\n');
+}
+
+// ── Prompt highlighting — operates only on pre-escaped text ──────────────────
+
+function highlightEscapedPrompt(escaped) {
+  // Input is already HTML-escaped (< → &lt; etc.). We add only safe <span> tags.
+  return escaped
+    .replace(/\bKB-\d+\b/g, '<span class="kw-kb">$&</span>')
+    .replace(/(Agent:\s)/g, '<span class="kw-agent">$1</span>')
+    .replace(/(Domain:\s\S+)/g, '<span class="kw-domain">$1</span>')
+    .replace(/\b(Practice|Feature|ComplianceChecklist|SecurityRule|AuditChecklist|BestPractice|AntiPattern|CodePattern|Rubric|StateMachine|PromptEngineering)\b/g, '<span class="kw-type">$1</span>')
+    .replace(/\b(CRITICAL|HIGH|MEDIUM|LOW)\b/g, '<span class="kw-rule">$1</span>');
+}
+
+// ── KB card rendering ─────────────────────────────────────────────────────────
+
+function renderKBCard(kb, artifact, index) {
+  const type   = String(artifact?.kbType || kb.kbType || 'Unknown');
+  const title  = String(artifact?.title  || kb.domain || '').slice(0, 80);
+  const domain = String(artifact?.domain || kb.domain || '').slice(0, 60);
+  const fee    = kb.queryFee ? (Number(kb.queryFee) / 1e18).toFixed(6) : '—';
+  const rep    = Number(kb.reputationScore) || 0;
+  const content = extractContent(artifact, type);
+  const cid     = String(kb.cid || '').slice(0, 14);
+  const typeClass = 't-' + type.replace(/[^a-zA-Z]/g, '');
+  // New intelligence fields (set by enhance() before calling renderKBCard)
+  const trustSignal     = kb._trustSignal || null;
+  const retrievalReason = kb._retrievalReason || null;
+  const parentCount     = kb.parents ? kb.parents.length : 0;
+  const freshness       = computeFreshness(kb.timestamp);
+  const memCount        = kb._memoryCount || 0;
+
+  // Build card element via DOM (safe — no innerHTML with untrusted data)
+  const card = document.createElement('div');
+  card.className = 'kb-used-card';
+  card.id = `kbCard${index}`;
+  card.onclick = () => card.classList.toggle('expanded');
+
+  const top = document.createElement('div');
+  top.className = 'kb-card-top';
+
+  const typeBadge = document.createElement('span');
+  typeBadge.className = `kb-type-badge ${typeClass}`;
+  typeBadge.textContent = type;
+
+  const rightMeta = document.createElement('div');
+  rightMeta.style.cssText = 'display:flex;align-items:center;gap:6px';
+
+  if (memCount > 0) {
+    const memBadge = document.createElement('span');
+    memBadge.className = 'memory-badge';
+    memBadge.title = `Selected ${memCount} time${memCount > 1 ? 's' : ''} in this session`;
+    memBadge.textContent = memCount > 1 ? `✓ ×${memCount}` : '✓ used';
+    rightMeta.appendChild(memBadge);
+  }
+
+  if (trustSignal) {
+    const trustBadge = document.createElement('span');
+    trustBadge.className = `trust-badge trust-${trustSignal}`;
+    trustBadge.textContent = trustSignal;
+    rightMeta.appendChild(trustBadge);
+  }
+
+  const idLabel = document.createElement('span');
+  idLabel.style.cssText = 'font-size:10px;color:var(--text-4);font-family:"JetBrains Mono",monospace';
+  idLabel.textContent = `KB-${index+1}`;
+  rightMeta.appendChild(idLabel);
+
+  top.appendChild(typeBadge);
+  top.appendChild(rightMeta);
+
+  const titleEl = document.createElement('div');
+  titleEl.className = 'kb-card-title';
+  titleEl.textContent = title || domain;
+
+  const domainEl = document.createElement('div');
+  domainEl.className = 'kb-card-domain';
+  domainEl.textContent = domain;
+
+  const meta = document.createElement('div');
+  meta.className = 'kb-card-meta';
+  meta.innerHTML = sanitize(
+    `<div class="kb-meta-item">Rep: <span class="kb-meta-val">${esc(rep)}</span></div>` +
+    `<div class="kb-meta-item">Fee: <span class="kb-meta-val">${esc(fee)} ETH</span></div>` +
+    `<div class="kb-meta-item">CID: <span class="kb-meta-val">${esc(cid)}…</span></div>`
+  );
+
+  card.appendChild(top);
+  card.appendChild(titleEl);
+  card.appendChild(domainEl);
+  card.appendChild(meta);
+
+  // Retrieval reason
+  if (retrievalReason) {
+    const reasonEl = document.createElement('div');
+    reasonEl.className = 'kb-retrieval-reason';
+    reasonEl.textContent = retrievalReason; // textContent — safe
+    card.appendChild(reasonEl);
+  }
+
+  // Parent lineage note
+  if (parentCount > 0) {
+    const parentsEl = document.createElement('div');
+    parentsEl.className = 'kb-parents-note';
+    parentsEl.textContent = `Builds on ${parentCount} parent KB${parentCount > 1 ? 's' : ''}`;
+    card.appendChild(parentsEl);
+  }
+
+  // Freshness
+  if (freshness) {
+    const freshEl = document.createElement('div');
+    freshEl.className = `kb-freshness ${freshness.cls}`;
+    freshEl.textContent = freshness.label; // textContent — safe
+    card.appendChild(freshEl);
+  }
+
+  if (content) {
+    const expandBtn = document.createElement('div');
+    expandBtn.className = 'kb-expand-btn';
+    expandBtn.textContent = '▾ View content';
+    card.appendChild(expandBtn);
+
+    const expandedArea = document.createElement('div');
+    expandedArea.className = 'kb-content-expanded';
+
+    const pre = document.createElement('pre');
+    pre.className = 'kb-content-pre';
+    pre.textContent = content; // textContent — never innerHTML for untrusted content
+    expandedArea.appendChild(pre);
+
+    if (kb.cid) {
+      const link = document.createElement('a');
+      link.className = 'kb-link';
+      link.href = `https://ipfs.io/ipfs/${encodeURIComponent(kb.cid)}`;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = 'View on IPFS ↗';
+      expandedArea.appendChild(link);
+    }
+
+    card.appendChild(expandedArea);
+  }
+
+  return card;
+}
+
+// ── Debug panel ───────────────────────────────────────────────────────────────
+
+function renderDebugPanel(meta) {
+  const panel = document.getElementById('debugPanel');
+  panel.textContent = ''; // clear
+  const rows = [
+    ['presets',       `${meta.presets} · ${currentMode}`],
+    ['profile',       `${meta.profile} (limit: ${PROFILE_LIMITS[currentProfile]})`],
+    ['outputMode',    meta.outputMode],
+    ['commandIntent', String(meta.commandIntent)],
+    ['domains',       meta.domains ? meta.domains.join(', ') : 'all (cross-domain)'],
+    ['types',         meta.types.join(', ')],
+    ['kbsFound',      `${meta.kbsFound} from subgraph · ${meta.afterFilter} after type filter`],
+    ['kbsSelected',   String(meta.kbsSelected)],
+    ['avgReputation', String(meta.avgRep)],
+    ['lowConfidence', String(meta.lowConfidence)],
+    ['coverage',      meta.coverage || '—'],
+    ['conflicts',     meta.conflicts > 0 ? `${meta.conflicts} detected` : 'none'],
+    ['gaps',          meta.gaps > 0 ? `${meta.gaps} missing` : 'none'],
+  ];
+  rows.forEach(([k, v]) => {
+    const row = document.createElement('div');
+    const key = document.createElement('span');
+    key.className = 'debug-key';
+    key.textContent = k.padEnd(18);
+    const val = document.createElement('span');
+    val.textContent = v;
+    row.appendChild(key);
+    row.appendChild(val);
+    panel.appendChild(row);
+  });
+}
+
+// ── Main enhance ──────────────────────────────────────────────────────────────
+
+async function enhance() {
+  const query = document.getElementById('queryInput').value.trim();
+  if (!query) { document.getElementById('queryInput').focus(); return; }
+
+  const cfg        = getMergedConfig(); // #17 — composable presets
+  const cmdIntent  = detectCommandIntent(query);
+  const outputMode = cfg.outputMode;
+  const limit      = PROFILE_LIMITS[currentProfile]; // #4 — retrieval profile
+  const memory     = loadMemory(); // #8 — session memory
+
+  // Before panel — textContent only (user input is not trusted)
+  const beforeEl = document.getElementById('beforeQuery');
+  beforeEl.textContent = query;
+  beforeEl.classList.remove('empty');
+
+  // Reset after panel
+  document.getElementById('loadingOverlay').classList.add('active');
+  document.getElementById('loadingSub').textContent =
+    `Querying subgraph · Selecting ${limit} KBs (${currentProfile}) · Composing prompt`;
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('improvementBanner').classList.remove('visible');
+  document.getElementById('enhancedQueryRow').style.display = 'none';
+  document.getElementById('whyBetter').style.display = 'none';
+  document.getElementById('confidenceBar').style.display = 'none';
+  document.getElementById('warnBanner').style.display = 'none';
+  document.getElementById('conflictBanner').style.display = 'none';
+  document.getElementById('copyPromptBtn').style.display = 'none';
+  document.getElementById('kbPanel').style.display = 'none';
+  document.getElementById('suggestionsPanel').style.display = 'none';
+  document.getElementById('missingPanel').style.display = 'none';
+  document.getElementById('coverageBadge').style.display = 'none';
+  document.getElementById('enhanceBtn').disabled = true;
+  document.getElementById('promptText').textContent = '';
+  document.getElementById('promptFade').style.display = 'none';
+  enrichedPromptText = '';
+
+  try {
+    const rawKBs = await querySubgraph(cfg.domains, limit * 4);
+    const { selected, totalFound, afterFilter } = selectKBs(rawKBs, cfg.types, limit, cmdIntent, memory);
+    const artifacts = await Promise.all(selected.map(kb => fetchArtifact(kb.cid)));
+    const prompt = composePrompt(selected, artifacts, outputMode);
+    enrichedPromptText = prompt;
+
+    const avgRep = selected.length > 0
+      ? Math.round(selected.reduce((s, kb) => s + (Number(kb.reputationScore) || 0), 0) / selected.length)
+      : 0;
+    const lowConf = avgRep < 100 || totalFound < 2;
+
+    // ── Intelligence fields ───────────────────────────────────────────────────
+    // Attach per-KB intelligence fields before rendering cards
+    selected.forEach((kb, i) => {
+      kb._trustSignal     = deriveTrustSignal(kb.stakeAmount);
+      kb._retrievalReason = buildRetrievalReason(query, kb, artifacts[i]);
+      kb._memoryCount     = memory[kb.contentHash] || 0; // #8
+    });
+
+    const coverage     = computeCoverage(totalFound, avgRep, selected);
+    const suggestions  = buildSuggestions(selected, outputMode);
+    const enhancedQStr = buildEnhancedQuery(query, cfg.domains, cfg.types, cmdIntent);
+    const conflicts    = detectConflicts(selected);
+
+    // Prompt preview — escape first, then apply highlight spans, then sanitize
+    const promptEl = document.getElementById('promptPreview');
+    const preview  = prompt.slice(0, 900);
+    const escaped  = esc(preview);
+    const highlighted = highlightEscapedPrompt(escaped);
+    // sanitize allows only span.kw-* — safe subset of what we injected above
+    const safeHtml = sanitize(highlighted);
+    promptEl.querySelector('#promptText').innerHTML = safeHtml;
+    if (prompt.length > 900) document.getElementById('promptFade').style.display = 'block';
+
+    // Improvement banner
+    const presetLabel = [...activePresets].join(' + ');
+    document.getElementById('improvementText').textContent =
+      `Improved using ${selected.length} structured knowledge block${selected.length !== 1 ? 's' : ''} · ${presetLabel} · ${outputMode} · ${currentProfile}`;
+    setTimeout(() => document.getElementById('improvementBanner').classList.add('visible'), 50);
+
+    // Why better + copy button
+    document.getElementById('whyBetter').style.display = 'flex';
+    document.getElementById('copyPromptBtn').style.display = 'inline-flex';
+
+    // Confidence bar
+    const confBar = document.getElementById('confidenceBar');
+    const confFill = document.getElementById('confFill');
+    const confScore = document.getElementById('confScore');
+    const pct = Math.min(100, avgRep / 10);
+    confBar.style.display = 'flex';
+    confFill.className = 'conf-fill ' + (pct >= 70 ? 'conf-high' : pct >= 40 ? 'conf-med' : 'conf-low');
+    setTimeout(() => { confFill.style.width = pct + '%'; }, 100);
+    confScore.textContent = avgRep;
+    confScore.style.color = pct >= 70 ? 'var(--green)' : pct >= 40 ? 'var(--amber)' : 'var(--red)';
+
+    // Warning
+    if (lowConf || selected.length === 0) {
+      const wb = document.getElementById('warnBanner');
+      document.getElementById('warnText').textContent = totalFound === 0
+        ? 'No structured knowledge found for this domain — showing general context only.'
+        : `Limited structured knowledge found (${totalFound} KBs, avg score ${avgRep}) — results may be less specific.`;
+      wb.style.display = 'flex';
+    }
+
+    // ── Enhanced query row ────────────────────────────────────────────────────
+    document.getElementById('enhancedQueryText').textContent = enhancedQStr;
+    document.getElementById('enhancedQueryRow').style.display = 'flex';
+
+    // ── Conflict banner ───────────────────────────────────────────────────────
+    if (conflicts.length > 0) {
+      document.getElementById('conflictText').textContent = conflicts[0].note;
+      document.getElementById('conflictBanner').style.display = 'flex';
+    }
+
+    // KB cards
+    document.getElementById('kbCount').textContent = String(selected.length);
+    // Coverage badge in KB panel header
+    const covBadge = document.getElementById('coverageBadge');
+    covBadge.textContent = coverage;
+    covBadge.className = `coverage-badge cov-${coverage}`;
+    covBadge.style.display = 'inline-block';
+
+    const grid = document.getElementById('kbCardsGrid');
+    grid.textContent = ''; // safe clear
+    selected.forEach((kb, i) => grid.appendChild(renderKBCard(kb, artifacts[i], i)));
+    document.getElementById('kbPanel').style.display = 'block';
+
+    // ── Suggestions panel ─────────────────────────────────────────────────────
+    if (suggestions.length > 0) {
+      const chipsEl = document.getElementById('sugChips');
+      chipsEl.textContent = ''; // safe clear
+      suggestions.forEach(sug => {
+        const chip = document.createElement('button');
+        chip.className = 'sug-chip';
+        chip.textContent = sug; // textContent — safe
+        chip.onclick = () => {
+          document.getElementById('queryInput').value = sug;
+          onInputChange();
+          document.getElementById('queryInput').focus();
+        };
+        chipsEl.appendChild(chip);
+      });
+      document.getElementById('suggestionsPanel').style.display = 'block';
+    }
+
+    // ── Save memory (#8) ──────────────────────────────────────────────────────
+    saveMemory(selected);
+
+    // ── Missing coverage (#14) ────────────────────────────────────────────────
+    const gaps = detectMissingCoverage(selected, cfg, query);
+    if (gaps.length > 0) {
+      const itemsEl = document.getElementById('missingItems');
+      itemsEl.textContent = ''; // safe clear
+      gaps.forEach(g => {
+        const item = document.createElement('div');
+        item.className = 'missing-item';
+        item.textContent = g; // textContent — safe
+        itemsEl.appendChild(item);
+      });
+      document.getElementById('missingPanel').style.display = 'block';
+    }
+
+    // Debug
+    const meta = {
+      outputMode, profile: currentProfile,
+      presets: [...activePresets].join('+'),
+      commandIntent: cmdIntent, domains: cfg.domains, types: cfg.types,
+      kbsFound: totalFound, afterFilter, kbsSelected: selected.length,
+      avgRep, lowConfidence: lowConf, coverage,
+      conflicts: conflicts.length, gaps: gaps.length,
+    };
+    renderDebugPanel(meta);
+
+  } catch (err) {
+    console.error('Enhance error:', err);
+    const ptEl = document.getElementById('promptText');
+    ptEl.textContent = 'Error: ' + err.message;
+    ptEl.style.color = 'var(--red)';
+  } finally {
+    document.getElementById('loadingOverlay').classList.remove('active');
+    document.getElementById('enhanceBtn').disabled = false;
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+
+selectPreset('coding');
+window.addEventListener('load', () => {
+  const q = document.getElementById('queryInput');
+  q.value = 'implement rate limiting with Redis and Express';
+  onInputChange();
+  setTimeout(() => enhance(), 500);
+});
+</script>
+</body>
+</html>
