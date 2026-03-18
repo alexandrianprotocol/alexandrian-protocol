@@ -417,11 +417,19 @@ async function main() {
   }
 
   // Paths
-  const stagingDir   = join(__dirname, "..", "staging");
-  const refinedDir   = join(stagingDir, "refined");
-  const bundledDir   = join(stagingDir, "bundled");
-  const publishedDir = join(stagingDir, "published");
-  const logPath      = join(stagingDir, "publish-log.jsonl");
+  const stagingDir    = join(__dirname, "..", "staging");
+  const refinedDir    = join(stagingDir, "refined");
+  const bundledDir    = join(stagingDir, "bundled");
+  const publishedDir  = join(stagingDir, "published");
+  const logPath       = join(stagingDir, "publish-log.jsonl");
+  const needsRepinPath = join(stagingDir, "needs-repin.json");
+
+  // Load existing needs-repin list; append placeholder CIDs after publish
+  let needsRepin = [];
+  if (existsSync(needsRepinPath)) {
+    try { needsRepin = JSON.parse(readFileSync(needsRepinPath, "utf8")); } catch { needsRepin = []; }
+  }
+  const needsRepinSet = new Set(needsRepin.map((r) => r.contentHash));
 
   mkdirSync(publishedDir, { recursive: true });
 
@@ -485,6 +493,11 @@ async function main() {
             JSON.stringify({ ...result, ts: new Date().toISOString() }) + "\n",
             { flag: "a" }
           );
+          // Track KBs with placeholder CIDs for later IPFS remediation
+          if (result.cid?.startsWith("placeholder-") && !needsRepinSet.has(result.contentHash)) {
+            needsRepin.push({ contentHash: result.contentHash, cid: result.cid });
+            needsRepinSet.add(result.contentHash);
+          }
           published++;
         })
         .catch((err) => {
@@ -526,6 +539,13 @@ async function main() {
   console.log(`  Failed:     ${failed}`);
   console.log(`  Duration:   ${elapsed}s`);
   console.log(`  Log:        ${logPath}`);
+
+  // Flush needs-repin.json if new entries were added
+  if (needsRepin.length > 0) {
+    writeFileSync(needsRepinPath, JSON.stringify(needsRepin, null, 2));
+    const newEntries = needsRepin.filter((r) => !needsRepinSet.has(r.contentHash) || true).length;
+    console.log(`  Needs-repin: ${needsRepin.length} total (updated ${needsRepinPath})`);
+  }
 
   if (failed > 0) {
     console.log(`\n  Re-run to retry ${failed} failed KB(s). They remain in staging/refined/.`);

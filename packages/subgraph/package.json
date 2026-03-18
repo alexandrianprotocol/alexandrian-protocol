@@ -6,8 +6,8 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy alexandrian-protocol --node https://api.studio.thegraph.com/deploy/ --version-label v0.2.0",
-    "deploy:studio": "graph deploy alexandrian-protocol --node https://api.studio.thegraph.com/deploy/ --version-label v0.2.0",
+    "deploy": "graph deploy alexandrian-protocol --node https://api.studio.thegraph.com/deploy/ --version-label v0.3.0",
+    "deploy:studio": "graph deploy alexandrian-protocol --node https://api.studio.thegraph.com/deploy/ --version-label v0.3.0",
     "auth": "graph auth --node https://api.studio.thegraph.com/deploy/"
   },
   "dependencies": {

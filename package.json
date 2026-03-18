@@ -30,7 +30,16 @@
     "generate:seeds": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run generate:seeds",
     "generate:derived": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run generate:derived",
     "generate:repair": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run repair",
-    "generate:repair:dry": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run repair:dry"
+    "generate:repair:dry": "pnpm --filter @alexandrian/generator run build && pnpm --filter @alexandrian/generator run repair:dry",
+    "pipeline": "node scripts/pipeline.mjs",
+    "pipeline:dry": "node scripts/pipeline.mjs --dry-run",
+    "pipeline:derived": "node scripts/pipeline.mjs --mode derived",
+    "pipeline:ai": "node scripts/pipeline.mjs --mode ai-seeds",
+    "dedup": "node scripts/semantic-dedup.mjs",
+    "dedup:dry": "node scripts/semantic-dedup.mjs --dry-run",
+    "gc:staging": "node scripts/gc-staging.mjs",
+    "gc:staging:execute": "node scripts/gc-staging.mjs --execute",
+    "subgraph:deploy": "pnpm --filter @alexandrian/subgraph run codegen && pnpm --filter @alexandrian/subgraph run build && pnpm --filter @alexandrian/subgraph run deploy"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
