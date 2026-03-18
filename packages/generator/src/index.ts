@@ -503,6 +503,7 @@ function parseArgs(): {
   antipatternSeeds: boolean;
   blueprintSeeds: boolean;
   upgradeConcurrency: number;
+  aiConcurrency: number;
   upgradeModel: string;
   topK: number;
   topArtifacts: number;
@@ -529,6 +530,7 @@ function parseArgs(): {
   let antipatternSeeds = false;
   let blueprintSeeds = false;
   let upgradeConcurrency = 5;
+  let aiConcurrency = 10;
   let upgradeModel = "";
   let topK = 20;
   let topArtifacts = 15;
@@ -578,6 +580,8 @@ function parseArgs(): {
       blueprintSeeds = true;
     } else if (arg === "--concurrency" && args[i + 1]) {
       upgradeConcurrency = parseInt(args[++i], 10) || 5;
+    } else if (arg === "--ai-concurrency" && args[i + 1]) {
+      aiConcurrency = Math.min(parseInt(args[++i], 10) || 10, 20);
     } else if (arg === "--model" && args[i + 1]) {
       upgradeModel = args[++i];
     } else if (arg === "--task" && args[i + 1]) {
@@ -613,7 +617,7 @@ function parseArgs(): {
   }
   if (isNaN(targetTotal) || targetTotal <= 0) targetTotal = TARGET_TOTAL;
 
-  return { mode, maxCount, targetTotal, dryRun, allowSimilarTitle, task, highImpactSeeds, seedsCombined, universalSeeds, deepSeeds, allLayers, webSeeds, frontendDeepSeeds, failureDebugSeeds, verificationSeeds, invariantSeeds, antipatternSeeds, blueprintSeeds, upgradeConcurrency, upgradeModel, topK, topArtifacts, ontologySplit };
+  return { mode, maxCount, targetTotal, dryRun, allowSimilarTitle, task, highImpactSeeds, seedsCombined, universalSeeds, deepSeeds, allLayers, webSeeds, frontendDeepSeeds, failureDebugSeeds, verificationSeeds, invariantSeeds, antipatternSeeds, blueprintSeeds, upgradeConcurrency, aiConcurrency, upgradeModel, topK, topArtifacts, ontologySplit };
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -671,7 +675,7 @@ const ROUTING_DEBUG_SAMPLE_TASK =
   "Find vulnerabilities in this Solidity contract and suggest secure patterns.";
 
 async function main(): Promise<void> {
-  const { mode, maxCount, targetTotal, dryRun, allowSimilarTitle, task, highImpactSeeds, seedsCombined, universalSeeds, deepSeeds, allLayers, webSeeds, frontendDeepSeeds, failureDebugSeeds, verificationSeeds, invariantSeeds, antipatternSeeds, blueprintSeeds, upgradeConcurrency, upgradeModel, topK, topArtifacts, ontologySplit } = parseArgs();
+  const { mode, maxCount, targetTotal, dryRun, allowSimilarTitle, task, highImpactSeeds, seedsCombined, universalSeeds, deepSeeds, allLayers, webSeeds, frontendDeepSeeds, failureDebugSeeds, verificationSeeds, invariantSeeds, antipatternSeeds, blueprintSeeds, upgradeConcurrency, aiConcurrency, upgradeModel, topK, topArtifacts, ontologySplit } = parseArgs();
 
   console.log(`\nAlexandrian KB Generator (KBv2.5)`);
   console.log(`  mode   : ${mode}`);
@@ -1712,42 +1716,68 @@ async function main(): Promise<void> {
     const triangleRegistry = buildTriangleRegistry(v24);
 
     const toGenerate = seedSpecs.slice(0, maxCount);
-    for (const spec of toGenerate) {
-      if (totalWritten >= maxCount) break;
-      try {
-        let artifact = await generateSeedFromSpec(spec, { epistemicType: sampleEpistemicType() });
-        artifact = repairKB(artifact);
-        const domain = artifact.semantic?.domain ?? spec.domain;
-        const title = (artifact.identity?.title ?? "").trim();
-        if (!allowSimilarTitle && title && titleTooSimilarInDomain(title, domain, v24)) {
+    console.log(`  Concurrency: ${aiConcurrency} parallel OpenAI calls`);
+
+    // Process specs in concurrent batches. JS single-threaded event loop ensures
+    // dedup set mutations are race-free: Promise callbacks execute sequentially.
+    for (let batchStart = 0; batchStart < toGenerate.length && totalWritten < maxCount; batchStart += aiConcurrency) {
+      const batch = toGenerate.slice(batchStart, batchStart + aiConcurrency);
+      const results = await Promise.allSettled(
+        batch.map((spec) => generateSeedFromSpec(spec, { epistemicType: sampleEpistemicType() }))
+      );
+
+      for (let j = 0; j < results.length; j++) {
+        if (totalWritten >= maxCount) break;
+        const spec = batch[j];
+        const result = results[j];
+
+        if (result.status === "rejected") {
+          const message = result.reason instanceof Error ? result.reason.message : String(result.reason);
+          if (message.includes("DUPLICATE_ENVELOPE") || message.includes("DUPLICATE_CONTENT")) {
+            console.log(`  [skip] duplicate: ${spec.domain} / ${spec.title}`);
+          } else {
+            console.error(`  [error] ${spec.domain} / ${spec.title}: ${message}`);
+          }
+          continue;
+        }
+
+        try {
+          let artifact = repairKB(result.value);
+          const domain = artifact.semantic?.domain ?? spec.domain;
+          const title = (artifact.identity?.title ?? "").trim();
+          if (!allowSimilarTitle && title && titleTooSimilarInDomain(title, domain, v24)) {
+            console.log(
+              `  [skip] title too similar to existing in domain: "${title.slice(0, 50)}..." (${spec.domain})`
+            );
+            continue;
+          }
+          const record = buildRecord(artifact, dedupSet, contentFingerprintSet);
+          if (isDuplicateTriangle(record.artifact, triangleRegistry)) {
+            console.log(`  [skip] duplicate knowledge triangle: ${spec.domain} / ${spec.title}`);
+            continue;
+          }
+          addTriangleToRegistry(record.artifact, triangleRegistry);
+          writeRecord(STAGING_PENDING, record);
+          dedupSet.add(record.kbHash);
+          const fp = contentFingerprint(record.artifact);
+          if (fp) contentFingerprintSet.add(fp);
+          v24.push(record);
+          totalWritten++;
           console.log(
-            `  [skip] title too similar to existing in domain: "${title.slice(0, 50)}..." (${spec.domain})`
+            `  [ai-seed] ${record.kbHash.slice(0, 12)}... ${record.domain} — "${record.artifact.identity.title}"`
           );
-          continue;
-        }
-        const record = buildRecord(artifact, dedupSet, contentFingerprintSet);
-        if (isDuplicateTriangle(record.artifact, triangleRegistry)) {
-          console.log(`  [skip] duplicate knowledge triangle: ${spec.domain} / ${spec.title}`);
-          continue;
-        }
-        addTriangleToRegistry(record.artifact, triangleRegistry);
-        writeRecord(STAGING_PENDING, record);
-        dedupSet.add(record.kbHash);
-        const fp = contentFingerprint(record.artifact);
-        if (fp) contentFingerprintSet.add(fp);
-        v24.push(record);
-        totalWritten++;
-        console.log(
-          `  [ai-seed] ${record.kbHash.slice(0, 12)}... ${record.domain} — "${record.artifact.identity.title}"`
-        );
-      } catch (err: unknown) {
-        const message = err instanceof Error ? err.message : String(err);
-        if (message.includes("DUPLICATE_ENVELOPE") || message.includes("DUPLICATE_CONTENT")) {
-          console.log(`  [skip] duplicate: ${spec.domain} / ${spec.title}`);
-        } else {
-          console.error(`  [error] ${spec.domain} / ${spec.title}: ${message}`);
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : String(err);
+          if (message.includes("DUPLICATE_ENVELOPE") || message.includes("DUPLICATE_CONTENT")) {
+            console.log(`  [skip] duplicate: ${spec.domain} / ${spec.title}`);
+          } else {
+            console.error(`  [error] ${spec.domain} / ${spec.title}: ${message}`);
+          }
         }
       }
+
+      const pct = Math.min(100, Math.round((batchStart + batch.length) / toGenerate.length * 100));
+      process.stdout.write(`  Progress: ${batchStart + batch.length}/${toGenerate.length} specs (${pct}%) — written: ${totalWritten}\r`);
     }
     console.log(`\n  AI seeds written : ${totalWritten}\n`);
   }

@@ -403,20 +403,7 @@ async function main() {
   const signerAddress = signer ? await signer.getAddress() : ethers.ZeroAddress;
   const contract      = new ethers.Contract(REGISTRY_ADDRESS, ABI, signer ?? provider);
 
-  // Safety gate: verify minStakeAmount = 0 before submitting any transactions
-  if (!dryRun) {
-    const minStake = await contract.minStakeAmount();
-    if (minStake !== 0n) {
-      console.error(`\n✗ minStakeAmount = ${minStake} wei (expected 0)`);
-      console.error("  Call setMinStake(0) first:");
-      console.error(`  cast send ${REGISTRY_ADDRESS} "setMinStake(uint256)" 0 \\`);
-      console.error(`    --rpc-url ${rpcUrl} --private-key $OWNER_PRIVATE_KEY`);
-      process.exit(1);
-    }
-    console.log("✓ minStakeAmount = 0 confirmed");
-  }
-
-  // Paths
+  // Paths (declared early — needed for balance estimate below)
   const stagingDir    = join(__dirname, "..", "staging");
   const refinedDir    = join(stagingDir, "refined");
   const bundledDir    = join(stagingDir, "bundled");
@@ -442,6 +429,37 @@ async function main() {
   const bundledCount = existsSync(bundledDir)
     ? readdirSync(bundledDir).filter(f => f.endsWith(".json")).length
     : 0;
+
+  // ── Pre-flight checks ─────────────────────────────────────────────────────────
+  if (!dryRun) {
+    // 1. Verify minStakeAmount = 0
+    const minStake = await contract.minStakeAmount();
+    if (minStake !== 0n) {
+      console.error(`\n✗ minStakeAmount = ${minStake} wei (expected 0)`);
+      console.error("  Run: node scripts/set-min-stake.mjs 0");
+      process.exit(1);
+    }
+    console.log("✓ minStakeAmount = 0 confirmed");
+
+    // 2. Wallet balance guard
+    const balance   = await provider.getBalance(signerAddress);
+    const feeData   = await provider.getFeeData();
+    const gasPrice  = feeData.gasPrice ?? 1_000_000n;
+    const estCost   = GAS_LIMIT * gasPrice * BigInt(Math.max(files.length, 1));
+    const safeFloor = estCost * 2n; // 2× buffer
+
+    console.log(`✓ Wallet balance : ${ethers.formatEther(balance)} ETH`);
+    console.log(`  Est. gas cost  : ~${ethers.formatEther(estCost)} ETH (${files.length} KBs × ${GAS_LIMIT} gas @ ${ethers.formatUnits(gasPrice, "gwei")} gwei)`);
+
+    if (balance < safeFloor) {
+      console.warn(`\n⚠  Balance warning: ${ethers.formatEther(balance)} ETH < 2× estimated cost`);
+      if (balance < estCost) {
+        console.error("✗ Insufficient balance — aborting to prevent partial publish.");
+        console.error(`  Need at least ${ethers.formatEther(estCost)} ETH. Fund ${signerAddress} and retry.`);
+        process.exit(1);
+      }
+    }
+  }
 
   console.log(`\nAlexandrian KB Publisher`);
   console.log(`  RPC:         ${rpcUrl}`);

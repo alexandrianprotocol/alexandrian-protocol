@@ -43,6 +43,7 @@
 
 import { enhanceQuery, type EnhanceQueryOptions, type EnhancedQuery } from "./enhanceQuery.js";
 import { inferDomains } from "./inferDomains.js";
+import { UpstashCacheAdapter } from "./adapters/upstash.js";
 import {
   evaluateArtifact,
   parseFindings,
@@ -79,8 +80,16 @@ export type AlexandrianEnhanceOptions = Omit<EnhanceQueryOptions, "domains"> & {
 export class AlexandrianQueryClient {
   private readonly defaults: AlexandrianEnhanceOptions;
 
+  /**
+   * When no cache is provided in defaults, automatically uses UpstashCacheAdapter
+   * if UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN are set in the environment.
+   * Set `cache: null` to explicitly disable caching.
+   */
   constructor(defaults: AlexandrianEnhanceOptions = {}) {
-    this.defaults = defaults;
+    const cache = defaults.cache !== undefined
+      ? defaults.cache
+      : UpstashCacheAdapter.fromEnv() ?? undefined;
+    this.defaults = { ...defaults, cache };
   }
 
   /**

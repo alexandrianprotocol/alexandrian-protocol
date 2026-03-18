@@ -72,19 +72,50 @@ function checkRateLimit(ip) {
   return false;
 }
 
-// ── Response cache (persists across requests within a warm serverless instance) ─
+// ── Response cache ────────────────────────────────────────────────────────────
+//
+// Uses Upstash Redis (HTTP REST) when UPSTASH_REDIS_REST_URL + _TOKEN are set.
+// Falls back to an in-process LRU Map (resets on cold start, fine for demo).
+
+const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL;
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+const CACHE_TTL_S   = 300; // 5 minutes
+
 const responseCache = new Map();
-const CACHE_MAX     = 100; // evict oldest when full
+const CACHE_MAX     = 100;
 
 function getCacheKey(question) {
-  return createHash("sha256").update(question.trim().toLowerCase()).digest("hex").slice(0, 16);
+  return "q:" + createHash("sha256").update(question.trim().toLowerCase()).digest("hex").slice(0, 16);
 }
 
-function cacheGet(key) { return responseCache.get(key) ?? null; }
+async function cacheGet(key) {
+  if (UPSTASH_URL && UPSTASH_TOKEN) {
+    try {
+      const r = await fetch(`${UPSTASH_URL}/get/${key}`, {
+        headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+        signal: AbortSignal.timeout(1_500),
+      });
+      if (r.ok) {
+        const { result } = await r.json();
+        if (result) return JSON.parse(result);
+      }
+    } catch { /* fall through to in-process cache */ }
+  }
+  return responseCache.get(key) ?? null;
+}
 
-function cacheSet(key, value) {
+async function cacheSet(key, value) {
+  if (UPSTASH_URL && UPSTASH_TOKEN) {
+    try {
+      await fetch(`${UPSTASH_URL}/set/${key}?ex=${CACHE_TTL_S}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${UPSTASH_TOKEN}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ value: JSON.stringify(value) }),
+        signal: AbortSignal.timeout(1_500),
+      });
+    } catch { /* non-fatal: fall through to in-process */ }
+  }
   if (responseCache.size >= CACHE_MAX) {
-    // evict the oldest entry
     responseCache.delete(responseCache.keys().next().value);
   }
   responseCache.set(key, value);
@@ -798,7 +829,7 @@ export default async function handler(req, res) {
 
   // ── Cache check ─────────────────────────────────────────────────────────────
   const cKey   = getCacheKey(question);
-  const cached = cacheGet(cKey);
+  const cached = await cacheGet(cKey);
   if (cached) {
     return res.status(200).json({ ...cached, cached: true });
   }
@@ -886,7 +917,7 @@ export default async function handler(req, res) {
       cached:          false,
     };
 
-    cacheSet(cKey, payload);
+    await cacheSet(cKey, payload);
     return res.status(200).json(payload);
 
   } catch (err) {
