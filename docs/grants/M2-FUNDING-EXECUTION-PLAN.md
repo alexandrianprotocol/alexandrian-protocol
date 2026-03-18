@@ -185,6 +185,170 @@ Current gaps to close in M2:
 - operational maturity (pinning, monitoring, failover),
 - production query usability.
 
+## M2 Participation & Incentive Design
+
+To maximize participation, you don’t need to change the core protocol — you need to **reduce friction**, **increase perceived upside**, and make contribution **legible and rewarding early**. The structural and economic model is already strong; M2 must focus on how easy it is to:
+
+- start contributing  
+- understand value  
+- get rewarded quickly  
+- build reputation  
+
+### 1. Lower the Cost of First Contribution
+
+**Problem.** Requiring stake, strict typing, and upfront citation thinking creates high cognitive and financial friction for the first KB.
+
+**Improvement — progressive commitment model.**
+
+- **Phase 1 (low friction):**
+  - allow draft KBs and unstaked contributions,
+  - clearly mark them as *Unstaked / Unverified*.
+- **Phase 2 (commitment):**
+  - publishers add stake to:
+    - upgrade visibility,
+    - enable royalties.
+
+**Result.** More participation at the top of the funnel. Staking becomes an **upgrade**, not a barrier.
+
+### 2. Make Value Legible Immediately
+
+**Problem.** Contributors don’t intuitively know:
+
+- “Will this make money?”  
+- “Why would someone use my KB?”
+
+**Improvement — expected value visibility.**
+
+For each KB, surface:
+
+- usage count,
+- downstream citations,
+- estimated earnings,
+- “hot topics” / demand signals.
+
+Add:
+
+- “This topic is in demand” indicators,
+- “Missing knowledge here” prompts.
+
+**Result.** Contributors respond to visible demand instead of guessing what to publish.
+
+### 3. Accelerate Time-to-Reward
+
+**Problem.** If rewards are delayed or uncertain, participation drops.
+
+**Improvement — early incentives.**
+
+- **Query mining rewards:** early KBs in a topic get boosted payouts.  
+- **Bootstrap pools:** protocol subsidizes early usage.  
+- **Bounties:** “Create a KB for X → earn Y.”
+
+**Result.** Early contributors feel immediate payoff and the cold-start problem is reduced.
+
+### 4. Add Clear Roles (Not Just “Contributors”)
+
+**Problem.** A flat “everyone is a contributor” model under-specifies how people participate.
+
+**Improvement — distinct roles.**
+
+- **Authors** → create KBs.  
+- **Curators** → organize topics / bundles.  
+- **Validators** → stake on quality.  
+- **Consumers (agents/devs)** → drive usage and settlement.
+
+**Result.** More entry points; participants plug in where they have comparative advantage.
+
+### 5. Improve Discovery & Distribution
+
+**Problem.** Even strong KBs won’t earn if they’re not discovered.
+
+**Improvement — strong surfacing mechanisms.**
+
+- Trending KBs, “Most cited”, “Used by top agents”.  
+- Topic leaderboards.  
+- Recommendation surfaces: “If you use X, you may need Y.”
+
+**Result.** Usage and rewards increase together, spinning up the participation flywheel.
+
+### 6. Reduce Structural Friction (Typing + Citations)
+
+**Problem.** Requiring strict types and explicit citations up front slows contributors down.
+
+**Improvement — assist instead of requiring perfection.**
+
+- Auto-suggest KB type and related citations.  
+- Allow “quick publish” → refine structure later.
+
+**Result.** Contribution feels lightweight while structure quality improves over time.
+
+### 7. Strengthen the Reputation Layer
+
+**Problem.** Without visible reputation, contributors don’t build identity and trust is weak.
+
+**Improvement — contributor profiles.**
+
+Expose:
+
+- total earnings,
+- citation impact,
+- “trusted in X domain” badges,
+- stake + endorsement signals.
+
+**Result.** Participation becomes reputational as well as financial.
+
+### 8. Add Light, Credible Gamification
+
+**Problem.** Purely technical systems struggle with engagement.
+
+**Improvement — subtle gamification.**
+
+- Leaderboards (by topic and globally).  
+- Badges:
+  - “Most cited in X,”
+  - “Top contributor this week.”
+
+**Important:** keep it subtle and credible — avoid “cheap gamification.”
+
+### 9. Clarify “Why This Wins” for Each User Type
+
+Participation increases when value is obvious.
+
+- **For developers:** better agent outputs using structured, reliable knowledge.  
+- **For contributors:** earn from knowledge that gets reused.  
+- **For researchers:** build attributable, citable knowledge artifacts.
+
+Make these value statements explicit across docs, UI copy, and grant materials.
+
+### 10. Refine Core Positioning Around Participation
+
+Current framing is strong; add a participation-oriented layer:
+
+> **Alexandrian enables anyone to contribute knowledge that is immediately usable by AI systems, transparently attributed, and economically rewarded as it is reused.**
+
+This shifts from a **system description** to a **user opportunity**.
+
+### 11. The Participation Flywheel
+
+The target loop:
+
+```text
+Contribute → Get Used → Earn → Gain Reputation → Contribute More
+                    ↑
+               Discovery Layer
+```
+
+Each change above strengthens one part of this loop.
+
+### 12. Highest-Impact Changes to Ship First
+
+If only three participation features make M2:
+
+1. **Remove upfront friction** — unstaked → staked upgrade path.  
+2. **Show demand and expected value clearly.**  
+3. **Bootstrap rewards early** — bounties, query-mining, and subsidy pools.
+
+These deliver the largest lift to real, on-chain participation for the least surface area.
+
 ## Funding Readiness Gate (M2)
 
 Before grant submission, confirm:
