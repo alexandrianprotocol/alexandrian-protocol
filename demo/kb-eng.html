@@ -767,7 +767,7 @@
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-value">4</div>
-    <div class="stat-label">KB-ENG Cluster</div>
+    <div class="stat-label">KB-ENG Collection</div>
   </div>
   <div class="stat">
     <div class="stat-value">7,082+</div>
@@ -792,14 +792,16 @@
   <div class="intro-inner">
 
     <div class="intro-headline">
-      <div class="intro-badge">Protocol Overview</div>
-      <h1 class="intro-title" id="intro-heading">Formalizing knowledge<br>for the <em>AI economy</em></h1>
+      <div class="intro-badge">What is Alexandrian?</div>
+      <h1 class="intro-title" id="intro-heading">The canonical knowledge library<br>for <em>AI agents</em></h1>
       <p class="intro-lead">
-        Today's AI systems consume knowledge at massive scale — but the knowledge is unattributed, unverifiable,
-        and locked inside model weights. Creators are never compensated. Quality is unauditable. There's no
-        economic incentive to produce better, more structured knowledge for AI.<br><br>
-        Alexandrian Protocol changes this by turning raw knowledge into <strong>on-chain, typed, composable artifacts</strong>
-        — with cryptographic integrity, programmable royalties, and decentralized trust signals baked in at the infrastructure layer.
+        AI agents are increasingly capable — but the knowledge they reason over is unattributed, unverifiable,
+        and locked inside model weights or flat document stores. There's no shared reference, no version history,
+        no economic incentive to maintain quality.<br><br>
+        Alexandrian is the first <strong>structured, citable, economically-maintained library for AI agents</strong>
+        — a persistent layer of verified standards, procedures, reference material, and historical precedent
+        that agents consult before touching noisy external sources. Every entry is typed, on-chain,
+        content-hashed, and carries attributed royalties back to its contributors.
       </p>
     </div>
 
@@ -811,13 +813,13 @@
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">🔀</div>
-        <div class="pillar-title">Attribution DAG</div>
-        <div class="pillar-desc">KBs cite parent KBs explicitly on-chain, forming a composable lineage graph. When a KB is queried, royalties flow automatically up the entire attribution chain — every ancestor earns proportionally.</div>
+        <div class="pillar-title">Citation Graph &amp; Editions</div>
+        <div class="pillar-desc">KBs cite parent KBs explicitly on-chain, forming a versioned edition history. When a standard is updated the old entry isn't deleted — the chain is the version history. Royalties flow automatically up every citation on each query.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">🏷️</div>
-        <div class="pillar-title">Typed Knowledge Primitives</div>
-        <div class="pillar-desc">Six KB types — Practice, Feature, StateMachine, PromptEngineering, ComplianceChecklist, Rubric — so consuming agents know not just what the knowledge says, but how to use it.</div>
+        <div class="pillar-title">Epistemic Type System</div>
+        <div class="pillar-desc">Six KB types — Practice, Feature, StateMachine, PromptEngineering, ComplianceChecklist, Rubric — form the library's taxonomy. Agents don't just receive text; they receive structured entries with a declared purpose and browsable classification.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">💸</div>
@@ -831,8 +833,8 @@
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">🌐</div>
-        <div class="pillar-title">Permissionless Knowledge Market</div>
-        <div class="pillar-desc">Anyone can publish a KB, build on existing KBs, and earn from settlements. No central curator. The graph grows organically through open contribution, with reputation scored on-chain by query volume and endorsements.</div>
+        <div class="pillar-title">Open Contribution, No Gatekeeper</div>
+        <div class="pillar-desc">Anyone can contribute to the library, extend existing entries, and earn from citations. Quality emerges from on-chain reputation — query volume, stake, and endorsements — not editorial control. The subgraph is the card catalog.</div>
       </div>
     </div>
 
@@ -854,7 +856,7 @@
       <div class="flow-arrow" aria-hidden="true">→</div>
       <div class="flow-step" role="listitem">
         <div class="flow-icon">🤖</div>
-        <div class="flow-label">Agent Queries KB</div>
+        <div class="flow-label">Agent Consults Library</div>
       </div>
       <div class="flow-arrow" aria-hidden="true">→</div>
       <div class="flow-step" role="listitem">
@@ -874,7 +876,7 @@
 <!-- ── DAG ── -->
 <div class="page-body">
 <div class="section">
-  <div class="section-title">Attribution DAG — KB-ENG Knowledge Chain</div>
+  <div class="section-title">Citation Graph — KB-ENG API Engineering Collection</div>
   <div class="dag-wrap">
     <svg class="dag-svg" viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -1035,7 +1037,7 @@
 </div><!-- /page-body -->
 <div class="page-body">
 <div class="query-section">
-  <div class="section-title">Ask the KB-ENG Knowledge Cluster</div>
+  <div class="section-title">Consult the KB-ENG Library</div>
 
   <!-- Step flow indicator -->
   <div class="step-flow" id="step-flow" role="list" aria-label="Query steps">
@@ -1063,8 +1065,8 @@
   <div class="query-card">
     <div class="query-card-head">
       <div>
-        <div class="query-title">Ask an API Engineering Question</div>
-        <div class="query-subtitle">Grounded in 4 on-chain knowledge artifacts — every answer is traceable to a verified KB hash</div>
+        <div class="query-title">Consult the API Engineering Collection</div>
+        <div class="query-subtitle">4 on-chain library entries, each content-hashed and versioned — every answer is cited back to a verified edition</div>
       </div>
       <div class="kb-pill-row" aria-label="Active knowledge bases">
         <span class="kb-pill kb-pill-1" title="Stable Production API Design">KB-ENG-1</span>
@@ -1092,7 +1094,7 @@
         aria-describedby="q-hint q-char"
       ></textarea>
       <div class="textarea-footer">
-        <span class="textarea-hint-text" id="q-hint">Supports API design, OpenAPI spec, implementation patterns, and security questions</span>
+        <span class="textarea-hint-text" id="q-hint">API design, OpenAPI spec, implementation patterns, security — grounded in on-chain library entries</span>
         <span class="char-count" id="q-char" aria-live="polite">0 / 600</span>
       </div>
     </div>
@@ -1117,7 +1119,7 @@
 
 <!-- ── Response ── -->
 <div class="response-section" id="response-section">
-  <div class="section-title">Grounded Response + Attribution Trail</div>
+  <div class="section-title">Library Response + Citation Trail</div>
 
   <!-- Context summary bar -->
   <div class="context-bar" id="context-bar" aria-label="Query context">
@@ -1127,7 +1129,7 @@
     </div>
     <span class="ctx-sep">·</span>
     <div class="ctx-item">
-      <span class="ctx-label">KBs</span>
+      <span class="ctx-label">Collection</span>
       <span class="ctx-value">KB-ENG-1 &rarr; KB-ENG-4</span>
     </div>
     <span class="ctx-sep">·</span>
@@ -1147,7 +1149,7 @@
       <div class="panel-head">
         <div class="panel-title">
           <span class="dot" aria-hidden="true"></span>
-          GPT-4o · Grounded via KB-ENG-1 through KB-ENG-4
+          GPT-4o · Citing KB-ENG-1 through KB-ENG-4
         </div>
         <div style="display:flex;align-items:center;gap:8px">
           <span class="model-tag" id="model-badge">gpt-4o</span>
@@ -1162,7 +1164,7 @@
         <div class="empty-state" id="empty-state">
           <div class="empty-icon" aria-hidden="true">&#x1F4AC;</div>
           <div class="empty-title">No query yet</div>
-          <div class="empty-desc">Select a preset above or type your own API design, implementation, or security question. Responses are grounded in the 4 on-chain KB-ENG artifacts.</div>
+          <div class="empty-desc">Select a preset above or type your own question. The library agent consults the 4 on-chain KB-ENG entries and cites each source in the attribution trail.</div>
           <div class="empty-chips" role="list" aria-label="Quick start suggestions">
             <button class="empty-chip" role="listitem" data-q="Build a POST /api/keys endpoint for a SaaS product that lets authenticated users generate API keys for their account. Include the OpenAPI spec, Express/TypeScript handler, and security evaluation.">&#x1F511; API key endpoint</button>
             <button class="empty-chip" role="listitem" data-q="I have an existing REST API with no rate limiting, no structured logging, and no contract tests. Walk me through hardening it against the OWASP API Top 10.">&#x1F6E1; Harden an API</button>
