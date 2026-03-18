@@ -5,13 +5,34 @@
  * Body: { question: string }
  *
  * Builds a grounded system prompt from the 4 KB-ENG artifacts,
- * calls GPT-4o, and returns the answer with full attribution trail.
+ * calls GPT-4o-mini, and returns the answer with full attribution trail.
+ * Identical questions are served from an in-process cache (warm instances).
  *
  * Env vars required:
  *   OPENAI_API_KEY
  */
 
+import { createHash } from "crypto";
+
 export const config = { maxDuration: 30 };
+
+// ── Response cache (persists across requests within a warm serverless instance) ─
+const responseCache = new Map();
+const CACHE_MAX = 100; // evict oldest when full
+
+function getCacheKey(question) {
+  return createHash("sha256").update(question.trim().toLowerCase()).digest("hex").slice(0, 16);
+}
+
+function cacheGet(key) { return responseCache.get(key) ?? null; }
+
+function cacheSet(key, value) {
+  if (responseCache.size >= CACHE_MAX) {
+    // evict the oldest entry
+    responseCache.delete(responseCache.keys().next().value);
+  }
+  responseCache.set(key, value);
+}
 
 // ── KB-ENG Attribution metadata ───────────────────────────────────────────────
 
@@ -153,6 +174,13 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "OPENAI_API_KEY not configured" });
   }
 
+  // ── Cache check ─────────────────────────────────────────────────────────────
+  const cKey = getCacheKey(question);
+  const cached = cacheGet(cKey);
+  if (cached) {
+    return res.status(200).json({ ...cached, cached: true });
+  }
+
   try {
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -161,9 +189,9 @@ export default async function handler(req, res) {
         "Authorization": `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model:       "gpt-4o",
+        model:       "gpt-4o-mini",
         temperature: 0.3,
-        max_tokens:  2500,
+        max_tokens:  1200,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user",   content: question.trim() },
@@ -190,7 +218,7 @@ export default async function handler(req, res) {
       ethReceived: Number(((totalEth - protocolFee) / 4).toFixed(6)),
     }));
 
-    return res.status(200).json({
+    const payload = {
       answer,
       attribution: KB_ATTRIBUTION,
       settlement: {
@@ -198,9 +226,13 @@ export default async function handler(req, res) {
         protocolFee: Number(protocolFee.toFixed(6)),
         distribution: settlement,
       },
-      model:      data.model,
-      usage:      data.usage,
-    });
+      model:  data.model,
+      usage:  data.usage,
+      cached: false,
+    };
+
+    cacheSet(cKey, payload);
+    return res.status(200).json(payload);
   } catch (err) {
     console.error("query error:", err);
     return res.status(500).json({ error: "Internal error", detail: err.message });
