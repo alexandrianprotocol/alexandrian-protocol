@@ -206,12 +206,6 @@
         <option value="StateMachine">State Machine</option>
         <option value="PromptEngineering">Prompt Eng.</option>
       </select>
-      <select id="filter-tier" class="filter">
-        <option value="">All Trust Tiers</option>
-        <option value="HumanStaked">Human Staked</option>
-        <option value="AgentDerived">Agent Derived</option>
-        <option value="AgentDiscovered">Agent Discovered</option>
-      </select>
       <select id="sort-by" class="filter">
         <option value="blockNumber_desc">Newest First</option>
         <option value="blockNumber_asc">Oldest First</option>
@@ -247,7 +241,6 @@
     const tableWrap   = document.getElementById('table-wrap');
     const searchInput = document.getElementById('search');
     const filterType  = document.getElementById('filter-type');
-    const filterTier  = document.getElementById('filter-tier');
     const sortBy      = document.getElementById('sort-by');
     const resultCount = document.getElementById('result-count');
     const statTotal   = document.getElementById('stat-total');
@@ -317,8 +310,8 @@
           orderBy: ${orderBy},
           orderDirection: ${orderDir}
         ) {
-          contentHash cid domain kbType trustTier
-          blockNumber transactionHash
+          contentHash cid domain kbType curator
+          blockNumber
           parents { parentHash royaltyShareBps }
         }
       }`;
@@ -389,11 +382,9 @@
     function applyFilters() {
       const q    = searchInput.value.trim().toLowerCase();
       const type = filterType.value;
-      const tier = filterTier.value;
 
       filtered = allKBs.filter(kb => {
-        if (type && kb.kbType    !== type) return false;
-        if (tier && kb.trustTier !== tier) return false;
+        if (type && kb.kbType !== type) return false;
         if (q) {
           const domain = (kb.domain || '').toLowerCase();
           const hash   = (kb.contentHash || '').toLowerCase();
@@ -425,10 +416,6 @@
       // Type badge
       tr.appendChild(el('td', {}, makeBadge(TYPE_MAP, kb.kbType)));
 
-      // Trust tier (hidden on small screens)
-      const tierTd = el('td', { className: 'hide-md' }, makeBadge(TIER_MAP, kb.trustTier));
-      tr.appendChild(tierTd);
-
       // Parents / seed
       const parentCount = kb.parents ? kb.parents.length : 0;
       const lineageBadge = parentCount > 0
@@ -451,15 +438,15 @@
       const linksTd = el('td', {});
       const linksDiv = el('div', { className: 'links-cell' });
 
-      if (kb.transactionHash) {
-        const txLink = el('a', {
+      if (kb.blockNumber) {
+        const blockLink = el('a', {
           className: 'icon-link',
-          href: `${BASESCAN}/tx/${kb.transactionHash}`,
+          href: `${BASESCAN}/block/${kb.blockNumber}`,
           target: '_blank',
           rel: 'noopener',
-          textContent: 'Tx ↗',
+          textContent: 'Block ↗',
         });
-        linksDiv.appendChild(txLink);
+        linksDiv.appendChild(blockLink);
       }
       if (kb.cid) {
         const ipfsLink = el('a', {
@@ -505,7 +492,6 @@
       const headerRow = el('tr', {},
         el('th', { textContent: 'Domain' }),
         el('th', { textContent: 'Type' }),
-        el('th', { className: 'hide-md', textContent: 'Trust Tier' }),
         el('th', { className: 'hide-md', textContent: 'Lineage' }),
         el('th', { className: 'hash-cell hide-sm', textContent: 'Hash' }),
         el('th', { className: 'hide-sm', textContent: 'Block' }),
@@ -567,7 +553,6 @@
       searchTimer = setTimeout(applyFilters, 180);
     });
     filterType.addEventListener('change', applyFilters);
-    filterTier.addEventListener('change', applyFilters);
     sortBy.addEventListener('change', () => { allKBs = []; loadAll(); });
 
     // ── Init ────────────────────────────────────────────────────────────────

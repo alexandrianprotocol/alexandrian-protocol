@@ -267,7 +267,7 @@ function classifyError(err) {
 
 // ── Single file publish ────────────────────────────────────────────────────────
 
-async function publishOne({ filePath, bundledDir, contract, signerAddress, publishedDir, jwt, secondaryIPFS, nonce, dryRun }) {
+async function publishOne({ filePath, bundledDir, contract, signerAddress, publishedDir, jwt, secondaryIPFS, nonceRef, dryRun }) {
   const raw   = readFileSync(filePath, "utf8");
   const entry = JSON.parse(raw);
 
@@ -333,6 +333,12 @@ async function publishOne({ filePath, bundledDir, contract, signerAddress, publi
     return { contentHash, txHash: null, status: "already-published" };
   }
 
+  // Claim nonce atomically — only when we know a tx will be submitted.
+  // JS single-threaded event loop makes nonceRef.value++ race-free here:
+  // multiple concurrent tasks each await isRegistered() before reaching this
+  // point, so two tasks never execute this line simultaneously.
+  const myNonce = nonceRef.value++;
+
   const tx = await contract.publishKB(
     contentHash,
     curator,
@@ -345,7 +351,7 @@ async function publishOne({ filePath, bundledDir, contract, signerAddress, publi
     0n,           // queryFee: free during bootstrap
     version,
     parents,
-    { value: 0n, nonce, gasLimit: GAS_LIMIT }
+    { value: 0n, nonce: myNonce, gasLimit: GAS_LIMIT }
   );
 
   const receipt = await tx.wait(1);
@@ -432,9 +438,13 @@ async function main() {
   }
 
   // ── Nonce management ──────────────────────────────────────────────────────────
-  let nonce = signer
+  // Use a shared nonceRef object so publishOne() claims nonces atomically AFTER
+  // the isRegistered() check. Pre-assigning nonces (nonce + j) over-increments
+  // when tasks skip already-published KBs without submitting a transaction.
+  const startingNonce = signer
     ? await provider.getTransactionCount(signerAddress, "pending")
     : 0;
+  const nonceRef = { value: startingNonce };
 
   let published = 0, skipped = 0, failed = 0;
   const startTime = Date.now();
@@ -443,7 +453,7 @@ async function main() {
   for (let i = 0; i < files.length; i += concurrency) {
     const batch = files.slice(i, i + concurrency);
 
-    const tasks = batch.map((file, j) =>
+    const tasks = batch.map((file) =>
       publishOne({
         filePath:    join(refinedDir, file),
         bundledDir,
@@ -452,7 +462,7 @@ async function main() {
         publishedDir,
         jwt,
         secondaryIPFS,
-        nonce: nonce + j,
+        nonceRef,
         dryRun,
       })
         .then((result) => {
@@ -486,7 +496,6 @@ async function main() {
     );
 
     await Promise.all(tasks);
-    nonce += batch.length;
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(0);
     const done    = Math.min(i + concurrency, files.length);

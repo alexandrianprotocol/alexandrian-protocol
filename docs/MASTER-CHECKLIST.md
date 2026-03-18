@@ -1,5 +1,5 @@
 # Alexandrian Protocol — Master Implementation Checklist
-*Living reference document. Updated: 2026-03-17. Last audit: 2026-03-17 (post-context-3)*
+*Living reference document. Updated: 2026-03-17. Last audit: 2026-03-17 (post-context-4)*
 
 ---
 
@@ -166,6 +166,14 @@ domain:{domain}:type:{t}  → Sorted set: contentHash members filtered by KB typ
 
 ---
 
+### [x] 1.5a — Fix sdk-core missing .cjs build output
+
+**Bug:** `packages/sdk-core/package.json` declared `"main": "./dist/index.cjs"` and `"require": "./dist/index.cjs"` in exports, but the build script was `"build": "tsc -p tsconfig.json"`. Plain `tsc` never produces `.cjs` output — only `.js` and `.d.ts`. Any CommonJS consumer (`require('@alexandrian/sdk-core')`) would receive a file-not-found error at import time.
+
+**Fix:** Changed `"build": "tsc -p tsconfig.json"` → `"build": "tsup"` and added `"tsup": "^8.5.1"` to `devDependencies`. The `tsup.config.ts` already existed and mirrors `sdk-adapters`. Pattern now matches the rest of the monorepo.
+
+---
+
 ### [ ] 1.5 — Publish SDK packages to npm
 
 ```bash
@@ -244,6 +252,12 @@ Build the pipeline from output end backwards: Publisher → Validator → Genera
 - Resume-safe: detects already-published KBs and skips them on re-run
 - Error classification: `AlreadyPublished`, `NonceConflict`, `InsufficientFunds`
 - Dry-run mode: `npm run publish:dry`
+- Secondary IPFS pinning via PSA spec (Filebase / Pinata v2 compatible)
+
+**[x] Nonce over-increment bug fixed (2026-03-17):**
+The batch loop previously pre-assigned `nonce + j` to each task slot, then unconditionally incremented `nonce += batch.length` after every batch — even when tasks returned early via the `alreadyOnChain` fast path (which never submits a transaction and therefore never uses a nonce). On a batch of 5 where 3 were already on-chain, the nonce would advance by 5 instead of 2, causing `NonceConflict` errors for every subsequent batch.
+
+**Fix:** Replaced the fixed `nonce` parameter with a shared `nonceRef: { value: number }` object. Nonce is claimed atomically — `const myNonce = nonceRef.value++` — inside `publishOne()`, immediately after the `isRegistered()` check passes (i.e., only when a transaction will actually be submitted). The JS single-threaded event loop makes the increment race-free across concurrent async tasks. Removed `nonce += batch.length` from the outer loop entirely.
 
 **To run:** Requires `OWNER_PRIVATE_KEY`, `PINATA_JWT` env vars, and `setMinStake(0)` called on contract first.
 
@@ -575,7 +589,81 @@ These two mechanics are the same underlying system viewed from different angles:
 
 ---
 
-## 9 · Critical Path Summary
+## 9 · Production Audit Log (2026-03-17)
+
+Codebase graded against production and M2 readiness. All code-level findings below have been fixed in-session.
+
+### [x] AUDIT-1 — No rate limiting on `api/query.js`
+**Severity:** HIGH (production blocker)
+**Finding:** The `/api/query` endpoint had wildcard CORS (`*`) and zero rate limiting. Any page could issue unlimited OpenAI requests, draining API credits.
+**Fix:** Added in-process sliding window rate limiter — 20 requests/min per IP, 100 requests/min global. Uses `Map<ip, timestamp[]>` for O(1) cleanup. Also added 5,000-character max on question input. Returns HTTP 429 with `Retry-After: 60` header when limits are exceeded.
+
+---
+
+### [x] AUDIT-2 — Subgraph query uses non-existent fields in `kb-browser.html`
+**Severity:** HIGH (silent data loss)
+**Finding:** The GraphQL query in `demo/kb-browser.html` included `trustTier` and `transactionHash` — neither field exists in the `KnowledgeBlock` entity in the deployed subgraph schema. The Graph returns `null` silently. The Trust Tier filter always returned zero results; the Basescan tx link never rendered.
+**Fix:** Removed both fields from the GraphQL query. Removed the Trust Tier filter `<select>` from the UI. Replaced `transactionHash` Basescan link with a block explorer link using `blockNumber` (which IS indexed in the schema). Added `curator` field to the query.
+
+---
+
+### [x] AUDIT-3 — Wrong contract address on demo landing page
+**Severity:** MEDIUM (grant/credibility risk)
+**Finding:** `demo/index.html` showed the stale contract address `0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000` in the stats bar and footer link. The contract was redeployed 2026-03-17 to `0xD1F216E872a9ed4b90E364825869c2F377155B29`.
+**Fix:** Updated both occurrences in `demo/index.html` to the live contract address.
+
+---
+
+### [x] AUDIT-4 — Nonce over-increment in `publish.mjs`
+**Severity:** HIGH (10k run would fail)
+**Finding:** See Section 3.1 note above.
+**Fix:** Shared `nonceRef` object with atomic claim inside `publishOne()`. See 3.1.
+
+---
+
+### [x] AUDIT-5 — sdk-core `.cjs` build output missing
+**Severity:** MEDIUM (npm publish would produce broken package)
+**Finding:** See Section 1.5a above.
+**Fix:** Switched build script to `tsup`, added `tsup` devDependency. See 1.5a.
+
+---
+
+### [x] AUDIT-6 — No security headers on Vercel demo routes
+**Severity:** MEDIUM (security posture)
+**Finding:** `vercel.json` had CORS headers on `/api/*` but no security headers on HTML routes. No `X-Frame-Options`, no `Content-Security-Policy`, no `X-Content-Type-Options`.
+**Fix:** Added global `headers` rule on `/(.*)`  with `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, and a tight `Content-Security-Policy` that allows only known external origins (jsdelivr, unpkg, fonts.googleapis, The Graph, OpenAI, IPFS gateways, Base RPC).
+
+---
+
+### [ ] AUDIT-7 — No graph health metrics or monitoring
+**Severity:** MEDIUM (operational risk for M2)
+**Finding:** No dashboards, no alerting, no automated checks that the subgraph is indexing, IPFS gateways are responsive, or the publisher wallet has sufficient gas. The 10k run has no observability.
+**Action:** Before 10k run, set up: (1) Uptime monitor on subgraph query endpoint, (2) wallet balance check in `publish.mjs` startup (warn if < 0.02 ETH), (3) IPFS gateway health check before each batch.
+
+---
+
+### [ ] AUDIT-8 — `setMinStake(0)` / `setProtocolFee(500)` / `setSlashRate(3000)` not yet called
+**Severity:** HIGH (blocks 10k run)
+**Finding:** Live contract is still at default values. See Sections 0.1–0.3.
+**Action:** Owner must call these via Basescan Write Contract before starting any generation run.
+
+---
+
+### [ ] AUDIT-9 — No embedding-based duplicate detection
+**Severity:** MEDIUM (M2 quality gate)
+**Finding:** Generator has exact-hash and Jaccard deduplication but no semantic vector similarity check. At 10k KBs, paraphrased duplicates will accumulate.
+**Action:** See Section 3.5.
+
+---
+
+### [ ] AUDIT-10 — Min-parent enforcement not wired end-to-end
+**Severity:** LOW (quality, not correctness)
+**Finding:** The validator enforces `used.length ∈ [2,3]` for derived KBs, but there is no `is_seed` flag enforcement in the publish pipeline to prevent seeds from accidentally carrying parent links set by the generator.
+**Action:** Add explicit `parents = []` assertion for any KB where `isSeed === true` before calling `publishKB`.
+
+---
+
+## 10 · Critical Path Summary
 
 ```
 TODAY         ── 3 contract calls (setMinStake, setProtocolFee, setSlashRate)

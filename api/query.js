@@ -16,6 +16,57 @@ import { createHash } from "crypto";
 
 export const config = { maxDuration: 30 };
 
+// ── Rate limiting (in-process sliding window, persists across warm invocations) ─
+//
+// Per-IP:   20 requests per 60-second window
+// Global:   100 requests per 60-second window
+// Input:    max 5,000 characters per question
+//
+// Note: resets on cold start (acceptable for demo; use Redis for stricter limits).
+
+const RATE_WINDOW_MS  = 60_000; // 1 minute
+const RATE_LIMIT_IP   = 20;     // per IP per window
+const RATE_LIMIT_GLOBAL = 100;  // total across all IPs per window
+
+const ipWindows     = new Map(); // ip → timestamp[]
+const globalWindow  = [];        // timestamp[]
+
+function getClientIp(req) {
+  const fwd = req.headers["x-forwarded-for"];
+  if (fwd) return fwd.split(",")[0].trim();
+  return req.headers["x-real-ip"] ?? req.socket?.remoteAddress ?? "unknown";
+}
+
+// Returns true if the request should be blocked (rate limited).
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const cutoff = now - RATE_WINDOW_MS;
+
+  // Clean + check per-IP window
+  if (!ipWindows.has(ip)) ipWindows.set(ip, []);
+  const ipHits = ipWindows.get(ip).filter(t => t > cutoff);
+  if (ipHits.length >= RATE_LIMIT_IP) return true;
+  ipHits.push(now);
+  ipWindows.set(ip, ipHits);
+
+  // Clean + check global window
+  const now2 = Date.now();
+  const recent = globalWindow.filter(t => t > cutoff);
+  if (recent.length >= RATE_LIMIT_GLOBAL) return true;
+  recent.push(now2);
+  globalWindow.length = 0;
+  globalWindow.push(...recent);
+
+  // Evict stale IP entries to prevent unbounded memory growth
+  if (ipWindows.size > 5_000) {
+    for (const [k, v] of ipWindows) {
+      if (v.every(t => t <= cutoff)) ipWindows.delete(k);
+    }
+  }
+
+  return false;
+}
+
 // ── Response cache (persists across requests within a warm serverless instance) ─
 const responseCache = new Map();
 const CACHE_MAX = 100; // evict oldest when full
@@ -191,9 +242,23 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  // ── Rate limiting ──────────────────────────────────────────────────────────
+  const clientIp = getClientIp(req);
+  if (checkRateLimit(clientIp)) {
+    res.setHeader("Retry-After", "60");
+    return res.status(429).json({
+      error: "Too many requests",
+      detail: "Max 20 requests per minute per IP. Retry after 60 seconds.",
+    });
+  }
+
+  // ── Input validation ───────────────────────────────────────────────────────
   const { question } = req.body ?? {};
   if (!question || typeof question !== "string" || question.trim().length < 5) {
     return res.status(400).json({ error: "question is required (min 5 chars)" });
+  }
+  if (question.length > 5_000) {
+    return res.status(400).json({ error: "question too long (max 5,000 chars)" });
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
