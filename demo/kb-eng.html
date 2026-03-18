@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alexandrian Protocol — KB-ENG Demo</title>
+  <title>Alexandrian — The Canonical Knowledge Library for AI Agents</title>
+  <meta name="description" content="A structured, citable, and economically-maintained knowledge layer for AI agents — cryptographically verifiable, on-chain attributed, with programmable royalties." />
+  <meta property="og:title" content="Alexandrian — The Canonical Knowledge Library for AI Agents" />
+  <meta property="og:description" content="A structured, citable, and economically-maintained knowledge layer for AI agents. Every KB entry is content-hashed, on-chain attributed, and economically incentivized toward accuracy over time." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Alexandrian — The Canonical Knowledge Library for AI Agents" />
+  <meta name="twitter:description" content="A structured, citable, and economically-maintained knowledge layer for AI agents. Every KB entry is content-hashed, on-chain attributed, and economically incentivized toward accuracy over time." />
   <!-- marked: markdown parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
   <!-- DOMPurify: HTML sanitizer (prevents XSS from rendered markdown) -->
@@ -801,13 +808,15 @@
       <div class="intro-badge">What is Alexandrian?</div>
       <h1 class="intro-title" id="intro-heading">The canonical knowledge library<br>for <em>AI agents</em></h1>
       <p class="intro-lead">
-        AI agents are increasingly capable — but the knowledge they reason over is unattributed, unverifiable,
-        and locked inside model weights or flat document stores. There's no shared reference, no version history,
-        no economic incentive to maintain quality.<br><br>
-        Alexandrian is the first <strong>structured, citable, economically-maintained library for AI agents</strong>
-        — a persistent layer of verified standards, procedures, reference material, and historical precedent
-        that agents consult before touching noisy external sources. Every entry is typed, on-chain,
-        content-hashed, and carries attributed royalties back to its contributors.
+        AI agents are rapidly increasing in capability, alongside a growing need for knowledge systems that are
+        transparent, attributable, and continuously improving.<br><br>
+        Alexandrian introduces a new foundation: a <strong>structured, citable, and economically-maintained
+        knowledge layer for AI agents</strong> — where every entry is cryptographically verifiable in its
+        integrity, provenance, and version history, and economically incentivized toward accuracy over time.<br><br>
+        It provides a persistent library of standards, procedures, reference materials, and historical
+        precedent — designed to complement agent reasoning with structured, attributable, and reusable knowledge.
+        Alexandrian enables knowledge to be traceable, accountable, and economically reinforced toward
+        correctness, creating a system where quality can emerge and compound over time.
       </p>
     </div>
 
@@ -815,32 +824,32 @@
       <div class="pillar-card">
         <div class="pillar-icon">⛓️</div>
         <div class="pillar-title">On-Chain Identity &amp; Integrity</div>
-        <div class="pillar-desc">Every KB carries a unique on-chain ID, a JCS+keccak256 content hash, and an IPFS CID. Tamper-proof and permanently verifiable — any agent can confirm exactly what knowledge it's reasoning over.</div>
+        <div class="pillar-desc">Each KB entry is assigned a unique on-chain identity and secured through a JCS+keccak256 content hash and IPFS CID. This provides durable guarantees around content integrity, authorship, and consistency — allowing agents to confidently reference and validate the knowledge they use.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">🔀</div>
-        <div class="pillar-title">Citation Graph &amp; Editions</div>
-        <div class="pillar-desc">KBs cite parent KBs explicitly on-chain, forming a versioned edition history. When a standard is updated the old entry isn't deleted — the chain is the version history. Royalties flow automatically up every citation on each query.</div>
+        <div class="pillar-title">Citation Graph &amp; Versioned Editions</div>
+        <div class="pillar-desc">KB entries build on one another through explicit on-chain citations, forming a transparent and evolving graph of knowledge. This enables continuous versioning without loss of prior context, clear attribution across dependencies, inspectable knowledge evolution, and ongoing value flow through upstream contributions.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">🏷️</div>
         <div class="pillar-title">Epistemic Type System</div>
-        <div class="pillar-desc">Six KB types — Practice, Feature, StateMachine, PromptEngineering, ComplianceChecklist, Rubric — form the library's taxonomy. Agents don't just receive text; they receive structured entries with a declared purpose and browsable classification.</div>
+        <div class="pillar-desc">The library is organized into six canonical KB types — Practice, Feature, StateMachine, PromptEngineering, ComplianceChecklist, Rubric. This system adds semantic structure, allowing agents to interpret both the content and its intended function, supporting more reliable and context-aware usage.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">💸</div>
         <div class="pillar-title">Programmable Royalties</div>
-        <div class="pillar-desc">Publishers stake ETH — creating skin-in-the-game for quality. Per-query settlements route earnings up the attribution DAG automatically, with a 2% protocol fee and the remainder split by royalty bps.</div>
+        <div class="pillar-desc">Publishing includes an ETH stake, aligning contributors with long-term quality and usefulness. Each query activates a distribution flow: value is routed through the citation graph, contributors are rewarded proportionally, and a 2% protocol fee sustains the system. This creates a reinforcing loop where widely used, high-quality knowledge accrues ongoing value.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">🛡️</div>
-        <div class="pillar-title">Trust Tiers</div>
-        <div class="pillar-desc">HumanStaked, AgentDerived, and AgentDiscovered tiers give AI pipelines a native signal to filter and weight knowledge. No external oracle required — trust is encoded in the artifact itself.</div>
+        <div class="pillar-title">Embedded Trust Tiers</div>
+        <div class="pillar-desc">Each entry includes a native trust classification — HumanStaked, AgentDerived, AgentDiscovered. These tiers provide an additional layer of signal, enabling agents to calibrate how knowledge is weighted and applied in different contexts.</div>
       </div>
       <div class="pillar-card">
         <div class="pillar-icon">🌐</div>
-        <div class="pillar-title">Open Contribution, No Gatekeeper</div>
-        <div class="pillar-desc">Anyone can contribute to the library, extend existing entries, and earn from citations. Quality emerges from on-chain reputation — query volume, stake, and endorsements — not editorial control. The subgraph is the card catalog.</div>
+        <div class="pillar-title">Open Contribution, No Gatekeeping</div>
+        <div class="pillar-desc">The system supports open participation: new knowledge can be introduced, existing entries can be extended, and contributors can participate in and benefit from the ecosystem. Reputation develops through transparent signals — usage, stake, citations, and endorsements — supporting a dynamic and continuously improving knowledge base. The subgraph serves as a discoverability layer across the knowledge network.</div>
       </div>
     </div>
 
