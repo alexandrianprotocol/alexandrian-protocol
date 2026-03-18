@@ -91,65 +91,92 @@ const KB_ATTRIBUTION = [
   },
 ];
 
-// ── Grounded system prompt ────────────────────────────────────────────────────
+// ── IPFS artifact fetching ────────────────────────────────────────────────────
 
-const SYSTEM_PROMPT = `You are a senior software engineer. Your responses are grounded exclusively in the following KB procedures. Every recommendation must map to a specific KB step or checklist item. Reference the KB ID and step ID inline (e.g., "KB-ENG-1 step_3").
+const IPFS_GATEWAYS = [
+  "https://ipfs.io/ipfs",
+  "https://cloudflare-ipfs.com/ipfs",
+  "https://gateway.pinata.cloud/ipfs",
+];
+const IPFS_TIMEOUT_MS = 5_000;
+const DIVIDER = "═══════════════════════════════════════════════";
 
-═══════════════════════════════════════════════
-KB-ENG-1 · Stable Production API Design (Practice)
-Domain: engineering.api.design
-═══════════════════════════════════════════════
-step_1: Define the resource model — identify core entities, scalar attributes, and relationships. Assign each entity a singular noun name. Reject verb entity names.
-step_2: Map HTTP methods using semantic correctness: GET (safe+idempotent), POST (non-idempotent creation), PUT/PATCH (idempotent), DELETE (idempotent). Annotate each operation with safety and idempotency properties.
-step_3: Design the error schema: { error: { code: SCREAMING_SNAKE_CASE, message: string, retryable: boolean, details: object|null, request_id: string } }. Status codes: 400 INVALID_INPUT (fatal), 401 UNAUTHORIZED (fatal), 403 FORBIDDEN (fatal), 404 NOT_FOUND (fatal), 409 CONFLICT, 422 VALIDATION_FAILED (fatal), 429 RATE_LIMITED (retryable), 500 INTERNAL_ERROR (retryable).
-step_4: Specify auth scheme: assign PUBLIC/USER/ADMIN/SERVICE tier to every operation. Document JWT { algorithm, lifetime_seconds, issuer, audience, required_claims }. Default to USER, escalate to ADMIN only for operations affecting other users' data.
-step_5: Plan versioning: URI-based /v1/, backward compatibility rules (additive changes safe, field removal is a breaking change), deprecation policy with 12-month sunset.
-step_6: Produce API design document: annotated resource table — endpoint, method, auth_tier, idempotent, request_schema, response_schema, error_codes.
-step_7: Consumer review — give the design doc to a mock consumer, ask them to implement 3 operations without asking questions. Every clarification is a design defect.
+async function fetchArtifact(cid) {
+  for (const gateway of IPFS_GATEWAYS) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), IPFS_TIMEOUT_MS);
+      const res = await fetch(`${gateway}/${cid}`, { signal: controller.signal });
+      clearTimeout(timer);
+      if (res.ok) return await res.json();
+    } catch { /* try next gateway */ }
+  }
+  return null;
+}
 
-═══════════════════════════════════════════════
-KB-ENG-2 · OpenAPI Contract Specification (Feature)
-Domain: engineering.api.contracts
-Parent: KB-ENG-1
-═══════════════════════════════════════════════
-step_1: Initialize OpenAPI 3.1.0 document with info, servers (include /v1 in server URL not in paths), and global security: [{ BearerAuth: [] }].
-step_2: Create SEPARATE component schemas: {Entity}CreateRequest (writable fields only, required: all non-optional), {Entity}UpdateRequest (writable, required: none for PATCH), {Entity}Response (all fields, server-assigned fields marked readOnly: true), {Entity}ListResponse (pagination envelope: items, total, page, pageSize). NEVER use one schema for both request and response.
-step_3: Define paths and operations: unique operationId per operation ({method}{Entity} convention), tags for grouping. Every operation must declare success response + 400 (if has body) + 401 (if not PUBLIC) + 404 (if path param) + 500.
-step_4: Enforce strict schemas: no freeform objects (type: object with no properties), explicit required arrays, additionalProperties: false on all request bodies. Nullable fields use oneOf: [{type: 'null'}, {type: original}].
-step_5: Security schemes: BearerAuth in components/securitySchemes. PUBLIC endpoints get security: [] override. Every operation either inherits global security or has explicit override.
-step_6: Add examples: happy-path and each error code per operation. Examples must be valid instances of the schema.
-step_7: Validate: spectral lint (zero errors), mock server smoke tests pass for all examples.
+function formatArtifactSection(kb, artifact, index) {
+  const label  = kb.id;
+  const title  = artifact?.title  ?? kb.title;
+  const type   = artifact?.kbType ?? kb.type;
+  const domain = artifact?.domain ?? kb.domain;
+  let content  = "";
 
-═══════════════════════════════════════════════
-KB-ENG-3 · RESTful API Implementation (Practice)
-Domain: engineering.api.implementation
-Parent: KB-ENG-1
-═══════════════════════════════════════════════
-step_1: Schema-first router: generate routes from OpenAPI spec operationIds. No route may exist that is not in the spec. CI check: route list vs spec paths must match.
-step_2: Request validation middleware: validate every request against OpenAPI requestBody schema BEFORE handlers. On failure: 422 VALIDATION_FAILED with error body from KB-ENG-1 step_3. coerceTypes: false. validateResponses: true in dev only.
-step_3: Dependency injection: every handler receives deps (db, cache, external clients) as constructor/function params. No handler accesses global state or instantiates its own deps. Factory pattern: createHandler({ dep1, dep2 }) => (req, res) => {...}.
-step_4: Centralized error pipeline: single error handler (last middleware). Maps error types to status codes from KB-ENG-1 step_3. All 500s logged at ERROR with stack trace. 4xx logged at WARN without stack trace.
-step_5: Structured JSON logging: { timestamp, level, request_id, method, path, status, latency_ms, user_id }. Generate request_id on receipt if no X-Request-ID header. Propagate in response header. 2xx→INFO, 4xx→WARN, 5xx→ERROR. Never log request bodies or Authorization headers.
-step_6: Graceful shutdown: on SIGTERM/SIGINT — stop accepting connections, drain in-flight requests within 25s, close DB connections, exit(0).
-step_7: Contract integration tests: every operationId has at least one success path test and one test per documented error code. Real HTTP requests against running service — not mocked middleware.
+  if (artifact?.steps?.length) {
+    content = artifact.steps
+      .map((s) => `${s.id}: ${s.action}`)
+      .join("\n");
+  } else if (artifact?.checklist?.length) {
+    content = artifact.checklist
+      .map((item, i) => {
+        const sev = item.severity ? `[${item.severity.toUpperCase()}] ` : "";
+        return `${sev}item_${i + 1}: ${item.item}`;
+      })
+      .join("\n");
+  } else if (artifact?.summary) {
+    content = artifact.summary;
+  } else {
+    content = "(artifact unavailable — partial context)";
+  }
 
-═══════════════════════════════════════════════
-KB-ENG-4 · API Endpoint Security (ComplianceChecklist)
-Domain: engineering.api.security
-Parent: KB-ENG-3
-═══════════════════════════════════════════════
-[CRITICAL] item_1 Auth requirement map: verify auth middleware is installed BEFORE route handler for every non-PUBLIC endpoint. No endpoint is PUBLIC that should be authenticated. Curl test: any 200 on a non-PUBLIC route without token is a critical finding.
-[CRITICAL] item_2 JWT validation: verify signature, exp (not expired), iss (matches configured issuer), aud (matches this service), not in revocation list. Algorithm must be RS256 or ES256 — never HS256 in multi-service systems, never alg=none. Attack tests: expired token → 401, wrong aud → 401, wrong key → 401, alg=none → 401.
-[CRITICAL] item_3 RBAC/IDOR: for every operation on a user-owned resource, verify resource.owner_id == user_id from JWT claims BEFORE responding. Authentication ≠ authorization. IDOR test: User B reads User A's resource → must return 403, not 200 or 404.
-[HIGH] item_4 Input sanitization: parameterized queries only — never string interpolation in SQL. DOMPurify or html.EscapeString for HTML output. additionalProperties: false on all request schemas. Reject SQL injection probes (' OR '1'='1) and command injection probes (; ls -la) with 422.
-[HIGH] item_5 Rate limiting: Redis-backed sliding window. Auth endpoints (POST /sessions, POST /password-reset): 5 req/min/IP. Authenticated operations: 100 req/min/user_id. Admin operations: 20 req/min/user_id. Response: 429 with Retry-After header and X-RateLimit-* headers.
-[HIGH] item_6 OWASP API Top 10 audit: pagination enforced on list endpoints (API4), admin operations return 403 to user tokens (API5), SSRF test on URL fields (API7), CORS not * on authenticated endpoints (API8), no /v0/ or /dev/ routes in prod (API9).
-[MEDIUM] item_7 Adversarial test suite in CI: IDOR (User B→User A's resource → 403), JWT alg=none (→ 401), wrong audience (→ 401), rate limit breach (→ 429), SQL injection probe (→ 422), missing auth token (→ 401), user token on admin endpoint (→ 403), wrong HTTP method on read-only endpoint (→ 405).
+  return [
+    DIVIDER,
+    `${label} · ${title} (${type})`,
+    `Domain: ${domain}`,
+    DIVIDER,
+    content,
+  ].join("\n");
+}
 
-═══════════════════════════════════════════════
-RESPONSE FORMAT
-═══════════════════════════════════════════════
-Structure your response in clear sections. For each recommendation, cite the KB step inline. Use markdown formatting. Be specific and actionable — not generic advice.`;
+/**
+ * Build the system prompt by fetching live artifacts from IPFS.
+ * Falls back gracefully — if a gateway is slow or offline the KB section
+ * will note partial context rather than blocking the whole request.
+ * Returns { prompt, artifactsLoaded } so callers know how many KBs injected.
+ */
+async function buildSystemPrompt(kbs) {
+  const artifactPromises = kbs.map((kb) => fetchArtifact(kb.cid));
+  const artifacts = await Promise.all(artifactPromises);
+
+  const sections = kbs.map((kb, i) => formatArtifactSection(kb, artifacts[i], i));
+  const loaded   = artifacts.filter(Boolean).length;
+
+  const prompt = [
+    "You are a senior software engineer. Your responses are grounded exclusively in the",
+    "following Knowledge Block procedures fetched live from the Alexandrian Protocol.",
+    "Every recommendation must map to a specific KB step or checklist item.",
+    `Reference the KB ID and step ID inline (e.g., "${kbs[0]?.id ?? "KB-ENG-1"} step_3").`,
+    "",
+    ...sections,
+    "",
+    DIVIDER,
+    "RESPONSE FORMAT",
+    DIVIDER,
+    "Structure your response in clear sections. Cite the KB step inline.",
+    "Be specific and actionable — not generic advice. Use markdown formatting.",
+  ].join("\n");
+
+  return { prompt, artifactsLoaded: loaded };
+}
 
 // ── Handler ───────────────────────────────────────────────────────────────────
 
@@ -182,6 +209,9 @@ export default async function handler(req, res) {
   }
 
   try {
+    // ── Build prompt from live IPFS artifacts ──────────────────────────────────
+    const { prompt: systemPrompt, artifactsLoaded } = await buildSystemPrompt(KB_ATTRIBUTION);
+
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -193,7 +223,7 @@ export default async function handler(req, res) {
         temperature: 0.3,
         max_tokens:  1200,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: systemPrompt },
           { role: "user",   content: question.trim() },
         ],
       }),
@@ -211,7 +241,7 @@ export default async function handler(req, res) {
     // KB-ENG-1 receives royalties from KB-ENG-2, KB-ENG-3 (500 bps each)
     // KB-ENG-3 receives royalties from KB-ENG-4 (500 bps)
     const totalEth   = 0.004;
-    const protocolFee = totalEth * 0.02;
+    const protocolFee = totalEth * 0.05; // 5% — matches setProtocolFee(500) on contract
     const settlement = KB_ATTRIBUTION.map((kb) => ({
       id:         kb.id,
       hash:       kb.hash,
@@ -226,9 +256,10 @@ export default async function handler(req, res) {
         protocolFee: Number(protocolFee.toFixed(6)),
         distribution: settlement,
       },
-      model:  data.model,
-      usage:  data.usage,
-      cached: false,
+      model:           data.model,
+      usage:           data.usage,
+      artifactsLoaded, // how many KB artifacts were fetched live from IPFS
+      cached:          false,
     };
 
     cacheSet(cKey, payload);

@@ -67,3 +67,20 @@ export {
   type StorageAdapter,
 } from "./lib/adapters/index.js";
 export * as OpenAdapters from "./lib/adapters/open/index.js";
+
+// ── Query Enhancement ─────────────────────────────────────────────────────────
+export { enhanceQuery } from "./lib/enhanceQuery.js";
+export type {
+  EnhanceQueryOptions,
+  EnhancedQuery,
+  SelectedKB,
+  SettlementPreview,
+  KBType,
+} from "./lib/enhanceQuery.js";
+export {
+  UpstashCacheAdapter,
+  kbMetaKey,
+  domainKey,
+  domainTypeKey,
+  enhanceCacheKey,
+} from "./lib/adapters/upstash.js";
