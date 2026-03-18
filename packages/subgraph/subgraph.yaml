@@ -19,6 +19,8 @@ dataSources:
         - Settlement
         - RoyaltyDistribution
         - Agent
+        - PublishSnapshot
+        - ReputationSnapshot
         - _TxContext
         - _Payer
       abis:

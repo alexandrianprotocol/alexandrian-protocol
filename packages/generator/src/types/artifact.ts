@@ -20,6 +20,10 @@ export type EpistemicType = "declarative" | "procedural" | "evaluative";
 /**
  * Functional KB type: how the knowledge is used (execution routing, composition).
  * Agents primarily use kb_type; epistemic_type informs confidence and style.
+ *
+ * Core types (M1): procedure, pattern, invariant, constraint, evaluation,
+ *   transformation, protocol, artifact_spec, context, anti_pattern, heuristic
+ * Extended types (M2): case_study, decision_framework, risk_model, experiment
  */
 export type KBType =
   | "procedure"
@@ -32,7 +36,16 @@ export type KBType =
   | "artifact_spec"
   | "context"
   | "anti_pattern"
-  | "heuristic";
+  | "heuristic"
+  // ── M2 extended types ─────────────────────────────────────────────────────
+  /** Evidence-grounded real-world example: context, actions taken, outcomes. */
+  | "case_study"
+  /** Structured logic for choosing between options (tradeoff matrices, decision trees). */
+  | "decision_framework"
+  /** Structured representation of risks, probabilities, and mitigations. */
+  | "risk_model"
+  /** Controlled test with hypothesis, method, result, and conclusion. */
+  | "experiment";
 
 export type ArtifactStatus = "active" | "deprecated" | "draft";
 

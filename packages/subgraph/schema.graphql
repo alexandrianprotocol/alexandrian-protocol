@@ -108,6 +108,44 @@ type Agent @entity(immutable: false) {
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Proof snapshots — deterministic state records for M2 replay verification
+# ─────────────────────────────────────────────────────────────────────────────
+
+"""
+Immutable snapshot of a KB at publish time. One record per KB.
+id = contentHash.toHex() + "-publish"
+Enables deterministic proof: re-indexing from genesis must reproduce identical entities.
+"""
+type PublishSnapshot @entity(immutable: true) {
+  id: ID!
+  kb: KnowledgeBlock!
+  contentHash: Bytes!
+  kbType: Int!            # on-chain enum value at publish time
+  domain: String!
+  cid: String!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  logIndex: BigInt!
+}
+
+"""
+Reputation state snapshot written on each ReputationUpdated event.
+id = contentHash.toHex() + "-" + blockNumber.toString() + "-" + logIndex.toString()
+Enables temporal reasoning and trend analysis over reputation trajectory.
+"""
+type ReputationSnapshot @entity(immutable: true) {
+  id: ID!
+  kb: KnowledgeBlock!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  logIndex: BigInt!
+  reputationScore: Int!
+  queryVolume: BigInt!
+  isSlashed: Boolean!
+  stakeAmount: BigInt!
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Internal helpers — not intended for external consumers
 # ─────────────────────────────────────────────────────────────────────────────
 

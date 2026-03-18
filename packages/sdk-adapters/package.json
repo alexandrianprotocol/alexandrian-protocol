@@ -8,9 +8,18 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "browser": "./dist/index.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
+    },
+    "./adapters/langchain": {
+      "import": "./dist/lib/adapters/langchain.js",
+      "types": "./dist/lib/adapters/langchain.d.ts"
+    },
+    "./adapters/llamaindex": {
+      "import": "./dist/lib/adapters/llamaindex.js",
+      "types": "./dist/lib/adapters/llamaindex.d.ts"
     }
   },
   "files": [
@@ -21,7 +30,9 @@
     "build": "tsup",
     "build:types": "tsc --emitDeclarationOnly",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "benchmark": "tsx scripts/benchmark.ts",
+    "benchmark:verbose": "tsx scripts/benchmark.ts --verbose"
   },
   "dependencies": {
     "@alexandrian/protocol": "workspace:*",

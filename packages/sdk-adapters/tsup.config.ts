@@ -1,7 +1,11 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["index.ts"],
+  entry: [
+    "index.ts",
+    "lib/adapters/langchain.ts",
+    "lib/adapters/llamaindex.ts",
+  ],
   format: ["esm", "cjs"],
   dts: true,
   splitting: true,
@@ -11,6 +15,12 @@ export default defineConfig({
   external: [
     "@alexandrian/sdk-core",
     "ethers",
+    // Framework adapter peer deps — structural shims are used so these are never
+    // imported at runtime, but list them defensively to prevent accidental bundling.
+    "langchain",
+    "@langchain/core",
+    "@langchain/community",
+    "llamaindex",
   ],
   // Force @alexandrian/protocol and its transitive deps to be bundled inline.
   // Required to avoid two Node.js v20 incompatibilities in the dist:

@@ -45,10 +45,11 @@ const GAS_LIMIT        = 500_000n; // deployed contract costs ~405k gas; 500k gi
 // ── Minimal ABI (publishKB + minStakeAmount + custom errors) ───────────────────
 
 const ABI = [
-  // State read
+  // State reads
   "function minStakeAmount() external view returns (uint256)",
+  "function isRegistered(bytes32 contentHash) external view returns (bool)",
 
-  // Core write — deployed contract does NOT have isSeed, minimumRequiredParents, or artifactHash
+  // Core write
   `function publishKB(
     bytes32 contentHash,
     address curator,
@@ -60,7 +61,10 @@ const ABI = [
     string  licenseType,
     uint256 queryFee,
     string  version,
-    tuple(bytes32 parentHash, uint16 royaltyShareBps, bytes4 relationship)[] parents
+    tuple(bytes32 parentHash, uint16 royaltyShareBps, bytes4 relationship)[] parents,
+    bool    isSeed,
+    uint8   minimumRequiredParents,
+    bytes32 artifactHash
   ) external payable`,
 
   // Custom errors — required for classifyError()
@@ -78,6 +82,7 @@ const ABI = [
 // Domain-based overrides apply on top for cases where domain signals stronger intent.
 
 const KB_TYPE_FROM_IDENTITY = {
+  // ── Core types (M1) ────────────────────────────────────────────────────────
   procedure:    0, // Practice
   pattern:      0, // Practice
   heuristic:    0, // Practice
@@ -89,6 +94,12 @@ const KB_TYPE_FROM_IDENTITY = {
   constraint:   4, // ComplianceChecklist
   invariant:    4, // ComplianceChecklist
   evaluation:   5, // Rubric
+  // ── Extended types (M2) ────────────────────────────────────────────────────
+  // Mapped to nearest on-chain enum value; semantic type lives in IPFS artifact.
+  case_study:         0, // Practice  — evidence-grounded procedure
+  decision_framework: 0, // Practice  — structured decision procedure
+  risk_model:         4, // ComplianceChecklist — structured risk/constraint model
+  experiment:         5, // Rubric    — evaluation of a hypothesis
 };
 
 function artifactToKbType(artifact, domain = "") {
@@ -351,6 +362,9 @@ async function publishOne({ filePath, bundledDir, contract, signerAddress, publi
     0n,           // queryFee: free during bootstrap
     version,
     parents,
+    isSeed,
+    0,            // minimumRequiredParents: 0 during bootstrap
+    artifactHash,
     { value: 0n, nonce: myNonce, gasLimit: GAS_LIMIT }
   );
 

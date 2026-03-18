@@ -32,6 +32,7 @@
  *   --mode upgrade-seeds [--count N] [--concurrency 5] [--model gpt-4o] [--dry-run]  AI-normalize pending seeds → refined | marginal | failed
  *   --mode grade-report  Quality distribution across refined/marginal/failed + diagnosis + one-number go/no-go
  *   --mode repair-marginal  Re-score marginal artifacts; promote standard/anchor to staging/refined
+ *   --mode validate  Two-stage quality gate: (1) pending/ → validateArtifact → pre-refined/ | failed/; (2) refined/ → validateUpgradedEntry → validated/ | failed/ [--dry-run]
  *   --mode audit-kb  Audit staging/refined, marginal, failed for duplicate procedures, missing verification/references
  *   --mode analyze-artifacts  Scan staging/pending seeds to find which should reference IPFS artifacts; report by domain and suggested artifact
  *   --mode validate-artifacts  Validate JSON files in artifacts/ against the Universal Artifact Schema
@@ -46,7 +47,7 @@
  */
 
 import dotenv from "dotenv";
-import { readFileSync, readdirSync, writeFileSync, existsSync, mkdirSync } from "fs";
+import { readFileSync, readdirSync, writeFileSync, unlinkSync, existsSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -139,9 +140,11 @@ import { expandProcedure, isWeakProcedure } from "./lib/repair/procedure-expande
 import { repairKB } from "./lib/repair/kbRepair.js";
 import { seedQualityReasons, seedQualityScore, SEED_QUALITY_MIN_SCORE, validateStepInterfaceConsistency } from "./lib/ai-seed-quality.js";
 import { validateArtifact } from "./lib/core/validator.js";
+import { validateUpgradedEntry } from "./lib/upgraded-kb-entry.js";
 import { isProcedurallySpecific, proceduralSpecificityScore, PROCEDURAL_SPECIFICITY_MIN_SCORE } from "./lib/procedural-specificity.js";
 import { buildTriangleRegistry, isDuplicateTriangle, addTriangleToRegistry } from "./lib/knowledge-triangle.js";
 import { SUPER_SEED_TEMPLATES } from "./templates/super-seeds.js";
+import { SEED_TEMPLATES } from "./templates/seeds.js";
 import { DERIVED_FACTORIES } from "./templates/derived.js";
 import { buildCapabilityIndex, getCapabilityNames } from "./lib/routing/capability-clusters.js";
 import {
@@ -185,8 +188,8 @@ function toCapabilityIndexEntry(r: QueueRecord): CapabilityIndexEntry {
   };
 }
 
-/** Canonical first 100 seeds: graph anchors for 10k derived KBs. */
-const ALL_SEED_TEMPLATES = SUPER_SEED_TEMPLATES;
+/** Canonical seeds: 100 super-seeds + benchmark-targeted engineering.* seeds from SEED_TEMPLATES. */
+const ALL_SEED_TEMPLATES = [...SUPER_SEED_TEMPLATES, ...SEED_TEMPLATES];
 
 /** Specs for AI-generated seeds (used when --mode ai-seeds). ~86: every concept uses (Example + Decision rule + Anti-example) for stronger procedural generation. */
 const AI_SEED_SPECS: SeedSpec[] = [
@@ -469,10 +472,12 @@ const AI_SEED_SPECS: SeedSpec[] = [
 // ── Path setup ────────────────────────────────────────────────────────────────
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const STAGING_PENDING = join(__dirname, "..", "staging", "pending");
-const STAGING_REFINED = join(__dirname, "..", "staging", "refined");
-const STAGING_MARGINAL = join(__dirname, "..", "staging", "marginal");
-const STAGING_FAILED = join(__dirname, "..", "staging", "failed");
+const STAGING_PENDING      = join(__dirname, "..", "staging", "pending");
+const STAGING_PRE_REFINED  = join(__dirname, "..", "staging", "pre-refined");  // Stage 1 validate output
+const STAGING_REFINED      = join(__dirname, "..", "staging", "refined");
+const STAGING_VALIDATED    = join(__dirname, "..", "staging", "validated");     // Stage 2 validate output
+const STAGING_MARGINAL     = join(__dirname, "..", "staging", "marginal");
+const STAGING_FAILED       = join(__dirname, "..", "staging", "failed");
 const STAGING_DOCUMENTATION = join(__dirname, "..", "staging", "documentation");
 const ARTIFACTS_DIR = join(__dirname, "..", "artifacts");
 
@@ -1023,6 +1028,180 @@ async function main(): Promise<void> {
     return;
   }
 
+  // ── Two-stage quality gate ────────────────────────────────────────────────
+  //
+  // Stage 1: staging/pending/ → validateArtifact() → staging/pre-refined/  (or staging/failed/)
+  //   Structural gate on the full KBv24Artifact. Catches schema violations before
+  //   the expensive AI upgrade-seeds pass runs.
+  //
+  // Stage 2: staging/refined/ → validateUpgradedEntry() → staging/validated/ (or staging/failed/)
+  //   Quality gate on the flat UpgradedKBEntry produced by upgrade-seeds.
+  //   Ensures procedure length, summary, references, and verification fields meet
+  //   the bar required for publishing.
+  //
+  // publish.mjs should read from staging/validated/ (or refined/ as fallback).
+  // Run: node dist/index.js --mode validate [--dry-run]
+  //
+  if (mode === "validate") {
+    mkdirSync(STAGING_PRE_REFINED, { recursive: true });
+    mkdirSync(STAGING_VALIDATED,   { recursive: true });
+    mkdirSync(STAGING_FAILED,      { recursive: true });
+
+    // ── Stage 1: pending/ → structural validation → pre-refined/ or failed/ ──
+    const pendingFiles = existsSync(STAGING_PENDING)
+      ? readdirSync(STAGING_PENDING).filter((f) => f.endsWith(".json"))
+      : [];
+
+    let s1Pass = 0, s1Fail = 0;
+    console.log(`\nStage 1: structural validation of ${pendingFiles.length} pending KBs`);
+
+    for (const file of pendingFiles) {
+      const srcPath = join(STAGING_PENDING, file);
+      let record: unknown;
+      try {
+        record = JSON.parse(readFileSync(srcPath, "utf-8"));
+      } catch {
+        console.error(`  [error] ${file}: invalid JSON — moving to failed/`);
+        if (!dryRun) {
+          writeFileSync(
+            join(STAGING_FAILED, file),
+            JSON.stringify({ _file: file, _stage: 1, errors: ["invalid JSON"] }, null, 2),
+            "utf-8"
+          );
+        }
+        s1Fail++;
+        continue;
+      }
+
+      const artifact = (record as Record<string, unknown>).artifact ?? record;
+      const result = validateArtifact(artifact);
+
+      if (result.valid) {
+        if (!dryRun) {
+          // Write annotated copy to pre-refined/, then remove original from pending/
+          writeFileSync(
+            join(STAGING_PRE_REFINED, file),
+            JSON.stringify({ ...(record as object), _stage1_validated: true }, null, 2),
+            "utf-8"
+          );
+          unlinkSync(srcPath);
+        }
+        s1Pass++;
+        console.log(`  [pass] ${file.slice(0, 20)}…`);
+      } else {
+        if (!dryRun) {
+          // Write annotated failure to failed/, remove original from pending/
+          writeFileSync(
+            join(STAGING_FAILED, file),
+            JSON.stringify({ ...(record as object), _stage: 1, _errors: result.errors }, null, 2),
+            "utf-8"
+          );
+          unlinkSync(srcPath);
+        }
+        s1Fail++;
+        console.log(`  [fail] ${file.slice(0, 20)}… ${result.errors.slice(0, 2).join("; ")}`);
+      }
+    }
+
+    console.log(`  Stage 1 done: ${s1Pass} pass → pre-refined/, ${s1Fail} fail → failed/\n`);
+
+    // ── Stage 2: refined/ → quality validation → validated/ or failed/ ──────
+    const refinedFiles = existsSync(STAGING_REFINED)
+      ? readdirSync(STAGING_REFINED).filter((f) => f.endsWith(".json"))
+      : [];
+
+    let s2Pass = 0, s2Fail = 0;
+    console.log(`Stage 2: quality validation of ${refinedFiles.length} refined KBs`);
+
+    for (const file of refinedFiles) {
+      const srcPath = join(STAGING_REFINED, file);
+      let entry: unknown;
+      try {
+        entry = JSON.parse(readFileSync(srcPath, "utf-8"));
+      } catch {
+        console.error(`  [error] ${file}: invalid JSON — moving to failed/`);
+        if (!dryRun) {
+          writeFileSync(
+            join(STAGING_FAILED, file),
+            JSON.stringify({ _file: file, _stage: 2, errors: ["invalid JSON"] }, null, 2),
+            "utf-8"
+          );
+        }
+        s2Fail++;
+        continue;
+      }
+
+      // Discriminate between QueueRecord (has .artifact field) and UpgradedKBEntry (flat).
+      // Stage 2 can only quality-gate UpgradedKBEntry; QueueRecord files pass through
+      // (they belong to Stage 1 / upgrade-seeds, not the quality gate).
+      const entryObj = entry as Record<string, unknown>;
+      const isQueueRecord = entryObj.artifact !== undefined && typeof entryObj.artifact === "object";
+
+      if (isQueueRecord) {
+        // QueueRecord: use Stage 1 structural validator on the artifact field
+        const structResult = validateArtifact(entryObj.artifact);
+        if (structResult.valid) {
+          if (!dryRun) {
+            writeFileSync(
+              join(STAGING_VALIDATED, file),
+              JSON.stringify({ ...entryObj, _stage2_validated: true, _type: "QueueRecord" }, null, 2),
+              "utf-8"
+            );
+          }
+          s2Pass++;
+          console.log(`  [pass/QR] ${file.slice(0, 20)}…`);
+        } else {
+          if (!dryRun) {
+            writeFileSync(
+              join(STAGING_FAILED, file),
+              JSON.stringify({ ...entryObj, _stage: 2, _type: "QueueRecord", _errors: structResult.errors }, null, 2),
+              "utf-8"
+            );
+          }
+          s2Fail++;
+          console.log(`  [fail/QR] ${file.slice(0, 20)}… ${structResult.errors.slice(0, 2).join("; ")}`);
+        }
+        continue;
+      }
+
+      // UpgradedKBEntry: run quality gate
+      const result = validateUpgradedEntry(entry);
+
+      if (result.valid) {
+        if (!dryRun) {
+          writeFileSync(
+            join(STAGING_VALIDATED, file),
+            JSON.stringify({ ...entryObj, _stage2_validated: true }, null, 2),
+            "utf-8"
+          );
+        }
+        s2Pass++;
+        console.log(`  [pass] ${file.slice(0, 20)}…`);
+      } else {
+        if (!dryRun) {
+          writeFileSync(
+            join(STAGING_FAILED, file),
+            JSON.stringify({ ...entryObj, _stage: 2, _errors: result.errors }, null, 2),
+            "utf-8"
+          );
+        }
+        s2Fail++;
+        console.log(`  [fail] ${file.slice(0, 20)}… ${result.errors.slice(0, 2).join("; ")}`);
+      }
+    }
+
+    console.log(`  Stage 2 done: ${s2Pass} pass → validated/, ${s2Fail} fail → failed/\n`);
+
+    const total = s1Pass + s1Fail + s2Pass + s2Fail;
+    const failRate = total > 0 ? ((s1Fail + s2Fail) / total * 100).toFixed(1) : "0.0";
+    console.log(`── Validate summary ──────────────────────────────────────`);
+    console.log(`  Stage 1 (structural): ${s1Pass} pass, ${s1Fail} fail`);
+    console.log(`  Stage 2 (quality):    ${s2Pass} pass, ${s2Fail} fail`);
+    console.log(`  Overall fail rate:    ${failRate}%`);
+    if (dryRun) console.log(`  [dry-run] no files written`);
+    return;
+  }
+
   if (mode === "repair-marginal") {
     const { readdirSync, readFileSync, writeFileSync, unlinkSync, existsSync } = await import("fs");
     const { join } = await import("path");
@@ -1371,6 +1550,14 @@ async function main(): Promise<void> {
     const existingV24 = existing.filter((r) => r.artifact?.semantic?.domain != null);
     const contentFingerprintSet = buildContentFingerprintSet(existingV24);
 
+    // Build claim index for Jaccard near-duplicate detection (activates dormant check in buildRecord)
+    const claimIndex = new Map<string, string>();
+    for (const r of existingV24) {
+      const fp = contentFingerprint(r.artifact);
+      const claim = (r.artifact?.claim?.statement ?? "").toLowerCase();
+      if (fp && claim) claimIndex.set(fp, claim);
+    }
+
     for (const template of ALL_SEED_TEMPLATES) {
       if (totalWritten >= maxCount) {
         console.log(`  [limit reached] stopping at ${maxCount} KBs`);
@@ -1378,7 +1565,7 @@ async function main(): Promise<void> {
       }
 
       try {
-        const record = buildRecord(template, dedupSet, contentFingerprintSet);
+        const record = buildRecord(template, dedupSet, contentFingerprintSet, claimIndex);
         writeRecord(STAGING_PENDING, record);
         dedupSet.add(record.kbHash);
         const fp = contentFingerprint(record.artifact);
@@ -1392,7 +1579,11 @@ async function main(): Promise<void> {
         );
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : String(err);
-        if (message.startsWith("DUPLICATE_ENVELOPE") || message.startsWith("DUPLICATE_CONTENT")) {
+        if (
+          message.startsWith("DUPLICATE_ENVELOPE") ||
+          message.startsWith("DUPLICATE_CONTENT") ||
+          message.startsWith("NEAR_DUPLICATE")
+        ) {
           seedsSkipped++;
           console.log(
             `  [skip] duplicate: ${template.semantic.domain} / ${template.identity.title}`

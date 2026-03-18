@@ -17,6 +17,8 @@ import {
   Agent,
   KnowledgeBlock,
   ParentEdge,
+  PublishSnapshot,
+  ReputationSnapshot,
   RoyaltyDistribution,
   Settlement,
   _Payer,
@@ -89,6 +91,20 @@ export function handleKBPublished(event: KBPublishedEvent): void {
   kb.timestamp = event.params.timestamp;
 
   kb.save();
+
+  // ── PublishSnapshot — immutable point-in-time record of KB at publish time ──
+  // Guard: skip if already exists (contract prevents double-publish, but defends against reindex edge cases)
+  if (PublishSnapshot.load(id + "-publish") != null) return;
+  let snap = new PublishSnapshot(id + "-publish");
+  snap.kb = id;
+  snap.contentHash = event.params.contentHash;
+  snap.kbType = event.params.kbType;
+  snap.domain = event.params.domain;
+  snap.cid = event.params.cid;
+  snap.blockNumber = event.block.number;
+  snap.timestamp = event.params.timestamp;
+  snap.logIndex = event.logIndex;
+  snap.save();
 }
 
 /**
@@ -224,14 +240,31 @@ export function handleRoyaltyPaid(event: RoyaltyPaidEvent): void {
 
 /**
  * ReputationUpdated — syncs reputationScore and queryVolume from on-chain event.
+ * Also writes an immutable ReputationSnapshot for temporal trend analysis.
  */
 export function handleReputationUpdated(event: ReputationUpdatedEvent): void {
-  let kb = loadOrCreateKB(event.params.contentHash.toHex());
+  let contentHashHex = event.params.contentHash.toHex();
+  let kb = loadOrCreateKB(contentHashHex);
   kb.reputationScore = event.params.newScore;
   // queryVolume is uint32 in Solidity; BigInt.fromI32 handles values up to 2^31-1.
   // For larger values the on-chain ReputationUpdated event will cap before overflow.
   kb.queryVolume = event.params.queryVolume;
   kb.save();
+
+  // ── ReputationSnapshot — immutable record of reputation state at this block ──
+  let snapId = contentHashHex
+    + "-" + event.block.number.toString()
+    + "-" + event.logIndex.toString();
+  let repSnap = new ReputationSnapshot(snapId);
+  repSnap.kb = contentHashHex;
+  repSnap.blockNumber = event.block.number;
+  repSnap.timestamp = event.block.timestamp;
+  repSnap.logIndex = event.logIndex;
+  repSnap.reputationScore = event.params.newScore;
+  repSnap.queryVolume = event.params.queryVolume;
+  repSnap.isSlashed = kb.isSlashed;
+  repSnap.stakeAmount = kb.stakeAmount;
+  repSnap.save();
 }
 
 /**

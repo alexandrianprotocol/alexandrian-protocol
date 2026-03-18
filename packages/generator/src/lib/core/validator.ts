@@ -31,8 +31,11 @@ export interface ValidationResult {
 const EPISTEMIC_TYPES = ["declarative", "procedural", "evaluative"] as const;
 /** Functional KB types for execution routing and interface contract. */
 const KB_TYPES = [
+  // Core types (M1)
   "procedure", "pattern", "invariant", "constraint", "evaluation",
   "transformation", "protocol", "artifact_spec", "context", "anti_pattern", "heuristic",
+  // Extended types (M2)
+  "case_study", "decision_framework", "risk_model", "experiment",
 ] as const;
 /** Invalid (epistemic_type, kb_type) pairs — rejected by validator. See EXECUTION-SEMANTICS.md. */
 const INVALID_EPISTEMIC_KB_PAIRS: [string, string][] = [

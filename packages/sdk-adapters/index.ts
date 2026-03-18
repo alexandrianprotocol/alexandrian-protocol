@@ -73,6 +73,7 @@ export { enhanceQuery } from "./lib/enhanceQuery.js";
 export type {
   EnhanceQueryOptions,
   EnhancedQuery,
+  EnhanceDebugInfo,
   SelectedKB,
   SettlementPreview,
   KBType,
@@ -84,3 +85,59 @@ export {
   domainTypeKey,
   enhanceCacheKey,
 } from "./lib/adapters/upstash.js";
+
+// ── Domain Inference ──────────────────────────────────────────────────────────
+export { inferDomains, DOMAIN_RULES } from "./lib/inferDomains.js";
+export type { DomainRule } from "./lib/inferDomains.js";
+
+// ── 1-Line Client ─────────────────────────────────────────────────────────────
+// `AlexandrianQueryClient` is the query-enhancement facade.
+// `AlexandrianClient` (from lib/client.js, also exported above) is the ethers blockchain adapter.
+export { alexandrian, AlexandrianQueryClient, PRESETS } from "./lib/alexandrian.js";
+export type { AlexandrianEnhanceOptions, PresetName } from "./lib/alexandrian.js";
+
+// ── Evaluation Mode ───────────────────────────────────────────────────────────
+// Low-level entry point: `evaluateArtifact(artifact, mode, options?)` + `parseFindings(llmOutput)`
+// High-level (preferred): `alexandrian.review()`, `.audit()`, `.compare()`, `.parseFindings()`
+export { evaluateArtifact, parseFindings } from "./lib/evaluate.js";
+
+// ── Citation Settlement ────────────────────────────────────────────────────────
+// On-chain settlement helpers — optional, requires AlexandrianSDK + ethers Signer.
+// `settleCitation(result, sdk)` — settle all KBs from an enhance/evaluation result.
+// `settlementPreview(kbsUsed)` — dry-run fee calculation, no on-chain call.
+export { settleCitation, settlementPreview } from "./lib/settle.js";
+export type { SettleCitationOptions, SettleCitationResult } from "./lib/settle.js";
+export type {
+  EvaluationMode,
+  EvaluationQuery,
+  EvaluationOptions,
+  EvaluationFinding,
+  EvaluationChecklistItem,
+  FindingSeverity,
+  ParsedFindings,
+} from "./lib/evaluate.js";
+
+// ── Framework Adapters ────────────────────────────────────────────────────────
+// LangChain — wraps enhanceQuery(), supports vector DB fallback/blend
+export {
+  AlexandrianRetriever,
+} from "./lib/adapters/langchain.js";
+export type {
+  AlexandrianRetrieverOptions,
+  LangChainDocument,
+  LangChainBaseRetriever,
+  MergeMode,
+} from "./lib/adapters/langchain.js";
+
+// LlamaIndex — maps SelectedKB → NodeWithScore, supports vector index fallback/blend
+export {
+  AlexandrianNodeRetriever,
+} from "./lib/adapters/llamaindex.js";
+export type {
+  AlexandrianNodeRetrieverOptions,
+  LlamaIndexNodeWithScore,
+  LlamaIndexTextNode,
+  LlamaIndexBaseRetriever,
+  // MergeMode is the same union type in both adapters — import from langchain to avoid
+  // a duplicate type export. LlamaIndex adapter re-declares it locally for its own docs.
+} from "./lib/adapters/llamaindex.js";
