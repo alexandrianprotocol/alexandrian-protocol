@@ -46,32 +46,61 @@ Alexandrian provides a continuously expanding library of procedures, standards, 
 
 ### 📚 Knowledge Block Domains
 
-| Domain | Representative KB | Type |
-|--------|-------------------|------|
-| **Agent Systems** | | |
-| 🤖 Agent orchestration | Designing multi-agent orchestration pipelines with role handoffs and conflict resolution | `Feature` |
-| 🧩 Task decomposition | Implementing hierarchical task decomposition for complex agent goals | `Practice` |
-| 🔍 Semantic routing | Designing semantic routing systems via embedding similarity to capability descriptions | `Feature` |
-| 📊 LLM evaluation | Designing LLM evaluation pipelines with metric tracking and regression detection | `Rubric` |
-| **Backend & Infrastructure** | | |
-| 🏗 Microservice architecture | Designing scalable microservice architectures with explicit service boundaries | `StateMachine` |
-| ⚡ Zero-downtime deployments | Rolling and blue-green deploys with health checks and connection drain | `Practice` |
-| 📡 Distributed tracing | Building distributed tracing pipelines with context propagation and span aggregation | `Practice` |
-| 🔄 CI/CD pipelines | Zero-downtime release pipelines with automated rollback and canary promotion | `Practice` |
-| 🔭 Observability & telemetry | Structured logging, distributed metrics, and alerting pipeline design | `Feature` |
-| 📐 Performance engineering | Profiling, load testing, bottleneck identification, and capacity planning | `Practice` |
-| **Security & Compliance** | | |
-| 🔐 Auth & access control | Implementing OAuth2, RBAC, and zero-trust access control patterns | `ComplianceChecklist` |
-| 🛡 Cybersecurity | Threat modeling, red-teaming, and vulnerability triage procedures | `ComplianceChecklist` |
-| 💰 Financial systems | Payment processing, ledger design, and regulatory compliance procedures | `ComplianceChecklist` |
-| **Data & AI** | | |
-| 🗄 RAG systems | Designing retrieval-augmented generation pipelines with reranking and citation | `Feature` |
-| 📈 ML/MLOps | Model deployment, feature stores, drift detection, and experiment tracking | `Practice` |
-| 🌐 Web3 / on-chain | Smart contract patterns, gas optimisation, and on-chain settlement design | `Feature` |
-| **Reference & Examples** | | |
-| 📖 Concepts & definitions | CAP theorem, Byzantine fault tolerance, and distributed systems concepts — structured reference entries | `Practice` |
-| 🧪 Worked examples | Annotated examples of secure authentication flows, with failure modes and verification criteria | `Practice` |
-| 📋 Curated standards | High-signal excerpts from NIST, OWASP, and RFC standards — formatted for agent consumption | `ComplianceChecklist` |
+Knowledge Blocks are organized by domain and type, so agents retrieve not just relevant information, but the **right kind of knowledge for the task** — procedures to execute, checklists to validate against, frameworks to reason through, or rubrics to score with.
+
+#### 🛠 Build & Operate Systems
+
+| Domain | Representative KB | Type | Agent Use |
+|--------|-------------------|------|-----------|
+| 🔄 CI/CD pipelines | Zero-downtime release pipelines with automated rollback and canary promotion | `Practice` | Execute deployment steps |
+| ⚡ Zero-downtime deployments | Rolling and blue-green deploys with health checks and connection drain | `Practice` | Execute rollout sequence |
+| 🏗 Microservice architecture | Designing scalable microservice architectures with explicit service boundaries | `StateMachine` | Model system state transitions |
+| 📡 Distributed tracing | Building distributed tracing pipelines with context propagation and span aggregation | `Practice` | Instrument tracing pipeline |
+| 🔭 Observability & telemetry | Structured logging, distributed metrics, and alerting pipeline design | `Feature` | Configure monitoring stack |
+| 📐 Performance engineering | Profiling, load testing, bottleneck identification, and capacity planning | `Practice` | Diagnose and prioritise bottlenecks |
+
+#### 🔐 Secure & Validate Systems
+
+| Domain | Representative KB | Type | Agent Use |
+|--------|-------------------|------|-----------|
+| 🔐 Auth & access control | Implementing OAuth2, RBAC, and zero-trust access control patterns | `ComplianceChecklist` | Validate access control posture |
+| 🛡 Cybersecurity | Threat modeling, red-teaming, and vulnerability triage procedures | `ComplianceChecklist` | Audit threat surface |
+| 💰 Financial systems | Payment processing, ledger design, and regulatory compliance procedures | `ComplianceChecklist` | Validate regulatory compliance |
+| 📋 Curated standards | High-signal excerpts from NIST, OWASP, and RFC standards — formatted for agent consumption | `ComplianceChecklist` | Enforce standards compliance |
+
+#### 🤖 Design AI Systems
+
+| Domain | Representative KB | Type | Agent Use |
+|--------|-------------------|------|-----------|
+| 🤖 Agent orchestration | Designing multi-agent orchestration pipelines with role handoffs and conflict resolution | `Feature` | Route tasks between agents |
+| 🧩 Task decomposition | Implementing hierarchical task decomposition for complex agent goals | `Practice` | Break goals into executable steps |
+| 🔍 Semantic routing | Designing semantic routing systems via embedding similarity to capability descriptions | `Feature` | Route queries to the right capability |
+| 📊 LLM evaluation | Designing LLM evaluation pipelines with metric tracking and regression detection | `Rubric` | Score and compare model outputs |
+
+#### 📊 Data & Knowledge
+
+| Domain | Representative KB | Type | Agent Use |
+|--------|-------------------|------|-----------|
+| 🗄 RAG systems | Designing retrieval-augmented generation pipelines with reranking and citation | `Feature` | Select and apply retrieval strategy |
+| 📈 ML/MLOps | Model deployment, feature stores, drift detection, and experiment tracking | `Practice` | Execute ML pipeline steps |
+| 🌐 Web3 / on-chain | Smart contract patterns, gas optimisation, and on-chain settlement design | `Feature` | Apply on-chain design patterns |
+| 📖 Concepts & definitions | CAP theorem, Byzantine fault tolerance, distributed systems concepts | `Practice` | Ground reasoning in precise definitions |
+| 🧪 Worked examples | Annotated secure authentication flows with failure modes and verification criteria | `Practice` | Apply a validated pattern to implementation |
+
+#### What retrieval looks like in practice
+
+> **Query:** `"setup ci cd github actions docker"`
+>
+> → **Domain inferred:** `engineering.ops`
+>
+> → **KBs retrieved:**
+> | Type | KB | Used for |
+> |------|----|----------|
+> | `Practice` | CI/CD pipeline steps | Execute deployment |
+> | `Practice` | Docker multi-stage build pattern | Apply to image |
+> | `ComplianceChecklist` | Deployment readiness checklist | Validate before ship |
+>
+> → **Result:** LLM receives expert-scoped context, not a generic question.
 
 ---
 
