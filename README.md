@@ -1,6 +1,6 @@
 #  🏛 Alexandrian Protocol
 
-> *Turning collective expert knowledge into programmable context for AI agents.*
+> *A continuously evolving library of structured, attributable knowledge — designed to make useful information easier for AI systems to interpret, reuse, and build upon.*
 
 [![M1 Verification](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/alexandrianprotocol/alexandrian-protocol/actions/workflows/ci.yml)
 [![M1 Live](https://img.shields.io/badge/M1-Live-2ea44f)](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29)
@@ -9,9 +9,9 @@
 [![Artifacts on IPFS](https://img.shields.io/badge/IPFS-Anchored-65C2CB)](https://ipfs.io/ipfs/bafybeiajbvsdiapsbbajz6ul5m5bsbpmm7wjjohrcrpu2g2fmhe3ysk57y/kb-f/artifact.json)
 [![Knowledge Blocks](https://img.shields.io/badge/KBs-7000%2B-brightgreen)](https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29)
 
-**Decentralized knowledge infrastructure for AI agents — expert context on demand, attributed on-chain, with automatic royalty settlement.**
+**A structured knowledge layer for AI agents — attributable, versioned, and designed for reliable machine use.**
 
-Alexandrian formalizes expert knowledge into on-chain, composable artifacts that AI agents use to define intent before every call — with cryptographic attribution and automatic royalty settlement flowing through the entire knowledge lineage.
+Alexandrian provides a continuously expanding library of procedures, standards, reference materials, curated excerpts, practice examples, and state representations — all organized for reliable machine consumption. Every entry carries on-chain attribution, a stable identity, and automatic royalty settlement flowing through the entire contribution lineage.
 
 **LIVE DEMO: https://alexandrian-protocol.vercel.app/**
 
@@ -68,6 +68,10 @@ Alexandrian formalizes expert knowledge into on-chain, composable artifacts that
 | 🗄 RAG systems | Designing retrieval-augmented generation pipelines with reranking and citation | `Feature` |
 | 📈 ML/MLOps | Model deployment, feature stores, drift detection, and experiment tracking | `Practice` |
 | 🌐 Web3 / on-chain | Smart contract patterns, gas optimisation, and on-chain settlement design | `Feature` |
+| **Reference & Examples** | | |
+| 📖 Concepts & definitions | CAP theorem, Byzantine fault tolerance, and distributed systems concepts — structured reference entries | `Practice` |
+| 🧪 Worked examples | Annotated examples of secure authentication flows, with failure modes and verification criteria | `Practice` |
+| 📋 Curated standards | High-signal excerpts from NIST, OWASP, and RFC standards — formatted for agent consumption | `ComplianceChecklist` |
 
 ---
 
@@ -99,7 +103,7 @@ Both are real; they relate like this:
 
 | Mode | What it is |
 |------|------------|
-| **Solution templates** | What the current demo does: KBs as prebuilt, senior-engineer-grade procedures. You query the KB and it returns a complete methodology — **the KB is the answer**. Valuable, but the competitive frame is closer to *Notion + Stripe* than a new infrastructure primitive. |
+| **Structured knowledge artifacts** | What the current demo does: KBs as structured knowledge — procedures, standards, reference material, curated excerpts, and examples. You query the KB and it returns organized, typed knowledge — **the KB is the answer**. Valuable across the full spectrum of knowledge types, not just procedures. |
 | **Query enhancement** | The deeper core: **the KB crystallizes what the question actually means at an expert level** — then the LLM answers a precisely scoped prompt, and the matched KB earns settlement because its context shaped the answer. |
 
 **Mechanism (example).** User asks: *“How do I secure my login endpoint?”*
@@ -116,9 +120,9 @@ The user who says “secure my API” may not know to ask about JWT algorithm pi
 - **Scales with the graph** — More KBs → better matching → better intent definition → better answers; the protocol gets more valuable as it grows.
 - **Adoption as capability** — The pitch isn’t “replace ChatGPT.” It’s *run queries through Alexandrian’s KB router first so your existing LLM gets context that would have taken years to encode.*
 
-**Synthesis.** Solution templates are the **content** Alexandrian needs to be useful. Query enhancement is the **mechanism** that makes that content economically valuable. They aren’t competing — templates are what’s *in* the library; enhancement is how the library gets *used*. **The narrative should lead with enhancement**, because that’s what’s new: every senior engineer has a template library; nobody yet has a decentralized, attributed, agent-native **context injection** layer.
+**Synthesis.** Structured knowledge artifacts — procedures, references, standards, examples — are the **content** Alexandrian needs to be useful. Query enhancement is the **mechanism** that makes that content economically valuable. They aren’t competing — the library is what’s *in* Alexandrian; enhancement is how the library gets *used*. **The narrative leads with enhancement**, because that’s what’s new: abundant knowledge exists elsewhere; nobody yet has a decentralized, attributed, agent-native **context injection** layer built on a structured, typed, and versioned knowledge graph.
 
-> *Turning collective expert knowledge into programmable context for AI agents* — not a library you read, but **infrastructure your agents use before every call.**
+> *A structured knowledge layer for AI agents* — not a static library, but **living infrastructure your agents consult before every call.**
 
 ---
 
@@ -151,7 +155,7 @@ Agents coordinate not through regeneration, but through shared references to sta
 
 ## 📦 Knowledge Block (KB): The Primitive
 
-A **Knowledge Block (KB)** is the protocol's atomic knowledge object: a canonical envelope of content, metadata, and lineage commitments that produces a stable `kbHash`.
+A **Knowledge Block (KB)** is the protocol's atomic knowledge object: a canonical envelope of structured knowledge — procedures, standards, reference material, curated excerpts, examples, or state representations — together with metadata and lineage commitments that produce a stable `kbHash`.
 
 A KB is the primitive for deterministic knowledge identity because:
 

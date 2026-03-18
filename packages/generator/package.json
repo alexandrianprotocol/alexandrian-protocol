@@ -30,7 +30,9 @@
     "verify": "node scripts/verify-kb.mjs",
     "verify:all": "node scripts/verify-kb.mjs --all",
     "pin:remediate": "node scripts/pin-all-published.mjs",
-    "pin:remediate:verify": "cross-env VERIFY=true node scripts/pin-all-published.mjs"
+    "pin:remediate:verify": "cross-env VERIFY=true node scripts/pin-all-published.mjs",
+    "pin:check-deleted": "node scripts/check-deleted-pins.mjs",
+    "pin:repin-deleted": "node scripts/repin-deleted.mjs"
   },
   "dependencies": {
     "@alexandrian/protocol": "workspace:*",
