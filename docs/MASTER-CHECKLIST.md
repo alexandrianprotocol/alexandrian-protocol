@@ -324,7 +324,7 @@ npm run publish                            # live publish to Base mainnet
 
 ---
 
-### [ ] 4.2 — KB Browser
+### [x] 4.2 — KB Browser
 
 A searchable, filterable list of published KBs from the subgraph.
 
@@ -346,7 +346,7 @@ For each KB, show:
 
 ---
 
-### [ ] 4.4 — Query Enhancement Playground
+### [x] 4.4 — Query Enhancement Playground
 
 The current Vercel demo, but live and architecturally real:
 - Dynamic KB selection from subgraph (not hardcoded)

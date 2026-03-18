@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KB Registry — Alexandrian Protocol</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- DOMPurify for sanitizing dynamic HTML before DOM insertion -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary:     #4f46e5;
+      --primary-50:  #eef2ff;
+      --primary-100: #e0e7ff;
+      --primary-600: #4338ca;
+      --primary-700: #3730a3;
+      --success:     #059669;
+      --success-50:  #ecfdf5;
+      --warning:     #d97706;
+      --warning-50:  #fffbeb;
+      --danger:      #dc2626;
+      --danger-50:   #fef2f2;
+      --info:        #0284c7;
+      --info-50:     #e0f2fe;
+      --purple:      #7c3aed;
+      --purple-50:   #f5f3ff;
+      --gray-50:  #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+      --gray-300: #d1d5db; --gray-400: #9ca3af; --gray-500: #6b7280;
+      --gray-600: #4b5563; --gray-700: #374151; --gray-800: #1f2937; --gray-900: #111827;
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px;
+    }
+    html { font-size: 16px; }
+    body { font-family: var(--font-sans); background: var(--gray-50); color: var(--gray-900); line-height: 1.5; min-height: 100vh; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header */
+    .site-header { background: #fff; border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 50; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 24px; }
+    .wordmark { font-weight: 700; font-size: 1.0625rem; letter-spacing: -.02em; }
+    .wordmark span { color: var(--primary); }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { font-size: .875rem; font-weight: 500; color: var(--gray-600); transition: color .15s; }
+    .nav-links a:hover { color: var(--gray-900); text-decoration: none; }
+    .nav-links a.active { color: var(--primary); }
+    .header-spacer { flex: 1; }
+    .header-badge { font-size: .75rem; font-weight: 600; background: var(--success-50); color: var(--success); border: 1px solid #a7f3d0; padding: 3px 10px; border-radius: 99px; }
+
+    /* Stats bar */
+    .stats-bar { background: var(--primary); color: #fff; padding: 10px 24px; }
+    .stats-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 32px; flex-wrap: wrap; align-items: center; }
+    .stat { display: flex; align-items: center; gap: 8px; font-size: .8125rem; }
+    .stat-label { opacity: .75; }
+    .stat-value { font-weight: 600; font-family: var(--font-mono); }
+
+    /* Page body */
+    .page-body { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+    .page-title-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
+    .page-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+    .page-sub { font-size: .9375rem; color: var(--gray-500); margin-top: 4px; }
+
+    .try-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; font-size: .875rem; font-weight: 600; padding: 10px 18px; border-radius: var(--radius-md); border: none; cursor: pointer; transition: background .15s; text-decoration: none; white-space: nowrap; }
+    .try-btn:hover { background: var(--primary-600); text-decoration: none; }
+
+    /* Controls */
+    .controls { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow-sm); }
+    .search-wrap { position: relative; flex: 1; min-width: 220px; }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; pointer-events: none; color: var(--gray-400); }
+    .search-input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-size: .875rem; font-family: var(--font-sans); color: var(--gray-900); background: #fff; outline: none; transition: border-color .15s, box-shadow .15s; }
+    .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,.12); }
+    .search-input::placeholder { color: var(--gray-400); }
+    select.filter { padding: 8px 32px 8px 12px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-size: .875rem; font-family: var(--font-sans); color: var(--gray-700); background: #fff; -webkit-appearance: none; appearance: none; outline: none; transition: border-color .15s, box-shadow .15s; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+    select.filter:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,70,229,.12); }
+    .result-count { font-size: .8125rem; color: var(--gray-500); white-space: nowrap; }
+
+    /* Table */
+    .table-wrap { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+    table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+    thead { background: var(--gray-50); border-bottom: 1px solid var(--gray-200); }
+    th { text-align: left; padding: 10px 16px; font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--gray-500); white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid var(--gray-100); transition: background .1s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--gray-50); }
+    td { padding: 12px 16px; vertical-align: middle; }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; gap: 4px; font-size: .6875rem; font-weight: 600; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+    .badge-practice   { background: var(--primary-50); color: var(--primary-700); }
+    .badge-feature    { background: #dbeafe; color: #1d4ed8; }
+    .badge-compliance { background: var(--danger-50); color: #b91c1c; }
+    .badge-rubric     { background: var(--purple-50); color: #6d28d9; }
+    .badge-state      { background: #fce7f3; color: #9d174d; }
+    .badge-prompt     { background: var(--success-50); color: #065f46; }
+    .badge-unknown    { background: var(--gray-100); color: var(--gray-600); }
+    .badge-seed       { background: #fffbeb; color: #92400e; }
+    .tier-human       { background: var(--success-50); color: #065f46; }
+    .tier-agent       { background: var(--warning-50); color: #92400e; }
+    .tier-discover    { background: var(--info-50); color: #0c4a6e; }
+
+    .hash-cell  { font-family: var(--font-mono); font-size: .75rem; color: var(--gray-500); }
+    .domain-cell { font-family: var(--font-mono); font-size: .75rem; color: var(--gray-700); max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .links-cell { display: flex; gap: 6px; align-items: center; }
+    .icon-link { display: inline-flex; align-items: center; gap: 4px; font-size: .75rem; font-weight: 500; color: var(--gray-500); border: 1px solid var(--gray-200); padding: 3px 8px; border-radius: var(--radius-sm); transition: all .12s; text-decoration: none; }
+    .icon-link:hover { color: var(--primary); border-color: var(--primary-100); background: var(--primary-50); text-decoration: none; }
+
+    /* Pagination */
+    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--gray-200); background: var(--gray-50); flex-wrap: wrap; gap: 12px; }
+    .page-info { font-size: .8125rem; color: var(--gray-500); }
+    .pagination-btns { display: flex; gap: 6px; }
+    .page-btn { font-size: .8125rem; font-weight: 500; padding: 6px 12px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); background: #fff; color: var(--gray-700); cursor: pointer; transition: all .12s; }
+    .page-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-50); }
+    .page-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* State cards */
+    .state-card { text-align: center; padding: 64px 24px; color: var(--gray-500); }
+    .state-card .icon { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+    .state-card .title { font-size: 1.0625rem; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
+    .state-card .sub { font-size: .875rem; max-width: 400px; margin: 0 auto; line-height: 1.6; }
+    .retry-btn { display: inline-block; margin-top: 16px; padding: 8px 18px; background: var(--primary); color: #fff; border-radius: var(--radius-md); font-size: .875rem; font-weight: 600; cursor: pointer; border: none; transition: background .15s; }
+    .retry-btn:hover { background: var(--primary-600); }
+
+    .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid var(--gray-200); border-top-color: var(--primary); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer */
+    .footer { background: #fff; border-top: 1px solid var(--gray-200); padding: 20px 24px; text-align: center; font-size: .8125rem; color: var(--gray-400); }
+    .footer a { color: var(--gray-500); }
+
+    /* Responsive */
+    @media (max-width: 900px) { .hide-md { display: none; } }
+    @media (max-width: 640px) { .hide-sm { display: none; } .stats-inner { gap: 16px; } th, td { padding: 10px; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="wordmark">Alexandrian<span>.</span></span>
+      <nav class="nav-links">
+        <a href="/demo/kb-eng.html">Query</a>
+        <a href="/demo/kb-browser.html" class="active">Registry</a>
+        <a href="https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29" target="_blank" rel="noopener">Contract ↗</a>
+      </nav>
+      <div class="header-spacer"></div>
+      <span class="header-badge">Base Mainnet</span>
+    </div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-label">KBs indexed</span>
+        <span class="stat-value" id="stat-total">—</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Domains</span>
+        <span class="stat-value" id="stat-domains">—</span>
+      </div>
+      <div class="stat hide-sm">
+        <span class="stat-label">Contract</span>
+        <span class="stat-value">0xD1F2…5B29</span>
+      </div>
+      <div class="stat hide-sm">
+        <span class="stat-label">Subgraph</span>
+        <span class="stat-value" id="stat-graph">● Connecting</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="page-title-row">
+      <div>
+        <h1 class="page-title">Knowledge Base Registry</h1>
+        <p class="page-sub">On-chain knowledge artifacts — indexed live from Base Mainnet via The Graph</p>
+      </div>
+      <a href="/demo/kb-eng.html" class="try-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Query Playground
+      </a>
+    </div>
+
+    <div class="controls">
+      <div class="search-wrap">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search" class="search-input" placeholder="Filter by domain or hash…" autocomplete="off" />
+      </div>
+      <select id="filter-type" class="filter">
+        <option value="">All Types</option>
+        <option value="Practice">Practice</option>
+        <option value="Feature">Feature</option>
+        <option value="ComplianceChecklist">Compliance</option>
+        <option value="Rubric">Rubric</option>
+        <option value="StateMachine">State Machine</option>
+        <option value="PromptEngineering">Prompt Eng.</option>
+      </select>
+      <select id="filter-tier" class="filter">
+        <option value="">All Trust Tiers</option>
+        <option value="HumanStaked">Human Staked</option>
+        <option value="AgentDerived">Agent Derived</option>
+        <option value="AgentDiscovered">Agent Discovered</option>
+      </select>
+      <select id="sort-by" class="filter">
+        <option value="blockNumber_desc">Newest First</option>
+        <option value="blockNumber_asc">Oldest First</option>
+      </select>
+      <span class="result-count" id="result-count"></span>
+    </div>
+
+    <div class="table-wrap" id="table-wrap"></div>
+  </div>
+
+  <footer class="footer">
+    <p>
+      Alexandrian Protocol &mdash;
+      <a href="https://github.com/alexandrianprotocol/alexandrian-protocol" target="_blank" rel="noopener">GitHub</a> &middot;
+      <a href="https://basescan.org/address/0xD1F216E872a9ed4b90E364825869c2F377155B29" target="_blank" rel="noopener">Contract</a> &middot;
+      <a href="https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest" target="_blank" rel="noopener">Subgraph</a>
+    </p>
+  </footer>
+
+  <script>
+    'use strict';
+
+    const SUBGRAPH  = 'https://api.studio.thegraph.com/query/1742359/alexandrian-protocol/version/latest';
+    const BASESCAN  = 'https://basescan.org';
+    const IPFS_GW   = 'https://ipfs.io/ipfs';
+    const PAGE_SIZE = 50;
+
+    let allKBs   = [];
+    let filtered = [];
+    let page     = 0;
+    let totalFetched = 0;
+
+    const tableWrap   = document.getElementById('table-wrap');
+    const searchInput = document.getElementById('search');
+    const filterType  = document.getElementById('filter-type');
+    const filterTier  = document.getElementById('filter-tier');
+    const sortBy      = document.getElementById('sort-by');
+    const resultCount = document.getElementById('result-count');
+    const statTotal   = document.getElementById('stat-total');
+    const statDomains = document.getElementById('stat-domains');
+    const statGraph   = document.getElementById('stat-graph');
+
+    // ── DOM helpers — never use innerHTML with untrusted strings directly ──
+    function setText(el, text) { el.textContent = String(text ?? ''); }
+
+    // Safe HTML construction: build elements programmatically, no innerHTML for data
+    function el(tag, attrs, ...children) {
+      const node = document.createElement(tag);
+      if (attrs) {
+        for (const [k, v] of Object.entries(attrs)) {
+          if (k === 'className') node.className = v;
+          else if (k === 'textContent') node.textContent = v;
+          else if (k === 'title') node.title = v;
+          else node.setAttribute(k, v);
+        }
+      }
+      for (const child of children) {
+        if (child == null) continue;
+        if (typeof child === 'string') node.appendChild(document.createTextNode(child));
+        else node.appendChild(child);
+      }
+      return node;
+    }
+
+    // For static (non-data) HTML structures we trust, use DOMPurify
+    function safeHtml(html) {
+      const div = document.createElement('div');
+      div.innerHTML = DOMPurify.sanitize(html, { ADD_ATTR: ['target', 'rel'] });
+      return div;
+    }
+
+    // ── Badges ─────────────────────────────────────────────────────────────
+    const TYPE_MAP = {
+      Practice:           ['badge-practice',   'Practice'],
+      Feature:            ['badge-feature',    'Feature'],
+      ComplianceChecklist:['badge-compliance', 'Compliance'],
+      Rubric:             ['badge-rubric',     'Rubric'],
+      StateMachine:       ['badge-state',      'State Machine'],
+      PromptEngineering:  ['badge-prompt',     'Prompt Eng.'],
+    };
+    const TIER_MAP = {
+      HumanStaked:    ['tier-human',    'Human'],
+      AgentDerived:   ['tier-agent',    'Agent'],
+      AgentDiscovered:['tier-discover', 'Discovered'],
+    };
+
+    function makeBadge(map, key) {
+      const [cls, label] = map[key] || ['badge-unknown', key || '—'];
+      return el('span', { className: `badge ${cls}`, textContent: label });
+    }
+
+    function truncHash(h) {
+      if (!h) return '—';
+      return h.slice(0, 6) + '…' + h.slice(-4);
+    }
+
+    // ── Subgraph fetch ──────────────────────────────────────────────────────
+    async function fetchBatch(skip, orderBy, orderDir) {
+      const query = `{
+        knowledgeBases(
+          first: 200,
+          skip: ${Number(skip)},
+          orderBy: ${orderBy},
+          orderDirection: ${orderDir}
+        ) {
+          contentHash cid domain kbType trustTier
+          blockNumber transactionHash
+          parents { parentHash royaltyShareBps }
+        }
+      }`;
+      const res  = await fetch(SUBGRAPH, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query }),
+      });
+      if (!res.ok) throw new Error(`Subgraph ${res.status}`);
+      const json = await res.json();
+      if (json.errors) throw new Error(json.errors[0]?.message || 'Subgraph error');
+      return json.data?.knowledgeBases ?? [];
+    }
+
+    function renderStateCard(iconText, titleText, subText, withRetry) {
+      tableWrap.innerHTML = '';
+      const card = el('div', { className: 'state-card' },
+        el('span', { className: 'icon', textContent: iconText }),
+        el('p',    { className: 'title', textContent: titleText }),
+        el('p',    { className: 'sub',   textContent: subText }),
+      );
+      if (withRetry) {
+        const btn = el('button', { className: 'retry-btn', textContent: 'Retry' });
+        btn.addEventListener('click', loadAll);
+        card.appendChild(btn);
+      }
+      tableWrap.appendChild(card);
+    }
+
+    function renderSpinner(msg) {
+      tableWrap.innerHTML = '';
+      const card = el('div', { className: 'state-card' },
+        el('span', { className: 'spinner' }),
+        el('p',    { className: 'title', textContent: msg || 'Loading…' }),
+        el('p',    { className: 'sub',   textContent: 'Fetching knowledge bases from The Graph subgraph' }),
+      );
+      tableWrap.appendChild(card);
+    }
+
+    async function loadAll() {
+      allKBs = [];
+      totalFetched = 0;
+      renderSpinner('Connecting to subgraph…');
+
+      const [orderBy, orderDir] = sortBy.value.split('_');
+      let skip = 0;
+
+      try {
+        while (true) {
+          const batch = await fetchBatch(skip, orderBy, orderDir);
+          allKBs = allKBs.concat(batch);
+          if (batch.length < 200) break;
+          skip += 200;
+          renderSpinner(`Loading… ${allKBs.length.toLocaleString()} KBs`);
+        }
+        statGraph.textContent = '● Live';
+        statGraph.style.color = '#a7f3d0';
+        totalFetched = allKBs.length;
+        applyFilters();
+      } catch (e) {
+        statGraph.textContent = '● Error';
+        statGraph.style.color = '#fca5a5';
+        renderStateCard('⚠️', 'Could not load registry', e.message, true);
+      }
+    }
+
+    // ── Filter + sort ───────────────────────────────────────────────────────
+    function applyFilters() {
+      const q    = searchInput.value.trim().toLowerCase();
+      const type = filterType.value;
+      const tier = filterTier.value;
+
+      filtered = allKBs.filter(kb => {
+        if (type && kb.kbType    !== type) return false;
+        if (tier && kb.trustTier !== tier) return false;
+        if (q) {
+          const domain = (kb.domain || '').toLowerCase();
+          const hash   = (kb.contentHash || '').toLowerCase();
+          if (!domain.includes(q) && !hash.includes(q)) return false;
+        }
+        return true;
+      });
+
+      page = 0;
+      const domainSet = new Set(allKBs.map(k => k.domain?.split('.')[0]).filter(Boolean));
+      setText(statTotal,   totalFetched.toLocaleString());
+      setText(statDomains, domainSet.size.toString());
+      setText(resultCount, filtered.length !== allKBs.length
+        ? `${filtered.length.toLocaleString()} of ${allKBs.length.toLocaleString()} KBs`
+        : `${allKBs.length.toLocaleString()} KBs`);
+
+      renderTable();
+    }
+
+    // ── Table rendering — all content via DOM APIs, no innerHTML for data ──
+    function buildRow(kb) {
+      const tr = document.createElement('tr');
+
+      // Domain
+      const domainTd = el('td', { className: 'domain-cell', title: kb.domain || '' });
+      domainTd.textContent = kb.domain || '—';
+      tr.appendChild(domainTd);
+
+      // Type badge
+      tr.appendChild(el('td', {}, makeBadge(TYPE_MAP, kb.kbType)));
+
+      // Trust tier (hidden on small screens)
+      const tierTd = el('td', { className: 'hide-md' }, makeBadge(TIER_MAP, kb.trustTier));
+      tr.appendChild(tierTd);
+
+      // Parents / seed
+      const parentCount = kb.parents ? kb.parents.length : 0;
+      const lineageBadge = parentCount > 0
+        ? el('span', { className: 'badge badge-unknown', textContent: `${parentCount} parent${parentCount > 1 ? 's' : ''}` })
+        : el('span', { className: 'badge badge-seed', textContent: 'seed' });
+      tr.appendChild(el('td', { className: 'hide-md' }, lineageBadge));
+
+      // Hash (hidden on small screens)
+      const hashTd = el('td', { className: 'hash-cell hide-sm' });
+      hashTd.textContent = truncHash(kb.contentHash);
+      tr.appendChild(hashTd);
+
+      // Block number
+      const blockTd = el('td', { className: 'hide-sm' });
+      blockTd.style.cssText = 'color:var(--gray-500);font-size:.8125rem;';
+      blockTd.textContent = kb.blockNumber ? Number(kb.blockNumber).toLocaleString() : '—';
+      tr.appendChild(blockTd);
+
+      // Links
+      const linksTd = el('td', {});
+      const linksDiv = el('div', { className: 'links-cell' });
+
+      if (kb.transactionHash) {
+        const txLink = el('a', {
+          className: 'icon-link',
+          href: `${BASESCAN}/tx/${kb.transactionHash}`,
+          target: '_blank',
+          rel: 'noopener',
+          textContent: 'Tx ↗',
+        });
+        linksDiv.appendChild(txLink);
+      }
+      if (kb.cid) {
+        const ipfsLink = el('a', {
+          className: 'icon-link',
+          href: `${IPFS_GW}/${kb.cid}`,
+          target: '_blank',
+          rel: 'noopener',
+          textContent: 'IPFS ↗',
+        });
+        linksDiv.appendChild(ipfsLink);
+      }
+
+      linksTd.appendChild(linksDiv);
+      tr.appendChild(linksTd);
+
+      return tr;
+    }
+
+    function renderTable() {
+      if (filtered.length === 0) {
+        renderStateCard('🔍', 'No knowledge bases match', 'Try a different domain filter or clear the search term.', false);
+        return;
+      }
+
+      const start      = page * PAGE_SIZE;
+      const end        = Math.min(start + PAGE_SIZE, filtered.length);
+      const slice      = filtered.slice(start, end);
+      const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+
+      tableWrap.innerHTML = '';
+
+      // Table
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      const headerRow = el('tr', {},
+        el('th', { textContent: 'Domain' }),
+        el('th', { textContent: 'Type' }),
+        el('th', { className: 'hide-md', textContent: 'Trust Tier' }),
+        el('th', { className: 'hide-md', textContent: 'Lineage' }),
+        el('th', { className: 'hash-cell hide-sm', textContent: 'Hash' }),
+        el('th', { className: 'hide-sm', textContent: 'Block' }),
+        el('th', { textContent: 'Links' }),
+      );
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      for (const kb of slice) tbody.appendChild(buildRow(kb));
+      table.appendChild(tbody);
+      tableWrap.appendChild(table);
+
+      // Pagination
+      const pagination = el('div', { className: 'pagination' });
+      const pageInfo = el('span', { className: 'page-info' });
+      pageInfo.textContent = `Showing ${(start + 1).toLocaleString()}–${end.toLocaleString()} of ${filtered.length.toLocaleString()}`;
+      pagination.appendChild(pageInfo);
+
+      const btns = el('div', { className: 'pagination-btns' });
+
+      const prevBtn = el('button', { className: 'page-btn', textContent: '← Prev' });
+      if (page === 0) prevBtn.disabled = true;
+      prevBtn.addEventListener('click', () => goToPage(page - 1));
+      btns.appendChild(prevBtn);
+
+      const maxButtons = 7;
+      let startPage = Math.max(0, page - Math.floor(maxButtons / 2));
+      let endPage   = Math.min(totalPages - 1, startPage + maxButtons - 1);
+      if (endPage - startPage < maxButtons - 1) startPage = Math.max(0, endPage - maxButtons + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = el('button', { className: `page-btn${i === page ? ' active' : ''}`, textContent: String(i + 1) });
+        const capturedPage = i;
+        pageBtn.addEventListener('click', () => goToPage(capturedPage));
+        btns.appendChild(pageBtn);
+      }
+
+      const nextBtn = el('button', { className: 'page-btn', textContent: 'Next →' });
+      if (page >= totalPages - 1) nextBtn.disabled = true;
+      nextBtn.addEventListener('click', () => goToPage(page + 1));
+      btns.appendChild(nextBtn);
+
+      pagination.appendChild(btns);
+      tableWrap.appendChild(pagination);
+    }
+
+    function goToPage(n) {
+      const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+      page = Math.max(0, Math.min(n, totalPages - 1));
+      renderTable();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Event listeners ─────────────────────────────────────────────────────
+    let searchTimer;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(applyFilters, 180);
+    });
+    filterType.addEventListener('change', applyFilters);
+    filterTier.addEventListener('change', applyFilters);
+    sortBy.addEventListener('change', () => { allKBs = []; loadAll(); });
+
+    // ── Init ────────────────────────────────────────────────────────────────
+    loadAll();
+  </script>
+</body>
+</html>

@@ -3,7 +3,8 @@
   "installCommand": "echo 'no install needed'",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/", "destination": "/demo/kb-eng.html" }
+    { "source": "/", "destination": "/demo/kb-eng.html" },
+    { "source": "/registry", "destination": "/demo/kb-browser.html" }
   ],
   "headers": [
     {
