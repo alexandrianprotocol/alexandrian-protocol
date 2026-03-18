@@ -334,7 +334,7 @@ A searchable, filterable list of published KBs from the subgraph.
 
 ---
 
-### [ ] 4.3 — KB Detail Page
+### [x] 4.3 — KB Detail Page
 
 For each KB, show:
 - Full artifact content (fetched from IPFS)

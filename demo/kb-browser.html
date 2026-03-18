@@ -469,6 +469,14 @@
         });
         linksDiv.appendChild(ipfsLink);
       }
+      if (kb.contentHash) {
+        const detailLink = el('a', {
+          className: 'icon-link',
+          href: `/kb-detail?hash=${encodeURIComponent(kb.contentHash)}`,
+          textContent: 'Detail →',
+        });
+        linksDiv.appendChild(detailLink);
+      }
 
       linksTd.appendChild(linksDiv);
       tr.appendChild(linksTd);
