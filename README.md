@@ -8,6 +8,7 @@
 [![Knowledge Blocks](https://img.shields.io/badge/KBs-7000%2B-brightgreen)](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000)
 
 A decentralized execution + verification + coordination platform for machine-readable knowledge
+
 **LIVE DEMO: https://alexandrian-protocol.vercel.app/**
 
 **[7,000+ Knowledge Blocks](https://basescan.org/address/0x5D6dee4BB3E70f3e8118223Bf297B2eEdBC5B000) are now live on Base Mainnet.**
