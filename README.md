@@ -1,4 +1,4 @@
-#  🏛 Alexandrian Protocol
+#  🏛 Alexandrian Protocol: AI-Powered Reusable Knowledge Infrastructure for Developers
 
 > *A continuously evolving library of structured, attributable knowledge — designed to make useful information easier for AI systems to interpret, reuse, and build upon.*
 
@@ -12,6 +12,83 @@
 **A structured knowledge layer for AI agents — attributable, versioned, and designed for reliable machine use.**
 
 Alexandrian provides a continuously expanding library of procedures, standards, reference materials, curated excerpts, practice examples, and state representations — all organized for reliable machine consumption. Every entry carries on-chain attribution, a stable identity, and automatic royalty settlement flowing through the entire contribution lineage.
+
+## Project Overview
+
+Alexandrian is a developer-focused infrastructure layer that elevates one-time problem solving into permanent, reusable knowledge.
+
+Developers can capture structured answers once as Knowledge Blocks (KBs), reuse them across projects and agents, and continuously improve them through stable identity and versioned lineage.
+
+This creates compounding execution speed, lower operating cost, stronger output quality, and increasingly consistent implementation patterns over time.
+
+## Dual Payments (Web2 + Web3) & Compliance Note
+
+Alexandrian supports a secure dual-rail payments model:
+- Web2 rail: Stripe
+- Web3 rail: wallet-based on-chain settlement
+
+For the end-to-end payment state machine, API contracts, settlement guards, and reconciliation steps, see `docs/ops/DUAL-PAYMENTS-ARCHITECTURE.md` and `docs/ops/DUAL-PAYMENTS-IMPLEMENTATION-STEPS.md`.
+
+Important compliance note: the current checkout endpoints use header-based identity scoping (`x-user-id`) to protect payment ownership. A planned enhancement for stricter OWASP Top 10 / SOC2-style controls is to bind `x-user-id` to verified auth tokens (JWT/session) and reject unsigned or invalid identities.
+
+## Product Flow: Base + The Graph + IPFS
+
+Alexandrian’s developer experience is delivered through three integrated components:
+
+- `Base` — settlement rail + identity anchor (royalty-routing settlement recorded and verifiable on-chain)
+- `The Graph` — discovery and coordination surface (signals for finding high-signal Knowledge Blocks)
+- `IPFS` — content storage vault (artifacts resolved by CID, with integrity/verification workflows)
+
+In the product experience, an agent/developer can:
+1. use `The Graph` to discover the right KBs by domain + activity signals
+2. fetch the matching artifact from `IPFS` for structured, verifiable content
+3. anchor settlement and attribution through `Base`
+
+## Release Versions: M1 (Live) and M2 (Product Hardening)
+
+### M1 — Core Epistemic Substrate (Live)
+M1 delivers the deterministic, verifiable foundation:
+- deterministic Knowledge Block identity (`kbHash`)
+- immutable lineage DAG
+- settlement + royalty routing with independently reproducible verification
+
+Independent verification: `docs/VERIFY-M1.md` and the end-to-end proof package: `docs/grants/LIVE-DEMO-PROOF.md`.
+
+### M2 — Developer Experience + Production Readiness
+M2 focuses on making the system feel straightforward to use and easy to trust:
+- knowledge-native CLI/SDK verb surface (`compose`, `analyze`, `refine`, `revise`, `apply`, `learn`)
+- confidence tooling: `alex grade` and `alex benchmark run` to quantify system health and regressions
+- reliability you can see: clear degraded-mode signals when fallback paths are used
+- a payments experience that fits the workflow (crypto-first by default; Stripe gated by env)
+
+MVP release is coming soon, with a focus on the shortest path from installation → first command → a graded, reusable outcome.
+
+M2 release gate: `docs/ops/M2-GO-LIVE-CHECKLIST.md`.
+
+## Future Roadmap
+
+The milestone progression is designed to extend capability without modifying the invariants:
+`docs/EPISTEMIC-ECONOMY-MILESTONES.md` (M1 → M6).
+
+## Investor Snapshot
+
+Alexandrian is a developer infrastructure layer for AI agents: structured, attributable knowledge that composes like software, and settles economically like infrastructure.
+
+Why investors care:
+- **Traction & proof**: 7,000+ live Knowledge Blocks on Base Mainnet and indexed discovery via The Graph (see `docs/grants/LIVE-DEMO-PROOF.md`, `docs/VERIFY-M1.md`).
+- **Moat**: deterministic, content-derived identity + lineage + settlement invariants that compound reuse as usage grows.
+- **Monetization model**: protocol fees plus M2/M3 revenue levers are modeled in `docs/grants/SUSTAINABILITY-MODEL.md`.
+- **Execution clarity (M2)**: funding deliverables and workstreams are precisely defined in `docs/grants/M2-FUNDING-EXECUTION-PLAN.md`.
+- **Operational maturity**: governance and release evidence practices are documented in `docs/ops/GOVERNANCE-RUNBOOK.md` and `docs/ops/PRODUCTION-ADOPTION-CHECKLIST.md`.
+
+Key due-diligence links:
+- M1 verification: `docs/VERIFY-M1.md`
+- M1 proof package: `docs/grants/LIVE-DEMO-PROOF.md`
+- M2 release gate: `docs/ops/M2-GO-LIVE-CHECKLIST.md`
+- Sustainability model: `docs/grants/SUSTAINABILITY-MODEL.md`
+
+Contact:
+- X: https://x.com/alexandrianlabs
 
 **LIVE DEMO: https://alexandrian-protocol.vercel.app/**
 
@@ -30,6 +107,35 @@ Alexandrian provides a continuously expanding library of procedures, standards, 
 | 💰 | [Coinbase Grant](docs/grants/GRANT-COINBASE.md) |
 | 🗂 | [The Graph Grant](docs/grants/GRANT-THE-GRAPH.md) |
 | 📦 | [IPFS Grant](docs/grants/GRANT-IPFS.md) |
+
+---
+
+## Knowledge-Native CLI
+
+`alex` now uses knowledge-native verbs as the canonical command surface:
+
+- `compose` — build structured KB-driven solutions
+- `analyze` — inspect systems and retrieve KB context
+- `refine` — improve quality/performance plans
+- `revise` — correct issues and generate repair plans
+- `apply` — apply prepared plans safely
+- `learn` — deep conceptual explanations
+- `collection` / `checkout` / `read` / `archive` — library and memory workflows
+
+Examples:
+
+- `alex compose "secure auth system"`
+- `alex analyze "audit this API" --layer reasoning --json`
+- `alex refine ./project`
+- `alex revise "login not persisting"`
+- `alex apply plan.json --dry-run`
+- `alex learn reentrancy --deep`
+- `alex collection install security-pack`
+- `alex checkout security-pack`
+- `alex archive search security`
+- `alex grade --limit 50`
+
+Legacy command names (`build`, `enhance`, `optimize`, `fix`, `explain`, `pack`, `share`, `view`) are removed in this release.
 
 ---
 
